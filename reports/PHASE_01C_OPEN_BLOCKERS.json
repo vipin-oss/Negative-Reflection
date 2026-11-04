@@ -118,6 +118,43 @@
       "evidence": "evidence/phase_01_claim_audit.md U-11-4; CLM-H1-02 status INVALID",
       "promotion_blocked": false,
       "closed_by": null
+    },
+    {
+      "id": "BLK-02A-16",
+      "severity": "P1",
+      "title": "nullspace.null_vector and _rel_residual use an unsound residual metric and are still imported",
+      "detail": "`nullspace._rel_residual` divides by the GLOBAL matrix max. The rows of M are equations in different units spanning 1e-5 to 1e19, so a candidate violating the quietest row by 3.6e-5 scores 1.8e-24 and passes. Measured: at Al6061 k=0 on the shear branch the routine returns (0,1,0,-2.16e6) instead of the true (1,0,0,0), at residual 3.0e-7 by its own metric and 4.95e-7 by the row-relative one. `_two_sided_equilibrate` compounds it by lifting a roundoff-level row to unit scale. assembly.py and modal.py now route through scattering/roots.py instead, but the old functions remain because other modules import them. Deleting them is the correct fix and is deferred rather than risked silently.",
+      "blocks": [
+        "a future caller reaching for the convenient-looking API"
+      ],
+      "evidence": "reports/PHASE_02A_TASK2R_RANK_AND_GAUGE_ANALYSIS.md section 4",
+      "promotion_blocked": false,
+      "closed_by": null
+    },
+    {
+      "id": "BLK-02A-17",
+      "severity": "P2",
+      "title": "The phi/Dz removal reason still says 'sagittal decoupling' where the cause is e31=e33=e15=0",
+      "detail": "Al6061 is non-piezoelectric, so no admitted mode carries a potential -- the phi and Dz rows are empty because of the MATERIAL, not because of normal incidence. The reduction reaches the right decision and records the wrong reason for part of the basis, and the same wording appears in the earlier normal-incidence write-up. Wording, not mathematics: the PZT cases keep the phi row correctly.",
+      "blocks": [
+        "the traceability of the reduction reason"
+      ],
+      "evidence": "reports/PHASE_02A_TASK2R_NORMAL_INCIDENCE_AUDIT.md sections 2 and 4",
+      "promotion_blocked": false,
+      "closed_by": null
+    },
+    {
+      "id": "BLK-02A-18",
+      "severity": "P1",
+      "title": "Transmission magnitudes above unity are unnormalised state amplitudes, not flux coefficients",
+      "detail": "The interface system is built from dimensionless STATE vectors of unit component norm, so the incident 'amplitude' is not a unit power flux. Measured transmitted field magnitudes reach 4.3e4 for Al6061|PZT-5H at 30 deg while the system is consistent at 1e-33. Reading these as reflection and transmission coefficients and forming 1-R-T would produce a large spurious negative absorption. No energy quantity may be computed until the incident data is normalised to unit flux and the flux is resolved on both sides. This is a prerequisite for G4, not part of task 2R.",
+      "blocks": [
+        "G4 coupled energy conservation",
+        "any R+T+A statement"
+      ],
+      "evidence": "validation/phase_02a_task2r_independent_comparison.csv; CLM-02A-14",
+      "promotion_blocked": true,
+      "closed_by": null
     }
   ],
   "phase_1d_note": "Register updated in Phase 1D. BLK-U3 is CLOSED with per-criterion evidence. BLK-LS-STORAGE is retained OPEN: only its mathematical half is resolved, and the question is deliberately preserved because the review forbids closing it on a vanishing harmonic average. BLK-G4 and BLK-G5 remain NOT PASSED -- no scattering solution exists and no special elastic limit may be used to promote them."

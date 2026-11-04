@@ -262,12 +262,26 @@ def c4_coupled():
                 # residual floor is ~cond^2 * eps ~ 1e-37 rather than 1e-50.
                 # The bound is stated at what that arithmetic supports and the
                 # reason is recorded, instead of being tightened to look good.
-                rec(tag, "interface residual (independent recompute)", 0,
-                    mp.nstr(r["interface_residual_max"], 6), "1e-30",
+                # ONLY THE ENFORCED ROWS. A row removed as gauge was never
+                # required to be continuous, so including it in the residual
+                # invents a failure: Al6061|PZT-5H at k = 0 has a full-field
+                # difference of 0.913 that sits entirely on the dropped phi row
+                # while every kept equation is satisfied to 1.5e-39. The two
+                # numbers are reported separately and the split is named, rather
+                # than widening the tolerance until the larger one passes.
+                rec(tag, "interface residual on enforced rows", 0,
+                    mp.nstr(r["interface_residual_enforced_max"], 6), "1e-30",
                     "rebuilt from the modal expansion, not read off the solver; "
-                    "the 1e-30 bound reflects normal-equation residual growth "
+                    "restricted to the rows the system actually imposed; the "
+                    "1e-30 bound reflects normal-equation residual growth "
                     "(cond^2), not a physical tolerance",
-                    "weld contact: all eight interface fields continuous")
+                    "weld contact on every kept row")
+                rec(tag, "interface residual on ALL rows (diagnostic)", 0,
+                    mp.nstr(r["interface_residual_max"], 6), "1e30",
+                    "informational: includes rows deliberately not imposed. A "
+                    "gauge row's value is an arbitrary constant and is not "
+                    "expected to match across the interface",
+                    "not a pass criterion")
                 rec(tag, "solve residual", 0,
                     mp.nstr(r["solve_residual_max"], 6), "1e-30")
                 # RESCALING INVARIANCE -- the sharpest validity test, applied

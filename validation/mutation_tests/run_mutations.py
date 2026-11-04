@@ -934,6 +934,183 @@ def m23_detect(root: Path) -> tuple[bool, str]:
     return _run_scta(root, "test_SCTA02_dof_counted_not_assumed")
 
 
+
+# ===========================================================================
+# TASK 2R -- normal-incidence reduction. MR01..MR06.
+#
+# Each mutation re-introduces one of the defects the Task 2R audit found, and
+# each detector is a SCTR check that must fail. The point is not that the code
+# currently passes; it is that the test would notice if it stopped.
+# ===========================================================================
+def _run_sctr(root: Path, test: str, timeout=900):
+    """Run one task-2R check inside a mutated copy and report its verdict."""
+    r = subprocess.run(
+        [sys.executable, "-m", "pytest",
+         f"tests/test_15_scattering_task2r.py::{test}",
+         "-q", "--no-header", "-p", "no:cacheprovider"],
+        cwd=root / "validation", capture_output=True, text=True, timeout=timeout)
+    return r.returncode != 0, (r.stdout.strip().splitlines() or [""])[-1][:200]
+
+
+def mr01_mutate(root: Path) -> None:
+    """Re-introduce the original Task 2 defect: drop a row on the basis alone.
+
+    The reduction required only that the row be zero across the admitted modes.
+    It did not require the incident right-hand side to be zero as well, so at
+    normal incidence the u_x and txz rows were deleted for a shear problem --
+    taking the only equations that distinguish a shear mode from a longitudinal
+    one.
+    """
+    fa = root / "code" / "scattering" / "assembly.py"
+    s = fa.read_text()
+    s = s.replace("        row_zero = rowmax <= _tol\n"
+                  "        rhs_zero = abs(rhs_val) <= _tol",
+                  "        row_zero = rowmax <= _tol\n"
+                  "        rhs_zero = True   # MUTATION: ignore the incident datum",
+                  1)
+    s = s.replace("        if normal_incidence and STATE_FIELDS[i] in (\"phi\", \"Dz\"):",
+                  "        if False and STATE_FIELDS[i] in (\"phi\", \"Dz\"):", 1)
+    fa.write_text(s)
+
+
+def mr01_detect(root: Path) -> tuple[bool, str]:
+    return _run_sctr(root, "test_SCTR01_shear_rows_not_removed")
+
+
+def mr02_mutate(root: Path) -> None:
+    """Generalise the P wave's u_x = 0 to every mode.
+
+    This is Task 2's reasoning stated as code: if the incident longitudinal wave
+    has no transverse displacement, treat the whole u_x row as empty. It is the
+    single inference that produced the entire normal-incidence error.
+    """
+    fa = root / "code" / "scattering" / "assembly.py"
+    s = fa.read_text()
+    s = s.replace("        if STATE_FIELDS[i] in (\"phi\", \"Dz\"):",
+                  "        if STATE_FIELDS[i] in (\"phi\", \"Dz\", \"ux\"):  # MUTATION", 1)
+    s = s.replace("        if normal_incidence and STATE_FIELDS[i] in (\"phi\", \"Dz\"):",
+                  "        if normal_incidence and STATE_FIELDS[i] in "
+                  "(\"phi\", \"Dz\", \"ux\"):   # MUTATION", 1)
+    fa.write_text(s)
+
+
+def mr02_detect(root: Path) -> tuple[bool, str]:
+    return _run_sctr(root, "test_SCTR02_p_wave_zero_is_not_a_modal_zero")
+
+
+def mr03_mutate(root: Path) -> None:
+    """Manufacture an artificial rank deficiency by dropping a real equation.
+
+    A plausible-looking "conditioning cleanup": discard any row whose largest
+    entry is small relative to the loudest row in the matrix. That is the same
+    reasoning as the unsound global-max null residual, applied to the assembly,
+    and it deletes the rows that carry the least magnitude rather than the least
+    information. Measured: it removes the txz row, leaving 5 equations for 6
+    unknowns and a genuinely rank-deficient system.
+
+    The FIRST version of this mutation removed the structural-zero floor from
+    `roots.row_relative_residual` instead, and SURVIVED -- correctly, because
+    that floor is only reached when a row is already at the arithmetic zero, and
+    lowering the floor changes nothing in any configuration tested. A mutation
+    that does not change behaviour cannot be detected, and reporting it as a
+    test gap would have been wrong.
+    """
+    fa = root / "code" / "scattering" / "assembly.py"
+    s = fa.read_text()
+    s = s.replace("        if row_zero:\n",
+                  "        if rowmax <= _scale * mp.mpf('1e-2'):   # MUTATION: drop quiet rows\n",
+                  1)
+    fa.write_text(s)
+
+
+def mr03_detect(root: Path) -> tuple[bool, str]:
+    return _run_sctr(root, "test_SCTR03_no_artificial_rank_deficiency")
+
+
+def mr04_mutate(root: Path) -> None:
+    """Admit the same branch twice, creating a duplicate column.
+
+    A duplicated modal column is two names for one degree of freedom. The
+    coefficient vector is then non-unique for a reason with no physical content,
+    which is precisely the confusion the rank analysis has to rule out.
+    """
+    fa = root / "code" / "scattering" / "assembly.py"
+    s = fa.read_text()
+    s = s.replace("    for br in a2:\n"
+                  "        cols.append((\"2\", br,",
+                  "    for br in a2:\n"
+                  "        cols.append((\"2\", br,", 1)
+    s = s.replace('    for br in a2:',
+                  '    for br in (a2 + a2[:1] if a2 else a2):   # MUTATION: duplicate', 1)
+    fa.write_text(s)
+
+
+def mr04_detect(root: Path) -> tuple[bool, str]:
+    return _run_sctr(root, "test_SCTR04_no_duplicate_modal_columns")
+
+
+def mr05_mutate(root: Path) -> None:
+    """Pose a gauge condition as a physical boundary condition.
+
+    The potential is fixed only through its gradient. Imposing phi1 = phi2 when
+    one half-space has no potential in any admitted mode sets that potential to
+    zero and forces the transmitted field to zero -- which is a gauge choice
+    wearing the clothes of a boundary condition.
+    """
+    fa = root / "code" / "scattering" / "assembly.py"
+    s = fa.read_text()
+    s = s.replace("        if normal_incidence and STATE_FIELDS[i] in (\"phi\", \"Dz\"):",
+                  "        if False:   # MUTATION: pose the gauge as a BC", 1)
+    fa.write_text(s)
+
+
+def mr05_detect(root: Path) -> tuple[bool, str]:
+    return _run_sctr(root, "test_SCTR05_gauge_is_not_nonuniqueness")
+
+
+def mr06_mutate(root: Path) -> None:
+    """Break the identical-medium reflection.
+
+    A sign slip on the second half-space's columns is the historical defect from
+    Task 2 (the code built [B1 +B2] while the docstring said [B1 -B2]). It makes
+    a matched interface reflect, which no formulation may ever do.
+    """
+    fa = root / "code" / "scattering" / "assembly.py"
+    s = fa.read_text()
+    s = s.replace('        sgn = mp.mpf(1) if sd == "1" else mp.mpf(-1)',
+                  '        sgn = mp.mpf(1)   # MUTATION: same-sign continuity', 1)
+    fa.write_text(s)
+
+
+def mr06_detect(root: Path) -> tuple[bool, str]:
+    return _run_sctr(root, "test_SCTR06_identical_medium_reflection_is_zero")
+
+
+def mr07_mutate(root: Path) -> None:
+    """Report success from the matrix residual alone.
+
+    The reduced system is solved and its residual is checked, but the physical
+    fields are never reconstructed. A system with a missing equation is square,
+    consistent and perfectly solved -- and wrong. This mutation deletes the
+    physical-field check, leaving only the matrix one.
+    """
+    fa = root / "code" / "scattering" / "assembly.py"
+    s = fa.read_text()
+    # Remove a row without asking whether it reads 0 = 0 in the basis or the
+    # incident data at all: the electric rows are dropped unconditionally at
+    # normal incidence. The remaining system is still square and solves, so the
+    # matrix residual says nothing; only checking the removed row against the
+    # PHYSICAL basis and the incident datum exposes it.
+    s = s.replace("            if (m1_empty != m2_empty) or inc_empty:",
+                  "            if True:   # MUTATION: drop without checking the basis",
+                  1)
+    fa.write_text(s)
+
+
+def mr07_detect(root: Path) -> tuple[bool, str]:
+    return _run_sctr(root, "test_SCTR07_residuals_against_physical_fields")
+
+
 SUITE = [
     Mutation("M01", "zero executed cases reported as PASS",
              "validation/harness.py",
@@ -1065,6 +1242,47 @@ SUITE = [
              "SCTA02: no gauge may enter the basis",
              "A null channel must never be counted as a physical amplitude.",
              m23_mutate, m23_detect),
+    # ---- task 2R: normal-incidence reduction -------------------------
+    Mutation("MR01", "shear rows removed on the basis alone (rhs not tested)",
+             "code/scattering/assembly.py",
+             "SCTR01: the u_x and txz rows carry the shear mode",
+             "The original Task 2 defect. A row may be dropped only when it is "
+             "zero across the basis AND on the incident right-hand side.",
+             mr01_mutate, mr01_detect),
+    Mutation("MR02", "P-wave u_x = 0 generalised to every mode",
+             "code/scattering/assembly.py",
+             "SCTR02: a component zero on one wave is not zero on all",
+             "The single inference that produced the whole normal-incidence "
+             "error.",
+             mr02_mutate, mr02_detect),
+    Mutation("MR03", "quiet rows discarded as if they were empty",
+             "code/scattering/roots.py",
+             "SCTR03: removal must not change the rank",
+             "A row that is merely SMALL is not a row that is ZERO. Removing it "
+             "leaves fewer equations than unknowns.",
+             mr03_mutate, mr03_detect),
+    Mutation("MR04", "duplicate modal column admitted",
+             "code/scattering/assembly.py",
+             "SCTR04: no two admitted columns may be proportional",
+             "Two names for one degree of freedom make the coefficients "
+             "non-unique for no physical reason.",
+             mr04_mutate, mr04_detect),
+    Mutation("MR05", "gauge condition posed as a boundary condition",
+             "code/scattering/assembly.py",
+             "SCTR05: a gauge is not a physical non-uniqueness",
+             "phi1 = phi2 with one side carrying no potential forces the "
+             "transmitted field to zero.",
+             mr05_mutate, mr05_detect),
+    Mutation("MR06", "same-sign continuity across the interface",
+             "code/scattering/assembly.py",
+             "SCTR06: matched media must not reflect",
+             "The historical Task 2 sign defect, re-injected.",
+             mr06_mutate, mr06_detect),
+    Mutation("MR07", "removed-row diagnostics report rhs as zero without checking",
+             "code/scattering/assembly.py",
+             "SCTR07: the physical basis and the incident datum are both checked",
+             "A converged solve is not a correct solve.",
+             mr07_mutate, mr07_detect),
 ]
 
 

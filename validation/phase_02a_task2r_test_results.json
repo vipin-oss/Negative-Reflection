@@ -1,0 +1,608 @@
+{
+  "schema_version": "1.0",
+  "experiment_id": "PHASE_02A_TASK2R",
+  "generated_utc": "2026-11-04T14:47:16.137111+00:00",
+  "task": "Phase 2A Task 2R -- normal-incidence degeneracy and scattering assembly audit",
+  "supersedes": "PHASE_02A_TASK2 (normal-incidence amplitudes)",
+  "summary": {
+    "regression": "13 passed in 21.42s",
+    "regression_pass": true,
+    "new_tests": {
+      "count": 7,
+      "pass": 7,
+      "fail": 0
+    },
+    "mutations": {
+      "total": 30,
+      "detected": 30,
+      "rate_percent": 100.0,
+      "survivors": 0,
+      "origin_untouched": true,
+      "task2r_only": {
+        "ids": [
+          "MR01",
+          "MR02",
+          "MR03",
+          "MR04",
+          "MR05",
+          "MR06",
+          "MR07"
+        ],
+        "detected": 7,
+        "total": 7
+      }
+    },
+    "assembly_validation": {
+      "rows": 120,
+      "pass": 120,
+      "fail": 0
+    },
+    "benchmarks": {
+      "rows": 88,
+      "pass": 88,
+      "fail": 0
+    },
+    "oracle": {
+      "n": 14,
+      "all_ok": true
+    },
+    "consistency_all8": [
+      {
+        "config": "Al6061|Al6061",
+        "theta": 0,
+        "incident": "P",
+        "n_eq": 6,
+        "n_unk": 6,
+        "rank": 6,
+        "residual": "1.249e-37"
+      },
+      {
+        "config": "Al6061|Al6061",
+        "theta": 0,
+        "incident": "SV",
+        "n_eq": 6,
+        "n_unk": 6,
+        "rank": 6,
+        "residual": "0.0"
+      },
+      {
+        "config": "PZT-5H|PZT-5H",
+        "theta": 0,
+        "incident": "P",
+        "n_eq": 7,
+        "n_unk": 6,
+        "rank": 6,
+        "residual": "7.393e-37"
+      },
+      {
+        "config": "PZT-5H|PZT-5H",
+        "theta": 0,
+        "incident": "SV",
+        "n_eq": 6,
+        "n_unk": 6,
+        "rank": 6,
+        "residual": "0.0"
+      },
+      {
+        "config": "Al6061|PZT-5H",
+        "theta": 0,
+        "incident": "P",
+        "n_eq": 6,
+        "n_unk": 6,
+        "rank": 6,
+        "residual": "1.185e-34"
+      },
+      {
+        "config": "Al6061|PZT-5H",
+        "theta": 0,
+        "incident": "SV",
+        "n_eq": 6,
+        "n_unk": 6,
+        "rank": 6,
+        "residual": "4.592e-41"
+      },
+      {
+        "config": "PZT-5H|Al6061",
+        "theta": 0,
+        "incident": "P",
+        "n_eq": 6,
+        "n_unk": 6,
+        "rank": 6,
+        "residual": "1.186e-34"
+      },
+      {
+        "config": "PZT-5H|Al6061",
+        "theta": 0,
+        "incident": "SV",
+        "n_eq": 6,
+        "n_unk": 6,
+        "rank": 6,
+        "residual": "0.0"
+      }
+    ]
+  },
+  "task2r_tests": [
+    {
+      "test_id": "SCTR01",
+      "category": "11-normal-incidence",
+      "purpose": "a shear boundary row that is nonzero for an admitted mode is never removed from the interface system",
+      "oracle": "the exact SV state vector (u_x, u_z, phi, theta) = (1, 0, 0, 0) with sigma_xz = i xi C44 u_x, derived from the constitutive relation and independent of the assembly code",
+      "oracle_independent": true,
+      "fixture": "Al6061 | Al6061, k = 0 exactly, branch 6 (shear) incident",
+      "expected": "u_x and txz are among the kept rows, and no row is flagged inconsistent",
+      "status": "PASS",
+      "n_exec": 3,
+      "actual": "kept ux = True, kept txz = True; verified shear mode with u_x != 0 = True; Al|Al residual = 0.0; Al|PZT residual = 1.185e-34",
+      "detail": "kept = ['ux', 'uz', 'theta', 'txz', 'tzz', 'qz']; removed = [('phi', False), ('Dz', False)]; n_eq = 6, n_unk = 6, rank = 6",
+      "tolerance": 0,
+      "tol_justification": "an exact set-membership predicate; there is no numerical tolerance to choose",
+      "level": "1"
+    },
+    {
+      "test_id": "SCTR02",
+      "category": "11-normal-incidence",
+      "purpose": "a zero component of the incident P wave is not treated as a universal modal zero",
+      "oracle": "the constitutive relation sigma_xz = C44 du_x/dz - e15 dphi/dz, which forces sigma_xz != 0 whenever u_x varies",
+      "oracle_independent": true,
+      "fixture": "Al6061, k = 0, all eight roots verified against the matrix",
+      "expected": "the P branch has u_x = 0 while the shear branch has u_x != 0, and both are verified null vectors",
+      "status": "PASS",
+      "n_exec": 3,
+      "actual": "P branches with u_x = 0: 4; shear branches with u_x != 0: 2; sigma_xz = i xi C44 u_x reproduced: True; u_x classified gauge = False",
+      "detail": "the shear state is the mode that would be lost if a P-wave zero were generalised",
+      "tolerance": 1e-30,
+      "tol_justification": "the constitutive identity is exact, so the agreement threshold is the 40-digit arithmetic floor",
+      "level": "1"
+    },
+    {
+      "test_id": "SCTR03",
+      "category": "11-normal-incidence",
+      "purpose": "trivial-row removal does not reduce the rank of the system",
+      "oracle": "rank is invariant under deleting an identically zero row, which is a statement about linear algebra, not about this code",
+      "oracle_independent": true,
+      "fixture": "Al6061 | Al6061, PZT|PZT, Al|PZT at k = 0, shear incident",
+      "expected": "rank(B_reduced) == rank(B_full) in every case",
+      "status": "PASS",
+      "n_exec": 3,
+      "actual": "Al|Al: rank_full = 6, rank_reduced = 6, n_unk = 6, full rank = True, removed = ['phi', 'Dz'] | PZT|PZT: rank_full = 6, rank_reduced = 6, n_unk = 6, full rank = True, removed = ['phi', 'Dz'] | Al|PZT: rank_full = 6, rank_reduced = 6, n_unk = 6, full rank = True, removed = ['phi', 'Dz']",
+      "detail": "rank is compared on the same column set, and the reduced system is additionally required to retain full column rank",
+      "tolerance": 0,
+      "tol_justification": "rank is an integer; equality is exact",
+      "level": "1"
+    },
+    {
+      "test_id": "SCTR04",
+      "category": "11-normal-incidence",
+      "purpose": "the admitted basis contains no duplicate or proportional columns",
+      "oracle": "two columns are dependent iff |a^H b| / (|a| |b|) = 1, the Cauchy-Schwarz equality case -- independent of this code",
+      "oracle_independent": true,
+      "fixture": "Al6061 | Al6061 at 0 and 30 deg, PZT|PZT at 0 deg",
+      "expected": "every normalised overlap is below 1 - 1e-20",
+      "status": "PASS",
+      "n_exec": 58,
+      "actual": "worst normalised overlap = 0.99999964 at PZT|PZT 0deg cols 0,5 over 58 column pairs",
+      "detail": "the Cauchy-Schwarz overlap is computed on the reduced matrix directly",
+      "tolerance": 1e-20,
+      "tol_justification": "two distinct physical modes cannot be collinear; the threshold is the arithmetic floor of the 40-digit arithmetic used",
+      "level": "1"
+    },
+    {
+      "test_id": "SCTR05",
+      "category": "11-normal-incidence",
+      "purpose": "a rank-deficient identical-medium system is classified by what the deficient directions physically are, not by rows < unknowns",
+      "oracle": "the physical fields from the independent elastic reference, which are unique and analytic at normal incidence",
+      "oracle_independent": true,
+      "fixture": "Al6061 | Al6061, k = 0, shear incident",
+      "expected": "the removed rows carry no traction and no incident load, and the independent reflection vanishes",
+      "status": "PASS",
+      "n_exec": 3,
+      "actual": "n_eq = 6, n_unk = 6, removed = ['phi', 'Dz'], independent Al|Al reflection = 0.0; Al|PZT phi flagged gauge = True, Al|PZT residual = 1.185e-34",
+      "detail": "rows < unknowns alone is not taken as nonuniqueness; the removed rows are checked to be physically empty",
+      "tolerance": 1e-40,
+      "tol_justification": "the independent reflection is an exact zero for matched media, so the check is equality to the arithmetic floor",
+      "level": "1"
+    },
+    {
+      "test_id": "SCTR06",
+      "category": "11-normal-incidence",
+      "purpose": "identical welded half-spaces reflect nothing at normal incidence",
+      "oracle": "closed-form Fresnel amplitude (Z2 - Z1)/(Z2 + Z1) at normal incidence with Z1 = Z2, plus the exact impedance identity",
+      "oracle_independent": true,
+      "fixture": "Al6061 | Al6061 at k = 0",
+      "expected": "reflection amplitude exactly zero and transmission unity",
+      "status": "PASS",
+      "n_exec": 4,
+      "actual": "Fresnel r = 0.0, t = 1.0; reference r = 0.0, t = 1.0; assembly reflected field = 0.0, continuity error = 0.0",
+      "detail": "impedance computed from the material constants directly, and cross-checked against elastic_reference",
+      "tolerance": 0,
+      "tol_justification": "matched-impedance Fresnel amplitudes are exactly 0 and 1; the comparison is exact",
+      "level": "1"
+    },
+    {
+      "test_id": "SCTR07",
+      "category": "11-normal-incidence",
+      "purpose": "interface reduction is verified on the physical fields, not only on the assembled matrix",
+      "oracle": "the modal state vectors and the incident state, evaluated independently of the reduced operator",
+      "oracle_independent": true,
+      "fixture": "Al6061 | Al6061, k = 0, shear incident, interface at z = 0",
+      "expected": "every removed row is zero in the basis AND zero on the incident right-hand side",
+      "status": "PASS",
+      "n_exec": 9,
+      "actual": "all 3 removed rows justified and every kept row continuous on the physical fields",
+      "detail": "each removed row is checked against the physical basis and the incident datum, and the surviving rows against the reconstructed interface fields",
+      "tolerance": 1e-25,
+      "tol_justification": "TRIVIAL_ROW_TOL, the level below which a row is defined to read 0 = 0 for this matrix",
+      "level": "1"
+    }
+  ],
+  "task2r_mutations": {
+    "schema_version": "1.0",
+    "generated_utc": "2026-11-04T14:39:08+00:00",
+    "origin_repo": "/home/user/Negative-Reflection",
+    "origin_untouched": true,
+    "total": 30,
+    "detected": 30,
+    "detection_rate_percent": 100.0,
+    "survivors": [],
+    "invalid_detectors": [],
+    "inconclusive": [],
+    "mutations": [
+      {
+        "id": "M01",
+        "title": "zero executed cases reported as PASS",
+        "target": "validation/harness.py",
+        "detector": "harness.finish converts a 0-case PASS to UNRESOLVED and fails the test",
+        "rationale": "The Phase-1B requirement: an unexecuted test is not a pass.",
+        "result": "DETECTED",
+        "evidence": "pytest exit 1; E           AssertionError: [UNRESOLVED] MAT02 (1-data-integrity): claims a pass without executing anything; E             detail:   FORCED UNRESOLVED: 0 cases executed, so a PASS or NOT_APPLICABLE would be unevidenced.",
+        "control_fired": false,
+        "control_evidence": "pytest exit 0; no UNRESOLVED marker"
+      },
+      {
+        "id": "M02",
+        "title": "incorrect characteristic-matrix parity (e33 sign in M[1,2])",
+        "target": "code/foundation_checks.py",
+        "detector": "M(-xi) = S M(xi) S must fail for the unique admitted S",
+        "rationale": "This is the Phase-1 defect class: a coupling sign that breaks parity.",
+        "result": "DETECTED",
+        "evidence": "parity entries broken by the mutation: 1",
+        "control_fired": false,
+        "control_evidence": "parity entries broken by the mutation: 0"
+      },
+      {
+        "id": "M03",
+        "title": "incorrect heat-flux expression (linear thermal term)",
+        "target": "code/foundation_checks.py",
+        "detector": "check_D2_balance must not report PASS",
+        "rationale": "The Phase-1 P0 defect, re-injected. The detector is the Second-Law balance, which shares no amplitude with the flux.",
+        "result": "DETECTED",
+        "evidence": "D2 status under the mutated flux: FAIL (n_exec=2, worst rel. residual 1.00e+00)",
+        "control_fired": false,
+        "control_evidence": "mutation did not apply (no marker found)"
+      },
+      {
+        "id": "M04",
+        "title": "wrong polynomial coefficient ordering",
+        "target": "code/foundation_checks.py",
+        "detector": "the returned roots must not satisfy det M = 0",
+        "rationale": "polyroots expects descending coefficients; feeding ascending ones returns roots of a different polynomial.",
+        "result": "DETECTED",
+        "evidence": "worst relative polynomial residual at the returned roots: 1.000e+00",
+        "control_fired": false,
+        "control_evidence": "worst relative polynomial residual at the returned roots: 1.398e-41"
+      },
+      {
+        "id": "M05",
+        "title": "incorrect incident/outgoing mode selection",
+        "target": "code/foundation_checks.py",
+        "detector": "_admissible must not return a growing mode",
+        "rationale": "Swapping the two root families selects the wrong half-space modes and silently produces a scattering matrix with the wrong boundary data.",
+        "result": "DETECTED",
+        "evidence": "selected modes: N 4 GROWING 4",
+        "control_fired": false,
+        "control_evidence": "selected modes: N 4 GROWING 0"
+      },
+      {
+        "id": "M06",
+        "title": "wrong material units (Pa entered as GPa)",
+        "target": "literature/material_constants.csv",
+        "detector": "the implied longitudinal speed must leave the physically admissible band",
+        "rationale": "A silent 1000x unit error changes every dimensionless group.",
+        "result": "DETECTED",
+        "evidence": "DAT01+PRV06 exit 1; ______________ test_PRV06_table_values_are_physically_admissible _______________",
+        "control_fired": false,
+        "control_evidence": "DAT01+PRV06 exit 0; no mismatch reported"
+      },
+      {
+        "id": "M07",
+        "title": "inappropriate isotropic benchmark on an anisotropic medium",
+        "target": "code/mutation_probe.py",
+        "detector": "PZT-5H must be shown to violate sagittal isotropy",
+        "rationale": "The Fresnel formula is only valid for isotropic media; PZT-5H is not.",
+        "result": "DETECTED",
+        "evidence": "an isotropic closed form was evaluated on PZT-5H, which is not isotropic: R 0.0726435209266035 T 0.9273564790733965 SUM 1.0",
+        "control_fired": false,
+        "control_evidence": "no isotropic proxy present, so nothing was misapplied"
+      },
+      {
+        "id": "M08",
+        "title": "incorrect interface sign (transmitted block sign lost)",
+        "target": "code/foundation_checks.py",
+        "detector": "the 8x8 interface operator must not retain full rank",
+        "rationale": "The transmitted half-space contributes with the opposite sign; losing it makes two columns degenerate.",
+        "result": "DETECTED",
+        "evidence": "interface operator rank with the sign defect: 8 (rank is INSENSITIVE to this defect); sign defect present in the assembled operator: True",
+        "control_fired": false,
+        "control_evidence": "interface operator rank with the sign defect: 8 (rank is INSENSITIVE to this defect); sign defect present in the assembled operator: False"
+      },
+      {
+        "id": "M09",
+        "title": "missing mandatory evidence artifact",
+        "target": "evidence/equation_registry.csv",
+        "detector": "ART01 must fail",
+        "rationale": "An evidence package with a missing registry is not a package.",
+        "result": "DETECTED",
+        "evidence": "artifact test exit 1 after deleting the registry",
+        "control_fired": false,
+        "control_evidence": "artifact test exit 0 after deleting the registry"
+      },
+      {
+        "id": "M10",
+        "title": "wrong source/data checksum",
+        "target": "evidence/input_checksums.json",
+        "detector": "ART02 must fail",
+        "rationale": "Silent edits to frozen inputs are the failure mode checksums exist for.",
+        "result": "DETECTED",
+        "evidence": "checksum test exit 1 with one hash corrupted",
+        "control_fired": false,
+        "control_evidence": "checksum test exit 0 with one hash corrupted"
+      },
+      {
+        "id": "M11",
+        "title": "claim promoted to VERIFIED while its test no longer executes it",
+        "target": "evidence/claim_registry.csv",
+        "detector": "the audit must find the claim VERIFIED against a test that does not compute the asserted quantity",
+        "rationale": "This is U-11 itself: the defect the whole registry exists to prevent.",
+        "result": "DETECTED",
+        "evidence": "binding test exit 1;                     problems.append((cid, f\"TOKEN_MISSING {miss} in {b['fn']}\")); E             detail:   [('CLM-C1-04', 'VERIFIED but NOT BOUND in claim_evidence_map')]",
+        "control_fired": false,
+        "control_evidence": "binding test exit 0; no C1-04 diagnosis in output"
+      },
+      {
+        "id": "M12",
+        "title": "inaccurate eigenvector direction despite a tiny characteristic residual",
+        "target": "code/foundation_checks.py",
+        "detector": "U3C must detect that the null-vector DIRECTION moved",
+        "rationale": "The Phase 1D warning: a small |M a| residual does not certify the direction. Phase 1C used the residual as a proxy and reached a wrong diagnosis as a result.",
+        "result": "DETECTED",
+        "evidence": "U3C exit 1;             detail = \"\\n\".join(f\"branch |Im xi|={a}: direction difference = {b}\"",
+        "control_fired": false,
+        "control_evidence": "U3C exit 0; no diagnosis"
+      },
+      {
+        "id": "M13",
+        "title": "wrong displacement-vs-potential scaling",
+        "target": "code/foundation_checks.py",
+        "detector": "the energy balance must fail when phi is scaled relative to u",
+        "rationale": "A gauge/scaling error leaves M a = 0 intact but changes every boundary-state quantity.",
+        "result": "DETECTED",
+        "evidence": "balance residual under the scaling error: 120.23294777262858",
+        "control_fired": false,
+        "control_evidence": "balance residual under the scaling error: 3.4428762383795767e-62"
+      },
+      {
+        "id": "M14",
+        "title": "incorrectly removed electric gauge mode",
+        "target": "code/foundation_checks.py",
+        "detector": "the root count must remain 8",
+        "rationale": "Dropping the gauge branch loses a genuine mode and corrupts the incoming/outgoing selection.",
+        "result": "DETECTED",
+        "evidence": "1 failed in 2.08s",
+        "control_fired": false,
+        "control_evidence": "1 passed in 2.17s"
+      },
+      {
+        "id": "M15",
+        "title": "missing Lord-Shulman relaxation operator in the heat flux",
+        "target": "code/foundation_checks.py",
+        "detector": "the energy balance must fail when (1 - i w tau_q) is dropped",
+        "rationale": "The relaxation operator IS the Lord-Shulman correction; dropping it silently reverts to Fourier conduction.",
+        "result": "DETECTED",
+        "evidence": "balance residual with the relaxation operator removed: 2.324773050455118e-06",
+        "control_fired": false,
+        "control_evidence": "balance residual with the relaxation operator removed: 3.4428762383795767e-62"
+      },
+      {
+        "id": "M16",
+        "title": "invalid material-data provenance (literal drifts from the table)",
+        "target": "code/foundation_checks.py",
+        "detector": "DAT02 must fail",
+        "rationale": "A hard-coded value that no longer matches the versioned table is the provenance defect the review names.",
+        "result": "DETECTED",
+        "evidence": "DAT02 exit 1;         \"\"\"The frozen literals must equal the table-loaded values exactly.",
+        "control_fired": false,
+        "control_evidence": "DAT02 exit 0; no diagnosis"
+      },
+      {
+        "id": "M17",
+        "title": "stale evidence registry after a theory correction",
+        "target": "theory/energy_flux_derivation.tex",
+        "detector": "the frozen-input check must fail",
+        "rationale": "The theory text is checksummed; editing it without regenerating the register must be caught.",
+        "result": "DETECTED",
+        "evidence": "ART02 exit 1; energy_flux_derivation.tex named in the diagnosis: True",
+        "control_fired": false,
+        "control_evidence": "ART02 exit 0; energy_flux_derivation.tex named in the diagnosis: False"
+      },
+      {
+        "id": "M18",
+        "title": "promotion with an open mandatory blocker / non-computing test",
+        "target": "evidence/claim_registry.csv",
+        "detector": "claim binding must fail",
+        "rationale": "A passing suite must not promote a claim whose named test no longer computes the asserted quantity.",
+        "result": "DETECTED",
+        "evidence": "claim-binding exit 1;                 # rewriting CLM-D2-01's test_id to a test that does not compute the",
+        "control_fired": false,
+        "control_evidence": "claim-binding exit 0; no diagnosis"
+      },
+      {
+        "id": "M19",
+        "title": "withdrawn tau_q causality floor restored to the active theory",
+        "target": "theory/governing_equations.tex",
+        "detector": "THY02 must detect an active causality-floor assertion",
+        "rationale": "BLK-DOC-01 was still live in Phase 1D: the boxed floor survived as a \textsc{Derived} result long after the claim was marked INVALID.",
+        "result": "DETECTED",
+        "evidence": "THY02 exit 1;                       f\"active causality-floor assertions found: {len(active_hits)}\")",
+        "control_fired": false,
+        "control_evidence": "THY02 exit 0; no diagnosis"
+      },
+      {
+        "id": "M20",
+        "title": "decoupled electrostatic mode mislabelled as a gauge",
+        "target": "code/scattering/modal.py",
+        "detector": "SCTA03: D_z = -eps33*k makes the mode physical and admissible",
+        "rationale": "Found for real: this deleted the electrostatic channel of an elastic half-space while keeping the piezoelectric one.",
+        "result": "DETECTED",
+        "evidence": "1 failed in 0.82s",
+        "control_fired": false,
+        "control_evidence": "1 passed in 0.80s"
+      },
+      {
+        "id": "M21",
+        "title": "strict Im(xi) != 0 radiation test",
+        "target": "code/scattering/radiation.py",
+        "detector": "SCTA04: PZT-5H must retain an incident channel at theta > 0",
+        "rationale": "Found for real: no PZT-5H mode was INCOMING at theta > 0, so the coupled problem had no incident wave.",
+        "result": "DETECTED",
+        "evidence": "1 failed in 0.97s",
+        "control_fired": false,
+        "control_evidence": "1 passed in 0.96s"
+      },
+      {
+        "id": "M22",
+        "title": "same-sign continuity in the assembly",
+        "target": "code/scattering/assembly.py",
+        "detector": "SCTA05: the reconstructed interface field must be continuous",
+        "rationale": "Found for real: the solve residual stayed at 1e-37 while the interface was violated by 2x the incident state.",
+        "result": "DETECTED",
+        "evidence": "1 failed in 2.06s",
+        "control_fired": false,
+        "control_evidence": "1 passed in 2.00s"
+      },
+      {
+        "id": "M23",
+        "title": "pure gauge admitted as a physical channel",
+        "target": "code/scattering/assembly.py",
+        "detector": "SCTA02: no gauge may enter the basis",
+        "rationale": "A null channel must never be counted as a physical amplitude.",
+        "result": "DETECTED",
+        "evidence": "1 failed in 4.35s",
+        "control_fired": false,
+        "control_evidence": "1 passed in 4.26s"
+      },
+      {
+        "id": "MR01",
+        "title": "shear rows removed on the basis alone (rhs not tested)",
+        "target": "code/scattering/assembly.py",
+        "detector": "SCTR01: the u_x and txz rows carry the shear mode",
+        "rationale": "The original Task 2 defect. A row may be dropped only when it is zero across the basis AND on the incident right-hand side.",
+        "result": "DETECTED",
+        "evidence": "1 failed in 1.90s",
+        "control_fired": false,
+        "control_evidence": "1 passed in 1.87s"
+      },
+      {
+        "id": "MR02",
+        "title": "P-wave u_x = 0 generalised to every mode",
+        "target": "code/scattering/assembly.py",
+        "detector": "SCTR02: a component zero on one wave is not zero on all",
+        "rationale": "The single inference that produced the whole normal-incidence error.",
+        "result": "DETECTED",
+        "evidence": "1 failed in 1.29s",
+        "control_fired": false,
+        "control_evidence": "1 passed in 1.30s"
+      },
+      {
+        "id": "MR03",
+        "title": "quiet rows discarded as if they were empty",
+        "target": "code/scattering/roots.py",
+        "detector": "SCTR03: removal must not change the rank",
+        "rationale": "A row that is merely SMALL is not a row that is ZERO. Removing it leaves fewer equations than unknowns.",
+        "result": "DETECTED",
+        "evidence": "1 failed in 2.25s",
+        "control_fired": false,
+        "control_evidence": "1 passed in 2.22s"
+      },
+      {
+        "id": "MR04",
+        "title": "duplicate modal column admitted",
+        "target": "code/scattering/assembly.py",
+        "detector": "SCTR04: no two admitted columns may be proportional",
+        "rationale": "Two names for one degree of freedom make the coefficients non-unique for no physical reason.",
+        "result": "DETECTED",
+        "evidence": "1 failed in 1.06s",
+        "control_fired": false,
+        "control_evidence": "1 passed in 1.93s"
+      },
+      {
+        "id": "MR05",
+        "title": "gauge condition posed as a boundary condition",
+        "target": "code/scattering/assembly.py",
+        "detector": "SCTR05: a gauge is not a physical non-uniqueness",
+        "rationale": "phi1 = phi2 with one side carrying no potential forces the transmitted field to zero.",
+        "result": "DETECTED",
+        "evidence": "1 failed in 1.76s",
+        "control_fired": false,
+        "control_evidence": "1 passed in 1.77s"
+      },
+      {
+        "id": "MR06",
+        "title": "same-sign continuity across the interface",
+        "target": "code/scattering/assembly.py",
+        "detector": "SCTR06: matched media must not reflect",
+        "rationale": "The historical Task 2 sign defect, re-injected.",
+        "result": "DETECTED",
+        "evidence": "1 failed in 1.03s",
+        "control_fired": false,
+        "control_evidence": "1 passed in 1.04s"
+      },
+      {
+        "id": "MR07",
+        "title": "removed-row diagnostics report rhs as zero without checking",
+        "target": "code/scattering/assembly.py",
+        "detector": "SCTR07: the physical basis and the incident datum are both checked",
+        "rationale": "A converged solve is not a correct solve.",
+        "result": "DETECTED",
+        "evidence": "1 failed in 1.87s",
+        "control_fired": false,
+        "control_evidence": "1 passed in 1.71s"
+      }
+    ]
+  },
+  "findings": {
+    "supervisor_objection_confirmed": true,
+    "claim": "'u_x = sigma_xz = 0 for every mode at normal incidence' is FALSE",
+    "sv_state_at_k0": {
+      "ux": 1,
+      "uz": 0,
+      "phi": 0,
+      "theta": 0,
+      "txz": "5.3147726e13j",
+      "tzz": 0,
+      "Dz": 0,
+      "qz": 0
+    },
+    "root_error_hypothesis": "REFUTED -- xi_roots is exact to working precision; the reported 4.93e-14 was a float64 artifact in the probe",
+    "det_polish": "REMOVED -- destructive, moves M[0,0] from 1.65e-24 to -2.13e-3",
+    "real_defects": [
+      "global-max normalisation of the null residual",
+      "row equilibration lifting a roundoff row to unit scale",
+      "trivial-row removal ignoring the incident right-hand side",
+      "gauge (potential) rows posed as boundary conditions at k=0"
+    ],
+    "identical_medium": {
+      "status": "RESOLVED -- square, full rank, zero reflection",
+      "blocker_closed": "BLK-02A-14"
+    }
+  }
+}

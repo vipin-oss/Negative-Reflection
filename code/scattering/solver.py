@@ -272,7 +272,28 @@ def boundary_residuals(system, coeffs):
         tgt = st1 if system["incident_side"] == 1 else st2
         for i in range(len(STATE_FIELDS)):
             tgt[i] += st_inc[i]
-    return {STATE_FIELDS[i]: st1[i] - st2[i] for i in range(len(STATE_FIELDS))}
+    diff = {STATE_FIELDS[i]: st1[i] - st2[i] for i in range(len(STATE_FIELDS))}
+
+    # NOT EVERY COMPONENT OF THIS DIFFERENCE IS A BOUNDARY-CONDITION VIOLATION.
+    #
+    # A row that was removed from the system -- because it reads 0 = 0 for every
+    # admitted mode, or because it is a gauge rather than a condition -- was
+    # never required to be continuous. Reporting its difference as a residual
+    # invents a failure:
+    #
+    #   Al6061|PZT-5H at k = 0, P incidence. The phi row is dropped as gauge
+    #   (Al6061 has no potential in any admitted mode). The transmitted
+    #   potential is then the sum of the transmitted modes' own potentials, and
+    #   the incident side has none, so the raw difference is 0.913 -- while the
+    #   SOLVE residual is 1.4e-37, i.e. every equation that was kept is
+    #   satisfied to the arithmetic floor.
+    #
+    # The two quantities are therefore returned separately, and a caller that
+    # wants a single number must say which it means.
+    enforced = ({r["row"] for r in system.get("rows_removed", [])
+                 if r.get("INCONSISTENT")}
+                | set(system.get("rows_kept", [])))
+    return diff, enforced
 
 
 def analyse(system, dps=None):
@@ -312,12 +333,23 @@ def analyse(system, dps=None):
             f"redundant and the model itself needs review.")
     rec["trustworthy"] = bool(rec["cond_trust"] and rec["square"])
     try:
-        br = boundary_residuals(system, sol["coeffs"])
+        br, enforced = boundary_residuals(system, sol["coeffs"])
         rec["interface_residual_by_field"] = br
+        rec["interface_residual_enforced_rows"] = sorted(enforced)
+        # TWO NUMBERS, because they answer two questions.
+        #
+        # `interface_residual_max` is over EVERY component: it includes rows
+        # that were deliberately not imposed, so a gauge row can dominate it
+        # while the solve is exact. `interface_residual_enforced_max` is over
+        # the rows the system actually enforced, and that is the one that says
+        # whether the boundary-value problem was solved.
         rec["interface_residual_max"] = max(abs(v) for v in br.values())
+        rec["interface_residual_enforced_max"] = max(
+            (abs(br[f]) for f in enforced), default=mp.mpf(0))
     except Exception as exc:                                   # noqa: BLE001
         rec["interface_residual_by_field"] = None
         rec["interface_residual_max"] = None
+        rec["interface_residual_enforced_max"] = None
         rec["interface_residual_error"] = str(exc)
     ri = rescale_invariance(system)
     rec["rescale_invariance"] = {

@@ -613,7 +613,7 @@ def _main():
     import foundation_checks as fc
 
     mp.mp.dps = 60
-    from scattering.nullspace import null_vector
+    from scattering.roots import null_vector_verified
     w = 2 * mp.pi * 10 ** 6
     k = mp.mpf(repr(float(2 * np.pi * 1e6 * np.sin(np.deg2rad(30)) / 4000.0)))
     for mat in ("PZT-5H", "Al6061"):
@@ -622,15 +622,18 @@ def _main():
         print(f"\n===== {mat}, 30 deg =====")
         modes = []
         for br, xi in enumerate(roots):
-            # robust null vector -- see scattering/nullspace.py for why the raw
-            # kernel_scaled route is precision-dependent at Al6061 branch 3
-            r = null_vector(fc.M_mp(m, k, xi, w), mp.mp.dps)
-            if not r["agreement"] or r["vector"] is None:
+            # VERIFIED null vector -- see scattering/roots.py. The previous
+            # call returned a compressed direction with agreement=False on
+            # Al6061 k=0 branch 6 and this branch honoured the flag, but
+            # assembly.py did not, so the mode was built anyway downstream.
+            r = null_vector_verified(fc.M_mp(m, k, xi, w), mp.mp.dps)
+            if not r["ok"] or r["vector"] is None:
                 # keep the branch in its indexed slot: dropping it would shift
                 # every later label onto the wrong root, which is exactly the
                 # mislabelling defect this phase exists to correct.
                 modes.append(None)
-                print(f"  br{br}: NULLSPACE UNAGREED ({r['cramer_gap']}) "
+                print(f"  br{br}: NULL VECTOR NOT VERIFIED "
+                      f"(residual {mp.nstr(r['residual'], 4)}) "
                       f"-- reported as unusable, NOT renumbered")
                 continue
             a = r["vector"]

@@ -67,7 +67,7 @@ from __future__ import annotations
 import mpmath as mp
 
 import foundation_checks as fc
-from scattering.nullspace import null_vector
+from scattering.roots import null_vector_verified
 from scattering.modal import classify_mode
 from scattering.radiation import classify_role
 from scattering.elastic_reference import flux_z, mode_vector, traction
@@ -111,11 +111,25 @@ class Side:
 
     def _build(self):
         for br, xi in enumerate(self.roots):
-            r = null_vector(fc.M_mp(self.material, self.k, xi, self.w),
-                            self.dps or mp.mp.dps)
-            if r["vector"] is None:
-                self._push(None, None, None, None,
-                           ("UNRESOLVED", "no null vector"))
+            # THE VERIFIED PATH, and the check that was missing.
+            #
+            # This used to call `nullspace.null_vector` and discard the
+            # "agreement" flag it returns. That flag was the only warning that
+            # the vector was a compressed direction rather than a null vector,
+            # and at Al6061 k=0 branch 6 -- the shear branch, the whole point of
+            # task 2R -- it was False while the vector went on to define the
+            # mode. A guard no caller honours is not a guard.
+            #
+            # `null_vector_verified` returns ok=False instead of a direction it
+            # cannot justify, so the mode is marked unresolved rather than
+            # built from a wrong state.
+            r = null_vector_verified(fc.M_mp(self.material, self.k, xi, self.w),
+                                     self.dps or mp.mp.dps)
+            if r["vector"] is None or not r.get("ok"):
+                why = ("no null vector" if r["vector"] is None else
+                       f"null vector not verified (residual "
+                       f"{mp.nstr(r['residual'], 4)})")
+                self._push(None, None, None, None, ("UNRESOLVED", why))
                 self.n_unresolved += 1
                 continue
             a = r["vector"]
@@ -242,17 +256,128 @@ def assemble(m1, m2, k, w, incident_material=1, incident_branch=None,
             rhs_full[i] = -st[i]
 
     # ---- trivial-row reduction ---------------------------------------
+    #
+    # A ROW MAY BE REMOVED ONLY IF IT READS 0 = 0 IN THE WHOLE SYSTEM.
+    #
+    # Two independent conditions, and the first version enforced only one:
+    #
+    #   (1) the row is zero for EVERY admitted basis mode, and
+    #   (2) the corresponding entry of the incident right-hand side is zero.
+    #
+    # Neither implies the other, and dropping (2) is not a corner case -- it is
+    # the exact failure task 2R was opened to find. At normal incidence the
+    # u_x row of the ALUMINIUM half-space is nonzero only on the shear branches,
+    # and the shear branches are precisely the ones removed as inadmissible
+    # when a P wave is incident. A reduction that looks at the basis alone
+    # therefore sees an all-zero row and deletes it, taking sigma_xz = 0 with
+    # it -- the very equation that distinguishes a shear mode from a
+    # longitudinal one. `rhs_is_zero` was already being computed and recorded;
+    # it was simply not part of the decision.
+    #
+    # The tolerance is relative to the largest row content, since B's columns
+    # are already normalised and the entries are not of a common physical kind.
     kept, removed = [], []
+    _rowmax_all = [max([abs(B[i, j]) for j in range(n_unk)] or [mp.mpf(0)])
+                   for i in range(len(STATE_FIELDS))]
+    _scale = max([mp.mpf(v) for v in _rowmax_all] or [mp.mpf(0)])
+    _tol = TRIVIAL_ROW_TOL * (_scale if _scale > 0 else mp.mpf(1))
+
+    i1 = len(a1)                       # columns [0, i1) are medium 1
     for i in range(len(STATE_FIELDS)):
-        rowmax = max([abs(B[i, j]) for j in range(n_unk)] or [mp.mpf(0)])
-        if rowmax <= TRIVIAL_ROW_TOL:
-            removed.append({"row": STATE_FIELDS[i],
-                            "reason": "identically zero for every mode at this "
-                                      "angle (sagittal decoupling)",
-                            "rhs": rhs_full[i],
-                            "rhs_is_zero": abs(rhs_full[i]) <= TRIVIAL_ROW_TOL})
-        else:
-            kept.append(i)
+        rowmax = _rowmax_all[i]
+        rhs_val = rhs_full[i]
+        row_zero = rowmax <= _tol
+        rhs_zero = abs(rhs_val) <= _tol
+
+        # content of this row in each half-space's own basis
+        m1_max = max([abs(B[i, j]) for j in range(i1)] or [mp.mpf(0)])
+        m2_max = max([abs(B[i, j]) for j in range(i1, n_unk)] or [mp.mpf(0)])
+        m1_empty = m1_max <= _tol
+        m2_empty = m2_max <= _tol
+
+        # ---- case 1: the row is zero everywhere -------------------------
+        if row_zero:
+            if rhs_zero:
+                removed.append({"row": STATE_FIELDS[i],
+                                "reason": "reads 0 = 0 at this angle: zero for "
+                                          "every admitted mode AND zero on the "
+                                          "incident right-hand side",
+                                "rhs": rhs_val, "rhs_is_zero": True,
+                                "row_max": rowmax})
+            else:
+                kept.append(i)
+                removed.append({"row": STATE_FIELDS[i],
+                                "reason": "ROW ZERO BUT RHS NONZERO: the system "
+                                          "is inconsistent in this equation",
+                                "rhs": rhs_val, "rhs_is_zero": False,
+                                "row_max": rowmax, "INCONSISTENT": True})
+            continue
+
+        # ---- case 2: gauge-capable rows, tested before the RHS ----------
+        #
+        # THE ORDER OF THESE TWO TESTS MATTERS AND THE FIRST VERSION HAD IT
+        # BACKWARDS. Testing "is the RHS zero?" first and returning early made
+        # the gauge test unreachable whenever the incident wave DID carry the
+        # quantity -- which is the case that needs it most. Measured:
+        # PZT-5H|Al6061 at k = 0 under P incidence kept a phi row whose
+        # right-hand side was -1.0 while the receiving half-space had no
+        # potential in any admitted mode, and the resulting 7x6 system was
+        # inconsistent at 55.25.
+        #
+        # THE RULE. A potential is fixed only through its gradient, so an
+        # overall constant is gauge. A half-space whose admitted basis has no
+        # content in this row has no datum to transmit across the interface.
+        # The interface condition "phi1 = phi2" then imposes the other side's
+        # value -- which is zero only because it is undefined there -- as if it
+        # were a physical boundary datum.
+        #
+        # SCOPED TO ELECTRIC ROWS ON PURPOSE. Applied to a mechanical row it
+        # deletes exactly the physics this audit exists to protect: the incident
+        # P wave has u_x = 0, so an unscoped test removes u_x and txz -- the
+        # shear rows -- and reproduces the original Task 2 defect in a new
+        # place. Measured: unscoped, Al6061|Al6061 under P incidence reduced to
+        # 4x6 and dropped ux and txz. Displacement has no gauge freedom; u_x = 0
+        # is a physical statement about that wave.
+        #
+        # AND IT IS GATED ON k = 0. The degeneracy that makes this necessary is
+        # exact only at normal incidence: there, the electric governing equation
+        # reduces to e33 u_z - eps33 phi = 0, which forces D_z = i xi (e33 u_z -
+        # eps33 phi) = 0 identically, leaving phi non-unique by a constant.
+        # For any k != 0 the eps11 k^2 term breaks that cancellation and D_z is
+        # nonzero and meaningful. Measured: applied ungated at 30 degrees this
+        # rule removed both phi and Dz from Al6061|PZT-5H, leaving a 6x8 system
+        # and breaking SCTA05. `k` here is the caller's exact mpf, so k == 0 is
+        # an exact test, not a tolerance.
+        normal_incidence = (k == 0)
+        if normal_incidence and STATE_FIELDS[i] in ("phi", "Dz"):
+            inc_empty = False
+            if inc is not None:
+                _st = inc_side.states[inc]
+                _mem = mp.sqrt(sum(abs(_st[k2]) ** 2
+                                   for k2 in range(len(STATE_FIELDS))))
+                inc_empty = (abs(_st[i]) / _mem if _mem > 0
+                             else mp.mpf(0)) <= _tol
+            if (m1_empty != m2_empty) or inc_empty:
+                if m1_empty != m2_empty:
+                    carried = "medium 2" if m1_empty else "medium 1"
+                    datside = "medium 1" if m1_empty else "medium 2"
+                else:
+                    carried, datside = "both media", "the incident wave"
+                removed.append({"row": STATE_FIELDS[i],
+                                "reason": f"GAUGE, NOT A BOUNDARY CONDITION: "
+                                          f"{carried} carry no content in this "
+                                          f"row and {datside} supplies no "
+                                          f"physical datum, so the row would "
+                                          f"impose zero as if it were one",
+                                "rhs": rhs_val, "rhs_is_zero": rhs_zero,
+                                "row_max": rowmax,
+                                "basis_empty_side1": bool(m1_empty),
+                                "basis_empty_side2": bool(m2_empty),
+                                "incident_empty": bool(inc_empty),
+                                "GAUGE_ONLY": True})
+                continue
+
+        kept.append(i)
 
     B_red = mp.matrix(len(kept), n_unk)
     rhs_red = mp.matrix(len(kept), 1)
@@ -266,6 +391,10 @@ def assemble(m1, m2, k, w, incident_material=1, incident_branch=None,
         "B": B_red, "rhs": rhs_red, "B_full": B, "rhs_full": rhs_full,
         "rows_kept": [STATE_FIELDS[i] for i in kept],
         "rows_removed": removed,
+        "rows_inconsistent": [r["row"] for r in removed
+                              if r.get("INCONSISTENT")],
+        "rows_gauge_only": [r["row"] for r in removed
+                            if r.get("GAUGE_ONLY")],
         "n_equations": len(kept),
         "n_equations_full": len(STATE_FIELDS),
         "n_unknowns": n_unk,

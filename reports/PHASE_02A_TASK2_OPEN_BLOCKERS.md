@@ -173,3 +173,40 @@ but **not trusted**. It is not widened to obtain agreement.
 3. Either reduce the identical-medium normal-incidence case analytically or
    exclude it explicitly (`BLK-02A-14`).
 4. Review `ATTENUATION_PROPAGATING` as a new empirical constant.
+
+
+---
+
+## TASK 2R VALIDITY MARKING
+
+**Added by Task 2R.** The normal-incidence scattering amplitudes reported by
+Task 2 are marked **INVALID / SUPERSEDED**.
+
+**Reason.** The interface reduction removed a row when it was zero across the
+admitted basis, without requiring it to be zero on the incident right-hand side.
+At exactly `k = 0` that deleted the `u_x` and `txz` rows, which are the only
+equations distinguishing a shear mode from a longitudinal one. Measured at
+Al6061 `k = 0`: the shear state is `(u_x, u_z) = (1, 0)` with
+`sigma_xz = 5.3147726e13j`.
+
+**Additionally superseded:** the `phi` continuity row was a gauge, not a
+boundary condition, at `k = 0`. The electric governing equation reduces to
+`e33 u_z - eps33 phi = 0`, which forces `D_z = 0` identically on every mode while
+`phi` remains fixed only up to a constant.
+
+**Scope of the invalidation.** Only `k = 0` results are affected. The 78 oblique
+configurations never exercised the defect -- the trivial-row reduction fires only
+at exactly `k = 0` -- and their numbers are **RETAINED**.
+
+**Regenerated under** experiment ID `PHASE_02A_TASK2R`:
+`validation/phase_02a_task2r_independent_comparison.csv` and
+`validation/phase_02a_task2r_test_results.json`.
+
+**The original Task 2 reports and data are retained unchanged as historical
+evidence.** See `reports/PHASE_02A_TASK2R_NORMAL_INCIDENCE_AUDIT.md` section 9.
+
+**BLK-02A-14 is CLOSED as an artifact.** It recorded `Al|Al` normal incidence as
+under-determined on the strength of `cond = 1.10e21` and a rescaling verdict of
+`DEFERRED_TO_CONDITIONING`. With the row truncation repaired the system is 6x6
+rank 6 for both polarizations, the reflected field is `1.1e-37`, and continuity
+is exact.

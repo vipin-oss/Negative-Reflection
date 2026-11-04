@@ -1,525 +1,563 @@
 {
- "schema_version": "1.0",
- "purpose": "Machine-checkable binding between a research claim and the exact code that is supposed to execute its assertion. This is the answer to U-11: a PASS label is not evidence. For every VERIFIED claim this file names the test, the lines that carry the assertion, and at least one REQUIRED TOKEN: a symbol or literal that must appear in those lines. If the token is absent, the code no longer performs the calculation the claim asserts, the claim is silently downgraded to UNVERIFIED, and the build fails.",
- "why_tokens_and_not_line_numbers": "Line numbers rot on every edit. A token that names the ASSERTED QUANTITY survives reformatting but disappears the moment the calculation is replaced by prose. CLM-C1-04 is the worked example: the Phase-1B rewrite deleted the null-space routine and the claim kept its PASS.",
- "statuses": {
-  "BOUND": "claim, test, function and token all present and consistent",
-  "TOKEN_MISSING": "the function no longer contains the code the claim asserts",
-  "FUNCTION_MISSING": "the named check function does not exist",
-  "NO_EXECUTABLE_EVIDENCE": "the claim has no test that executes anything (legal only for UNVERIFIED/UNRESOLVED/INVALID)"
- },
- "bindings": [
-  {
-   "claim_id": "CLM-A1-01",
-   "check": "A1",
-   "fn": "check_A1_tensor",
-   "asserted_quantity": "major and minor symmetry of the stiffness tensor",
-   "required_tokens": [
-    "transpose"
-   ]
+  "schema_version": "1.0",
+  "purpose": "Machine-checkable binding between a research claim and the exact code that is supposed to execute its assertion. This is the answer to U-11: a PASS label is not evidence. For every VERIFIED claim this file names the test, the lines that carry the assertion, and at least one REQUIRED TOKEN: a symbol or literal that must appear in those lines. If the token is absent, the code no longer performs the calculation the claim asserts, the claim is silently downgraded to UNVERIFIED, and the build fails.",
+  "why_tokens_and_not_line_numbers": "Line numbers rot on every edit. A token that names the ASSERTED QUANTITY survives reformatting but disappears the moment the calculation is replaced by prose. CLM-C1-04 is the worked example: the Phase-1B rewrite deleted the null-space routine and the claim kept its PASS.",
+  "statuses": {
+    "BOUND": "claim, test, function and token all present and consistent",
+    "TOKEN_MISSING": "the function no longer contains the code the claim asserts",
+    "FUNCTION_MISSING": "the named check function does not exist",
+    "NO_EXECUTABLE_EVIDENCE": "the claim has no test that executes anything (legal only for UNVERIFIED/UNRESOLVED/INVALID)"
   },
-  {
-   "claim_id": "CLM-A1-02",
-   "check": "A1",
-   "fn": "check_A1_tensor",
-   "asserted_quantity": "positive definiteness of C and eps",
-   "required_tokens": [
-    "eigvalsh"
-   ]
-  },
-  {
-   "claim_id": "CLM-A1-03",
-   "check": "H1",
-   "fn": "check_H1_stability",
-   "asserted_quantity": "structural stability conditions hold for all four media",
-   "required_tokens": [
-    "n_exec"
-   ]
-  },
-  {
-   "claim_id": "CLM-A2-01",
-   "check": "A2",
-   "fn": "check_A2_dimensions",
-   "asserted_quantity": "dimensional consistency of the characteristic-matrix terms",
-   "required_tokens": [
-    "terms"
-   ]
-  },
-  {
-   "claim_id": "CLM-A2-02",
-   "check": "A2",
-   "fn": "check_A2_dimensions",
-   "asserted_quantity": "zero mismatches between assembled terms and their targets",
-   "required_tokens": [
-    "mismatch"
-   ]
-  },
-  {
-   "claim_id": "CLM-B1-01",
-   "check": "B1",
-   "fn": "check_B1_potential",
-   "asserted_quantity": "all six constitutive relations follow from one potential",
-   "required_tokens": [
-    "diff"
-   ]
-  },
-  {
-   "claim_id": "CLM-B1-02",
-   "check": "B1",
-   "fn": "check_B1_potential",
-   "asserted_quantity": "Maxwell cross-relations between the thermal and mechanical channels",
-   "required_tokens": [
-    "diff"
-   ]
-  },
-  {
-   "claim_id": "CLM-B2-01",
-   "check": "B2",
-   "fn": "check_B2_ls",
-   "asserted_quantity": "the Lord-Shulman equation follows from the entropy balance plus Cattaneo",
-   "required_tokens": [
-    "tauq"
-   ]
-  },
-  {
-   "claim_id": "CLM-C1-01",
-   "check": "C1",
-   "fn": "check_C1_structure",
-   "asserted_quantity": "det M is degree 8 in xi with only even powers",
-   "required_tokens": [
-    "degree"
-   ]
-  },
-  {
-   "claim_id": "CLM-C1-02",
-   "check": "C1",
-   "fn": "check_C1_structure",
-   "asserted_quantity": "the nonzero coefficient set is {0,2,4,6,8}",
-   "required_tokens": [
-    "nonzero"
-   ]
-  },
-  {
-   "claim_id": "CLM-C1-03",
-   "check": "C1",
-   "fn": "check_C1_structure",
-   "asserted_quantity": "M(-xi) = S M(xi) S entry by entry",
-   "required_tokens": [
-    "subs"
-   ]
-  },
-  {
-   "claim_id": "CLM-C2-01",
-   "check": "C2",
-   "fn": "check_C2_branches",
-   "asserted_quantity": "the thermal branch matches the closed-form LS dispersion relation",
-   "required_tokens": [
-    "thermal (LS)",
-    "sqrt"
-   ]
-  },
-  {
-   "claim_id": "CLM-D1-01",
-   "check": "D1",
-   "fn": "check_D1_flux",
-   "asserted_quantity": "the flux reduces to 1/2 rho cL omega^2 |W|^2 in the elastic limit",
-   "required_tokens": [
-    "rho"
-   ]
-  },
-  {
-   "claim_id": "CLM-D1-02",
-   "check": "D1",
-   "fn": "check_D1_flux",
-   "asserted_quantity": "the cycle average of the real fields agrees with the phasor form",
-   "required_tokens": [
-    "cycle"
-   ]
-  },
-  {
-   "claim_id": "CLM-D1-03",
-   "check": "D1",
-   "fn": "check_D1_flux",
-   "asserted_quantity": "the thermal flux term is bilinear in q_z and Theta",
-   "required_tokens": [
-    "flux"
-   ]
-  },
-  {
-   "claim_id": "CLM-D2-02",
-   "check": "D2",
-   "fn": "check_D2_balance",
-   "asserted_quantity": "the bulk dissipation is non-negative and matches its analytic form",
-   "required_tokens": [
-    "kappa"
-   ]
-  },
-  {
-   "claim_id": "CLM-E1-01",
-   "check": "E1",
-   "fn": "check_E1_partition",
-   "asserted_quantity": "the energy partitions between mechanical, electrical and thermal channels",
-   "required_tokens": [
-    "partition"
-   ]
-  },
-  {
-   "claim_id": "CLM-F1-01",
-   "check": "F1",
-   "fn": "check_F1_passivity",
-   "asserted_quantity": "the contact dissipation quadratic forms are non-negative",
-   "required_tokens": [
-    "A @ A.T"
-   ],
-   "known_defect": "U-11-2: the sampled matrix is PSD by construction so the test cannot fail; VERIFIED_WEAK. Replaced by test_IFC01, which includes a negative control."
-  },
-  {
-   "claim_id": "CLM-F1-02",
-   "check": "F1",
-   "fn": "check_F1_passivity",
-   "asserted_quantity": "the capacitive gap is reactive, not dissipative",
-   "required_tokens": [
-    "real"
-   ],
-   "known_defect": "U-11-2 (same construction)"
-  },
-  {
-   "claim_id": "CLM-F1-03",
-   "check": "F1",
-   "fn": "check_F1_passivity",
-   "asserted_quantity": "the thermal contact dissipation is non-negative",
-   "required_tokens": [
-    "T0"
-   ],
-   "known_defect": "U-11-2 (same construction)"
-  },
-  {
-   "claim_id": "CLM-G1-01",
-   "check": "G1",
-   "fn": "check_G1_scalar",
-   "asserted_quantity": "Proposition 1 (reactive contact, passive admittance contact, quarter-wave layer) and its random-contact bound",
-   "required_tokens": [
-    "Rv"
-   ]
-  },
-  {
-   "claim_id": "CLM-G1-02",
-   "check": "G1",
-   "fn": "check_G1_scalar",
-   "asserted_quantity": "Proposition 1 (reactive contact, passive admittance contact, quarter-wave layer) and its random-contact bound",
-   "required_tokens": [
-    "Yd"
-   ]
-  },
-  {
-   "claim_id": "CLM-G1-03",
-   "check": "G1",
-   "fn": "check_G1_scalar",
-   "asserted_quantity": "Proposition 1 (reactive contact, passive admittance contact, quarter-wave layer) and its random-contact bound",
-   "required_tokens": [
-    "Yd"
-   ]
-  },
-  {
-   "claim_id": "CLM-G1-04",
-   "check": "G1",
-   "fn": "check_G1_scalar",
-   "asserted_quantity": "Proposition 1 (reactive contact, passive admittance contact, quarter-wave layer) and its random-contact bound",
-   "required_tokens": [
-    "Zl"
-   ]
-  },
-  {
-   "claim_id": "CLM-G1-05",
-   "check": "G1",
-   "fn": "check_G1_scalar",
-   "asserted_quantity": "Proposition 1 (reactive contact, passive admittance contact, quarter-wave layer) and its random-contact bound",
-   "required_tokens": [
-    "worst_c"
-   ]
-  },
-  {
-   "claim_id": "CLM-H1-01",
-   "check": "H1",
-   "fn": "check_H1_stability",
-   "asserted_quantity": "no accepted medium violates the structural stability conditions",
-   "required_tokens": [
-    "eigvalsh"
-   ]
-  },
-  {
-   "claim_id": "CLM-I1-01",
-   "check": "I1",
-   "fn": "check_I1_elastic_psv",
-   "asserted_quantity": "every accepted root is passive (no growing mode)",
-   "required_tokens": [
-    "flux"
-   ]
-  },
-  {
-   "claim_id": "CLM-I2-01",
-   "check": "I2",
-   "fn": "check_I2_interface_rank",
-   "asserted_quantity": "the interface operator has full rank 8",
-   "required_tokens": [
-    "rank"
-   ],
-   "known_defect": "the function returns a hardcoded 'PASS' string and discards the computed rank; the assertion is not gated on it. Retained as evidence; the real measurement is in test_IFC02."
-  },
-  {
-   "claim_id": "CLM-J1-01",
-   "check": "J1",
-   "fn": "check_J1_reduction_chain",
-   "asserted_quantity": "det M factorises exactly at e = p = 0",
-   "required_tokens": [
-    "det"
-   ]
-  },
-  {
-   "claim_id": "CLM-J1-02",
-   "check": "J1",
-   "fn": "check_J1_reduction_chain",
-   "asserted_quantity": "the isotropic limit reproduces the textbook P and S factors",
-   "required_tokens": [
-    "factor"
-   ]
-  },
-  {
-   "claim_id": "CLM-J2-01",
-   "check": "J2",
-   "fn": "check_J2_elastic_reference",
-   "asserted_quantity": "the elastic solver reproduces the Fresnel coefficient",
-   "required_tokens": [
-    "fresnel"
-   ]
-  },
-  {
-   "claim_id": "CLM-J2-02",
-   "check": "J2",
-   "fn": "check_J2_elastic_reference",
-   "asserted_quantity": "R + T = 1 across an angle sweep",
-   "required_tokens": [
-    "residual"
-   ]
-  },
-  {
-   "claim_id": "CLM-CDX-01",
-   "check": "C2",
-   "fn": "check_C2_branches",
-   "asserted_quantity": "the CdSe thermal root with the sourced tau_q",
-   "required_tokens": [
-    "thermal (LS)"
-   ]
-  },
-  {
-   "claim_id": "CLM-LIT-01",
-   "check": "LIT",
-   "fn": null,
-   "asserted_quantity": "the reference list carries resolvable DOIs and metadata",
-   "required_tokens": [
-    "doi"
-   ],
-   "file": "literature/verified_references.csv",
-   "binding_kind": "data_file"
-  },
-  {
-   "claim_id": "CLM-MAT-01",
-   "check": "MAT01",
-   "fn": "test_MAT01_material_csv_schema",
-   "asserted_quantity": "every constant has complete, legal provenance metadata",
-   "required_tokens": [
-    "status"
-   ],
-   "file": "validation/tests/test_01_data_integrity.py"
-  },
-  {
-   "claim_id": "CLM-MAT-03",
-   "check": "MAT02",
-   "fn": "test_MAT02_no_tuned_parameter",
-   "asserted_quantity": "no constant is tuned to satisfy a validation rule",
-   "required_tokens": [
-    "CHOSEN"
-   ],
-   "file": "validation/tests/test_01_data_integrity.py"
-  },
-  {
-   "claim_id": "CLM-D2-01",
-   "check": "D2",
-   "fn": "check_D2_balance",
-   "asserted_quantity": "the local balance -2 Im(xi)<J_z> = <D> for the thermal branch",
-   "required_tokens": [
-    "_dissipation_terms_mp",
-    "flux_z_mp",
-    "check_D2_balance"
-   ]
-  },
-  {
-   "claim_id": "CLM-LS-01",
-   "check": "LS01",
-   "fn": "test_LS01_relaxation_storage",
-   "asserted_quantity": "<q.qdot> = 0 identically while <q.q> = |Q|^2/2 is non-zero, so the vanishing of one is not evidence about the other",
-   "required_tokens": [
-    "avg_qdot",
-    "avg_qq"
-   ],
-   "file": "validation/tests/test_09_ls_relaxation.py"
-  },
-  {
-   "claim_id": "CLM-02A-01",
-   "check": "MAC01",
-   "fn": "test_mac01_no_mode_with_large_im_xi_is_called_propagating",
-   "asserted_quantity": "no spatial class contradicts its own reported attenuation ratio, over 3 materials x 3 angles x 8 branches",
-   "required_tokens": [
-    "attenuation_ratio",
-    "ATTENUATION_EVANESCENT"
-   ],
-   "file": "validation/tests/test_12_modal_classification.py"
-  },
-  {
-   "claim_id": "CLM-02A-02",
-   "check": "MAC07",
-   "fn": "test_mac07_halfspace_screening_is_permitted_direction",
-   "asserted_quantity": "gauges appear only in gauge_excluded; lossless modes are admissible on both sides AND carry a flux-derived direction",
-   "required_tokens": [
-    "gauge_excluded",
-    "non_decaying",
-    "TRAVELS_"
-   ],
-   "file": "validation/tests/test_12_modal_classification.py"
-  },
-  {
-   "claim_id": "CLM-02A-03",
-   "check": "INV03",
-   "fn": "test_inv03_energy_identity_for_lossless_modes",
-   "asserted_quantity": "for Im(xi)=0 branches, sign(J_z) equals sign(Re xi) with c = sqrt(mu/rho) > 0",
-   "required_tokens": [
-    "c = mp.sqrt(mu / rho)",
-    "jz > 0"
-   ],
-   "file": "validation/tests/test_13_inventory_integrity.py"
-  },
-  {
-   "claim_id": "CLM-02A-04",
-   "check": "INV01",
-   "fn": "test_inv01_every_row_matches_its_branch",
-   "asserted_quantity": "all 120 exported rows match an independent recomputation of root, flux, class, direction, admissibility and confidence",
-   "required_tokens": [
-    "validate_inventory",
-    "_rows"
-   ],
-   "file": "validation/tests/test_13_inventory_integrity.py"
-  },
-  {
-   "claim_id": "CLM-02A-05",
-   "check": "SCTA01",
-   "fn": "test_SCTA01_reduced_elastic_matches_independent_oracle",
-   "asserted_quantity": "all four complex P-SV amplitudes against the independent reference",
-   "required_tokens": [
-    "assemble_reduced_elastic"
-   ],
-   "file": "validation/tests/test_14_scattering_task2.py"
-  },
-  {
-   "claim_id": "CLM-02A-06",
-   "check": "SCTA02",
-   "fn": "test_SCTA02_dof_counted_not_assumed",
-   "asserted_quantity": "unknown count equals the admitted-mode count",
-   "required_tokens": [
-    "n_unknowns",
-    "admitted"
-   ],
-   "file": "validation/tests/test_14_scattering_task2.py"
-  },
-  {
-   "claim_id": "CLM-02A-07",
-   "check": "SCTA03",
-   "fn": "test_SCTA03_gauge_vs_electrostatic",
-   "asserted_quantity": "D_z = -eps33*xi*phi distinguishes electrostatic from gauge",
-   "required_tokens": [
-    "ELECTROSTATIC",
-    "eps33"
-   ],
-   "file": "validation/tests/test_14_scattering_task2.py"
-  },
-  {
-   "claim_id": "CLM-02A-08",
-   "check": "SCTA04",
-   "fn": "test_SCTA04_weak_attenuation_propagates",
-   "asserted_quantity": "attenuation per wavelength below the propagation threshold",
-   "required_tokens": [
-    "ATTENUATION_PROPAGATING"
-   ],
-   "file": "validation/tests/test_14_scattering_task2.py"
-  },
-  {
-   "claim_id": "CLM-02A-09",
-   "check": "SCTA05",
-   "fn": "test_SCTA05_interface_continuity_and_rescaling",
-   "asserted_quantity": "interface residual and rescaling invariance",
-   "required_tokens": [
-    "interface_residual_max",
-    "rescale_verdict"
-   ],
-   "file": "validation/tests/test_14_scattering_task2.py"
-  },
-  {
-   "claim_id": "CLM-02A-10",
-   "check": "SCTA06",
-   "fn": "test_SCTA06_coupled_is_labelled_diagnostic",
-   "asserted_quantity": "the DIAGNOSTIC label on coupled amplitudes",
-   "required_tokens": [
-    "EVIDENCE_LABEL"
-   ],
-   "file": "validation/tests/test_14_scattering_task2.py"
-  }
- ],
- "negative_bindings": [
-  {
-   "claim_id": "CLM-C1-05",
-   "reason": "INVALID: the claim asserts a symmetry the matrix does not have. There must be no executable evidence for it.",
-   "expected": "no binding"
-  },
-  {
-   "claim_id": "CLM-H1-02",
-   "reason": "INVALID: the withdrawn tau_q causality floor. Retained deliberately.",
-   "expected": "no binding"
-  },
-  {
-   "claim_id": "CLM-C1-06",
-   "reason": "UNVERIFIED in Phase 1; the block structure is now genuinely computed by test_EIG04.",
-   "expected": "no binding in this file",
-   "superseded_by_evidence": "validation/tests/test_02_equations.py::test_EIG04_block_structure_is_real"
-  },
-  {
-   "claim_id": "CLM-D2-01",
-   "reason": "UNRESOLVED: the local balance closes in an independent evaluation but not through the production null-vector path (BLK-U3).",
-   "expected": "no binding"
-  },
-  {
-   "claim_id": "CLM-LIT-02",
-   "reason": "UNVERIFIED: no full text was read (BLK-G0).",
-   "expected": "no binding"
-  },
-  {
-   "claim_id": "CLM-MAT-02",
-   "reason": "UNVERIFIED: beta and p are ASSUMED (BLK-G1).",
-   "expected": "no binding"
-  },
-  {
-   "claim_id": "CLM-FIG-01",
-   "reason": "UNVERIFIED: figures fig1-fig3 have no regeneration test until Level 3 runs. The registry id chosen at audit time was FIG.",
-   "expected": "no binding"
-  },
-  {
-   "claim_id": "CLM-C1-04",
-   "reason": "UNVERIFIED: the null-space assertion is no longer executed anywhere (U-11-1). The binding was deliberately REMOVED rather than corrected, so the claim cannot be reported VERIFIED by accident. A binding must never exist for a claim whose calculation is absent.",
-   "expected": "no binding",
-   "superseded_by_evidence": "validation/tests/test_02_equations.py::test_EIG03_null_space_is_real"
-  }
- ],
- "policy": [
-  "A claim whose binding resolves to TOKEN_MISSING or FUNCTION_MISSING is forcibly reported as UNVERIFIED by validation/tests/test_04_claim_binding.py, and the Level 1 run fails.",
-  "Removing a binding for a VERIFIED claim is itself a failure: the claim must be downgraded in the same commit.",
-  "This file is the ONLY place a claim is allowed to be bound to a test. The csv records the status; this file records what makes the status true."
- ]
+  "bindings": [
+    {
+      "claim_id": "CLM-A1-01",
+      "check": "A1",
+      "fn": "check_A1_tensor",
+      "asserted_quantity": "major and minor symmetry of the stiffness tensor",
+      "required_tokens": [
+        "transpose"
+      ]
+    },
+    {
+      "claim_id": "CLM-A1-02",
+      "check": "A1",
+      "fn": "check_A1_tensor",
+      "asserted_quantity": "positive definiteness of C and eps",
+      "required_tokens": [
+        "eigvalsh"
+      ]
+    },
+    {
+      "claim_id": "CLM-A1-03",
+      "check": "H1",
+      "fn": "check_H1_stability",
+      "asserted_quantity": "structural stability conditions hold for all four media",
+      "required_tokens": [
+        "n_exec"
+      ]
+    },
+    {
+      "claim_id": "CLM-A2-01",
+      "check": "A2",
+      "fn": "check_A2_dimensions",
+      "asserted_quantity": "dimensional consistency of the characteristic-matrix terms",
+      "required_tokens": [
+        "terms"
+      ]
+    },
+    {
+      "claim_id": "CLM-A2-02",
+      "check": "A2",
+      "fn": "check_A2_dimensions",
+      "asserted_quantity": "zero mismatches between assembled terms and their targets",
+      "required_tokens": [
+        "mismatch"
+      ]
+    },
+    {
+      "claim_id": "CLM-B1-01",
+      "check": "B1",
+      "fn": "check_B1_potential",
+      "asserted_quantity": "all six constitutive relations follow from one potential",
+      "required_tokens": [
+        "diff"
+      ]
+    },
+    {
+      "claim_id": "CLM-B1-02",
+      "check": "B1",
+      "fn": "check_B1_potential",
+      "asserted_quantity": "Maxwell cross-relations between the thermal and mechanical channels",
+      "required_tokens": [
+        "diff"
+      ]
+    },
+    {
+      "claim_id": "CLM-B2-01",
+      "check": "B2",
+      "fn": "check_B2_ls",
+      "asserted_quantity": "the Lord-Shulman equation follows from the entropy balance plus Cattaneo",
+      "required_tokens": [
+        "tauq"
+      ]
+    },
+    {
+      "claim_id": "CLM-C1-01",
+      "check": "C1",
+      "fn": "check_C1_structure",
+      "asserted_quantity": "det M is degree 8 in xi with only even powers",
+      "required_tokens": [
+        "degree"
+      ]
+    },
+    {
+      "claim_id": "CLM-C1-02",
+      "check": "C1",
+      "fn": "check_C1_structure",
+      "asserted_quantity": "the nonzero coefficient set is {0,2,4,6,8}",
+      "required_tokens": [
+        "nonzero"
+      ]
+    },
+    {
+      "claim_id": "CLM-C1-03",
+      "check": "C1",
+      "fn": "check_C1_structure",
+      "asserted_quantity": "M(-xi) = S M(xi) S entry by entry",
+      "required_tokens": [
+        "subs"
+      ]
+    },
+    {
+      "claim_id": "CLM-C2-01",
+      "check": "C2",
+      "fn": "check_C2_branches",
+      "asserted_quantity": "the thermal branch matches the closed-form LS dispersion relation",
+      "required_tokens": [
+        "thermal (LS)",
+        "sqrt"
+      ]
+    },
+    {
+      "claim_id": "CLM-D1-01",
+      "check": "D1",
+      "fn": "check_D1_flux",
+      "asserted_quantity": "the flux reduces to 1/2 rho cL omega^2 |W|^2 in the elastic limit",
+      "required_tokens": [
+        "rho"
+      ]
+    },
+    {
+      "claim_id": "CLM-D1-02",
+      "check": "D1",
+      "fn": "check_D1_flux",
+      "asserted_quantity": "the cycle average of the real fields agrees with the phasor form",
+      "required_tokens": [
+        "cycle"
+      ]
+    },
+    {
+      "claim_id": "CLM-D1-03",
+      "check": "D1",
+      "fn": "check_D1_flux",
+      "asserted_quantity": "the thermal flux term is bilinear in q_z and Theta",
+      "required_tokens": [
+        "flux"
+      ]
+    },
+    {
+      "claim_id": "CLM-D2-02",
+      "check": "D2",
+      "fn": "check_D2_balance",
+      "asserted_quantity": "the bulk dissipation is non-negative and matches its analytic form",
+      "required_tokens": [
+        "kappa"
+      ]
+    },
+    {
+      "claim_id": "CLM-E1-01",
+      "check": "E1",
+      "fn": "check_E1_partition",
+      "asserted_quantity": "the energy partitions between mechanical, electrical and thermal channels",
+      "required_tokens": [
+        "partition"
+      ]
+    },
+    {
+      "claim_id": "CLM-F1-01",
+      "check": "F1",
+      "fn": "check_F1_passivity",
+      "asserted_quantity": "the contact dissipation quadratic forms are non-negative",
+      "required_tokens": [
+        "A @ A.T"
+      ],
+      "known_defect": "U-11-2: the sampled matrix is PSD by construction so the test cannot fail; VERIFIED_WEAK. Replaced by test_IFC01, which includes a negative control."
+    },
+    {
+      "claim_id": "CLM-F1-02",
+      "check": "F1",
+      "fn": "check_F1_passivity",
+      "asserted_quantity": "the capacitive gap is reactive, not dissipative",
+      "required_tokens": [
+        "real"
+      ],
+      "known_defect": "U-11-2 (same construction)"
+    },
+    {
+      "claim_id": "CLM-F1-03",
+      "check": "F1",
+      "fn": "check_F1_passivity",
+      "asserted_quantity": "the thermal contact dissipation is non-negative",
+      "required_tokens": [
+        "T0"
+      ],
+      "known_defect": "U-11-2 (same construction)"
+    },
+    {
+      "claim_id": "CLM-G1-01",
+      "check": "G1",
+      "fn": "check_G1_scalar",
+      "asserted_quantity": "Proposition 1 (reactive contact, passive admittance contact, quarter-wave layer) and its random-contact bound",
+      "required_tokens": [
+        "Rv"
+      ]
+    },
+    {
+      "claim_id": "CLM-G1-02",
+      "check": "G1",
+      "fn": "check_G1_scalar",
+      "asserted_quantity": "Proposition 1 (reactive contact, passive admittance contact, quarter-wave layer) and its random-contact bound",
+      "required_tokens": [
+        "Yd"
+      ]
+    },
+    {
+      "claim_id": "CLM-G1-03",
+      "check": "G1",
+      "fn": "check_G1_scalar",
+      "asserted_quantity": "Proposition 1 (reactive contact, passive admittance contact, quarter-wave layer) and its random-contact bound",
+      "required_tokens": [
+        "Yd"
+      ]
+    },
+    {
+      "claim_id": "CLM-G1-04",
+      "check": "G1",
+      "fn": "check_G1_scalar",
+      "asserted_quantity": "Proposition 1 (reactive contact, passive admittance contact, quarter-wave layer) and its random-contact bound",
+      "required_tokens": [
+        "Zl"
+      ]
+    },
+    {
+      "claim_id": "CLM-G1-05",
+      "check": "G1",
+      "fn": "check_G1_scalar",
+      "asserted_quantity": "Proposition 1 (reactive contact, passive admittance contact, quarter-wave layer) and its random-contact bound",
+      "required_tokens": [
+        "worst_c"
+      ]
+    },
+    {
+      "claim_id": "CLM-H1-01",
+      "check": "H1",
+      "fn": "check_H1_stability",
+      "asserted_quantity": "no accepted medium violates the structural stability conditions",
+      "required_tokens": [
+        "eigvalsh"
+      ]
+    },
+    {
+      "claim_id": "CLM-I1-01",
+      "check": "I1",
+      "fn": "check_I1_elastic_psv",
+      "asserted_quantity": "every accepted root is passive (no growing mode)",
+      "required_tokens": [
+        "flux"
+      ]
+    },
+    {
+      "claim_id": "CLM-I2-01",
+      "check": "I2",
+      "fn": "check_I2_interface_rank",
+      "asserted_quantity": "the interface operator has full rank 8",
+      "required_tokens": [
+        "rank"
+      ],
+      "known_defect": "the function returns a hardcoded 'PASS' string and discards the computed rank; the assertion is not gated on it. Retained as evidence; the real measurement is in test_IFC02."
+    },
+    {
+      "claim_id": "CLM-J1-01",
+      "check": "J1",
+      "fn": "check_J1_reduction_chain",
+      "asserted_quantity": "det M factorises exactly at e = p = 0",
+      "required_tokens": [
+        "det"
+      ]
+    },
+    {
+      "claim_id": "CLM-J1-02",
+      "check": "J1",
+      "fn": "check_J1_reduction_chain",
+      "asserted_quantity": "the isotropic limit reproduces the textbook P and S factors",
+      "required_tokens": [
+        "factor"
+      ]
+    },
+    {
+      "claim_id": "CLM-J2-01",
+      "check": "J2",
+      "fn": "check_J2_elastic_reference",
+      "asserted_quantity": "the elastic solver reproduces the Fresnel coefficient",
+      "required_tokens": [
+        "fresnel"
+      ]
+    },
+    {
+      "claim_id": "CLM-J2-02",
+      "check": "J2",
+      "fn": "check_J2_elastic_reference",
+      "asserted_quantity": "R + T = 1 across an angle sweep",
+      "required_tokens": [
+        "residual"
+      ]
+    },
+    {
+      "claim_id": "CLM-CDX-01",
+      "check": "C2",
+      "fn": "check_C2_branches",
+      "asserted_quantity": "the CdSe thermal root with the sourced tau_q",
+      "required_tokens": [
+        "thermal (LS)"
+      ]
+    },
+    {
+      "claim_id": "CLM-LIT-01",
+      "check": "LIT",
+      "fn": null,
+      "asserted_quantity": "the reference list carries resolvable DOIs and metadata",
+      "required_tokens": [
+        "doi"
+      ],
+      "file": "literature/verified_references.csv",
+      "binding_kind": "data_file"
+    },
+    {
+      "claim_id": "CLM-MAT-01",
+      "check": "MAT01",
+      "fn": "test_MAT01_material_csv_schema",
+      "asserted_quantity": "every constant has complete, legal provenance metadata",
+      "required_tokens": [
+        "status"
+      ],
+      "file": "validation/tests/test_01_data_integrity.py"
+    },
+    {
+      "claim_id": "CLM-MAT-03",
+      "check": "MAT02",
+      "fn": "test_MAT02_no_tuned_parameter",
+      "asserted_quantity": "no constant is tuned to satisfy a validation rule",
+      "required_tokens": [
+        "CHOSEN"
+      ],
+      "file": "validation/tests/test_01_data_integrity.py"
+    },
+    {
+      "claim_id": "CLM-D2-01",
+      "check": "D2",
+      "fn": "check_D2_balance",
+      "asserted_quantity": "the local balance -2 Im(xi)<J_z> = <D> for the thermal branch",
+      "required_tokens": [
+        "_dissipation_terms_mp",
+        "flux_z_mp",
+        "check_D2_balance"
+      ]
+    },
+    {
+      "claim_id": "CLM-LS-01",
+      "check": "LS01",
+      "fn": "test_LS01_relaxation_storage",
+      "asserted_quantity": "<q.qdot> = 0 identically while <q.q> = |Q|^2/2 is non-zero, so the vanishing of one is not evidence about the other",
+      "required_tokens": [
+        "avg_qdot",
+        "avg_qq"
+      ],
+      "file": "validation/tests/test_09_ls_relaxation.py"
+    },
+    {
+      "claim_id": "CLM-02A-01",
+      "check": "MAC01",
+      "fn": "test_mac01_no_mode_with_large_im_xi_is_called_propagating",
+      "asserted_quantity": "no spatial class contradicts its own reported attenuation ratio, over 3 materials x 3 angles x 8 branches",
+      "required_tokens": [
+        "attenuation_ratio",
+        "ATTENUATION_EVANESCENT"
+      ],
+      "file": "validation/tests/test_12_modal_classification.py"
+    },
+    {
+      "claim_id": "CLM-02A-02",
+      "check": "MAC07",
+      "fn": "test_mac07_halfspace_screening_is_permitted_direction",
+      "asserted_quantity": "gauges appear only in gauge_excluded; lossless modes are admissible on both sides AND carry a flux-derived direction",
+      "required_tokens": [
+        "gauge_excluded",
+        "non_decaying",
+        "TRAVELS_"
+      ],
+      "file": "validation/tests/test_12_modal_classification.py"
+    },
+    {
+      "claim_id": "CLM-02A-03",
+      "check": "INV03",
+      "fn": "test_inv03_energy_identity_for_lossless_modes",
+      "asserted_quantity": "for Im(xi)=0 branches, sign(J_z) equals sign(Re xi) with c = sqrt(mu/rho) > 0",
+      "required_tokens": [
+        "c = mp.sqrt(mu / rho)",
+        "jz > 0"
+      ],
+      "file": "validation/tests/test_13_inventory_integrity.py"
+    },
+    {
+      "claim_id": "CLM-02A-04",
+      "check": "INV01",
+      "fn": "test_inv01_every_row_matches_its_branch",
+      "asserted_quantity": "all 120 exported rows match an independent recomputation of root, flux, class, direction, admissibility and confidence",
+      "required_tokens": [
+        "validate_inventory",
+        "_rows"
+      ],
+      "file": "validation/tests/test_13_inventory_integrity.py"
+    },
+    {
+      "claim_id": "CLM-02A-05",
+      "check": "SCTA01",
+      "fn": "test_SCTA01_reduced_elastic_matches_independent_oracle",
+      "asserted_quantity": "all four complex P-SV amplitudes against the independent reference",
+      "required_tokens": [
+        "assemble_reduced_elastic"
+      ],
+      "file": "validation/tests/test_14_scattering_task2.py"
+    },
+    {
+      "claim_id": "CLM-02A-06",
+      "check": "SCTA02",
+      "fn": "test_SCTA02_dof_counted_not_assumed",
+      "asserted_quantity": "unknown count equals the admitted-mode count",
+      "required_tokens": [
+        "n_unknowns",
+        "admitted"
+      ],
+      "file": "validation/tests/test_14_scattering_task2.py"
+    },
+    {
+      "claim_id": "CLM-02A-07",
+      "check": "SCTA03",
+      "fn": "test_SCTA03_gauge_vs_electrostatic",
+      "asserted_quantity": "D_z = -eps33*xi*phi distinguishes electrostatic from gauge",
+      "required_tokens": [
+        "ELECTROSTATIC",
+        "eps33"
+      ],
+      "file": "validation/tests/test_14_scattering_task2.py"
+    },
+    {
+      "claim_id": "CLM-02A-08",
+      "check": "SCTA04",
+      "fn": "test_SCTA04_weak_attenuation_propagates",
+      "asserted_quantity": "attenuation per wavelength below the propagation threshold",
+      "required_tokens": [
+        "ATTENUATION_PROPAGATING"
+      ],
+      "file": "validation/tests/test_14_scattering_task2.py"
+    },
+    {
+      "claim_id": "CLM-02A-09",
+      "check": "SCTA05",
+      "fn": "test_SCTA05_interface_continuity_and_rescaling",
+      "asserted_quantity": "interface residual and rescaling invariance",
+      "required_tokens": [
+        "interface_residual_max",
+        "rescale_verdict"
+      ],
+      "file": "validation/tests/test_14_scattering_task2.py"
+    },
+    {
+      "claim_id": "CLM-02A-10",
+      "check": "SCTA06",
+      "fn": "test_SCTA06_coupled_is_labelled_diagnostic",
+      "asserted_quantity": "the DIAGNOSTIC label on coupled amplitudes",
+      "required_tokens": [
+        "EVIDENCE_LABEL"
+      ],
+      "file": "validation/tests/test_14_scattering_task2.py"
+    },
+    {
+      "claim_id": "CLM-02A-11",
+      "check": "SCTR01",
+      "fn": "test_SCTR01_shear_rows_not_removed",
+      "file": "validation/tests/test_15_scattering_task2r.py",
+      "asserted_quantity": "the u_x and txz rows survive a shear-incidence reduction",
+      "required_tokens": [
+        "rows_kept",
+        "txz",
+        "sv_nonzero_ux",
+        "mixed_resid"
+      ]
+    },
+    {
+      "claim_id": "CLM-02A-12",
+      "check": "SCTR06",
+      "fn": "test_SCTR06_identical_medium_reflection_is_zero",
+      "file": "validation/tests/test_15_scattering_task2r.py",
+      "asserted_quantity": "matched media do not reflect and the system is square full rank",
+      "required_tokens": [
+        "fresnel_normal_amplitudes",
+        "refl_max",
+        "cont",
+        "norms"
+      ]
+    },
+    {
+      "claim_id": "CLM-02A-13",
+      "check": "SCTR05",
+      "fn": "test_SCTR05_gauge_is_not_nonuniqueness",
+      "file": "validation/tests/test_15_scattering_task2r.py",
+      "asserted_quantity": "a potential row is gauge, not a boundary condition",
+      "required_tokens": [
+        "rows_gauge_only",
+        "mixed_resid",
+        "gauge_flagged"
+      ]
+    }
+  ],
+  "negative_bindings": [
+    {
+      "claim_id": "CLM-C1-05",
+      "reason": "INVALID: the claim asserts a symmetry the matrix does not have. There must be no executable evidence for it.",
+      "expected": "no binding"
+    },
+    {
+      "claim_id": "CLM-H1-02",
+      "reason": "INVALID: the withdrawn tau_q causality floor. Retained deliberately.",
+      "expected": "no binding"
+    },
+    {
+      "claim_id": "CLM-C1-06",
+      "reason": "UNVERIFIED in Phase 1; the block structure is now genuinely computed by test_EIG04.",
+      "expected": "no binding in this file",
+      "superseded_by_evidence": "validation/tests/test_02_equations.py::test_EIG04_block_structure_is_real"
+    },
+    {
+      "claim_id": "CLM-D2-01",
+      "reason": "UNRESOLVED: the local balance closes in an independent evaluation but not through the production null-vector path (BLK-U3).",
+      "expected": "no binding"
+    },
+    {
+      "claim_id": "CLM-LIT-02",
+      "reason": "UNVERIFIED: no full text was read (BLK-G0).",
+      "expected": "no binding"
+    },
+    {
+      "claim_id": "CLM-MAT-02",
+      "reason": "UNVERIFIED: beta and p are ASSUMED (BLK-G1).",
+      "expected": "no binding"
+    },
+    {
+      "claim_id": "CLM-FIG-01",
+      "reason": "UNVERIFIED: figures fig1-fig3 have no regeneration test until Level 3 runs. The registry id chosen at audit time was FIG.",
+      "expected": "no binding"
+    },
+    {
+      "claim_id": "CLM-C1-04",
+      "reason": "UNVERIFIED: the null-space assertion is no longer executed anywhere (U-11-1). The binding was deliberately REMOVED rather than corrected, so the claim cannot be reported VERIFIED by accident. A binding must never exist for a claim whose calculation is absent.",
+      "expected": "no binding",
+      "superseded_by_evidence": "validation/tests/test_02_equations.py::test_EIG03_null_space_is_real"
+    }
+  ],
+  "policy": [
+    "A claim whose binding resolves to TOKEN_MISSING or FUNCTION_MISSING is forcibly reported as UNVERIFIED by validation/tests/test_04_claim_binding.py, and the Level 1 run fails.",
+    "Removing a binding for a VERIFIED claim is itself a failure: the claim must be downgraded in the same commit.",
+    "This file is the ONLY place a claim is allowed to be bound to a test. The csv records the status; this file records what makes the status true."
+  ]
 }
