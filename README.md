@@ -135,3 +135,118 @@ Recommended: **Option A** (two half-spaces + imperfect interface), 8.52/10.
 - `data/check_05_dispute_resolution.json`, `data/check_05_log.txt`
 
 Run: `python3 code/check_05_dispute_resolution.py` (~7 s).
+
+---
+
+# Phase 1 (Blueprint V5.0) — Foundation deliverables and reproduction
+
+> **STATUS: PHASE 1 COMPLETE, NOT APPROVED.** No reflection, transmission or
+> absorption coefficient is reported anywhere in Phase 1, and **no novelty
+> claim is made**. See [`reports/UNRESOLVED_ISSUES.md`](reports/UNRESOLVED_ISSUES.md).
+
+Phase 1 implements the theoretical foundation demanded by Blueprint V5.0 §3–§7.
+It stops before any numerical scattering experiment.
+
+## What was produced
+
+| Path | Content |
+|---|---|
+| [`blueprint/Piezothermoelastic_AntiReflection_Master_Blueprint_V5.tex`](blueprint/Piezothermoelastic_AntiReflection_Master_Blueprint_V5.tex) | Faithful LaTeX transcription of the V5.0 blueprint (source text only — **not compiled**, no TeX engine available) |
+| [`literature/verified_references.csv`](literature/verified_references.csv) | 10 Crossref-verified records, R02–R11, 15 columns. Every row `read_status = metadata only` |
+| [`literature/material_constants.csv`](literature/material_constants.csv) | 80 constitutive constants, 4 materials, each tagged VERIFIED / ASSUMED / DERIVED / ZERO / CHOSEN_ABOVE_CAUSAL_FLOOR |
+| [`literature/research_gap_matrix.md`](literature/research_gap_matrix.md) | 3 direct competitors, 6 candidate gaps (all UNRESOLVED), 7 closed derived results |
+| [`theory/governing_equations.tex`](theory/governing_equations.tex) | Single-potential 6 mm piezothermoelastic formulation, Lord–Shulman conduction, stability conditions |
+| [`theory/interface_conditions.tex`](theory/interface_conditions.tex) | Spring–dashpot, capacitive-gap and thermal-conductance contact laws; dissipations; the `h → 0` interphase map |
+| [`theory/characteristic_matrix.tex`](theory/characteristic_matrix.tex) | The 4×4 `M(ξ,k,ω)`, its exact `det M`, parity, block structure, gauge roots, branch inventory |
+| [`theory/energy_flux_derivation.tex`](theory/energy_flux_derivation.tex) | Normal total-field flux, bulk positivity, interface dissipation, the composite power balance from which `R + T + A = 1` *follows* |
+| [`validation/benchmark_plan.md`](validation/benchmark_plan.md) | All 19 benchmarks + 3 energy gates, each with expected value, source, acceptance rule and honest status |
+| [`reports/UNRESOLVED_ISSUES.md`](reports/UNRESOLVED_ISSUES.md) | 9 self-corrected errors and 10 open items, with what each one blocks |
+| [`code/foundation_checks.py`](code/foundation_checks.py) | The 13-check automated suite (output in [`data/foundation_checks.json`](data/foundation_checks.json)) |
+
+## Reproducing the foundation checks
+
+```bash
+pip install --break-system-packages numpy sympy mpmath
+python3 code/foundation_checks.py          # ~4 s, writes data/foundation_checks.json
+```
+
+Expected final line:
+
+```
+foundation_checks: 13 PASS, 0 FAIL, 13 total
+```
+
+Exit status 0. The suite is self-contained: it needs no network, no input files
+beyond `code/det_coeffs.json` (a cached exact coefficient set, regenerated
+symbolically in ~4 s if deleted), and no TeX engine.
+
+### What the 13 checks test
+
+| Check | Tests | Independent reference? |
+|---|---|---|
+| A1 | Material tensor symmetry and thermodynamic stability | no — internal |
+| A2 | SI dimensional consistency of every entry of `M` | yes — dimensional analysis |
+| B1 | Constitutive set derives from **one** potential (Maxwell bracketing) | yes — potential identity |
+| B2 | Lord–Shulman heat equation from the entropy balance | yes — entropy balance |
+| C1 | `det M` degree 8, even in ξ, block structure, gauge root | yes — symbolic structure |
+| C2 | 8 roots: branch identification and eigen residual (2.2e-27) | no — internal |
+| D1 | Energy flux, **two independent routes**, plus antisymmetry | yes — direct cycle average |
+| E1 | Flux conservation along z for each mode | yes — analytic decay |
+| F1 | Interface passivity and equation count | yes — non-negative quadratic forms |
+| G1 | Fresnel, Proposition 1(a)(b)(c), quarter-wave | **yes — closed forms** |
+| H1 | Thermodynamic stability + Lord–Shulman causality floor | yes — derived bound |
+| I1 | Exact roots vs closed-form elastic branches | **yes — external (24 cases, 1.65e-15)** |
+| I2 | Interface independent-equation count and rank | no — internal |
+
+Four checks (D1, G1, I1, and the flux half of E1) compare against references that
+are external to the code, which is the minimum for calling them validation rather
+than self-consistency.
+
+## Two results worth naming
+
+**The exact determinant.** For 6 mm symmetry the characteristic determinant is
+`det M = P₄(ξ²)`, with powers `{0,2,4,6,8}` and leading coefficient
+
+```
+P₈ = −C₄₄ · κ₃₃ · (C₃₃ · ε₃₃ + e₃₃²)
+```
+
+so the piezoelectrically stiffened 1-D modulus `C₃₃ + e₃₃²/ε₃₃` appears in the
+highest-order coefficient. Verified symbolically, not asserted.
+
+**A causality floor nobody was checking.** Lord–Shulman conduction admits a thermal
+wave, and requiring it not to be superluminal gives
+
+```
+τ_q  ≥  τ_q,min  =  κ / (ρ c_E c_L²)
+```
+
+At `1 MHz` the four materials give 2.83e-14 / 1.45e-14 / 1.73e-12 / 4.67e-13 s
+(PZT-5H / BaTiO₃ / Al6061 / CdSe). The CdSe working value inherited from the
+earlier audit, `1.0e-13 s`, was **below its own floor** and has been withdrawn;
+the value now used is `5.0e-13 s` (ratio 1.07). Check H1 now computes the ratio for
+every material and fails if any is below 1.
+
+## What Phase 1 did not do
+
+Stated plainly, because the gates demand it:
+
+- **No coupled scattering solve.** No `R`, `T` or `A` was computed for any
+  configuration. Gate G5/E3 is `UNAVAILABLE`. The amplitude normalisation of the
+  mode-matching system could not be validated, so the attempt was withdrawn rather
+  than tuned (U-3).
+- **No full-text prior-art check.** All ten references are metadata-only, so gate
+  G0 is not passed and the "candidate gaps" are questions, not findings.
+- **No novelty claim.**
+- **The `.tex` files were not compiled** — no TeX engine is installed. They are
+  text-verified only.
+- **No anti-reflection curve, parameter search, or optimised contact.**
+
+## A note on the nine corrected errors
+
+`reports/UNRESOLVED_ISSUES.md` Part 1 lists nine real defects in this phase's own
+work, each found by running the checks rather than by review. Three were the
+dangerous kind that produce a *silently wrong* answer instead of a visible failure:
+a validation check that reported `PASS` after executing zero cases, an eigenvector
+normalisation that mixed metres with volts, and a causality constraint that was
+computed but never tested. All three are now guarded in code.

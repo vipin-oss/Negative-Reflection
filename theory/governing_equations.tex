@@ -1,0 +1,415 @@
+% =====================================================================
+%  theory/governing_equations.tex
+%  Phase 1, Blueprint V5.0, Task C
+%
+%  Derivation of the bulk piezothermoelastic system from ONE thermodynamic
+%  potential, with intermediate steps, sign conventions, stability conditions
+%  and a dimensional audit.
+%
+%  SOURCE-ONLY: no TeX engine is installed in this environment. This file has
+%  been inspected as text and its symbolic content is verified by
+%  code/foundation_checks.py (checks B1 and B2). It has NOT been compiled.
+% =====================================================================
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,bm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\newcommand{\s}{\sigma}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\bth}{\vartheta}
+\newcommand{\D}{\bm{D}}
+\newcommand{\E}{\bm{E}}
+\newcommand{\bu}{\bm{u}}
+\newcommand{\bq}{\bm{q}}
+\theoremstyle{plain}
+\newtheorem{remark}{Remark}
+\newtheorem{proposition}{Proposition}
+
+\title{Bulk piezothermoelastic formulation from a single thermodynamic potential\\
+\large Theory note 1 of 4 --- Phase 1, Blueprint V5.0}
+\author{Derived for the Piezothermoelastic Anti-Reflection programme}
+\date{4 November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This note derives the coupled piezothermoelastic field equations --- kinematics,
+constitutive relations, momentum balance, Gauss law and the Lord--Shulman heat
+equation --- from a single quadratic Helmholtz free-energy density. It is
+deliberately written as a chain of small steps so that every sign can be checked
+against its generating term. Two structural points are made that the working
+blueprint lists as requiring independent verification: (i) the operator
+$(1+\tau_q\partial_t)$ in the Lord--Shulman equation multiplies the \emph{whole}
+bracket, including the pyroelectric term, and this is a consequence of a single
+Cattaneo flux law rather than a modelling choice; (ii) the pyroelectric
+coefficient enters $\D$ and the entropy with opposite signs, and it is exactly
+this that closes the Maxwell cross-relations. Every relation below is labelled;
+checks B1 and B2 of \texttt{code/foundation\_checks.py} verify them symbolically.
+\end{abstract}
+
+\section{Scope, notation and status labels}
+\label{sec:scope}
+
+\paragraph{Geometry.} Cartesian $(x,y,z)$; the sagittal plane is $x$--$z$;
+the material is homogeneous in $y$, so $\partial_y \equiv 0$ (plane strain in the
+sense $\eps_{yy}=0$, $\eps_{xy}=\eps_{yz}=0$). The poling axis is $\bm{e}_3$,
+which is taken to lie \emph{in} the sagittal plane (it is $z$).
+
+\paragraph{Unknowns.} Four scalar fields,
+\begin{equation}
+  \bm{y} = (u_x,\; u_z,\; \varphi,\; \bth)^{\mathsf T},
+  \label{eq:unknowns}
+\end{equation}
+comprising two mechanical components, one electric potential and one temperature
+perturbation. These are the four fields of Blueprint Eq.~(1). Three physical
+categories (mechanical, electrical, thermal) are carried by four scalars; the
+formulation is not ``four independent physics''.
+
+\paragraph{Conventions.}
+\begin{itemize}
+  \item Time dependence $e^{-i\omega t}$. Consequently $\partial_t \to -i\omega$
+        everywhere, and a field behaving as $e^{i(\kappa x+\xi z-\omega t)}$
+        \emph{decays} in $+z$ when $\operatorname{Im}\xi>0$.
+  \item Small perturbations about a uniform reference temperature $T_0>0$:
+        $\bth \equiv T - T_0$, $|\bth|/T_0 \ll 1$.
+  \item Electric field $\E = -\nabla\varphi$, so $E_i = -\varphi_{,i}$.
+  \item Small-strain tensor $\eps_{ij} = \tfrac12(u_{i,j}+u_{j,i})$.
+  \item Voigt engineering shear $\gamma_{xz} = 2\eps_{xz} = u_{x,z}+u_{z,x}$;
+        $\s_{xz}$ is conjugate to $\gamma_{xz}$, not to $\eps_{xz}$.
+  \item Symmetry: transverse isotropy of class $6mm$ about $\bm{e}_3$, except in
+        \S\ref{sec:isotropic} where the isotropic reduction is used.
+\end{itemize}
+
+\paragraph{Status labels.} \textsc{Derived}: obtained here with the shown steps.
+\textsc{Tested}: additionally verified symbolically or numerically by
+\texttt{code/foundation\_checks.py}. \textsc{Assumed}: asserted without proof.
+\textsc{Unresolved}: open.
+
+\section{Kinematics}
+\label{sec:kinematics}
+
+With $\partial_y = 0$ the only non-zero strain components are
+\begin{equation}
+  \eps_{xx} = u_{x,x}, \qquad
+  \eps_{zz} = u_{z,z}, \qquad
+  \gamma_{xz} = u_{x,z} + u_{z,x}.
+  \label{eq:strain}
+\end{equation}
+For a partial mode $\bm{y} = \bm{a}\,e^{i(\kappa x + \xi z - \omega t)}$ with
+$\bm{a}=(U,W,\Phi,\Theta)^{\mathsf T}$, the operators become
+$\partial_x \to i\kappa$, $\partial_z \to i\xi$, and
+\begin{equation}
+  \eps_{xx} = i\kappa U, \qquad
+  \eps_{zz} = i\xi W, \qquad
+  \gamma_{xz} = i(\xi U + \kappa W),
+  \label{eq:strain-mode}
+\end{equation}
+\begin{equation}
+  E_x = -i\kappa\Phi, \qquad E_z = -i\xi\Phi.
+  \label{eq:E-mode}
+\end{equation}
+
+\section{The generating potential}
+\label{sec:potential}
+
+\subsection{Construction}
+
+Take the quadratic Helmholtz free-energy density per unit volume, expanded about
+$(T_0,\ \eps=0,\ \E=0)$. For $6mm$ symmetry with the poling axis along $z$ and
+plane strain, the independent constants are $C_{11},C_{12},C_{13},C_{33},C_{44}$
+(elastic, at constant $\E$ and $\bth$), $e_{31},e_{33},e_{15}$ (piezoelectric),
+$\eps_{11},\eps_{33}$ (permittivity at constant strain), $\beta_1,\beta_3$
+(thermoelastic coupling) and $p$ (pyroelectric):
+\begin{align}
+  \Psi(\eps,\E,\bth) &=
+  \tfrac12\Big[ C_{11}(\eps_{xx}^2+\eps_{yy}^2) + C_{33}\eps_{zz}^2
+    + 2C_{13}(\eps_{xx}+\eps_{yy})\eps_{zz}
+    + 2C_{12}\eps_{xx}\eps_{yy} + C_{44}\gamma_{xz}^2 \Big] \notag\\[2pt]
+  &\quad - e_{31}(\eps_{xx}+\eps_{yy})E_z - e_{33}\eps_{zz}E_z
+    - e_{15}\gamma_{xz}E_x \notag\\[2pt]
+  &\quad - \tfrac12\big(\eps_{11}E_x^2 + \eps_{33}E_z^2\big) \notag\\[2pt]
+  &\quad - \beta_1\bth(\eps_{xx}+\eps_{yy}) - \beta_3\bth\eps_{zz}
+    - p\,\bth E_z \notag\\[2pt]
+  &\quad - \tfrac12\,\frac{\rho c_E}{T_0}\,\bth^2 .
+  \label{eq:psi}
+\end{align}
+
+\begin{remark}[Why the shear term carries $\tfrac12 C_{44}\gamma_{xz}^2$ and not $2C_{44}\eps_{xz}^2$]
+Because $\gamma_{xz}=2\eps_{xz}$, writing $\tfrac12 C_{44}\gamma_{xz}^2$ is the
+same as $2C_{44}\eps_{xz}^2$, which is the correct Voigt form
+$\tfrac12\s_{xz}\gamma_{xz}$. Using $\tfrac12 C_{44}\eps_{xz}^2$ (without the
+factor) would under-count the shear energy by a factor of two and give
+$\s_{xz}=\tfrac12 C_{44}\gamma_{xz}$. This is a common slip; check B1 catches it
+(a first version of the check did contain exactly this error and failed).
+\end{remark}
+
+\subsection{Constitutive relations}
+\label{sec:constitutive}
+
+The constitutive relations are the gradients of $\Psi$. \textsc{Derived}: with
+$\s_{ij} = \partial\Psi/\partial\eps_{ij}$,
+$\s_{xz} = \partial\Psi/\partial\gamma_{xz}$,
+$D_i = -\partial\Psi/\partial E_i$ and $\rho\eta = -\partial\Psi/\partial\bth$,
+\begin{align}
+  \s_{xx} &= C_{11}\eps_{xx} + C_{12}\eps_{yy} + C_{13}\eps_{zz}
+            - e_{31}E_z - \beta_1\bth, \label{eq:sxx}\\
+  \s_{yy} &= C_{12}\eps_{xx} + C_{11}\eps_{yy} + C_{13}\eps_{zz}
+            - e_{31}E_z - \beta_1\bth, \label{eq:syy}\\
+  \s_{zz} &= C_{13}(\eps_{xx}+\eps_{yy}) + C_{33}\eps_{zz}
+            - e_{33}E_z - \beta_3\bth, \label{eq:szz}\\
+  \s_{xz} &= C_{44}\gamma_{xz} - e_{15}E_x, \label{eq:sxz}\\
+  D_x &= e_{15}\gamma_{xz} + \eps_{11}E_x, \label{eq:Dx}\\
+  D_z &= e_{31}(\eps_{xx}+\eps_{yy}) + e_{33}\eps_{zz} + \eps_{33}E_z + p\,\bth,
+  \label{eq:Dz}\\
+  \rho\eta &= \beta_1(\eps_{xx}+\eps_{yy}) + \beta_3\eps_{zz} + p\,E_z
+             + \frac{\rho c_E}{T_0}\bth .
+  \label{eq:entropy}
+\end{align}
+Equations~\eqref{eq:sxx}--\eqref{eq:Dz} are exactly Blueprint Eqs.~(2)--(3) with
+the sign convention $\s_{ij}=C_{ijkl}\eps_{kl}-e_{kij}E_k-\beta_{ij}\bth$,
+$D_i=e_{ikl}\eps_{kl}+\eps_{ik}E_k+p_i\bth$. \textsc{Tested} (check B1).
+
+\begin{remark}[Sign of the pyroelectric term --- a substantive point]
+\label{rem:pyro}
+In \eqref{eq:Dz} the pyroelectric term is $+p\bth$, while in
+\eqref{eq:entropy} it is $+pE_z$ with the \emph{same} sign of $p$, because both
+come from the single term $-p\bth E_z$ in \eqref{eq:psi}. Consistency then
+requires
+\begin{equation}
+  \frac{\partial \s_{zz}}{\partial \bth} = -\beta_3,
+  \qquad
+  \frac{\partial(\rho\eta)}{\partial\eps_{zz}} = \beta_3
+  \quad\Longrightarrow\quad
+  \frac{\partial^2\Psi}{\partial\bth\,\partial\eps_{zz}} = -\beta_3
+  \ \text{both ways,}
+  \label{eq:maxwell1}
+\end{equation}
+and, mixing the electric and thermal variables,
+\begin{equation}
+  \frac{\partial D_z}{\partial \bth} = p,
+  \qquad
+  \frac{\partial(\rho\eta)}{\partial E_z} = p
+  \quad\Longrightarrow\quad
+  \frac{\partial^2\Psi}{\partial\bth\,\partial E_z} = -p \ \text{both ways.}
+  \label{eq:maxwell2}
+\end{equation}
+If the sign of $p$ in \eqref{eq:entropy} were flipped, \eqref{eq:maxwell2} would
+fail and no single $\Psi$ would exist. A formulation that inserts a pyroelectric
+term into Gauss' law with one sign and into the entropy with the other cannot be
+derived from an energy and is thermodynamically inadmissible.
+\textsc{Tested} (check B1 evaluates both residuals symbolically; both are zero).
+\end{remark}
+
+\subsection{Isotropic limit}
+\label{sec:isotropic}
+
+For an elastically isotropic, centrosymmetric medium,
+\begin{equation}
+  C_{33}=C_{11}=\lambda+2\mu,\quad C_{12}=C_{13}=\lambda,\quad C_{44}=\mu,
+  \quad e_{31}=e_{33}=e_{15}=0,\quad p=0,
+  \label{eq:isotropic-limits}
+\end{equation}
+and $C_{13}=C_{11}-2C_{44}$ holds \emph{exactly}. This is used in check I1.
+Note that \textbf{PZT-5H does not satisfy this identity} ($C_{13}=84.1$ GPa
+against $C_{11}-2C_{44}=79.4$ GPa): it is genuinely transversely isotropic, and an
+isotropic closed form must not be applied to it. This distinction is recorded
+because it is easy to get wrong, and an earlier version of check I1 did.
+
+\section{Momentum balance and Gauss law}
+\label{sec:balance}
+
+With no body force and no free volume charge, and in the quasi-static electric
+approximation (the electric field is much slower than $c$; magnetic effects are
+neglected),
+\begin{equation}
+  \s_{ij,j} = \rho\,\ddot u_i, \qquad D_{i,i} = 0 .
+  \label{eq:balance}
+\end{equation}
+These are Blueprint Eq.~(4). \textsc{Assumed} at the level of the quasi-static
+approximation; electromagnetically this is standard for the frequency range
+considered here and is not re-derived in this note.
+
+In mode form \eqref{eq:balance} reads
+\begin{equation}
+  i\kappa\,\s_{xx} + i\xi\,\s_{xz} + \rho\omega^2 U = 0, \qquad
+  i\kappa\,\s_{xz} + i\xi\,\s_{zz} + \rho\omega^2 W = 0, \qquad
+  i\kappa D_x + i\xi D_z = 0 .
+  \label{eq:balance-mode}
+\end{equation}
+
+\section{Thermal equation: entropy balance and Lord--Shulman}
+\label{sec:ls}
+
+This is the step the blueprint flags as requiring independent verification
+(Sec.~3 and gate G4), so it is done slowly.
+
+\subsection{Step 1: entropy balance}
+The linearised local entropy balance about $T_0$, with no external heat supply, is
+\begin{equation}
+  T_0\,\frac{\partial(\rho\eta)}{\partial t} = -\nabla\cdot\bq,
+  \label{eq:entropy-balance}
+\end{equation}
+where $\bq$ is the heat flux. (\textsc{Derived} from the Clausius--Duhem
+inequality for a linear theory; the factor $T_0$ is what converts entropy
+production into power per unit volume.)
+
+\subsection{Step 2: the flux law}
+Lord--Shulman replaces Fourier conduction by a single-relaxation (Cattaneo) law,
+\begin{equation}
+  \bq + \tau_q\,\frac{\partial\bq}{\partial t} = -\kappa\,\nabla\bth,
+  \qquad \tau_q \ge 0 .
+  \label{eq:cattaneo}
+\end{equation}
+This is Blueprint Eq.~(5b). \textsc{Assumed} as the thermal model; $\tau_q$ is
+\emph{not} an independently measured constant for the materials used (see
+\texttt{literature/material\_constants.csv}).
+
+\subsection{Step 3: eliminate the flux}
+Apply the operator $(1+\tau_q\partial_t)$ to the divergence of $\bq$. By
+\eqref{eq:cattaneo}, $(1+\tau_q\partial_t)(\nabla\cdot\bq) = -\kappa\nabla^2\bth$.
+On the other hand, applying the same operator to \eqref{eq:entropy-balance} gives
+$(1+\tau_q\partial_t)(\nabla\cdot\bq) = -T_0(1+\tau_q\partial_t)\,\partial_t(\rho\eta)$.
+Equating the two,
+\begin{equation}
+  \kappa_{ij}\,\bth_{,ij}
+  = (1+\tau_q\partial_t)\Big[\rho c_E\,\dot\bth
+    + T_0\big(\beta_{ij}\dot\eps_{ij} + p_i\dot E_i\big)\Big],
+  \label{eq:ls}
+\end{equation}
+using \eqref{eq:entropy} for $\rho\eta$. \textsc{Derived}, and \textsc{Tested}:
+check B2 performs the elimination symbolically and finds a residual of exactly
+zero.
+
+\begin{remark}[The operator multiplies the whole bracket]
+\label{rem:bracket}
+The $(1+\tau_q\partial_t)$ factor cannot be attached to the mechanical term alone.
+It arises because the flux law \eqref{eq:cattaneo} is a statement about the
+\emph{total} heat flux, and that flux also carries the thermoelastic and
+pyroelectric sources through \eqref{eq:entropy-balance}. Putting the relaxation
+factor only on $\rho c_E\dot\bth$ (a form that does appear in some papers) is a
+different theory, not a rearrangement. This is the ``sign and entropy
+verification'' that Blueprint V5.0 asks for, and the answer is that the blueprint's
+Eq.~(5) is correct.
+\end{remark}
+
+\subsection{Step 4: time-harmonic form}
+With $e^{-i\omega t}$, $\partial_t\to -i\omega$, so
+\begin{equation}
+  (1+\tau_q\partial_t) \longrightarrow (1 - i\omega\tau_q) \equiv \Lambda .
+  \label{eq:Lambda}
+\end{equation}
+The mode form of \eqref{eq:ls} is
+\begin{equation}
+  -\big(\kappa_{11}\kappa^2 + \kappa_{33}\xi^2\big)\Theta
+  + i\omega\Lambda\Big[\rho c_E\,\Theta
+    + T_0\big(\beta_1\eps_{xx} + \beta_3\eps_{zz} + p\,E_z\big)\Big] = 0 .
+  \label{eq:ls-mode}
+\end{equation}
+Note the sign of $\Lambda$: with $e^{-i\omega t}$ the relaxation factor is
+$1-i\omega\tau_q$, whose imaginary part is negative. Using $1+i\omega\tau_q$
+would correspond to $e^{+i\omega t}$ and, if mixed with the other convention,
+produces a growing thermal mode. This is a loss-sign trap and is recorded in
+\texttt{reports/UNRESOLVED\_ISSUES.md} (N-1).
+
+\section{Stability and admissibility conditions}
+\label{sec:stability}
+
+The quadratic form \eqref{eq:psi} must be positive definite for the reference
+state to be stable. In the decoupled limits this requires
+\begin{equation}
+  C^{E} \succ 0,\qquad \eps^{S} \succ 0,\qquad
+  \rho>0,\quad c_E>0,\quad T_0>0,\quad \kappa_{ij}\succ 0,\quad \tau_q\ge 0 .
+  \label{eq:stability}
+\end{equation}
+\textsc{Tested} (check A1 for $C$ and $\eps$, check H1 for the thermal set,
+for all four materials in \texttt{literature/material\_constants.csv}).
+
+\paragraph{Causality floor on $\tau_q$.} The Lord--Shulman theory admits a
+thermal wave of speed $v_T = \sqrt{\kappa/(\rho c_E\tau_q)}$. Requiring it not to
+exceed the elastic longitudinal speed $c_L$ gives
+\begin{equation}
+  \boxed{\ \tau_q \ \ge\ \tau_{q,\min} \;=\; \frac{\kappa}{\rho\,c_E\,c_L^{2}}\ }
+  \label{eq:tau-floor}
+\end{equation}
+\textsc{Derived}. Values: PZT-5H $2.83\times10^{-14}$ s, BaTiO$_3$
+$1.45\times10^{-14}$ s, Al6061 $1.73\times10^{-12}$ s, CdSe
+$4.67\times10^{-13}$ s. Every working value in the material table is chosen
+\emph{above} the floor and the ratio $\tau_q/\tau_{q,\min}$ is reported by check
+H1. This is a constraint on admissible parameter ranges, not a fit; no value was
+adjusted to produce a physical-looking result.
+
+\section{Dimensional audit}
+\label{sec:dims}
+
+Written in the exponent order $(\mathrm{kg},\mathrm{m},\mathrm{s},\mathrm{A},\mathrm{K})$:
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Quantity & Dimension & SI \\
+\midrule
+$C_{ijkl}$ & $(1,-1,-2,0,0)$ & Pa \\
+$e_{kij}$ & $(0,-2,1,1,0)$ & C\,m$^{-2}$ \\
+$\eps_{ij}$ & $(-1,-3,4,2,0)$ & F\,m$^{-1}$ \\
+$\beta_{ij}$ & $(1,-1,-2,0,-1)$ & Pa\,K$^{-1}$ \\
+$p_i$ & $(0,-2,1,1,-1)$ & C\,m$^{-2}$K$^{-1}$ \\
+$\rho$ & $(1,-3,0,0,0)$ & kg\,m$^{-3}$ \\
+$c_E$ & $(0,2,-2,0,-1)$ & J\,kg$^{-1}$K$^{-1}$ \\
+$\kappa_{ij}$ & $(1,1,-3,0,-1)$ & W\,m$^{-1}$K$^{-1}$ \\
+$u_i$ & $(0,1,0,0,0)$ & m \\
+$\varphi$ & $(1,2,-3,-1,0)$ & V \\
+$\bth$ & $(0,0,0,0,1)$ & K \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The four rows of the characteristic matrix then carry the dimensions
+$\mathrm{N\,m^{-3}}$, $\mathrm{N\,m^{-3}}$, $\mathrm{C\,m^{-3}}$ and
+$\mathrm{W\,m^{-3}}$ respectively. \textsc{Tested}: check A2 verifies all 27
+independent entries of $M$ against these targets and finds zero mismatches.
+
+\begin{remark}[What was \emph{not} a valid test]
+An earlier version of check A2 tested homogeneity of $M$ under
+$(\kappa,\xi)\mapsto(\kappa/L,\xi/L)$. That test is invalid: $\omega$ is an
+inverse time and does not rescale with length, so the terms $\omega^2\rho$ and
+$c_E\omega\rho$ necessarily break such a scaling. Dimensional analysis is the
+correct test. The failed version is recorded rather than deleted because the
+distinction matters for anyone extending the code.
+\end{remark}
+
+\begin{remark}[What the thermal coupling does \emph{not} do]
+\label{rem:sh}
+For $6mm$ symmetry with poling along $z$, $\beta_{ij}=\mathrm{diag}(\beta_1,\beta_1,\beta_3)$
+and $p_i=(0,0,p)$. Anti-plane motion $u_y(x,z)$ with $\eps_{xx}=\eps_{zz}=\eps_{yy}=0$
+and $E_y=E_y(x,z)$ gives $\beta_{ij}\eps_{ij}=0$ and $p_iE_i = 0$ identically.
+\textbf{The thermal field therefore decouples from SH motion exactly.} This is a
+structural fact about $6mm$ symmetry, not a numerical accident and not a
+modelling choice, and it means SH configurations cannot be used to demonstrate any
+thermal-coupling effect. \textsc{Derived}.
+\end{remark}
+
+\section{Summary of what is established, and what is not}
+\label{sec:summary}
+
+\paragraph{Established (\textsc{Derived} + \textsc{Tested}).}
+Equations~\eqref{eq:strain-mode}--\eqref{eq:balance-mode} and \eqref{eq:ls-mode}
+constitute a closed, thermodynamically admissible bulk system, generated by the
+single potential \eqref{eq:psi}. All constitutive relations, the entropy relation
+and the Lord--Shulman equation reproduce the blueprint's Eqs.~(2)--(5) exactly,
+including the placement of the relaxation operator.
+
+\paragraph{Not established.}
+\begin{itemize}
+  \item The pyroelectric coefficient $p$ and the thermoelastic couplings
+        $\beta_1,\beta_3$ are \textsc{Assumed} order-of-magnitude values for
+        PZT-5H and BaTiO$_3$; only the CdSe set has tabulated $\beta$ and $p$.
+        No quantitative result may rest on their precise values.
+  \item $\tau_q$ is a stated choice above a derived causal floor, not a
+        measurement.
+  \item The quasi-static electric approximation is assumed, not re-derived.
+  \item No wave-propagation, reflection or transmission result appears in this
+        note. Those are in \texttt{characteristic\_matrix.tex} and
+        \texttt{energy\_flux\_derivation.tex}.
+\end{itemize}
+
+\end{document}

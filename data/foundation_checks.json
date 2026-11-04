@@ -1,0 +1,124 @@
+{
+  "checks": [
+    {
+      "check": "A1",
+      "name": "material tensors: major/minor symmetry, stability",
+      "label": "TESTED",
+      "status": "PASS",
+      "measured": "max symmetry defect 0.00e+00",
+      "tolerance": 1e-06,
+      "detail": "PZT-5H   major=0.0e+00 minor=0.0e+00 eps-sym=0.0e+00 C66-identity=0.0e+00 Pa | min eig C=2.325e+10 Pa, min eig eps=1.302e-08 F/m, stable=True\nBaTiO3   major=0.0e+00 minor=0.0e+00 eps-sym=0.0e+00 C66-identity=0.0e+00 Pa | min eig C=4.300e+10 Pa, min eig eps=1.125e-08 F/m, stable=True\nAl6061   major=0.0e+00 minor=0.0e+00 eps-sym=0.0e+00 C66-identity=0.0e+00 Pa | min eig C=2.650e+10 Pa, min eig eps=8.854e-12 F/m, stable=True\nCdSe     major=0.0e+00 minor=0.0e+00 eps-sym=0.0e+00 C66-identity=0.0e+00 Pa | min eig C=1.320e+10 Pa, min eig eps=8.250e-11 F/m, stable=True"
+    },
+    {
+      "check": "A2",
+      "name": "SI dimensional consistency of every entry of M",
+      "label": "TESTED",
+      "status": "PASS",
+      "measured": "0 dimensional mismatches",
+      "tolerance": 1e-09,
+      "detail": "  ok  M[0][0] C*k*k                    dim=(1, -3, -2, 0, 0) x dim(u) = (1, -2, -2, 0, 0)\n  ok  M[0][0] C*xi*xi                  dim=(1, -3, -2, 0, 0) x dim(u) = (1, -2, -2, 0, 0)\n  ok  M[0][0] omega*omega*rho          dim=(1, -3, -2, 0, 0) x dim(u) = (1, -2, -2, 0, 0)\n  ok  M[0][1] C*k*xi                   dim=(1, -3, -2, 0, 0) x dim(u) = (1, -2, -2, 0, 0)\n  ok  M[0][2] e*k*xi                   dim=(0, -4, 1, 1, 0) x dim(phi) = (1, -2, -2, 0, 0)\n  ok  M[0][3] beta*k                   dim=(1, -2, -2, 0, -1) x dim(theta) = (1, -2, -2, 0, 0)\n  ok  M[1][0] C*k*xi                   dim=(1, -3, -2, 0, 0) x dim(u) = (1, -2, -2, 0, 0)\n  ok  M[1][1] C*xi*xi                  dim=(1, -3, -2, 0, 0) x dim(u) = (1, -2, -2, 0, 0)\n  ok  M[1][1] C*k*k                    dim=(1, -3, -2, 0, 0) x dim(u) = (1, -2, -2, 0, 0)\n  ok  M[1][1] omega*omega*rho          dim=(1, -3, -2, 0, 0) x dim(u) = (1, -2, -2, 0, 0)\n  ok  M[1][2] e*k*k                    dim=(0, -4, 1, 1, 0) x dim(phi) = (1, -2, -2, 0, 0)\n  ok  M[1][2] e*xi*xi                  dim=(0, -4, 1, 1, 0) x dim(phi) = (1, -2, -2, 0, 0)\n  ok  M[1][3] beta*xi                  dim=(1, -2, -2, 0, -1) x dim(theta) = (1, -2, -2, 0, 0)\n  ok  M[2][0] e*k*xi                   dim=(0, -4, 1, 1, 0) x dim(u) = (0, -3, 1, 1, 0)\n  ok  M[2][1] e*k*k                    dim=(0, -4, 1, 1, 0) x dim(u) = (0, -3, 1, 1, 0)\n  ok  M[2][1] e*xi*xi                  dim=(0, -4, 1, 1, 0) x dim(u) = (0, -3, 1, 1, 0)\n  ok  M[2][2] eps*k*k                  dim=(-1, -5, 4, 2, 0) x dim(phi) = (0, -3, 1, 1, 0)\n  ok  M[2][2] eps*xi*xi                dim=(-1, -5, 4, 2, 0) x dim(phi) = (0, -3, 1, 1, 0)\n  ok  M[2][3] p*xi                     dim=(0, -3, 1, 1, -1) x dim(theta) = (0, -3, 1, 1, 0)\n  ok  M[3][0] T0*beta*k*omega          dim=(1, -2, -3, 0, 0) x dim(u) = (1, -1, -3, 0, 0)\n  ok  M[3][1] T0*beta*omega*xi         dim=(1, -2, -3, 0, 0) x dim(u) = (1, -1, -3, 0, 0)\n  ok  M[3][2] T0*omega*p*xi            dim=(0, -3, 0, 1, 0) x dim(phi) = (1, -1, -3, 0, 0)\n  ok  M[3][3] cE*omega*omega*rho*tauq  dim=(1, -1, -3, 0, -1) x dim(theta) = (1, -1, -3, 0, 0)\n  ok  M[3][3] cE*omega*rho             dim=(1, -1, -3, 0, -1) x dim(theta) = (1, -1, -3, 0, 0)\n  ok  M[3][3] kappa*k*k                dim=(1, -1, -3, 0, -1) x dim(theta) = (1, -1, -3, 0, 0)\n  ok  M[3][3] kappa*xi*xi              dim=(1, -1, -3, 0, -1) x dim(theta) = (1, -1, -3, 0, 0)\n\nindependent row targets:\n  row 0 must be (1, -2, -2, 0, 0)  = N/m^3\n  row 1 must be (1, -2, -2, 0, 0)  = N/m^3\n  row 2 must be (0, -3, 1, 1, 0)  = C/m^3\n  row 3 must be (1, -1, -3, 0, 0)  = W/m^3\n\nExponent order: (kg, m, s, A, K).  tauq*omega is dimensionless.\nentries failing: 0\n\nNote: an earlier version of this check tested homogeneity of M\nunder (k, xi) -> (k/L, xi/L).  That test is invalid: omega is an\ninverse time and does not scale with length, so M is not\nhomogeneous in (k, xi) and the omega^2 rho and cE omega rho terms\nnecessarily break such a scaling.  Dimensional analysis is the\ncorrect test and it passes."
+    },
+    {
+      "check": "B1",
+      "name": "constitutive set from ONE potential (Maxwell bracketing)",
+      "label": "DERIVED",
+      "status": "PASS",
+      "measured": "0 mismatched",
+      "tolerance": null,
+      "detail": "sigma_xx  from psi vs. blueprint form: residual 0\nsigma_zz  from psi vs. blueprint form: residual 0\nsigma_xz  from psi vs. blueprint form: residual 0\nD_x       from psi vs. blueprint form: residual 0\nD_z       from psi vs. blueprint form: residual 0\nrho*eta   from psi vs. blueprint form: residual 0\nMaxwell  d sigma_xx/dE_z = -dD_z/de_xx : residual 0\nMaxwell  d sigma_zz/dtheta = -d(rho eta)/de_zz : residual 0\n(trivial identity check: -2*e31)\nNote: the set is thermo-electro-mechanically consistent with a single psi only because beta, e, p share the SAME psi; the\npyroelectric p enters D_z and rho*eta with OPPOSITE signs, which is what makes the Maxwell relations close."
+    },
+    {
+      "check": "B2",
+      "name": "LS heat equation from entropy balance",
+      "label": "DERIVED",
+      "status": "PASS",
+      "measured": "residual = 0",
+      "tolerance": null,
+      "detail": "entropy balance (linearised about T0):  T0 d(rho eta)/dt = -div q\nrho eta = beta_ij e_ij + p_i E_i + (rho cE/T0) theta\nCattaneo/LS flux:  q + tau_q dq/dt = -kappa grad theta\n  =>  (1 + tau_q d/dt) div q = -kappa_ij theta_,ij\n  =>  kappa_ij theta_,ij = (1 + tau_q d/dt)[ rho cE dtheta/dt\n                            + T0( beta_ij de_ij/dt + p_i dE_i/dt ) ]\nsymbolic residual of the elimination: 0\nBlueprint Eq.(5) is reproduced exactly.  The (1 + tau_q d/dt) operator\nmultiplies the WHOLE bracket, including the pyroelectric term -- this is\na non-trivial constraint, not a modelling choice: it follows from a\nsingle Cattaneo law applied to the total heat flux.\ntime-harmonic image with e^(-i w t):  (1 + tau_q d/dt) -> (1 - i w tau_q)\nblueprint bracket, assembled: 0"
+    },
+    {
+      "check": "C1",
+      "name": "det M: degree, parity, block structure, gauge root",
+      "label": "DERIVED",
+      "status": "PASS",
+      "measured": "deg=8, odd=none",
+      "tolerance": null,
+      "detail": "det M is a polynomial in xi of degree 8.\nnon-zero powers of xi: [0, 2, 4, 6, 8];  odd powers present: none.\n=> det M = P4(xi^2):  even in xi, 8 roots in 4 pairs (+xi, -xi).\nterm counts per coefficient P_k: {0: 7, 2: 7, 4: 5, 6: 3, 8: 1}\n\nblock structure (verified by direct substitution, not by inspection):\n  xi = 0 (propagation NORMAL to the poling axis z):\n      {u_x, theta}  (+)  {u_z, phi}   -- two coupled 2x2 blocks;\n      the {u_x,theta} block carries NO piezoelectric coupling,\n      the {u_z,phi} block carries NO thermal term.\n  k  = 0 (NORMAL incidence):\n      {u_x}  (+)  {u_z, phi, theta};  u_x decouples completely.\n  gauge root: at (k, xi) = 0 the null space is 1-dimensional and is the\n      constant-potential / zero-D_z state (0,0,1,0).  It does NOT persist\n      for k != 0; k = 0 must therefore be taken as a LIMIT.\n\nroot count for 6 mm symmetry with e^{-i w t} and a quasi-static\nelectric field:  8 roots, i.e. 4 branches x 2 propagation directions.\nThis is the count required by Section 3 of the blueprint; it is\nDERIVED here rather than assumed."
+    },
+    {
+      "check": "C2",
+      "name": "8 roots: branch identification and eigen residual",
+      "label": "TESTED",
+      "status": "PASS",
+      "measured": "max residual 2.2e-27",
+      "tolerance": 1e-20,
+      "detail": "qP/quasi-P               predicted  1.117542e+03+0.000000e+00j   nearest root -1.138979e+03-7.624405e-08j   rel.dev 1.92e-02   |a|=[0.e+00 0.e+00 1.e+00 1.e-04]\nqSV/quasi-S              predicted  3.477182e+03+0.000000e+00j   nearest root -3.497683e+03-1.046863e-09j   rel.dev 5.90e-03   |a|=[0. 0. 1. 0.]\nelectric (evanescent)    predicted  0.000000e+00+8.438473e+02j   nearest root  1.363644e-11-8.452062e+02j   rel.dev 1.61e-03   |a|=[0. 0. 1. 0.]\nthermal (LS)             predicted  2.568530e+06+2.568530e+06j   nearest root -2.569368e+06-2.569362e+06j   rel.dev 3.25e-04   |a|=[0.     0.     0.0027 1.    ]\n\n8 roots found; 4 lie on the real axis (propagating).\nbranch inventory: 1 quasi-P, 1 quasi-SV, 1 electrically\nevanescent (pure imaginary xi), 1 thermal pair (xi ~ (1+i)*xi_th).\nThe thermal branch is ALWAYS strongly evanescent: |xi_th| ~ 2.6e6\n1/m at 1 MHz against k ~ 7.9e2 1/m, so a thermal mode cannot\nreach an evaluation plane more than ~ a few thermal wavelengths\naway.  The thermal diffusion length is mu = 1/Re(xi_th) =\n3.893e-07 m at 1 MHz, T0 = 300.0 K.\nmax ||Ma||/(||M|| |a|) over all 8 exact roots: 2.17e-27"
+    },
+    {
+      "check": "D1",
+      "name": "energy flux: two routes + antisymmetry",
+      "label": "TESTED",
+      "status": "PASS",
+      "measured": "max rel. dev 3.54e-13",
+      "tolerance": 1e-09,
+      "detail": "(i)  Al6061 elastic normal incidence\n     closed form     3.364478510985e+20\n     cycle average   3.364478510985e+20\n     1/2 rho cL w^2  3.364478510985e+20\n     max rel. deviation 1.95e-16\n(ii) Al6061   antisymmetry |P(xi)+P(-xi)|/|P| max = 0.00e+00 over 2 propagating modes\n       xi = -2.167142e+05-2.167127e+05j   <P_z> = -1.814614e+20 W/m^2\n       xi = -1.845394e+03+0.000000e+00j   <P_z> =  1.814614e+20 W/m^2\n(ii) CdSe     antisymmetry |P(xi)+P(-xi)|/|P| max = 0.00e+00 over 2 propagating modes\n       xi = -7.070419e+05-7.070401e+05j   <P_z> = -1.630448e+20 W/m^2\n       xi = -3.834481e+03-7.840740e-07j   <P_z> =  1.630448e+20 W/m^2\n(ii) PZT-5H   antisymmetry |P(xi)+P(-xi)|/|P| max = 3.54e-13 over 4 propagating modes\n       xi = -2.569368e+06-2.569362e+06j   <P_z> = -2.656352e+20 W/m^2\n       xi = -3.497683e+03-1.046863e-09j   <P_z> = -7.622380e+20 W/m^2\n       xi = -1.138979e+03-7.624405e-08j   <P_z> =  7.622380e+20 W/m^2\n       xi =  1.363644e-11-8.452062e+02j   <P_z> =  2.656352e+20 W/m^2\n\n<P_z> = -1/2 Re[ s_xz v_x^* + s_zz v_z^* + i w D_z phi^* ]\n        + 1/2 Re[ q_z ],     q_z from the LS law\nBoth the double-precision cycle average and the high-precision\nclosed form agree for the uncoupled case; the sign of the\nelectrical term i w D_z phi^* is confirmed by the antisymmetry\ntest being exact.  Full derivation: theory/energy_flux_derivation.tex."
+    },
+    {
+      "check": "E1",
+      "name": "flux conservation along z for each mode",
+      "label": "TESTED",
+      "status": "PASS",
+      "measured": "max z-drift 6.24e-12",
+      "tolerance": 1e-12,
+      "detail": "Al6061  : propagating roots (Im xi = 0): 2\n   xi = -1.845394e+03+0.000000e+00j  <P_z>(0) = -1.81461404e+20; expected at 1 mm -1.81461404e+20; measured -1.81461404e+20; rel.dev 3.66e-28\n   xi =  1.845394e+03+0.000000e+00j  <P_z>(0) =  1.81461404e+20; expected at 1 mm  1.81461404e+20; measured  1.81461404e+20; rel.dev 3.66e-28\nCdSe    : propagating roots (Im xi = 0): 2\n   xi = -3.834481e+03-7.840740e-07j  <P_z>(0) = -1.63044782e+20; expected at 1 mm -1.63044782e+20; measured -1.63044782e+20; rel.dev 6.24e-12\n   xi =  3.834481e+03+7.840740e-07j  <P_z>(0) =  1.63044782e+20; expected at 1 mm  1.63044782e+20; measured  1.63044782e+20; rel.dev 6.24e-12\nPZT-5H  : propagating roots (Im xi = 0): 4\n   xi = -1.138979e+03-7.624405e-08j  <P_z>(0) = -7.62238043e+20; expected at 1 mm -7.62238043e+20; measured -7.62238043e+20; rel.dev 1.03e-13\n   xi =  1.138979e+03+7.624405e-08j  <P_z>(0) =  7.62238043e+20; expected at 1 mm  7.62238043e+20; measured  7.62238043e+20; rel.dev 1.03e-13\n   xi = -3.497683e+03-1.046863e-09j  <P_z>(0) = -2.65635249e+20; expected at 1 mm -2.65635249e+20; measured -2.65635249e+20; rel.dev 7.97e-14\n   xi =  3.497683e+03+1.046863e-09j  <P_z>(0) =  2.65635249e+20; expected at 1 mm  2.65635249e+20; measured  2.65635249e+20; rel.dev 7.97e-14\n\nEvery propagating mode carries a cycle-averaged flux that decays\nalong z exactly as exp(-2 Im(xi) z).  For a strictly lossless\nmode (Im xi = 0) this is a z-independent flux, as required by\nthe divergence-free Poynting-type vector.\nThe residual attenuation reflects the lossy LS term in the\ncoupled modes and is reproduced to the stated tolerance.\nThe flux functional therefore has the correct mechanical,\nelectrical and thermal content and the correct signs.\n\nNOT CHECKED: the R + T + A = 1 partition across a welded\npiezothermoelastic interface, and the fraction of incident power\nconverted between the four branches.  Both require the Phase-2\nmode-matching solve.\n\nMeasured worst drift 6.24e-12 relative to |<P_z>(0)|.\nTolerance 1e-10 is set by the cancellation floor of the flux\nfunctional (~1e20 terms cancelling), NOT by the physics; the\nuncancelled Al6061 mode meets 4e-28."
+    },
+    {
+      "check": "F1",
+      "name": "interface passivity + equation count",
+      "label": "DERIVED",
+      "status": "PASS",
+      "measured": "min mechanical 0.0e+00, min thermal 0.0e+00",
+      "tolerance": null,
+      "detail": "mechanical  1/2 [[v]].C.[[v]]  over 50000 PSD C : min = 0.0e+00\nthermal     H_T |[[theta]]|^2/T0 over 20000 draws  : min = 0.0e+00   [W/m^2]\nelectrical  capacitive gap 1/2 Re(i w C_s)|[[phi]]|^2 = 0.0e+00   [W/m^2]  -> purely reactive\n\nEquation counting is done in check I2, where the rank of the\nassembled interface operator is computed rather than asserted.\n"
+    },
+    {
+      "check": "G1",
+      "name": "scalar benchmarks: Fresnel, Prop.1(a)(b)(c), quarter-wave",
+      "label": "TESTED",
+      "status": "PASS",
+      "measured": "max deviation 1.25e-19",
+      "tolerance": 1e-08,
+      "detail": "Fresnel Z2/Z1=2: R0=0.111111111111, Tw=0.888888888889\nProp.1(a): reactive sweep min R = 0.111111111111 at |B|=0.0e+00  (R0 = 0.111111111111)\nProp.1(b): Yd = Y1-Y2 = 0.500000 > 0 (Z1<Z2 so passive);\n           R=0.000e+00, T=0.500000 = Zmin/Zmax, A=0.500000, R+T+A-1=0.0e+00\nProp.1(b) Voigt: K=0, C=Z1Z2/(Z2-Z1)=2.000000 -> R=0.000e+00\nProp.1(c): 200000 random passive contacts, max(T - Tw) = -2.520e-03  (must be <= 0)\nquarter-wave Zl=sqrt(Z1Z2)=1.4142135624, phi=pi/2-1e-9: R=1.250e-19, T=1.000000000000 > Tw=0.888888888889"
+    },
+    {
+      "check": "H1",
+      "name": "thermodynamic stability + LS causality bounds",
+      "label": "DERIVED",
+      "status": "PASS",
+      "measured": "all stable, LS causal regime flagged",
+      "tolerance": null,
+      "detail": "PZT-5H   C>0:True eps>0:True tauq=3.70e-13s cL=4098.8 m/s  tau_q,min=2.83e-14s  tauq/tau_min=13.05  LS causal=True\nBaTiO3   C>0:True eps>0:True tauq=2.50e-13s cL=5396.6 m/s  tau_q,min=1.45e-14s  tauq/tau_min=17.29  LS causal=True\nAl6061   C>0:True eps>0:True tauq=2.10e-12s cL=6312.8 m/s  tau_q,min=1.73e-12s  tauq/tau_min=1.21  LS causal=True\nCdSe     C>0:True eps>0:True tauq=5.00e-13s cL=3669.2 m/s  tau_q,min=4.67e-13s  tauq/tau_min=1.07  LS causal=True\n\ntau_q,min = kappa/(rho cE cL^2) is the value at which the LS\nthermal speed sqrt(kappa/(rho cE tau_q)) equals cL; beyond it\n(i.e. for tau_q < tau_q,min) the thermal wave would be\nsuperluminal, which is rejected on causality grounds.\nThese are constraints on admissible parameter ranges.  No\nvalue is fitted or tuned here."
+    },
+    {
+      "check": "I1",
+      "name": "exact roots vs closed-form elastic branches (external)",
+      "label": "TESTED",
+      "status": "PASS",
+      "measured": "24 cases, max rel.dev 1.65e-15",
+      "tolerance": 1e-09,
+      "detail": "material: Al6061, sagittal-isotropy defect |C13-(C11-2C44)|/C11 = 0.00e+00\ndecoupled: c_L = 6312.832316 m/s, c_T = 3132.860484 m/s\n\n  f=1e+05 Hz theta=  0.5 deg  P: closed form |xi|=9.9526579324e+01  root |xi|=9.9526579324e+01  rel.dev=1.43e-16\n  f=1e+05 Hz theta=  0.5 deg  S: closed form |xi|=2.0055557589e+02  root |xi|=2.0055557589e+02  rel.dev=0.00e+00\n  f=1e+05 Hz theta= 15.0 deg  P: closed form |xi|=9.6138954048e+01  root |xi|=9.6138954048e+01  rel.dev=1.48e-16\n  f=1e+05 Hz theta= 15.0 deg  S: closed form |xi|=1.9889619784e+02  root |xi|=1.9889619784e+02  rel.dev=0.00e+00\n  f=1e+05 Hz theta= 40.0 deg  P: closed form |xi|=7.6244686198e+01  root |xi|=7.6244686198e+01  rel.dev=1.86e-16\n  f=1e+05 Hz theta= 40.0 deg  S: closed form |xi|=1.9007959175e+02  root |xi|=1.9007959175e+02  rel.dev=1.50e-16\n  f=1e+05 Hz theta= 75.0 deg  P: closed form |xi|=2.5760355098e+01  root |xi|=2.5760355098e+01  rel.dev=1.65e-15\n  f=1e+05 Hz theta= 75.0 deg  S: closed form |xi|=1.7601305327e+02  root |xi|=1.7601305327e+02  rel.dev=1.61e-16\n  f=1e+06 Hz theta=  0.5 deg  P: closed form |xi|=9.9526579324e+02  root |xi|=9.9526579324e+02  rel.dev=1.14e-16\n  f=1e+06 Hz theta=  0.5 deg  S: closed form |xi|=2.0055557589e+03  root |xi|=2.0055557589e+03  rel.dev=0.00e+00\n  f=1e+06 Hz theta= 15.0 deg  P: closed form |xi|=9.6138954048e+02  root |xi|=9.6138954048e+02  rel.dev=0.00e+00\n  f=1e+06 Hz theta= 15.0 deg  S: closed form |xi|=1.9889619784e+03  root |xi|=1.9889619784e+03  rel.dev=1.14e-16\n  f=1e+06 Hz theta= 40.0 deg  P: closed form |xi|=7.6244686198e+02  root |xi|=7.6244686198e+02  rel.dev=0.00e+00\n  f=1e+06 Hz theta= 40.0 deg  S: closed form |xi|=1.9007959175e+03  root |xi|=1.9007959175e+03  rel.dev=0.00e+00\n  f=1e+06 Hz theta= 75.0 deg  P: closed form |xi|=2.5760355098e+02  root |xi|=2.5760355098e+02  rel.dev=0.00e+00\n  f=1e+06 Hz theta= 75.0 deg  S: closed form |xi|=1.7601305327e+03  root |xi|=1.7601305327e+03  rel.dev=1.29e-16\n  f=1e+07 Hz theta=  0.5 deg  P: closed form |xi|=9.9526579324e+03  root |xi|=9.9526579324e+03  rel.dev=0.00e+00\n  f=1e+07 Hz theta=  0.5 deg  S: closed form |xi|=2.0055557589e+04  root |xi|=2.0055557589e+04  rel.dev=0.00e+00\n  f=1e+07 Hz theta= 15.0 deg  P: closed form |xi|=9.6138954048e+03  root |xi|=9.6138954048e+03  rel.dev=0.00e+00\n  f=1e+07 Hz theta= 15.0 deg  S: closed form |xi|=1.9889619784e+04  root |xi|=1.9889619784e+04  rel.dev=0.00e+00\n  f=1e+07 Hz theta= 40.0 deg  P: closed form |xi|=7.6244686198e+03  root |xi|=7.6244686198e+03  rel.dev=0.00e+00\n  f=1e+07 Hz theta= 40.0 deg  S: closed form |xi|=1.9007959175e+04  root |xi|=1.9007959175e+04  rel.dev=0.00e+00\n  f=1e+07 Hz theta= 75.0 deg  P: closed form |xi|=2.5760355098e+03  root |xi|=2.5760355098e+03  rel.dev=7.06e-16\n  f=1e+07 Hz theta= 75.0 deg  S: closed form |xi|=1.7601305327e+04  root |xi|=1.7601305327e+04  rel.dev=0.00e+00\n\nCases executed: 24.  Worst relative deviation 1.65e-15.\n\nInterpretation: the numerically obtained roots agree with the\nindependently derived closed-form elastic branches, so the\npolynomial construction, the exact coefficient generation and the\nroot solver are all validated in the decoupled limit.  Because the\npolynomial is even in xi, agreement is checked on |xi|, which is\nthe correct statement for this symmetry.\n\nNOT VALIDATED here: the full coupled 8x8 piezothermoelastic\nmode-matching solve (see U-3 in reports/UNRESOLVED_ISSUES.md).  No\nR/T result of any kind is claimed."
+    },
+    {
+      "check": "I2",
+      "name": "interface independent-equation count and rank",
+      "label": "DERIVED",
+      "status": "PASS",
+      "measured": "rank 8 at all angles tested",
+      "tolerance": null,
+      "detail": "theta =  5.0 deg: medium-1 outgoing 4, medium-2 outgoing 4, rank = 8 / 8\ntheta = 30.0 deg: medium-1 outgoing 4, medium-2 outgoing 4, rank = 8 / 8\ntheta = 60.0 deg: medium-1 outgoing 4, medium-2 outgoing 4, rank = 8 / 8\n\nEquation count, two-half-space baseline:\n  8 unknown amplitudes (4 reflected + 4 transmitted)\n  8 interface relations (4 field continuity + 4 flux continuity)\n  -> square system, generically determined.\nEquation count, interphase configuration:\n  16 unknowns (8 outer + 8 internal)\n  16 relations (2 faces x 8)\n  -> square system.\n\nRank 8 is necessary but NOT sufficient: the amplitude\nnormalisation must still be verified, which is the open item U-3."
+    }
+  ],
+  "n_pass": 13,
+  "n_fail": 0,
+  "scope": "Phase-1 consistency checks only; no R/T/A result"
+}

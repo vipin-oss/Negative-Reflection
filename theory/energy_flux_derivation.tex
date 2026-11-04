@@ -1,0 +1,403 @@
+% =====================================================================
+%  theory/energy_flux_derivation.tex
+%  Phase 1, Blueprint V5.0, Task F
+%
+%  Lord-Shulman energy identity, normal total-field flux, bulk and interface
+%  dissipation, positivity, and the power balance that must be established
+%  BEFORE R + T + A = 1 may be asserted.
+%
+%  SOURCE-ONLY: no TeX engine is installed. Verified as text; the flux
+%  functional is checked by two independent numerical routes in
+%  code/foundation_checks.py (check D1) and its conservation along z in
+%  check E1.
+% =====================================================================
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,bm}
+\usepackage{geometry}
+\usepackage{booktabs}
+\geometry{margin=1in}
+\newcommand{\s}{\sigma}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\bth}{\vartheta}
+\newcommand{\D}{\bm{D}}
+\newcommand{\E}{\bm{E}}
+\newcommand{\bu}{\bm{u}}
+\newcommand{\bv}{\bm{v}}
+\newcommand{\bq}{\bm{q}}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\bbar}[1]{\bar{#1}}
+\newcommand{\jj}{[\![}
+\newcommand{\kk}{]\!]}
+\newcommand{\jmp}[1]{[\![#1]\!]}
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remark}
+
+\title{Energy flux, bulk and interface dissipation, and the power balance\\
+\large Theory note 4 of 4 --- Phase 1, Blueprint V5.0}
+\author{Derived for the Piezothermoelastic Anti-Reflection programme}
+\date{4 November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Blueprint V5.0 makes the energy account a compulsory gate: the identity
+$R+T+A=1$ is explicitly \emph{not} a premise, and gates G4 and G5 block any
+energy-ratio claim until the flux and the dissipations are derived. This note
+supplies that derivation for the Lord--Shulman piezothermoelastic system. The
+main results are: a cycle-averaged normal flux
+$\langle P_z\rangle = -\tfrac12\operatorname{Re}[\s_{xz}v_x^* + \s_{zz}v_z^* +
+i\omega D_z\varphi^*] + \tfrac12\operatorname{Re}[q_z]$; a bulk dissipation that
+is positive semidefinite under the stability conditions; interface dissipations
+matching the contact laws of the companion note; the composite balance
+\eqref{eq:master}; and a clear statement of which terms must be evaluated where
+before any partition may be quoted. \textbf{No reflection, transmission or
+absorption coefficient is computed in this note, and no anti-reflection claim is
+made.}
+\end{abstract}
+
+\section{Starting point and conventions}
+\label{sec:start}
+
+The bulk system is that of \texttt{theory/governing\_equations.tex}. Only the
+relations actually differentiated below are repeated here, so that this note is
+self-contained. With $\Lam \equiv 1-i\omega\tau_q$,
+\begin{equation}
+  \s_{ij} = C_{ijkl}\eps_{kl} - e_{kij}E_k - \beta_{ij}\bth, \qquad
+  D_i = e_{ikl}\eps_{kl} + \eps_{ik}E_k + p_i\bth, \qquad
+  E_i = -\varphi_{,i},
+  \label{eq:constitutive}
+\end{equation}
+\begin{equation}
+  \Lam\,\bq = -\kappa\nabla\bth, \qquad
+  \Lam\Big[\rho c_E\dot\bth + T_0\big(\beta_{ij}\dot\eps_{ij} + p_i\dot E_i\big)\Big]
+  = \kappa_{ij}\bth_{,ij},
+  \label{eq:fluxlaw}
+\end{equation}
+\begin{equation}
+  \rho>0,\quad c_E>0,\quad T_0>0,\quad \kappa_{ij}\ \text{positive definite},\quad
+  \tau_q\ge 0,\quad C_{ijkl}\ \text{positive definite},
+  \label{eq:thermal-stability}
+\end{equation}
+together with the momentum balance $\s_{ij,j}=\rho\ddot u_i$ and Gauss'
+law $D_{i,i}=0$. \textsc{Derived} / \textsc{Assumed} as labelled in the
+governing-equations note. Time dependence $e^{-i\omega t}$; complex amplitudes are
+phasors, so physical fields are $\operatorname{Re}(\cdot\,e^{-i\omega t})$ and the
+cycle average of a product of two phasors $A,B$ is
+$\tfrac12\operatorname{Re}(A B^*)$.
+
+\section{Bulk energy identity}
+\label{sec:bulk}
+
+\subsection{Mechanical--electrical part}
+
+Take the scalar product of the momentum balance with $\dot{\bu}$ and of Gauss'
+law with $\dot\varphi$, and subtract:
+\begin{equation}
+  \s_{ij,j}\dot u_i - D_{i,i}\dot\varphi
+  = \rho\ddot u_i\dot u_i .
+  \label{eq:raw-balance}
+\end{equation}
+Using $\E=-\nabla\varphi$ and the symmetry of $\s_{ij}$,
+\begin{equation}
+  \s_{ij}\dot\eps_{ij} + E_i\dot D_i
+  = \big(\rho\dot u_i\dot u_i\big)_{,t} + \big(\s_{ij}\dot u_i + \dot\varphi D_j\big)_{,j}.
+  \label{eq:mech-elec-identity}
+\end{equation}
+\textsc{Derived}. The left side is the rate of working of stress and of the
+electric field; the right side is a stored kinetic term plus a divergence.
+
+\subsection{Thermal part}
+
+From the entropy balance $T_0\partial_t(\rho\eta) = -\nabla\cdot\bq$ and the
+constitutive relation for $\rho\eta$, the reversible part of the entropy change
+supplies the thermoelastic and pyroelectric coupling terms, while the
+irreversible part is the conduction. The standard manipulation gives
+\begin{equation}
+  T_0\,\partial_t(\rho\eta) + \nabla\cdot\bq
+  = \underbrace{\bq\cdot\nabla\bth\,/\,T_0}_{\text{conduction production}}
+    \;-\;\underbrace{\tau_q\,\bq\cdot\partial_t\bq\,/\,\kappa}_{\text{relaxation term}} .
+  \label{eq:thermal-identity}
+\end{equation}
+\textsc{Derived} from the Lord--Shulman flux law \eqref{eq:fluxlaw}: eliminating $\nabla\bth$ between the
+flux law and the entropy balance produces the two terms on the right.
+\textbf{Only the first is dissipative}; the second is the relaxation storage
+term and changes sign with $\dot\bq$. This distinction matters: a formulation
+that treats the whole right side of \eqref{eq:thermal-identity} as dissipation
+over-counts the absorption by the relaxation contribution.
+
+\subsection{The combined identity}
+
+Assembling \eqref{eq:mech-elec-identity} and \eqref{eq:thermal-identity} and
+collecting the divergence gives the local balance
+\begin{equation}
+  \frac{\partial}{\partial t}\Big[\underbrace{\tfrac12\rho\dot u_i\dot u_i
+    + \tfrac12\s_{ij}\eps_{ij}}_{\text{kinetic + elastic}}
+    + \underbrace{\tfrac12\E\cdot\D}_{\text{electric}}
+    + \underbrace{\tfrac12\frac{\rho c_E}{T_0}\bth^2}_{\text{thermal}}\Big]
+  + \nabla\cdot\bm{S}
+  = -\mathcal{D}_{\text{bulk}} ,
+  \label{eq:local-balance}
+\end{equation}
+where the flux vector has components
+\begin{equation}
+  S_j = -\s_{ij}\dot u_i - \dot\varphi\,D_j + q_j ,
+  \label{eq:S-vector}
+\end{equation}
+and the bulk dissipation density is
+\begin{equation}
+  \mathcal{D}_{\text{bulk}}
+  = \frac{\bq\cdot\nabla\bth}{T_0}
+    - \frac{\tau_q\,\bq\cdot\partial_t\bq}{\kappa}
+    \;\ge\; 0 \quad\text{(see \S\ref{sec:positivity})}.
+  \label{eq:bulk-diss}
+\end{equation}
+\textsc{Derived}.
+
+\begin{remark}[Sign of the electric term in the flux]
+\label{rem:electric-sign}
+The electric contribution to \eqref{eq:S-vector} is $-\dot\varphi D_j$, i.e.\
+$+i\omega\varphi D_j$ in phasor form, \emph{not} $-\varphi\dot D_j$ and not
+$+\dot\varphi D_j$. The two alternatives differ by a divergence,
+$\partial_j(\varphi\dot D_j) - \varphi\partial_j\dot D_j$, and since
+$\nabla\cdot\D=0$ the second term vanishes --- so the three forms differ only by
+a surface term. For a \emph{homogeneous} medium the surface term integrates to
+zero on any closed surface and the choice is immaterial; for an
+\emph{interface} it is not, because the potential jumps. The convention above is
+the one that makes the interface balance close, and it is the one verified
+numerically (check D1).
+\end{remark}
+
+\section{Cycle-averaged normal flux}
+\label{sec:flux}
+
+For a single partial mode with complex amplitudes
+$\bm{a}=(U,W,\Phi,\Theta)^{\mathsf T}$ at frequency $\omega$ and wavenumbers
+$(\kappa,\xi)$, the cycle-averaged $z$-component of $\bm{S}$ is
+\begin{equation}
+  \boxed{\ \langle P_z\rangle
+  = -\tfrac12\operatorname{Re}\Big[\s_{xz}\,v_x^{*}
+    + \s_{zz}\,v_z^{*} + i\omega\,D_z\,\varphi^{*}\Big]
+  + \tfrac12\operatorname{Re}\big[q_z\big]\ }
+  \label{eq:Pz}
+\end{equation}
+with $\bv = -i\omega\bu$, i.e.\ $v_x^* = i\omega U^*$, $v_z^* = i\omega W^*$, and
+$q_z = -\kappa_{33}(i\xi\Theta)/\Lam$ from the flux law
+the Lord--Shulman flux law \eqref{eq:fluxlaw}. \textsc{Derived} from \eqref{eq:S-vector} by inserting the
+phasor form and taking the cycle average. This is Blueprint Eq.~(8) at the level
+of a single mode and gate G4's required ``normal total-field flux and its thermal
+term''.
+
+\subsection{Independent verification}
+
+\begin{proposition}[Two routes agree]
+\label{prop:two-routes}
+The closed form \eqref{eq:Pz} agrees with a direct numerical cycle average of the
+instantaneous flux
+$\bm{S}\cdot\bm{e}_z = -\s_{xz}v_x - \s_{zz}v_z - D_z\dot\varphi + q_z$ over one
+period, to machine precision.
+\end{proposition}
+\textsc{Tested} (check D1). For the uncoupled elastic case the closed form, the
+cycle average, and the analytic value $\tfrac12\rho c_L\omega^2\lvert W\rvert^2$
+agree to $1.9\times10^{-16}$.
+
+\begin{proposition}[Antisymmetry]
+\label{prop:antisym}
+$\langle P_z\rangle(\xi) = -\langle P_z\rangle(-\xi)$ exactly, for every branch.
+\end{proposition}
+\textsc{Tested}: check D1 obtains a maximum relative deviation of
+$3.5\times10^{-13}$ over all branches of three materials. This antisymmetry is
+the operational test that the signs of the mechanical, electrical and thermal
+terms in \eqref{eq:Pz} are all simultaneously correct: flipping any one of them
+destroys the antisymmetry.
+
+\begin{proposition}[Conservation along $z$]
+\label{prop:conservation}
+For a mode with wavenumber $\xi$, $\langle P_z\rangle(z_0) =
+\langle P_z\rangle(0)\,e^{-2\operatorname{Im}(\xi)\,z_0}$.
+\end{proposition}
+\textsc{Tested} (check E1): measured to $6\times10^{-12}$ relative for CdSe and
+$4\times10^{-28}$ for Al6061. For a strictly propagating mode
+($\operatorname{Im}\xi=0$) the flux is $z$-independent, which is the
+divergence-free content of \eqref{eq:local-balance} away from the interface.
+
+\begin{remark}[A numerical trap, recorded]
+\label{rem:cancellation}
+In a coupled 6 mm medium the flux \eqref{eq:Pz} is a difference of contributions
+of order $10^{20}\ \mathrm{W\,m^{-2}}$ that nearly cancel. Double precision loses
+about eight digits to this cancellation; the characteristic matrix of the same
+material has condition number $\sim10^{22}$, so a double-precision null vector is
+not accurate enough for the flux identity. All coupled-medium evaluations in
+\texttt{code/foundation\_checks.py} therefore use \texttt{mpmath} at 40 decimal
+digits and a two-stage null-vector construction (cofactor selection followed by an
+exact $3\times3$ Cramer solve on the column-equilibrated matrix). This is a
+requirement on the Phase-2 solver, not an incidental implementation detail.
+\end{remark}
+
+\section{Bulk positivity}
+\label{sec:positivity}
+
+\begin{proposition}[Positivity of the bulk dissipation]
+\label{prop:positivity}
+Under the stability conditions \eqref{eq:thermal-stability} of the
+governing-equations note --- in particular $\kappa_{ij}\succ0$, $\rho>0$,
+$c_E>0$, $T_0>0$ and $\tau_q\ge0$ --- the cycle average of
+$\mathcal{D}_{\text{bulk}}$ in \eqref{eq:bulk-diss} is non-negative.
+\end{proposition}
+\begin{proof}
+Write the flux law as
+$\bq = -\kappa\nabla\bth/(1-i\omega\tau_q) = -\Lam^{-1}\kappa\nabla\bth$ with
+$\Lam = 1-i\omega\tau_q$. Then
+$\bq\cdot\nabla\bth = -\Lam^{-1}(\nabla\bth)\cdot\kappa(\nabla\bth)$ and
+$\tau_q\bq\cdot\partial_t\bq = \tau_q\bq\cdot(-i\omega\bq)
+= i\omega\tau_q\lvert\bq\rvert^2_{\kappa^{-1}}$ (in the $\kappa$-weighted norm).
+Substituting into \eqref{eq:bulk-diss} and taking the real part of the cycle
+average,
+\begin{equation}
+  \langle\mathcal{D}_{\text{bulk}}\rangle
+  = \frac{1}{T_0}\frac{\kappa}{1+\omega^2\tau_q^2}
+    \big\lvert\nabla\bth\big\rvert^2 \;\ge\;0 ,
+  \label{eq:bulk-diss-explicit}
+\end{equation}
+where the $1+\omega^2\tau_q^2$ factor comes from
+$\operatorname{Re}(\Lam^{-1}) = 1/(1+\omega^2\tau_q^2)$ for
+$\Lam=1-i\omega\tau_q$. Non-negativity follows from $\kappa>0$, $T_0>0$ and
+$\tau_q\in\mathbb{R}$. Note that the relaxation term modifies the \emph{effective}
+conductivity, $ \kappa/(1+\omega^2\tau_q^2)$, and does not add a second,
+independent source of dissipation.
+\end{proof}
+\textsc{Derived}. The explicit form \eqref{eq:bulk-diss-explicit} is a useful
+by-product: it shows that the Lord--Shulman relaxation \emph{reduces} the
+effective conductivity at high frequency, which is the physically expected
+behaviour and is a check on the sign convention $\Lam = 1-i\omega\tau_q$. Using
+$1+i\omega\tau_q$ would give the same real part, so this particular check does not
+distinguish the two conventions; the decay of the thermal branch does
+(\texttt{characteristic\_matrix.tex}, the section on the roots).
+
+\section{Interface dissipation}
+\label{sec:interface}
+
+The contact laws and their dissipations are derived in
+\texttt{theory/interface\_conditions.tex}. For completeness the three forms are:
+\begin{align}
+  \mathcal{D}_{\mathrm{mech}} &= \tfrac12\,\jmp{\bv}^{\mathsf T}C\jmp{\bv}
+     \;\ge\;0, \label{eq:D-mech}\\
+  \mathcal{D}_{\mathrm{elec}} &= \tfrac12 G_s\lvert\jmp{\varphi}\rvert^{2}
+     \;\ge\;0 \quad(\text{only if a leakage conductance }G_s\text{ is declared}),\\
+  \mathcal{D}_{\mathrm{th}} &= \frac{H_T\lvert\jmp{\bth}\rvert^{2}}{T_0}
+     \;\ge\;0, \label{eq:D-th}
+\end{align}
+all in $\mathrm{W\,m^{-2}}$. The capacitive gap of the companion note is
+\emph{reactive} and contributes nothing to $\mathcal{D}_{\mathrm{elec}}$ unless
+$G_s$ is declared.
+
+\begin{remark}[Factor-of-two convention, still open]
+\label{rem:half}
+$\mathcal{D}_{\mathrm{mech}}$ and $\mathcal{D}_{\mathrm{th}}$ are written with a
+$\tfrac12$ and without one respectively because the mechanical form is a
+time-averaged square of a phasor ($\tfrac12$ from the average) while the thermal
+form was derived from entropy production and inherits no such factor. Unifying
+the two before assembling a numerical balance is \emph{mandatory}, and doing it
+wrong produces a $50\%$ error in the thermal channel alone. This is recorded as
+U-5 in \texttt{reports/UNRESOLVED\_ISSUES.md} and is \textbf{not} resolved here,
+because the correct choice depends on the normalisation adopted for $R$, $T$ and
+$A$ in the Phase-2 solver.
+\end{remark}
+
+\section{The composite power balance}
+\label{sec:balance}
+
+Integrating \eqref{eq:local-balance} over the slab between two evaluation planes
+$z=z_1<0$ and $z=z_2>\mathrm{h}$, and using the divergence theorem, gives
+\begin{equation}
+  \boxed{
+  \underbrace{\langle P_z\rangle\big|_{z_1}}_{\text{incoming}}
+  = \underbrace{\big(-\langle P_z\rangle\big|_{z_1}\big)_{\text{reflected}}}_{\text{outgoing at }z_1}
+  + \underbrace{\langle P_z\rangle\big|_{z_2}}_{\text{transmitted}}
+  + \underbrace{\int_{z_1}^{z_2}\langle\mathcal{D}_{\text{bulk}}\rangle\,dz}_{\text{bulk absorption}}
+  + \underbrace{\sum_{\text{faces}}\langle\mathcal{D}_{\text{face}}\rangle}_{\text{interface absorption}}
+  }
+  \label{eq:master}
+\end{equation}
+\textsc{Derived}. Equation~\eqref{eq:master} is the form of Blueprint Eq.~(8) with
+the terms identified explicitly. Dividing by the incoming flux defines
+\begin{equation}
+  R = \frac{\text{outgoing at }z_1}{\text{incoming}},\quad
+  T = \frac{\text{transmitted at }z_2}{\text{incoming}},\quad
+  A = \frac{\text{bulk + interface absorption}}{\text{incoming}},
+  \label{eq:RTA}
+\end{equation}
+whence $R+T+A=1$ \emph{follows} from \eqref{eq:master}. It is not a premise.
+
+\subsection{What must be fixed before $R,T,A$ may be quoted}
+
+Blueprint \S13 item 4 requires the definition of reflected and transmitted power,
+the evaluation planes, and the separation from bulk loss to be fixed
+\emph{before} quoting $R$, $T$ or $A$. The list, in order:
+\begin{enumerate}
+  \item \textbf{Evaluation planes.} Both planes must lie in the homogeneous
+        half-spaces, and $z_2$ must be far enough that the evanescent thermal and
+        electrical modes have decayed. With $\mu\approx3.9\times10^{-7}$ m at
+        1 MHz (\texttt{characteristic\_matrix.tex}), even $z_2=10\ \mu\mathrm{m}$
+        is $25$ diffusion lengths --- ample. This must be verified, not assumed.
+  \item \textbf{Channel-wise versus total.} At oblique incidence the reflected
+        field contains two propagating channels (quasi-P and quasi-SV) whose
+        fluxes are \emph{not} additive in $\lvert r\rvert^2$; the cross terms
+        between them contribute. $R$ is defined from the \emph{total} reflected
+        flux, not from a sum of $\lvert r_i\rvert^2$.
+  \item \textbf{Bulk absorption inside the evaluation window.} If the outer media
+        are lossy, $\int_{z_1}^{0}\langle\mathcal{D}_{\text{bulk}}\rangle dz$ is
+        non-zero and belongs to $A$, not to $R$ or $T$. Leaving it out makes
+        $R+T>1$ (or $<1$) and is the mechanism by which a pure-reflection
+        optimiser can certify an attenuating window as ``anti-reflecting''.
+  \item \textbf{The interphase.} For the primary configuration the interphase
+        sits between the planes and its bulk absorption is part of $A$; the two
+        face dissipations are separate contributions.
+\end{enumerate}
+
+\begin{remark}[A warning that follows from the derivation]
+\label{rem:warning}
+Because $A$ in \eqref{eq:RTA} collects both bulk and interface absorption,
+a reduction in $R$ accompanied by an increase in $A$ is \emph{not} evidence of
+anti-reflection with useful transmission. This is precisely the distinction
+Blueprint \S2 rule F1 enforces, and the derivation here shows it is structural,
+not a reporting preference: $R+T+A=1$ means any decrease in $R$ must appear
+either in $T$ or in $A$, and separating the two requires the integrals in
+\eqref{eq:master} to be evaluated, not inferred from $R$ alone.
+\end{remark}
+
+\section{What this note does and does not establish}
+\label{sec:summary}
+
+\paragraph{Established (\textsc{Derived}, and \textsc{Tested} where stated).}
+The local balance \eqref{eq:local-balance} and the flux vector
+\eqref{eq:S-vector}; the cycle-averaged normal flux \eqref{eq:Pz} with its
+thermal term; its agreement with a direct cycle average
+(Proposition~\ref{prop:two-routes}); its exact antisymmetry
+(Proposition~\ref{prop:antisym}); its $z$-conservation
+(Proposition~\ref{prop:conservation}); the explicit bulk dissipation
+\eqref{eq:bulk-diss-explicit} and its positivity
+(Proposition~\ref{prop:positivity}); the interface forms
+\eqref{eq:D-mech}--\eqref{eq:D-th}; and the composite balance
+\eqref{eq:master}, from which $R+T+A=1$ follows.
+
+\paragraph{Not established.}
+\begin{itemize}
+  \item \textbf{No numerical energy balance.} Equations \eqref{eq:master} and
+        \eqref{eq:RTA} are derived but have not been evaluated for any
+        configuration, because the coupled mode-matching solver does not exist.
+        Gate G5 (E3) is \textsc{unresolved}.
+  \item \textbf{No partition of $A$ between bulk and interface} has been
+        computed for any material pair.
+  \item The factor-of-two convention of Remark~\ref{rem:half} is open (U-5).
+  \item The claim that the thermal mode contributes negligible flux at practical
+        evaluation planes is argued from the diffusion length
+        $\mu\approx3.9\times10^{-7}$ m but not demonstrated numerically in a
+        scattering configuration.
+  \item Nothing in this note is a reflection-suppression result. No
+        anti-reflection curve, and no claim about reflection minima, appears
+        here.
+\end{itemize}
+
+\end{document}

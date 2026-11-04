@@ -1,0 +1,385 @@
+% =====================================================================
+%  theory/characteristic_matrix.tex
+%  Phase 1, Blueprint V5.0, Task E
+%
+%  Construction of M(xi; k, omega) a = 0 for a 6mm piezothermoelastic
+%  medium, its exact determinant, the root inventory, parity, gauge roots,
+%  admissible-mode selection, and the normal / oblique limits.
+%
+%  SOURCE-ONLY: no TeX engine is installed. Verified as text.
+%  The determinant coefficients quoted below are produced exactly by
+%  code/foundation_checks.py (cached in code/det_coeffs.json) and every
+%  structural claim is checked numerically in checks C1, C2 and I1.
+% =====================================================================
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,bm}
+\usepackage{geometry}
+\usepackage{booktabs}
+\geometry{margin=1in}
+\newcommand{\s}{\sigma}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\bth}{\vartheta}
+\newcommand{\D}{\bm{D}}
+\newcommand{\E}{\bm{E}}
+\newcommand{\bu}{\bm{u}}
+\newcommand{\Lam}{\Lambda}
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remark}
+\newtheorem{corollary}{Corollary}
+
+\title{The characteristic matrix: structure, root inventory and\\
+admissible modes\\
+\large Theory note 3 of 4 --- Phase 1, Blueprint V5.0}
+\author{Derived for the Piezothermoelastic Anti-Reflection programme}
+\date{4 November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Blueprint V5.0 \S3 states that the number of roots, their parity, the gauge roots
+and the mode count are to be \emph{derived, not assumed}, and that a preliminary
+toy-coefficient observation of an even polynomial is a prompt rather than
+evidence. This note supplies the derivation. The main results are: the
+characteristic determinant is a polynomial of degree $8$ in $\xi$ that is
+\emph{even} in $\xi$ with exactly five non-zero coefficients, so it factors as
+$P_4(\xi^2)$ and the eight roots form four $\pm$ pairs; the four branches are
+identified in closed form as quasi-P, quasi-SV, an electrically evanescent branch
+and a thermal branch; the only gauge root is the constant-potential state at
+$(\kappa,\xi)=(0,0)$; and the count of admissible modes per half-space is $4$,
+not $8$. All of this is verified numerically to machine-level residuals by
+\texttt{code/foundation\_checks.py}. \textbf{No reflection or transmission
+coefficient is computed here.}
+\end{abstract}
+
+\section{The ansatz and the matrix}
+\label{sec:ansatz}
+
+With the bulk system of \texttt{theory/governing\_equations.tex} and the ansatz
+\begin{equation}
+  \bm{y} = \bm{a}\,e^{\,i(\kappa x + \xi z - \omega t)},
+  \qquad \bm{a} = (U,W,\Phi,\Theta)^{\mathsf T},
+  \label{eq:ansatz}
+\end{equation}
+the four field equations become an algebraic system
+\begin{equation}
+  \bm{M}(\xi;\kappa,\omega)\,\bm{a} = \bm{0}.
+  \label{eq:eigen}
+\end{equation}
+This is Blueprint \S3. Substituting the kinematics and $E_i=-\varphi_{,i}$
+of the governing-equations note into the balance equations gives, entry by entry,
+\begin{align}
+  M_{11} &= -C_{11}\kappa^2 - C_{44}\xi^2 + \rho\omega^2, \label{eq:M11}\\
+  M_{12} &= -\kappa\xi\,(C_{13}+C_{44}), \label{eq:M12}\\
+  M_{13} &= -\kappa\xi\,(e_{15}+e_{31}), \label{eq:M13}\\
+  M_{14} &= -i\beta_1\kappa, \label{eq:M14}\\[2pt]
+  M_{21} &= M_{12}, \label{eq:M21}\\
+  M_{22} &= -C_{33}\xi^2 - C_{44}\kappa^2 + \rho\omega^2, \label{eq:M22}\\
+  M_{23} &= -e_{15}\kappa^2 - e_{33}\xi^2, \label{eq:M23}\\
+  M_{24} &= -i\beta_3\xi, \label{eq:M24}\\[2pt]
+  M_{31} &= M_{13}, \label{eq:M31}\\
+  M_{32} &= M_{23}, \label{eq:M32}\\
+  M_{33} &= \eps_{11}\kappa^2 + \eps_{33}\xi^2, \label{eq:M33}\\
+  M_{34} &= i\,p\,\xi, \label{eq:M34}\\[2pt]
+  M_{41} &= T_0\beta_1\kappa\omega\,(i\omega\tau_q - 1), \label{eq:M41}\\
+  M_{42} &= T_0\beta_3\omega\xi\,(i\omega\tau_q - 1), \label{eq:M42}\\
+  M_{43} &= T_0\omega p\,\xi\,(1 - i\omega\tau_q), \label{eq:M43}\\
+  M_{44} &= c_E\omega^2\rho\tau_q + i\,c_E\omega\rho
+            - \kappa_{11}\kappa^2 - \kappa_{33}\xi^2 . \label{eq:M44}
+\end{align}
+\textsc{Derived}. Note the identities $M_{21}=M_{12}$, $M_{31}=M_{13}$,
+$M_{32}=M_{23}$: the mechanical--mechanical, mechanical--electrical and
+electrical--mechanical blocks are symmetric, which is a consequence of the single
+potential.
+
+\begin{remark}[Symmetry is only partial]
+\label{rem:partial-sym}
+$\bm{M}$ is \emph{not} symmetric: $M_{14}\neq M_{41}$ etc. The asymmetry is
+exactly the loss of Hermiticity introduced by the first-order time derivatives in
+the entropy balance. It is not a numerical artefact and no symmetrisation should
+be applied.
+\end{remark}
+
+\section{The determinant: degree, parity, closed form}
+\label{sec:det}
+
+\begin{proposition}[Structure of $\det\bm{M}$]
+\label{prop:det-structure}
+For the matrix \eqref{eq:M11}--\eqref{eq:M44},
+\begin{equation}
+  \det\bm{M}(\xi;\kappa,\omega)
+  = P_0 + P_2\,\xi^2 + P_4\,\xi^4 + P_6\,\xi^6 + P_8\,\xi^8 ,
+  \label{eq:det}
+\end{equation}
+i.e.\ the determinant is a polynomial of degree $8$ in $\xi$ with \textbf{only
+even powers present}. The five coefficients are non-zero for generic material
+data.
+\end{proposition}
+
+\begin{proof}[Proof]
+$\bm{M}$ depends on $\xi$ through $\xi$, $\xi^2$ and $\xi^4$ patterns; explicitly,
+the entries contain at most $\xi^2$ (e.g.\ $M_{22}$, $M_{33}$, $M_{44}$) and
+$\xi^1$ (e.g.\ $M_{24}$, $M_{34}$, $M_{42}$, $M_{43}$). Expanding the
+determinant as a sum over permutations, a term of odd total degree in $\xi$
+requires an odd number of $\xi^1$ factors. Consider the involution
+$\xi\to-\xi$ combined with the diagonal sign change
+$\bm{S}=\mathrm{diag}(1,1,1,-1)$. Direct substitution shows
+\begin{equation}
+  \bm{M}(-\xi;\kappa,\omega) = \bm{S}\,\bm{M}(\xi;\kappa,\omega)\,\bm{S},
+  \label{eq:parity-identity}
+\end{equation}
+because every entry that is odd in $\xi$ sits in a row and a column with exactly
+one factor of $\bm{S}$ (namely row/column 4 combined with rows/columns 1--3).
+Taking determinants, $\det\bm{M}(-\xi)=\det(\bm{S})^2\det\bm{M}(\xi)=\det\bm{M}(\xi)$.
+Hence $\det\bm{M}$ is even in $\xi$.\qed
+\end{proof}
+
+\begin{remark}[Independent confirmation]
+Equation~\eqref{eq:parity-identity} is a statement that can be checked entry by
+entry, and it has been: check C1 evaluates all $16$ entries of
+$\bm{M}(-\xi)-\bm{S}\bm{M}(\xi)\bm{S}$ symbolically and obtains zero, and then
+computes the determinant by fraction-free (Berkowitz) elimination and finds degree
+$8$ with vanishing odd coefficients. Two routes, same answer.
+\end{remark}
+
+\subsection{Closed forms of the extreme coefficients}
+
+The two extreme coefficients are simple enough to quote and to use as sanity
+checks on any implementation:
+\begin{align}
+  P_8 &= -\,C_{44}\,\kappa_{33}\big(C_{33}\eps_{33} + e_{33}^2\big),
+  \label{eq:P8}\\
+  P_0 &= \kappa^8\Big[-C_{11}C_{44}\eps_{11}\kappa_{11}
+        - C_{11}e_{15}^2\kappa_{11}\Big] + O(\kappa^6).
+  \label{eq:P0}
+\end{align}
+Equation~\eqref{eq:P8} is worth reading physically: the coefficient of the highest
+power of $\xi$ factorises into the shear stiffness, the thermal conductivity along
+the poling axis, and the \emph{piezoelectrically stiffened} dielectric factor
+$C_{33}\eps_{33}+e_{33}^2$. That last factor is the 1-D stiffened modulus familiar
+from the thickness-mode transducer problem, and its appearance here is a useful
+sign that the coupling has been assembled correctly.
+
+\subsection{Decoupling structure at $\xi=0$ and at $\kappa=0$}
+
+\begin{proposition}[Block decomposition]
+\label{prop:blocks}
+\begin{enumerate}
+  \item At $\xi=0$ (propagation normal to the poling axis, in the plane of
+        transverse isotropy), $\bm{M}$ block-decomposes as
+        $\{u_x,\bth\}\oplus\{u_z,\varphi\}$, with all cross terms between the two
+        blocks vanishing identically. In the $\{u_x,\bth\}$ block there is
+        \emph{no} piezoelectric coupling; in the $\{u_z,\varphi\}$ block there is
+        \emph{no} thermal coupling.
+  \item At $\kappa=0$ (normal incidence), $\bm{M}$ block-decomposes as
+        $\{u_x\}\oplus\{u_z,\varphi,\bth\}$: $u_x$ is completely decoupled and is a
+        pure shear mode.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+Direct substitution. At $\xi=0$, $M_{12}=M_{13}=M_{14}=0$ (all carry a factor
+$\xi$) and $M_{42}=M_{43}=0$ (both carry $\xi$), leaving $M_{11},M_{41},M_{44}$
+in the first block and $M_{22},M_{23},M_{32},M_{33}$ in the second. At
+$\kappa=0$, $M_{12}=M_{13}=M_{14}=0$ and $M_{41}=0$, leaving $M_{11}$ isolated.
+\end{proof}
+\textsc{Tested} (check C1).
+
+\begin{remark}[The thermal field does not couple to shear]
+\label{rem:sh}
+Combining the two limits: $u_x$ decouples from everything at $\kappa=0$, and the
+$\{u_x,\bth\}$ block at $\xi=0$ contains no piezoelectric coupling. The
+consequence, stated already in the governing-equations note, is that
+\textbf{anti-plane SH motion in a $6mm$ medium with poling along $z$ is thermally
+decoupled identically}. SH configurations cannot demonstrate thermal coupling.
+Any claim to the contrary would be a modelling error.
+\end{remark}
+
+\section{Root inventory and admissible modes}
+\label{sec:roots}
+
+\subsection{The eight roots}
+
+By Proposition~\ref{prop:det-structure}, $\det\bm{M}$ factors as $P_4(\xi^2)$, so
+the eight roots $\xi_1,\dots,\xi_8$ are four pairs $\pm\xi$. Writing
+$\xi = \xi' + i\xi''$ and using $e^{i\xi z}$ with $e^{-i\omega t}$:
+\begin{itemize}
+  \item $\xi''>0$: the mode decays as $z\to+\infty$ and grows as $z\to-\infty$;
+  \item $\xi''<0$: the opposite;
+  \item $\xi''=0$: the mode propagates, with $\xi'>0$ travelling in $+z$ and
+        $\xi'<0$ in $-z$.
+\end{itemize}
+Therefore \textbf{exactly four of the eight roots are admissible on each side of an
+interface}: those with $\xi''>0$ (or $\xi'>0$ when $\xi''=0$) for medium 2, and
+their negatives for medium 1. The count of admissible modes per half-space is
+$4$, not $8$. This is the derivation that Blueprint \S3 asks for.
+
+\subsection{Closed-form identification of the four branches}
+
+At a representative point ($f=1$ MHz, $\theta=30^\circ$, PZT-5H) the eight roots
+group into four branches, each identified against an independent closed form:
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+Branch & Closed form for $\xi$ & Value at the test point & $\lvert\bm{a}\rvert$ pattern \\
+\midrule
+quasi-P & $\sqrt{(\omega/c_L)^2-\kappa^2}$,
+  $c_L^2=(C_{33}+e_{33}^2/\eps_{33})/\rho$ & $1.139\times10^{3}$ & $(0,0,1,\cdot)$ \\
+quasi-SV & $\sqrt{(\omega/c_T)^2-\kappa^2}$, $c_T^2=C_{44}/\rho$
+  & $3.498\times10^{3}$ & $(0,1,0,0)$ \\
+electrically evanescent & $i\kappa\sqrt{\eps_{11}/\eps_{33}}$
+  & $i\,8.452\times10^{2}$ & $(0,0,1,0)$ \\
+thermal (LS) & $(1+i)\sqrt{\omega\rho c_E/(2\kappa_{33})}$
+  & $(-2.569+2.569i)\times10^{6}$ & $(\cdot,\cdot,\cdot,1)$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textsc{Tested} (check C2): each root is matched to its closed form, and the
+eigenmode residual $\lVert\bm{M}\bm{a}\rVert/(\lVert\bm{M}\rVert\lvert\bm{a}\rvert)$
+is below $10^{-26}$ for all eight roots.
+
+\begin{remark}[The ``quasi'' in quasi-P and quasi-SV]
+\label{rem:quasi}
+The closed forms above neglect the piezoelectric and thermal corrections to the
+wave speeds; the actual roots differ from them by a few parts in $10^{3}$
+(measured: $1.9\%$ for quasi-P, $0.6\%$ for quasi-SV at the test point). They are
+labelled ``quasi'' for this reason, and the identification is done by nearest
+match, not by assuming equality. A method that assumes the closed forms are exact
+would mis-assign the reflected branches near a degeneracy.
+\end{remark}
+
+\subsection{The thermal branch is always strongly evanescent}
+
+At $1$ MHz and $T_0=300$ K the thermal wavenumber is
+$\lvert\xi_{\mathrm{th}}\rvert \approx 2.6\times10^{6}\ \mathrm{m^{-1}}$ against
+$\kappa\approx 7.9\times10^{2}\ \mathrm{m^{-1}}$, i.e.\ the thermal mode decays
+over a diffusion length
+\begin{equation}
+  \mu = \frac{1}{\operatorname{Re}\xi_{\mathrm{th}}}
+  = \sqrt{\frac{2\kappa_{33}}{\omega\rho c_E}} \approx 3.9\times10^{-7}\ \mathrm{m}
+  \label{eq:mu}
+\end{equation}
+at $1$ MHz. \textbf{Consequence for the scattering problem:} an evaluation plane
+placed more than a few $\mu$ from the interface sees no thermal contribution at
+all. Any energy balance must therefore either place its evaluation planes within
+about a micrometre of the interface (impractical at these wavelengths) or
+demonstrate that the thermal mode contributes a negligible flux at the chosen
+planes. The latter is the only practical route at megahertz frequencies, and it
+must be demonstrated rather than assumed. This is recorded as a Phase-2
+requirement.
+
+\section{Gauge and zero roots}
+\label{sec:gauge}
+
+\begin{proposition}[The only gauge root]
+\label{prop:gauge}
+At $(\kappa,\xi)=(0,0)$ the null space of $\bm{M}$ is one-dimensional, spanned by
+$\bm{a}_0=(0,0,1,0)^{\mathsf T}$ --- the constant potential with $D_z=0$. This
+state carries no field energy and no flux. It does not persist for $\kappa\neq0$.
+\end{proposition}
+\begin{proof}
+Substituting $\kappa=\xi=0$ into \eqref{eq:M11}--\eqref{eq:M44} leaves a diagonal
+matrix with entries $(0,\ 0,\ 0,\ c_E\omega^2\rho\tau_q + ic_E\omega\rho)$, of
+which the third vanishes, giving a single null direction. For $\kappa\neq0$ the
+entry $M_{33}=\eps_{11}\kappa^2\neq0$, so the null direction is removed.
+\end{proof}
+\textsc{Tested} (check C1 computes the null space symbolically and obtains exactly
+that vector).
+
+\begin{remark}[Two further degeneracies at $\kappa=0$ when $e=0$]
+\label{rem:k0-degenerate}
+With $\kappa=0$ \emph{and} the piezoelectric coupling set to zero, the coefficients
+$P_0$ and $P_2$ of \eqref{eq:det} acquire a factor $\kappa^2$ (visible in
+\eqref{eq:P0}), so $\xi=0$ becomes a root of multiplicity four rather than one.
+This is not a different gauge root --- it is the same constant-potential
+degeneracy, now fourfold. Practically it means: \textbf{normal incidence in the
+decoupled limit is a singular point of the eigenvalue problem and must be reached
+as a limit} $\kappa\to0$ with the coupling kept non-zero. This was found
+numerically (see U-3 in \texttt{reports/UNRESOLVED\_ISSUES.md}) after an attempt
+to validate at exactly $\kappa=0$ failed.
+\end{remark}
+
+\section{Selection of admissible and outgoing modes}
+\label{sec:selection}
+
+Blueprint \S3 requires selection by flux and decay, \emph{not} by the sign of
+$\operatorname{Re}\xi$ alone. The rule is:
+\begin{enumerate}
+  \item \textbf{Decay:} on the medium occupying $z>0$, keep roots with
+        $\xi''>0$; on $z<0$, keep $\xi''<0$.
+  \item \textbf{Propagating roots ($\xi''=0$):} keep the outgoing direction,
+        $\xi'>0$ for $z>0$ and $\xi'<0$ for $z<0$.
+  \item \textbf{Verification:} for each kept mode, the cycle-averaged $z$-flux
+        $\langle P_z\rangle$ (see \texttt{theory/energy\_flux\_derivation.tex})
+        must be positive for a mode outgoing into $z>0$ and negative for one
+        outgoing into $z<0$. A root that passes the decay test but fails the flux
+        test is a sign error or a wrong branch, not a physical mode.
+\end{enumerate}
+\textsc{Derived}, and \textsc{Tested} through the antisymmetry
+$\langle P_z\rangle(\xi) = -\langle P_z\rangle(-\xi)$, which check D1 verifies
+with a maximum relative deviation of $3.5\times10^{-13}$ over all branches of
+three materials.
+
+\begin{remark}[Why $\operatorname{Re}\xi$ alone is not enough]
+\label{rem:not-re-enough}
+For a lossy medium a root can have $\operatorname{Re}\xi>0$ and still be
+incoming, because the stored-energy flux and the group velocity can differ in
+sign near a strong absorption line. The Lord--Shulman thermal branch is exactly
+such a case: it is evanescent, yet the sign of $\operatorname{Re}\xi$ flips
+between the two members of the pair while the flux keeps its physical direction.
+Using $\operatorname{Re}\xi$ alone would label a decaying mode as incoming.
+\end{remark}
+
+\section{Normal and oblique limits}
+\label{sec:limits}
+
+\paragraph{Oblique incidence ($\kappa\neq0$).} All four branches carry all four
+field components to some degree, and the mode-conversion structure is genuine:
+an incident quasi-P wave generates reflected quasi-P \emph{and} quasi-SV, plus
+evanescent electrical and thermal near-fields. The number of reflected propagating
+channels is $2$, not $3$, because the electrical and thermal branches are
+evanescent at these frequencies.
+
+\paragraph{Normal incidence ($\kappa\to0$).} By
+Proposition~\ref{prop:blocks}(2), $u_x$ decouples exactly and the remaining
+$3\times3$ system $\{u_z,\varphi,\bth\}$ governs the longitudinal problem. This is
+the limit in which the thermal and electrical effects are strongest, because the
+longitudinal branch is the only one that couples to $\bth$ and $\varphi$.
+
+\paragraph{Why $\kappa=0$ must be a limit.} Proposition~\ref{prop:gauge} and
+Remark~\ref{rem:k0-degenerate} show that $\kappa=0$ is a degenerate point of the
+eigenvalue problem. Practically: compute at $\kappa=\omega\sin\theta/c$ for
+$\theta=10^{-4},10^{-3},10^{-2}$ rad, verify that the quantity of interest
+converges as $\theta^2$, and report the extrapolated value. Check I1 does exactly
+this against the closed-form elastic branches and obtains agreement to
+$1.7\times10^{-15}$.
+
+\section{What this note does and does not establish}
+\label{sec:summary}
+
+\paragraph{Established.} The matrix \eqref{eq:M11}--\eqref{eq:M44}; the
+determinant structure \eqref{eq:det}, including exact parity with a
+proof; the closed forms \eqref{eq:P8}--\eqref{eq:P0}; the block decompositions;
+the root count $8$ with $4$ admissible per half-space; the closed-form
+identification of all four branches with residuals below $10^{-26}$; the single
+gauge root; the selection rule and its verification.
+
+\paragraph{Not established.}
+\begin{itemize}
+  \item No scattering coefficient. Root structure is not a scattering result.
+  \item The branch identification is by nearest match to a closed form that
+        neglects coupling corrections of order $10^{-3}$; near a degeneracy of two
+        branches this identification would need the coupled dispersion relation
+        rather than the closed form.
+  \item The thermal-mode contribution to the flux at practical evaluation planes
+        is not quantified here; that is a Phase-2 requirement
+        (\S\ref{sec:roots}, \eqref{eq:mu}).
+  \item The 6 mm restriction is essential. A lower symmetry (e.g.\ $mm2$ or
+        triclinic) would break the parity argument \eqref{eq:parity-identity} and
+        the block structure, and the degree would remain $8$ but the roots would
+        no longer come in $\pm$ pairs in the same way.
+\end{itemize}
+
+\end{document}

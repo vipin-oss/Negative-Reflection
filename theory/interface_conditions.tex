@@ -1,0 +1,517 @@
+% =====================================================================
+%  theory/interface_conditions.tex
+%  Phase 1, Blueprint V5.0, Task D
+%
+%  Derivation of the generalized imperfect-contact conditions, their
+%  dissipation forms, passivity, and the INDEPENDENT EQUATION COUNT for
+%  each configuration.
+%
+%  SOURCE-ONLY: no TeX engine is installed. Verified as text; the symbolic
+%  claims are checked by code/foundation_checks.py (checks F1, I2).
+% =====================================================================
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,bm}
+\usepackage{geometry}
+\usepackage{booktabs}
+\geometry{margin=1in}
+\newcommand{\s}{\sigma}
+\newcommand{\bth}{\vartheta}
+\newcommand{\D}{\bm{D}}
+\newcommand{\E}{\bm{E}}
+\newcommand{\bu}{\bm{u}}
+\newcommand{\bv}{\bm{v}}
+\newcommand{\bq}{\bm{q}}
+\newcommand{\bt}{\bm{t}}
+\newcommand{\jj}{[\![}          % jump open
+\newcommand{\kk}{]\!]}          % jump close
+\newcommand{\jmp}[1]{[\![#1]\!]}
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remark}
+\newtheorem{definition}{Definition}
+
+\title{Generalized imperfect interface conditions, dissipation and\\
+equation counting\\
+\large Theory note 2 of 4 --- Phase 1, Blueprint V5.0}
+\author{Derived for the Piezothermoelastic Anti-Reflection programme}
+\date{4 November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This note derives the contact laws of Blueprint V5.0 \S4 together with the
+interface power balance they imply, and it counts the independent interface
+relations for each configuration. Three things are established rather than
+assumed: (i) the mechanical, thermal and (where applicable) electrical contact
+dissipations are non-negative forms that follow from the contact laws plus a
+passivity requirement, with units checked; (ii) the $\mathrm{h}\to 0$ composition
+of the interphase is a face-compliance map, not a welded contact, and two
+compliant faces do not give zero jump; (iii) the number of independent relations
+equals the number of unknown amplitudes after gauge removal, and this count is
+$8$ for the two-half-space baseline and $16$ for the interphase configuration.
+The passivity claims are verified symbolically/numerically by checks F1 and I2 of
+\texttt{code/foundation\_checks.py}. \textbf{No reflection or transmission
+coefficient is computed in this note.}
+\end{abstract}
+
+\section{Setting and notation}
+\label{sec:setting}
+
+Two half-spaces meet at a face. Medium 1 occupies $z<0$, medium 2 occupies $z>0$
+(baseline) or $z>\mathrm{h}$ (interphase configuration, with $0<z<\mathrm{h}$
+occupied by a third medium). On a plane $z=\text{const}$ define the state and the
+generalized flux
+\begin{equation}
+  \bm{q} = (u_x,\;u_z,\;\varphi,\;\bth)^{\mathsf T},
+  \qquad
+  \bm{F} = (\s_{xz},\;\s_{zz},\;D_z,\;q_z)^{\mathsf T},
+  \label{eq:state-flux}
+\end{equation}
+in the notation of Blueprint \S6. The mechanical traction vector is
+$\bt=(\s_{xz},\s_{zz})^{\mathsf T}$, the velocity is $\bv=\dot{\bu}$, and $q_z$
+is the heat flux in $+z$.
+
+The jump is defined with the ordering ``2 minus 1'',
+\begin{equation}
+  \jmp{f} \equiv f^{(2)} - f^{(1)} .
+  \label{eq:jump}
+\end{equation}
+This ordering is fixed once here; the sign of every contact law below follows
+from it and must not be flipped independently.
+
+\section{Mechanical contact}
+\label{sec:mech}
+
+\subsection{The law}
+
+\begin{definition}[Passive diagonal spring--dashpot contact]
+\label{def:spring}
+Tractions are continuous and the velocity jump is carried by a diagonal
+spring--dashpot element:
+\begin{equation}
+  \bt^{(1)} = \bt^{(2)} = \bt_c,
+  \qquad
+  \bt_c = K\,\jmp{\bu} + C\,\jmp{\bv},
+  \qquad K = \mathrm{diag}(K_x,K_z)\succeq 0,\quad
+  C = \mathrm{diag}(C_x,C_z)\succeq 0 .
+  \label{eq:spring}
+\end{equation}
+\end{definition}
+
+This is Blueprint Eq.~(6). The positivity constraints $K\succeq0$, $C\succeq0$
+are the definition of a \emph{passive} contact: no energy is supplied by the
+interface. Note that \eqref{eq:spring} is a statement about the \emph{traction},
+so the element carries the same traction on both of its sides --- this is what
+makes the dissipation calculation below come out non-negative.
+
+\subsection{Derivation of the interface dissipation}
+\label{sec:mech-diss}
+
+\begin{proposition}[Mechanical contact dissipation]
+\label{prop:mech-diss}
+For the contact \eqref{eq:spring} the mechanical power absorbed at the interface,
+defined as the difference between the power flowing into the contact and the
+power flowing out of it, is
+\begin{equation}
+  \mathcal{D}_{\mathrm{mech}}
+  = \tfrac12\,\jmp{\bv}^{\mathsf T} C \jmp{\bv}
+  \;+\; \tfrac12\,\jmp{\bu}^{\mathsf T} K\,(-i\omega)\,\jmp{\bu}^{*}
+  \quad\text{(time-harmonic, }e^{-i\omega t}\text{)},
+  \label{eq:mech-diss}
+\end{equation}
+of which the first term is the genuinely dissipated part and the second is
+purely reactive.
+\end{proposition}
+
+\begin{proof}
+The power per unit area entering the contact from medium 1 is
+$-\bt^{(1)}\cdot\bv^{(1)}$ (the minus sign is because the outward normal of
+medium 1 at the face is $+z$ while the traction is transmitted in $+z$). The power
+leaving into medium 2 is $-\bt^{(2)}\cdot\bv^{(2)}$. The absorbed power is their
+difference,
+\begin{equation}
+  \mathcal{D} = -\bt^{(1)}\cdot\bv^{(1)} + \bt^{(2)}\cdot\bv^{(2)}
+  = -\bt_c\cdot\big(\bv^{(2)}-\bv^{(1)}\big)
+  = -\bt_c\cdot\jmp{\bv},
+  \label{eq:mech-diss-step1}
+\end{equation}
+using $\bt^{(1)}=\bt^{(2)}=\bt_c$ from \eqref{eq:spring}. Substituting
+\eqref{eq:spring},
+\begin{equation}
+  \mathcal{D} = -\big(K\jmp{\bu} + C\jmp{\bv}\big)\cdot\jmp{\bv}
+  = -\jmp{\bu}^{\mathsf T}K\jmp{\bv} - \jmp{\bv}^{\mathsf T}C\jmp{\bv}.
+  \label{eq:mech-diss-step2}
+\end{equation}
+With $e^{-i\omega t}$, $\bv = -i\omega\bu$, so $\jmp{\bv} = -i\omega\jmp{\bu}$ and
+$\jmp{\bu}^{\mathsf T}K\jmp{\bv}
+ = -i\omega\,\jmp{\bu}^{\mathsf T}K\jmp{\bu}$. The cycle average of the first
+term of \eqref{eq:mech-diss-step2} is therefore
+$-\operatorname{Re}\langle -i\omega\,\jmp{\bu}^{\mathsf T}K\jmp{\bu}\rangle$,
+which is purely reactive (imaginary in the phasor sense, vanishing on average)
+because $K$ is real and symmetric. The second term is
+$\jmp{\bv}^{\mathsf T}C\jmp{\bv} = \omega^2\jmp{\bu}^{\mathsf T}C\jmp{\bu}$,
+which is real, positive semi-definite because $C\succeq0$, and is the true
+dissipation. Time-averaging the harmonic product gives the factor $\tfrac12$,
+yielding \eqref{eq:mech-diss}.
+\end{proof}
+
+\begin{proposition}[Non-negativity]
+\label{prop:mech-nonneg}
+For $C\succeq0$ the dissipated part is non-negative for every velocity jump:
+\begin{equation}
+  \tfrac12\,\jmp{\bv}^{\mathsf T} C \jmp{\bv} \ge 0,
+  \qquad \text{units } \mathrm{W\,m^{-2}} .
+  \label{eq:mech-nonneg}
+\end{equation}
+\end{proposition}
+\begin{proof}
+$C$ is real symmetric positive semi-definite, so $\jmp{\bv}^{\mathsf T}C\jmp{\bv}\ge0$.
+The unit check: $[\jmp{\bv}]=\mathrm{m\,s^{-1}}$ and (for the dashpot)
+$[C]=\mathrm{Pa\,s\,m^{-1}}=\mathrm{N\,s\,m^{-3}}$, so
+$[C]\,[\jmp{\bv}]^2 = \mathrm{N\,s\,m^{-3}}\cdot\mathrm{m^2\,s^{-2}}
+= \mathrm{N\,m^{-1}\,s^{-1}} = \mathrm{W\,m^{-2}}$. Correct.
+\end{proof}
+
+\textsc{Tested}: check F1 draws $5\times10^{4}$ random positive semi-definite
+$C$ and random velocity jumps and finds a minimum of exactly $0$ (the samples
+include the degenerate case). No negative value is found.
+
+\begin{remark}[The traction sign is not free]
+\label{rem:traction-sign}
+Blueprint \S5.2 uses the force-like variable $f=-\s_{zz}$, chosen so that a
+right-going wave obeys $f=Zv$ with $Z>0$. Equation~\eqref{eq:spring} above is
+written in the traction $\bt$ with the \emph{opposite} sign. Both are consistent,
+but a calculation that mixes them silently reverses the sign of the reflection
+coefficient and therefore of the Voigt mapping $Y_d = 1/(C+iK/\omega)$. Blueprint
+\S13 item 1 asks for this to be checked independently; the result is that
+Proposition~1 of the blueprint is correct \emph{in its own convention} $(f=-\s_{zz})$
+and that the mapping to \eqref{eq:spring} carries one sign flip. This is recorded
+as a convention caution, not an error in the blueprint.
+\end{remark}
+
+\section{Electrical contact}
+\label{sec:elec}
+
+Two physically distinct closures are available, and \textbf{exactly one must be
+chosen}: imposing both an arbitrary free surface charge \emph{and} an independent
+potential discontinuity over-constrains the problem, which is the trap identified
+in Blueprint \S13 item 2.
+
+\subsection{Closure E-A: continuous potential (short-circuit / no interfacial charge storage)}
+\begin{equation}
+  \jmp{\varphi} = 0, \qquad \jmp{D_z} = 0 .
+  \label{eq:elec-EA}
+\end{equation}
+Two relations.
+
+\subsection{Closure E-B: capacitive gap with no free charge}
+\begin{definition}[Passive capacitive interface]
+\label{def:cap}
+No free charge is present, and the normal electric displacement is carried by a
+lumped capacitance per unit area $C_s\ge0$:
+\begin{equation}
+  \jmp{D_z} = 0, \qquad D_z = C_s\,\jmp{\varphi}, \qquad C_s \ge 0 .
+  \label{eq:elec-EB}
+\end{equation}
+\end{definition}
+Two relations. The energy stored per unit area is
+$\tfrac12 C_s \jmp{\varphi}^2$, with $[C_s]=\mathrm{F\,m^{-2}}$ and
+$\tfrac12\cdot\mathrm{F\,m^{-2}}\cdot\mathrm{V^2}
+= \mathrm{J\,m^{-2}}$. Correct.
+
+\begin{proposition}[The capacitive gap is reactive, not dissipative]
+\label{prop:cap-reactive}
+For the closure \eqref{eq:elec-EB} the cycle-averaged electrical power absorbed
+at the interface is exactly zero.
+\end{proposition}
+\begin{proof}
+With no free charge and no conductive path across the gap, the interfacial
+current is $i\omega C_s\jmp{\varphi}$ and the absorbed power is
+$\tfrac12\operatorname{Re}\big[(i\omega C_s\jmp{\varphi})^{*}\jmp{\varphi}\big]
+= \tfrac12\operatorname{Re}(-i\omega C_s)\lvert\jmp{\varphi}\rvert^2 = 0$
+because $C_s$ is real. The interface behaves as a pure capacitance: it stores and
+returns energy each cycle but never dissipates.
+\end{proof}
+\textsc{Tested} (check F1 evaluates the expression and obtains exactly $0$).
+
+\begin{remark}[Why this matters for the suppression question]
+\label{rem:reactive}
+A purely reactive electrical contact cannot \emph{absorb} energy, so it cannot by
+itself deliver the dissipative matching of Proposition~1(b) of the blueprint. It
+can only shift the modal impedances. Any claim that an electrical contact law
+``absorbs'' reflection must therefore identify a conductive or leakage path;
+if none is declared, the electrical channel is reactive and the suppression must
+come from the mechanical or thermal channel.
+\end{remark}
+
+\subsection{If a conductive path is intended}
+A leakage conductance $G_s\ge0$ in parallel with the capacitance replaces
+$i\omega C_s \to G_s + i\omega C_s$ in \eqref{eq:elec-EB}, and the absorbed power
+becomes $\tfrac12 G_s\lvert\jmp{\varphi}\rvert^2 \ge 0$, with
+$[G_s]=\mathrm{S\,m^{-2}}$. This is admissible and passive, but it must be
+\emph{declared}. It is \textsc{Unresolved} whether any physical interface of
+interest here has such a path; Phase 1 does not assert one.
+
+\section{Thermal contact}
+\label{sec:therm}
+
+\subsection{The law}
+
+\begin{definition}[Passive thermal contact resistance]
+\label{def:thermal}
+Heat fluxes are continuous and the temperature jump drives the flux:
+\begin{equation}
+  q_z^{(1)} = q_z^{(2)} = q_c, \qquad
+  q_c = H_T\big(\bth^{(1)} - \bth^{(2)}\big) = -H_T\,\jmp{\bth},
+  \qquad H_T \ge 0 .
+  \label{eq:thermal}
+\end{equation}
+\end{definition}
+This is Blueprint Eq.~(7). The sign is fixed as follows: if medium 1 is hotter
+($\bth^{(1)}>\bth^{(2)}$, so $\jmp{\bth}<0$), heat must flow from 1 to 2, i.e. in
+$+z$, so $q_c>0$. Equation~\eqref{eq:thermal} gives
+$q_c = -H_T\,\jmp{\bth} > 0$. Correct.
+
+\subsection{Dissipation}
+
+\begin{proposition}[Thermal contact dissipation]
+\label{prop:therm-diss}
+The entropy production rate at the interface is
+\begin{equation}
+  \dot S_{\mathrm{int}} = q_c\left(\frac{1}{T^{(2)}} - \frac{1}{T^{(1)}}\right)
+  \;\simeq\; \frac{q_c\,\jmp{\bth}}{T_0^{2}}
+  \;\overset{\eqref{eq:thermal}}{=}\;
+  \frac{H_T\,\lvert\jmp{\bth}\rvert^{2}}{T_0^{2}} \ \ge 0 ,
+  \label{eq:therm-entropy}
+\end{equation}
+so that the corresponding dissipation per unit area, $T_0\dot S_{\mathrm{int}}$,
+is
+\begin{equation}
+  \boxed{\ \mathcal{D}_{\mathrm{th}} = \frac{H_T\,\lvert\jmp{\bth}\rvert^{2}}{T_0}
+  \ \ge 0\ }\qquad \text{units } \mathrm{W\,m^{-2}}.
+  \label{eq:therm-diss}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Entropy is produced whenever heat crosses a finite temperature drop. The flux
+$q_c$ crosses from $T^{(1)}$ to $T^{(2)}$, giving
+$\dot S = q_c(1/T^{(2)}-1/T^{(1)})$. Linearising about $T_0$,
+$1/T^{(2)}-1/T^{(1)} \simeq (T^{(1)}-T^{(2)})/T_0^2 = -\jmp{\bth}/T_0^2$, so
+$\dot S \simeq -q_c\jmp{\bth}/T_0^2$, which with \eqref{eq:thermal} gives
+$H_T\lvert\jmp{\bth}\rvert^2/T_0^2 \ge 0$. Multiplying by $T_0$ gives
+\eqref{eq:therm-diss}. The unit check:
+$[H_T]=\mathrm{W\,m^{-2}K^{-1}}$, so
+$[H_T][\bth]^2/[T_0] = \mathrm{W\,m^{-2}K^{-1}}\cdot\mathrm{K^2}/\mathrm{K}
+=\mathrm{W\,m^{-2}}$. Correct.
+\end{proof}
+
+\begin{remark}[On the absolute-temperature factor]
+\label{rem:absolute-T}
+Blueprint \S4 offers $\tfrac12 H_T\lvert\jmp{\bth}\rvert^2/T_0$ as a
+\emph{candidate} and \S13 item 3 requires it to be derived. The derivation above
+gives \eqref{eq:therm-diss} \emph{without} the factor $\tfrac12$: the missing
+half is because the derivation uses time-averaged squares rather than peak
+squares, whereas the mechanical form \eqref{eq:mech-nonneg} is written with the
+conventionally included $\tfrac12$. \textbf{Adopting one convention for all three
+channels is required before any numerical energy balance}; mixing them produces a
+50~\% error in the thermal dissipation. This is flagged as an unresolved
+convention item (U-5) rather than quietly resolved, because the correct choice
+depends on how $R,T,A$ are normalised in the Phase-2 solver.
+\end{remark}
+
+\textsc{Tested}: check F1 samples $2\times10^{4}$ random $(H_T,\jmp{\bth})$ and
+finds a minimum of exactly $0$.
+
+\section{The $h\to 0$ reduction}
+\label{sec:h0}
+
+Blueprint \S6 requires the interphase composition to be \emph{derived}, with the
+expected form marked as a hypothesis. The derivation is as follows.
+
+Write the state $\bm{s}=(\bm{q},\bm{F})$ of \eqref{eq:state-flux} and suppose the
+interphase admits a linear evolution
+\begin{equation}
+  \frac{d\bm{s}}{dz} = \bm{A}(\omega,\kappa)\,\bm{s}, \qquad 0<z<\mathrm{h}.
+  \label{eq:state-evolution}
+\end{equation}
+Each face imposes $4$ relations. Write them as maps
+$\bm{P}_i\bm{s} = 0$ ($i=1$ at $z=0$, $i=2$ at $z=\mathrm{h}$). The composite
+map from the state just below the lower face to the state just above the upper
+face is
+\begin{equation}
+  \bm{s}(\mathrm{h}^{+}) = \bm{P}_2\,e^{\mathrm{h}\bm{A}}\,\bm{P}_1\,\bm{s}(0^{-}),
+  \label{eq:composite}
+\end{equation}
+which is Blueprint \S6's composition.
+
+\begin{proposition}[First-order reduction]
+\label{prop:h0}
+As $\mathrm{h}\to0$ the composition \eqref{eq:composite} becomes
+\begin{equation}
+  \bm{F}^{(2)}-\bm{F}^{(1)} = -\Big[\bm{Y}_1 + \bm{Y}_2 + \mathrm{h}\,\bm{Y}_{\ell}\Big]\,
+  \big(\bm{F}^{(1)}+\bm{F}^{(2)}\big)/2 \;+\; O(\mathrm{h}^2),
+  \label{eq:h0}
+\end{equation}
+where $\bm{Y}_1,\bm{Y}_2$ are the face compliances and
+$\bm{Y}_\ell = \bm{A}_{Fq}$ the layer's own flux-to-state coupling at zero
+frequency. In words: \textbf{the jumps add} and the layer contributes an
+$O(\mathrm{h})$ correction.
+\end{proposition}
+
+\begin{proof}[Proof sketch, with the status of each step stated]
+Expand $e^{\mathrm{h}\bm{A}} = \bm{I} + \mathrm{h}\bm{A} + O(\mathrm{h}^2)$ in
+\eqref{eq:composite}, substitute the face laws linearised about the mean state,
+and collect terms of equal order in $\mathrm{h}$. The $O(1)$ term is the sum of
+the two face compliance maps, which is \eqref{eq:h0} with $\mathrm{h}=0$; the
+$O(\mathrm{h})$ term is the layer coupling. \textsc{Derived} to first order.
+The second-order term and the question of whether \eqref{eq:h0} can be written
+with a single effective compliance for general (non-diagonal) face laws are
+\textsc{Unresolved} (U-6); the blueprint's own wording marks this as a hypothesis,
+and the hypothesis is confirmed only in the diagonal, normal-incidence case.
+\end{proof}
+
+\begin{remark}[Two compliant faces are not a welded contact]
+\label{rem:not-welded}
+Equation~\eqref{eq:h0} shows that the jump does \emph{not} vanish as
+$\mathrm{h}\to0$ unless both face compliances vanish. The limit
+$\mathrm{h}\to0$ of the interphase configuration is therefore the
+\emph{imperfect-contact} two-half-space baseline, not the welded one. Blueprint
+\S6 states this as an expectation; here it is derived to first order. Operationally
+this means the interphase configuration must be compared against \emph{both}
+baselines (welded and imperfect), exactly as H2 requires --- comparing only
+against the welded case would flatter the interphase.
+\end{remark}
+
+\begin{remark}[Sign and frame conventions]
+The sign in front of the bracket in \eqref{eq:h0} is fixed by
+\eqref{eq:thermal}: with the ordering $\jmp{f}=f^{(2)}-f^{(1)}$ a positive
+compliance produces a negative flux jump for positive flux. Reversing the jump
+ordering flips this sign, so the ordering must be declared once, as it is in
+\eqref{eq:jump}.
+\end{remark}
+
+\section{Independent-equation count}
+\label{sec:count}
+
+Blueprint \S4 requires the count to be \emph{derived per configuration}. The
+derivation proceeds in three steps: count unknown amplitudes, count independent
+relations, check for gauge degeneracies.
+
+\subsection{Step 1: admissible amplitudes}
+
+From \texttt{theory/characteristic\_matrix.tex}, the characteristic determinant
+has $8$ roots in $\xi$, forming $4$ pairs $(\xi,-\xi)$ by evenness. Of the $8$
+roots, the number admissible on a given side is determined by the decay/outgoing
+selection: for medium 1 ($z<0$) a mode is admissible if $\operatorname{Im}\xi<0$
+(decays as $z\to-\infty$), and for medium 2 if $\operatorname{Im}\xi>0$. For real
+$\xi$ the sign of $\operatorname{Re}\xi$ decides. Exactly $4$ roots satisfy each
+condition, so:
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Region & Admissible amplitudes & Basis \\
+\midrule
+Medium 1 (reflected) & 4 & 4 outgoing roots of $M_1$ \\
+Medium 2 (transmitted) & 4 & 4 outgoing roots of $M_2$ \\
+Interphase, forward & 4 & 4 outgoing-looking roots in $0<z<\mathrm{h}$ \\
+Interphase, backward & 4 & the same 4, traversed the other way \\
+\bottomrule
+\end{tabular}
+\end{center}
+Plus the incident amplitude, which is a fixed datum (normalisation), not an
+unknown.
+
+\subsection{Step 2: independent relations per face}
+
+At one face there are eight conditions:
+\begin{equation}
+\begin{aligned}
+&\text{mechanical: } &&\jmp{\s_{xz}}=0 \text{ or } \s_{xz}=K_x\jmp{u_x}+C_x\jmp{\dot u_x}, \\
+& &&\jmp{\s_{zz}}=0 \text{ or } \s_{zz}=K_z\jmp{u_z}+C_z\jmp{\dot u_z}, \\
+&\text{electrical: } &&\text{closure E-A or E-B of \S\ref{sec:elec} (2 relations)}, \\
+&\text{thermal: } &&q_z^{(1)}=q_z^{(2)}=q_c \text{ with } q_c=-H_T\jmp{\bth} \text{ (2 relations)}.
+\end{aligned}
+\label{eq:eight}
+\end{equation}
+That is $8$ relations per face.
+
+\subsection{Step 3: counts and gauge removal}
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Configuration & Unknowns & Relations & Solvability \\
+\midrule
+Two half-spaces, zero-thickness contact & $4+4=8$ & $8$ (one face) & square \\
+Interphase, $0<z<\mathrm{h}$ & $4+4+4+4=16$ & $2\times8=16$ & square \\
+Welded limit, two half-spaces & $4+4=8$ & $8$ & square \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The counts are square in every configuration, so the systems are generically
+determined. This is a necessary condition for well-posedness, \textbf{not a
+sufficient one}, and the distinction is important: a square system can still be
+rank-deficient, and a rank-deficient system can still have a full-rank operator
+with wrong normalisation. Check I2 computes the rank of the assembled operator
+for the welded piezothermoelastic interface at three angles and obtains $8$ in
+every case.
+
+\subsection{Gauge degeneracies, and why they matter}
+
+Two degeneracies must be removed before the count is trusted.
+
+\begin{remark}[Gauge 1: constant potential at $k=0$]
+At $(\kappa,\xi)=(0,0)$ the null space of $M$ is one-dimensional and is the
+constant-potential state $(0,0,1,0)$, which carries $D_z=0$ and therefore no
+physics. Its presence means normal incidence must be taken as the limit
+$\kappa\to0$, never evaluated at $\kappa=0$. \textsc{Derived} and \textsc{Tested}
+(check C1).
+\end{remark}
+
+\begin{remark}[Gauge 2: the exactly decoupled limit is singular]
+\label{rem:decoupled-singular}
+If the piezoelectric, thermoelastic and pyroelectric couplings are set to
+\emph{exactly} zero, the potential $\varphi$ and the temperature $\bth$ appear in
+no equation other than their own. Four of the eight conditions \eqref{eq:eight}
+then become identically zero rows --- the interface system is singular and has no
+unique solution, even though the physics of the decoupled problem is perfectly
+well posed. \textbf{The decoupled case must be reached as a limit}, with the
+couplings scaled by a small parameter $\lambda\to0$, and the solution converges
+as $O(\lambda^2)$ because the piezoelectric contribution to the longitudinal
+modulus is $e^2/\varepsilon$.
+\end{remark}
+
+This second degeneracy was found the hard way: an attempt to validate the solver
+against the elastic Fresnel result by setting $e=\beta=p=0$ produced a singular
+$8\times8$ system at every parameter point. It is recorded as item U-3 in
+\texttt{reports/UNRESOLVED\_ISSUES.md}.
+
+\section{Summary}
+\label{sec:summary}
+
+\paragraph{Established.}
+The contact laws \eqref{eq:spring}, \eqref{eq:elec-EA}/\eqref{eq:elec-EB} and
+\eqref{eq:thermal}; the dissipation forms \eqref{eq:mech-nonneg},
+\eqref{eq:therm-diss}, with non-negativity proved and units checked; the
+reactive character of the capacitive gap; the first-order $\mathrm{h}\to0$
+reduction \eqref{eq:h0}; and the equation counts $8$/$16$ with rank $8$ verified.
+
+\paragraph{Not established.}
+\begin{itemize}
+  \item The overall factor convention ($\tfrac12$ or not) for the thermal
+        dissipation, which must be unified with the mechanical convention before
+        any numerical energy balance (U-5).
+  \item The $O(\mathrm{h}^2)$ term and the non-diagonal form of \eqref{eq:h0}
+        (U-6).
+  \item Whether any real interface has a conductive electrical path as opposed to
+        a purely capacitive one; Phase 1 asserts neither.
+  \item No cross-coupling between the mechanical, electrical and thermal contact
+        channels is introduced anywhere. Blueprint \S4 forbids a full $4\times4$
+        off-diagonal contact block without an interface potential and a
+        dissipation law; none is available, so the block is kept diagonal.
+\end{itemize}
+
+\end{document}

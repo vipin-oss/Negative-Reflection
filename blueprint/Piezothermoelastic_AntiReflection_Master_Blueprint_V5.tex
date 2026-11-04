@@ -1,0 +1,918 @@
+% =====================================================================
+%  blueprint/Piezothermoelastic_AntiReflection_Master_Blueprint_V5.tex
+%
+%  Faithful LaTeX transcription of the V5.0 master blueprint
+%  (PDF: Piezothermoelastic_AntiReflection_Master_Blueprint_V5.pdf,
+%   13 pages, 4 November 2026).
+%
+%  TRANSCRIPTION RULE USED: the scientific content is reproduced without
+%  alteration. Nothing has been added, removed, reordered or reinterpreted.
+%  Where the PDF's two-column status table needed a different LaTeX device
+%  (tabular), the words are unchanged. Section numbering, hypothesis labels
+%  (H1, H2), falsification rules (F1-F3), equations (1)-(10), gates G0-G7,
+%  phases P0-P5 and the Appendix A change log all follow the original.
+%
+%  COMPILATION STATUS: NO TeX ENGINE IS INSTALLED in this environment
+%  (pdflatex, latex, xelatex, lualatex, tectonic and latexmk are all
+%  absent). This file has been inspected as text only. It has NOT been
+%  compiled and no claim of successful typesetting is made.
+% =====================================================================
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,bm}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\geometry{margin=1in}
+\newcommand{\R}{\mathcal{R}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\jj}{[\![}
+\newcommand{\kk}{]\!]}
+
+\title{Blueprint: Anti-Reflection and Reflection Suppression of Coupled
+Waves in Piezothermoelastic Media with Generalized Imperfect Interface
+Conditions\\[6pt]
+\large Finite Matching Interphase as Primary Candidate; Two-Half-Space
+Imperfect Interface as Comparison Baseline}
+\author{Research-design document for independent scientific review}
+\date{Prepared 4 November 2026 \quad$\vert$\quad Final working edition (V5.0)}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\fbox{\parbox{0.92\textwidth}{\centering\textbf{WORKING RESEARCH BLUEPRINT ---
+FLEXIBLE; NOT A GUARANTEED RESULT, NOT A MANUSCRIPT, NOT AN APPROVED NOVELTY
+CLAIM}}}
+\end{center}
+
+\begin{abstract}
+The research direction is fixed: reflection suppression of coupled waves in
+piezothermoelastic media through generalized imperfect interface conditions.
+This document defines one bounded theoretical wave-dynamics paper. The primary
+candidate configuration is two dissimilar piezothermoelastic half-spaces
+separated by a finite piezothermoelastic matching interphase; the baseline for
+comparison is the two-half-space imperfect (zero-thickness) interface. Section 5
+now contains a derived scalar proposition showing exactly when a passive
+zero-thickness contact can suppress reflection and what it costs in transmitted
+energy. Hypothesis H1 is reformulated accordingly, benchmark reproduction of any
+single published paper is conditional on a model-compatibility check, and
+Lord--Shulman energy flux, interface dissipation and numerical energy balance
+are compulsory validation gates. No coupled-field numerical result is reported in
+this document. The supervisor controls the model and approval decisions; external
+AI agents are restricted to assigned verification and implementation tasks. The
+original V4.2 scientific framework is retained, with formal work allocation and
+additional closure checks. A historical change log from V4.1 to V4.2 appears in
+Appendix A.
+
+\medskip
+\noindent\textbf{Status labels.} \textsc{Derived}: derived in this document by
+hand and checked where stated. \textsc{Executed}: a computation actually run
+(inputs listed). \textsc{Hypothesis}: untested claim. \textsc{Open}: not yet
+known or not yet established. Labels apply only to the item they follow.
+\end{abstract}
+
+\section{Scientific identity, scope and flexible decisions}
+
+\textbf{Fixed scope.} Coupled piezothermoelastic PDEs; normal-mode analysis;
+characteristic determinants; generalized spring/contact boundary conditions;
+reflection and transmission coefficients; energy partition; analytical and
+numerical validation. Do not add metamaterial engineering, active control,
+machine learning, topological physics, or device-design methods.
+Gurtin--Murdoch surface elasticity and Klein--Gordon/strain-gradient nonlocality
+are \emph{not} included unless a specific demonstrated need arises and is recorded
+in the decision log (Section 11).
+
+\textbf{One-paper rule.} One incident wave family, one reference material
+pairing, one coherent central contribution. Variants are validation limits or
+fallback configurations, not additional papers.
+
+\begin{center}
+\begin{tabular}{@{}p{0.16\textwidth}p{0.50\textwidth}p{0.26\textwidth}@{}}
+\toprule
+\textbf{Element} & \textbf{Current choice} & \textbf{Status} \\
+\midrule
+Bulk material & Homogeneous, dissimilar, transversely isotropic
+  piezothermoelastic half-spaces; plane strain; poling axis declared in the
+  sagittal plane & Core \\
+Coupled fields & $u_x, u_z, \varphi, \vartheta$ (four scalar variables; three
+  physical categories) & Core \\
+Thermal theory & Lord--Shulman (LS), pyroelectric coupling constitutively
+  consistent & Initial model \\
+Primary configuration & Finite piezothermoelastic matching interphase
+  $0<z<h$ with passive generalized contact on both faces & Primary candidate \\
+Comparison baseline & Two half-spaces with a single zero-thickness generalized
+  imperfect interface & Baseline (also the $h\to0$ comparison) \\
+Contact law & Passive diagonal spring--dashpot (mechanical) with declared
+  electrical and thermal contact laws & Primary mechanism \\
+Gurtin--Murdoch; Klein--Gordon/NSGT & Not used unless a demonstrated need
+  arises & Excluded by default \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Closest prior art, research question and hypotheses}
+
+The literature already contains imperfect interfaces in piezothermoelastic
+half-spaces, several thermal theories, energy ratios, and finite
+thermo-electro-elastic layers. Neither the four coupled scalar variables, an
+arbitrary boundary-condition list, nor the scalar quarter-wave rule is original.
+
+\begin{itemize}
+  \item Guha, Singh and Das, imperfect interfaces between two dissimilar
+    piezothermoelastic half-spaces, \texttt{10.1080/17455030.2019.1610198}
+    (Crossref record checked; full text not read).
+  \item Karmakar, Sahu and Goyal, pre-stressed functionally graded
+    piezothermoelastic interfaces with mechanical/electrical/thermal loose
+    bonding, \texttt{10.1177/10812865221099502} (Crossref abstract read; full
+    text not read).
+  \item Barak, Kumar, Kumar and Gupta, energy analysis at an elastic/nonlocal
+    piezothermoelastic interface, \texttt{10.1007/s12648-022-02568-w} (publisher
+    page and abstract read; full text behind a subscription, not read). The
+    abstract states two reflected and four transmitted waves.
+  \item Gupta, Kumar, Kumar and Barak, energy analysis at a nonlocal
+    thermoelastic/piezothermoelastic interface,
+    \texttt{10.1108/HFF-11-2022-0654} (publisher page and abstract read).
+  \item Wang et al., sandwiched thermo-electro-elastic nanoplates with
+    dissipation, \texttt{10.1016/j.compstruct.2023.117564} (plates, not
+    half-spaces).
+  \item Ghazaryan, Piliposyan and Piliposian, shear waves through a periodically
+    stratified piezoelectric reflector with imperfect interfaces,
+    \texttt{10.1016/j.ijsolstr.2025.113514} (Crossref record checked: Int.\ J.\
+    Solids Struct.\ 321, 2025; shear-wave layered competitor).
+\end{itemize}
+
+\textbf{Candidate gap, not a novelty claim.} An explicit, physically admissible
+condition for coupled-mode reflection suppression, together with a quantitative
+account of what the suppression costs in transmitted power, may not be fully
+addressed by these studies. This must be checked against the full equations and
+figures of each competitor, not titles or abstracts (gate G0).
+
+\textbf{Main question.} For a finite piezothermoelastic interphase with passive
+generalized contact on its faces, under what contact, layer and material choices
+is the reflected response of an incident quasi-longitudinal or quasi-shear wave
+reduced relative to a defined baseline, and how much of the reduction appears as
+increased transmission rather than increased dissipation?
+
+\textbf{Definitions} (all fixed before any search). $R$, $T$, $A$ are
+incident-power-normalized reflected, transmitted and dissipated fractions defined
+in Section 5. The \emph{welded baseline} (subscript $w$) is the same two
+half-spaces with perfect mechanical, electrical and thermal contact.
+$\Delta R = R - R_w$ and $\Delta T = T - T_w$.
+
+\subsection*{H1 (revised, zero-thickness contact; falsifiable)}
+
+\textbf{Statement.} For some sourced material pair and some passive, diagonal
+zero-thickness generalized contact within declared parameter bounds, there exist
+$(\omega,\theta)$ such that $\Delta R \le -\varepsilon_R$ (a pre-declared
+reflection reduction) \emph{with} a transmission sacrifice no larger than a
+pre-declared budget, $\Delta T \ge -\delta_T$, where $\delta_T>0$ is fixed before
+the search. H1 does \emph{not} assert $\Delta T \ge 0$.
+
+\textbf{Known counterexample (derived, Section 5).} In the scalar,
+normal-incidence, real-impedance model, every passive zero-thickness contact of
+either topology satisfies $T\le T_w$ with equality only when the contact vanishes
+(Proposition 1(c)). Hence H1 with $\delta_T=0$ is false in that model; a purely
+reactive contact has $R\ge R_w$; a dissipative contact reaching $R=0$ has
+$T=Z_{\min}/Z_{\max}<T_w$ whenever $Z_1\ne Z_2$.
+
+\textbf{Conditions under which H1 could still hold in the coupled problem (all
+\textsc{open}).} Oblique incidence with mode conversion and critical-angle
+structure; thermo-electric coupling providing channels that the scalar model
+lacks; electrical or thermal contact laws that alter modal impedances. None is
+established.
+
+\textbf{Falsification and reporting rules.} (F1) Any search outcome with
+$\Delta R\le-\varepsilon_R$ achieved only with $\Delta T<-\delta_T$ is reported as
+\emph{dissipation-driven suppression}, not anti-reflection with useful
+transmission. (F2) If no point in the declared parameter box meets both
+thresholds for a material pair, H1 is rejected for that pair and the negative
+result is reported. (F3) $\varepsilon_R$, $\delta_T$ and the parameter box are
+recorded before the search and changed only through a logged decision
+(Section 11).
+
+\subsection*{H2 (primary configuration; falsifiable)}
+
+Adding a finite interphase of thickness $h$ provides an additional independent
+phase parameter and may reach $\Delta R\le-\varepsilon_R$ together with
+$\Delta T\ge0$ for sourced parameters, which H1 cannot do in the scalar model.
+Scalar motivation: a lossless layer can achieve $R=0$ with $T=1>T_w$
+(Section 5.4); the coupled problem differs because the thermal mode is
+dissipative. H2 is tested against the H1 baseline with a comparable parameter
+budget; it is rejected if no sourced configuration meets
+$\Delta R\le-\varepsilon_R$ and $\Delta T\ge0$.
+
+\section{Bulk problem and mathematical closure}
+
+Medium 1 occupies $z<0$ and medium 2 occupies $z>h$ (or $z>0$ for the
+zero-thickness baseline); $x$ is tangential. Use 6mm-type piezoelectric symmetry
+with a declared poling direction in the sagittal $x$--$z$ plane, small
+perturbations about $T_0>0$, and $e^{-i\omega t}$ time dependence. The unknowns
+are
+\begin{equation}
+  \bm{y} = (u_x, u_z, \varphi, \vartheta)^{\mathsf T}, \qquad
+  E_i = -\varphi_{,i}, \qquad
+  \varepsilon_{ij} = \tfrac12(u_{i,j}+u_{j,i}).
+  \tag{1}
+\end{equation}
+
+A conventional candidate linear constitutive set (signs and energy potential to be
+verified together) is
+\begin{align}
+  \sigma_{ij} &= C_{ijkl}\varepsilon_{kl} - e_{kij}E_k - \beta_{ij}\vartheta,
+  \tag{2}\\
+  D_i &= e_{ikl}\varepsilon_{kl} + \epsilon_{ik}E_k + p_i\vartheta, \tag{3}\\
+  \sigma_{ij,j} &= \rho\ddot u_i, \qquad D_{i,i} = 0 . \tag{4}
+\end{align}
+
+The LS heat equation must be derived from the same potential. A candidate form
+requiring independent sign and entropy verification is
+\begin{equation}
+  \kappa_{ij}\vartheta_{,ij} = (1+\tau_q\partial_t)\Big[\rho c_E\dot\vartheta
+  + T_0\big(\beta_{ij}\dot\varepsilon_{ij} + p_i\dot E_i\big)\Big],
+  \qquad \bm{q} + \tau_q\dot{\bm{q}} = -\kappa\nabla\vartheta . \tag{5}
+\end{equation}
+A hand dimensional check shows that each term inside the bracket has units
+$\mathrm{W\,m^{-3}}$ (\textsc{derived}).
+
+\textbf{Required restrictions:} material stability, $\rho, c_E, T_0, \kappa>0$,
+$\tau_q\ge0$; no universal ordering of thermal and elastic speeds is assumed.
+
+\textbf{Required parameters.} $C$, $e$, $\epsilon$, $\beta$, $p$, $\rho$, $c_E$,
+$\kappa$, $\tau_q$, $T_0$ for both media, with source, temperature, units and a
+consistent poling axis. If a reliable complete set is not available for a
+material, choose a simpler documented pair. Do not synthesize missing constants.
+
+\textbf{Characteristic problem and mode count (derive, do not assume).}
+Substituting $\bm{y}=\bm{a}\exp\{i(k_x x + \xi z - \omega t)\}$ gives
+$M(\xi,k_x,\omega)\bm{a}=0$ and $\det M=0$. The number of roots, their parity in
+$\xi$, zero/gauge roots (for example a state with uniform $D_z$ or a constant
+potential), and coalescences at $k_x=0$ are outputs of this derivation for the
+chosen symmetry and electrical treatment. The count of modes admissible in each
+region is the number of roots, computed from the derived $M$ for the actual
+$(k_x,\omega)$, that satisfy the radiation or decay selection; it is not fixed in
+advance. A preliminary exploratory computation with non-physical toy coefficients
+(\textsc{executed}, outside this blueprint's evidence) suggested an even
+polynomial and a $\xi=0$ root at $k_x=0$; this is a prompt to look for such
+structure and is \emph{not} evidence for the physical system. Selection of
+outgoing and decaying roots must use the flux and decay criteria of Section 5,
+with continuation in $\omega$ and $k_x$.
+
+\section{Contact conditions and configurations}
+
+Take $z=0$ as a face. Define $\bm{t}=(\sigma_{xz},\sigma_{zz})^{\mathsf T}$,
+velocity $\bm{v}=\dot{\bm{u}}$, electric normal displacement $D_z$ and heat flux
+$q_z$.
+
+\textbf{Primary mechanical contact (passive, diagonal).}
+\begin{equation}
+  \bm{t}^{(1)} = \bm{t}^{(2)} = \bm{t}_c, \qquad
+  \bm{t}_c = K\jj\bm{u}\kk + C\jj\dot{\bm{u}}\kk, \qquad
+  K\succeq0,\ C\succeq0, \tag{6}
+\end{equation}
+with $\jj\bm{u}\kk = \bm{u}^{(2)}-\bm{u}^{(1)}$ and the normal sign fixed so that
+the interface-averaged dissipation equals the nonnegative form
+$\tfrac12\jj\bm{v}\kk^{\mathsf H}C\jj\bm{v}\kk$ (\textsc{open} until verified in
+gate G5b).
+
+\textbf{Electrical contact.} Choose one: continuous potential benchmark, or
+charge balance $D_z^{(2)}-D_z^{(1)}=\sigma_{\text{free}}$ with a passive
+capacitive gap $D_z = C_s\jj\varphi\kk$ ($C_s\ge0$ in $\mathrm{F\,m^{-2}}$).
+State whether free charge, storage or interfacial current is present.
+
+\textbf{Thermal contact.} Mechanical coherence does not imply temperature
+continuity:
+\begin{equation}
+  q_z^{(1)} = q_z^{(2)} = q_c, \qquad
+  q_c = H_T\big(\vartheta^{(1)}-\vartheta^{(2)}\big), \qquad H_T\ge0, \tag{7}
+\end{equation}
+with the sign checked against the flux direction and entropy production. A
+candidate time-averaged dissipation is $\tfrac12 H_T\lvert\jj\vartheta\kk\rvert^2/T_0$
+(units $\mathrm{W\,m^{-2}}$); it must be derived, not assumed (G5b). No
+off-diagonal $4\times4$ contact coefficients without an interface potential and
+dissipation law.
+
+\textbf{Equation-count requirement (derive per configuration).} For each
+configuration the number of independent interface relations must equal the number
+of unknown amplitudes after gauge removal; the rank is computed, not postulated.
+Balance relations and jump relations together define the system. For the
+interphase, counting is done at \emph{both} faces and includes internal
+amplitudes.
+
+\section{Scattering, energy partition and the scalar
+reactive-versus-dissipative proposition}
+
+\subsection{Scattering system and energy definitions}
+
+For one incident mode $j$, assemble $B(\omega,k_x,\bm{p})\bm{a}_{\text{unk}}=\bm{b}_j$,
+with $\bm{p}$ the sourced contact and layer parameters; solve by rank-aware linear
+algebra, not raw determinants. Cramer ratios $r_m=N_m/\det B$ are analytical
+descriptors only; writing $N_m=0$ is not a new theorem.
+
+Define $R$, $T$, $A$ from a total-field flux derived for the adopted theory (gate
+G4), evaluated on planes in the homogeneous half-spaces; evanescent and thermal
+modes can produce cross terms, so channel-wise sums are used only where their
+validity has been shown. The balance to be \emph{derived} and then verified is
+\begin{equation}
+  P_{\text{inc}} = P_{\text{refl}} + P_{\text{transm}} + P_{\text{bulk}}
+  + P_{\text{contact}}, \tag{8}
+\end{equation}
+where $P_{\text{bulk}}$ is dissipation in the interphase (and in the half-spaces
+between the evaluation planes and the contact), and $P_{\text{contact}}$ the
+dissipation on the contact faces. The identity $R+T+A=1$ is \emph{not} a premise.
+
+\subsection{Scalar model: assumptions}
+
+These apply to Proposition 1 only.
+
+\noindent (S1) One propagating channel on each side, normal incidence,
+time-harmonic $e^{-i\omega t}$, lossless homogeneous media with real positive
+impedances $Z_1, Z_2$.
+
+\noindent (S2) Use the force-like variable $f=-\sigma_{zz}$ and velocity $v$. A
+right-going wave obeys $f=Zv$, a left-going wave $f=-Zv$, and the time-averaged
+power flux in $+z$ is $\tfrac12\operatorname{Re}(f\bar v)$. Write $Y_j=1/Z_j$,
+$\Delta Y=Y_1-Y_2$, $\Sigma Y=Y_1+Y_2$, $\Sigma Z=Z_1+Z_2$.
+
+\noindent (S3) The contact is zero-thickness, linear, local, of one of two
+topologies, and passive. \emph{Topology V} (velocity jump): $f$ continuous,
+$\jj v\kk = v_2-v_1 = -Y_d f$. \emph{Topology S} (force jump): $v$ continuous,
+$\jj f\kk = f_2-f_1 = -Z_d v$. Absorbed power is
+$-\tfrac12\operatorname{Re}(f\jj v\kk) = \tfrac12\operatorname{Re}(Y_d)\lvert f\rvert^2$
+(V) and $\tfrac12\operatorname{Re}(Z_d)\lvert v\rvert^2$ (S); passive means
+$\operatorname{Re}Y_d\ge0$, respectively $\operatorname{Re}Z_d\ge0$.
+
+\noindent (S4) Combined two-port contacts, multimode problems and coupled
+thermo-electric channels are outside the scope of the proposition.
+
+The welded baseline is $Y_d=0$ (V) or $Z_d=0$ (S); then
+$R_w = R_0 = \big((Z_1-Z_2)/(Z_1+Z_2)\big)^2$ and
+$T_w = 1-R_0 = 4Z_1Z_2/(\Sigma Z)^2$.
+
+\subsection{Derivation of the coefficients}
+
+Medium 1: $f=f_i(1+r)$, $v=(f_i/Z_1)(1-r)$. Medium 2: $f=f_i t$, $v=f_i t/Z_2$.
+
+\textbf{Topology V.} Force continuity gives $t=1+r$. The jump law
+$t/Z_2 - (1-r)/Z_1 = -Y_d t$ becomes $(1+r)(Y_2+Y_d)=(1-r)Y_1$, hence
+\begin{equation}
+  r = \frac{\Delta Y - Y_d}{\Sigma Y + Y_d}, \qquad
+  t = \frac{2Y_1}{\Sigma Y + Y_d}, \qquad
+  R = \lvert r\rvert^2, \qquad
+  T = \lvert t\rvert^2\frac{Z_1}{Z_2} = \frac{4Y_1Y_2}{\lvert\Sigma Y+Y_d\rvert^2},
+  \qquad
+  A = \frac{4Y_1\operatorname{Re}Y_d}{\lvert\Sigma Y+Y_d\rvert^2}. \tag{9}
+\end{equation}
+
+\textbf{Topology S.} Velocity continuity gives $t=Z_2(1-r)/Z_1$. The jump law
+$\jj f\kk=-Z_d v$ gives $Z_2(1-r)-Z_1(1+r)=-Z_d(1-r)$, hence
+\begin{equation}
+  r = \frac{Z_2-Z_1+Z_d}{\Sigma Z + Z_d}, \qquad
+  t = \frac{2Z_2}{\Sigma Z+Z_d}, \qquad
+  R = \lvert r\rvert^2, \qquad
+  T = \frac{4Z_1Z_2}{\lvert\Sigma Z+Z_d\rvert^2}, \qquad
+  A = \frac{4Z_1\operatorname{Re}Z_d}{\lvert\Sigma Z+Z_d\rvert^2}. \tag{10}
+\end{equation}
+
+\textbf{Energy bookkeeping (\textsc{derived}).} For V, with $a=\operatorname{Re}Y_d$,
+$\lvert\Sigma Y+Y_d\rvert^2-\lvert\Delta Y-Y_d\rvert^2 = 4Y_1Y_2+4Y_1a$, so
+$R+T+A=1$ exactly; S is analogous.
+
+\subsection*{Proposition 1}
+Under (S1)--(S4):
+
+\noindent\textbf{(a) Reactive contacts cannot suppress reflection.} If $Y_d=iB$
+(V) or $Z_d=iX$ (S) with $B,X$ real, then
+$R = \dfrac{\Delta Y^2+B^2}{\Sigma Y^2+B^2}$
+(respectively $\dfrac{\Delta Z^2+X^2}{\Sigma Z^2+X^2}$) $\ge R_0$, with equality
+only at $B=0$ (resp.\ $X=0$).
+
+\noindent\textbf{(b) Exact suppression requires dissipation of the right
+topology, and costs transmission.} $R=0$ with a passive contact is possible iff:
+topology V with $Y_d=Y_1-Y_2$, which is passive iff $Z_1<Z_2$; or topology S with
+$Z_d=Z_1-Z_2$, which is passive iff $Z_1>Z_2$. In both cases
+$T=Z_{\min}/Z_{\max}$ and $A=1-Z_{\min}/Z_{\max}$. For a Voigt contact
+$\bm{t}_c=K\jj\bm{u}\kk+C\jj\dot{\bm{u}}\kk$ in topology V one has
+$Y_d=1/(C+iK/\omega)$, so exact $R=0$ requires $K=0$ and
+$C=Z_1Z_2/(Z_2-Z_1)$ with $Z_1<Z_2$.
+
+\noindent\textbf{(c) No passive zero-thickness contact increases transmission over
+the welded baseline.} For every passive $Y_d$ (V) or $Z_d$ (S), $T\le T_w$, with
+equality iff the contact vanishes. Consequently, in this model, no passive
+contact achieves $R<R_w$ together with $T\ge T_w$.
+
+\subsection*{Proof}
+
+\noindent\textbf{(a)} For V, $r=(\Delta Y-iB)/(\Sigma Y+iB)$, so
+$\lvert r\rvert^2 = (\Delta Y^2+B^2)/(\Sigma Y^2+B^2)$. Since $\Delta Y^2<\Sigma Y^2$
+when $Y_1,Y_2>0$, adding the same $B^2$ to numerator and denominator of a fraction
+below one increases it; equality requires $B=0$. S is identical with $X$ and $Z$.
+
+\noindent\textbf{(b)} $R=0$ forces the numerator in (9) or (10) to vanish:
+$Y_d=\Delta Y$ or $Z_d=Z_1-Z_2$. Passivity requires these to be real and
+nonnegative, giving the stated orderings. Substituting, V gives
+$T=4Y_1Y_2/(2Y_1)^2=Y_2/Y_1=Z_1/Z_2$ and S gives
+$4Z_1Z_2/(2Z_1)^2=Z_2/Z_1$; $A=1-T$ by energy conservation. For the Voigt law with
+$e^{-i\omega t}$ and $f=-\sigma_{zz}$, $-\bm{f}=K\jj\bm{u}\kk+C\jj\dot{\bm{u}}\kk$
+and $\jj\bm{u}\kk=\jj\bm{v}\kk/(-i\omega)$ give
+$\jj\bm{v}\kk=-\bm{f}/(C+iK/\omega)$, i.e.\ $Y_d=1/(C+iK/\omega)$, whose imaginary
+part is zero iff $K=0$.
+
+\noindent\textbf{(c)} For V, $\lvert\Sigma Y+Y_d\rvert^2=(\Sigma Y+a)^2+b^2$ with
+$a=\operatorname{Re}Y_d\ge0$, $b=\operatorname{Im}Y_d$, which is $\ge\Sigma Y^2$
+with equality iff $a=b=0$. Hence
+$T=4Y_1Y_2/\lvert\Sigma Y+Y_d\rvert^2\le 4Y_1Y_2/\Sigma Y^2=T_w$. The argument for
+S is the same with $\Sigma Z$. If $T\ge T_w$ then $Y_d=0$ (resp.\ $Z_d=0$), so
+$R=R_w$.
+
+\medskip
+\noindent\textbf{Status.} The proposition and derivation are \textsc{derived}.
+They are transmission-line algebra and are not presented as a new theorem.
+Executed support (\textsc{executed}, Python): with $Z_2/Z_1=2$, minimization over
+reactive elements returned $R_{\min}=0.1111=R_0$ in both orderings; resistive
+matching returned $R=0$, $T=0.5000$, $A=0.5000$ with $R+T+A-1=0$ to machine
+precision; random sampling of 2{,}000{,}000 passive contacts over five impedance
+pairs (including $Z_1=Z_2$) and both topologies gave $\max(T-T_w)=0$, consistent
+with (c); the closed-form $T$ matched the coefficient-based value to $10^{-16}$.
+
+\textbf{Interpretation for the research.} Suppression by a zero-thickness passive
+contact in this model is either \emph{impossible} (reactive, part a) or
+\emph{dissipative and transmission-reducing} (parts b, c). When $Z_1\ne Z_2$,
+write $\rho=Z_{\min}/Z_{\max}<1$. The transmitted fraction at exact matching is
+$T=\rho$, while $T_w=4\rho/(1+\rho)^2$, so $T/T_w=(1+\rho)^2/4<1$
+(\textsc{derived}). The proposition does \emph{not} decide the coupled,
+multimode, oblique problem (S4).
+
+\subsection{Scalar finite layer: benchmark and motivation for the primary
+configuration}
+
+For a lossless homogeneous layer of impedance $Z_\ell$ and phase $\phi=kd$
+between the same media (S1), the input impedance is
+$Z_{\text{in}} = Z_\ell\dfrac{Z_2+iZ_\ell\tan\phi}{Z_\ell+iZ_2\tan\phi}$ (the sign
+of $i$ depends on the time convention; $R$ is unaffected). At $\phi=\pi/2$,
+$Z_{\text{in}}=Z_\ell^2/Z_2$, so $R=0$ iff $Z_\ell^2=Z_1Z_2$, with $T=1>T_w$.
+\textsc{derived}.
+
+\textsc{executed}: for $Z_1=1$, $Z_2=2$, $Z_\ell=\sqrt2$, $\phi=\pi/2-10^{-9}$
+gave $R=1.3\times10^{-19}$, $T=1$; at $\phi=0.3\pi/2$ the same layer gave
+$R=0.0903<R_0=0.1111$ and $T=0.9097>T_w=0.8889$. This is the standard quarter-wave
+result; it shows only that a finite lossless layer escapes the bound (c), which is
+the motivation for H2, not a coupled-problem result.
+
+\subsection{Coupled problem: criteria (hypotheses)}
+
+For an incident wave with propagating reflected set $\mathcal{P}_{\text{refl}}$,
+$R=0$ requires the amplitude of every channel in $\mathcal{P}_{\text{refl}}$ to
+vanish. Each complex amplitude is two real conditions, so the number of free real
+parameters needed generically depends on $\lvert\mathcal{P}_{\text{refl}}\rvert$
+(\textsc{hypothesis}, a dimension count, not a transversality proof). Bulk LS
+dissipation may make the minimum of $R$ nonzero; that outcome is reportable. Seek
+an explicit relationship among contact compliance/damping, modal impedances,
+incidence angle and a selected reflected amplitude; validate it first in reduced
+limits (normal incidence, uncoupled elastic, weak coupling). If no closed form
+survives, report the implicit condition, its sensitivity derivatives and the
+mechanism. A determinant zero alone is not a new theorem.
+
+\section{Finite interphase: primary configuration}
+
+The interphase is a homogeneous piezothermoelastic layer $0<z<h$ obeying the same
+field equations, with the passive contact laws of Section 4 on $z=0$ and $z=h$.
+Its propagation phase is the additional parameter motivating H2. Both comparison
+references are retained: the welded two-half-space case and the
+imperfect-contact two-half-space case. All use the same sourced outer media,
+incident mode, frequency-angle convention, and flux normalization. A finite
+interphase must be compared with both, and its added free parameters disclosed.
+
+\textbf{Unknown-amplitude and equation bookkeeping (derive for the actual
+system).} Count the admissible reflected, interphase (both directions) and
+transmitted amplitudes from the derived $M$ for each region and the incident mode;
+count independent relations at both faces; verify rank after removing gauge or
+null modes. Neither the unknown total nor the number of relations is fixed in this
+blueprint. Use a scaled scattering or impedance-type formulation rather than a
+naive transfer matrix when attenuating modes grow exponentially.
+
+\textbf{The $h\to0$ reduction (to be derived, not assumed).} Write the face laws
+and the layer as maps on the state $\bm{s}=(\bm{q},\bm{F})$, with
+$\bm{q}=(u_x,u_z,\varphi,\vartheta)$ and generalized fluxes
+$\bm{F}=(\sigma_{xz},\sigma_{zz},D_z,q_z)$. If the layer admits
+$d\bm{s}/dz=\bm{A}\bm{s}$, then the composite map is
+$\bm{s}(h^{+}) = \bm{P}_2 e^{h\bm{A}}\bm{P}_1\bm{s}(0^{-})$ with $\bm{P}_i$ the
+face maps. The $h\to0$ limit of this composition must be \emph{computed},
+including whether it yields a jump law of the same form (flux continuity with a
+$\bm{q}$ jump), and what the first-order dependence on $h$ is. The expected form is
+an effective compliance consisting of the two face compliances plus an $O(h)$
+contribution from the layer itself, with sign and frame conventions fixed; this is
+a \textsc{hypothesis} to be confirmed or corrected by the derivation. Two
+compliant faces do not in general give a welded contact, and no equivalence with
+the baseline is assumed. Independent limits to test: ideal faces ($K\to\infty$)
+with identical media (no reflection), and the scalar matched layer of
+Section 5.4.
+
+\textbf{Switch rule.} If, with sourced parameters, the interphase offers neither a
+transmission-preserving reflection reduction nor a defensible analytic advantage
+over the baseline (H2 rejected), the paper is reported with the baseline as the
+main configuration and interphase-focused claims and title removed.
+
+\section{Mandatory validation protocol}
+
+Validation is a compulsory scientific result. No statement of agreement is
+permitted without an aligned quantity, a stated source and a difference. Nothing
+below is marked completed by this blueprint. An energy residual is an internal
+consistency check and is not independent validation.
+
+\subsection{Validation route V1: published compatible reflection/transmission
+results (conditional)}
+
+No single published paper is mandated. A compatible independent benchmark is
+preferred over an author-group self-benchmark; when inaccessible, independent
+analytical and code-based cross-checks are required, and the published-comparison
+gate is reported as unavailable rather than falsely passed. A published result may
+be used only after a documented \emph{compatibility check} (a file
+\texttt{compat\_check.md} per candidate) establishing, from the full accessible
+text: bulk constitutive model and thermal theory; the set of modes retained on
+each side; boundary-condition type and sign conventions; material symmetry and
+poling direction; incident wave, frequency or angle definition and normalization;
+and which of the paper's parameters can be switched off to reach the present
+model. Candidates:
+
+\begin{itemize}
+  \item Barak et al.\ \texttt{10.1007/s12648-022-02568-w}: its model includes
+    nonlocality, memory-dependent derivatives and a hyperbolic two-temperature
+    option with dual-phase lag, and its first medium is elastic with two reflected
+    and four transmitted waves (abstract). A usable limit requires nonlocality,
+    memory and two-temperature effects to be switched off and the thermal law to
+    reduce to LS as shown in the paper, and the heterogeneous mode count of the
+    elastic/piezothermoelastic problem must be derived separately from the
+    symmetric one. If the full text, constants or normalization are unavailable,
+    or the limit cannot be demonstrated, mark the candidate \textbf{NOT USABLE AS
+    BENCHMARK} and use another route.
+  \item Guha, Singh and Das \texttt{10.1080/17455030.2019.1610198} and Karmakar,
+    Sahu and Goyal \texttt{10.1177/10812865221099502} for imperfect contact
+    between piezothermoelastic half-spaces, under the same compatibility test
+    (including their contact-law definitions).
+\end{itemize}
+
+When a source is only partly compatible, report a \emph{related-physics
+comparison}, not a validation. Numbers are taken from tables or data when
+available; digitized values carry a stated extraction uncertainty. Discrepancy is
+$\delta_i = \lvert Q_{\text{calc}_i} - Q_{\text{ref}_i}\rvert$, with a relative
+error only where $\lvert Q_{\text{ref}_i}\rvert$ is appreciably nonzero.
+
+\subsection{Validation route V2: exact analytical limiting cases (independent of
+V1)}
+
+Run each as a separate test with an explicit parameter path:
+\begin{enumerate}
+  \item Identical welded half-spaces: zero reflected field for an incident bulk
+    mode (subject to the declared gauge and mode basis).
+  \item Uncoupled elastic normal incidence: $r=(Z_2-Z_1)/(Z_2+Z_1)$ up to the
+    amplitude convention, $R=\lvert r\rvert^2$, $T=1-R$ for lossless media with
+    $Z=\rho c_L$.
+  \item Classical elastic P--SV oblique incidence against an independently
+    formulated welded and spring--dashpot solution, with critical-angle and
+    evanescent treatment.
+  \item Scalar proposition limits: with couplings off, the contact reproduces
+    Eqs.\ (9)--(10), the bound $T\le T_w$ and the exact-suppression values of
+    Proposition 1; the interphase reproduces the quarter-wave result of
+    Section 5.4.
+  \item Perfect-versus-imperfect contact along stated paths (high stiffness,
+    vanishing compliance and vanishing damping are distinguished).
+  \item Thermal and coupling reductions: $\tau_q\to0$ to the Fourier limit;
+    $\beta,p,e\to0$ to uncoupled fields; these are not the same as deleting a
+    field.
+  \item Interphase: the independently derived $h\to0$ reduction of Section 6.
+\end{enumerate}
+
+\textbf{Preliminary exploratory check (outside this blueprint's evidence).} In the
+audit session a classical elastic P--SV spring--dashpot solver on dimensionless toy
+media was run (\textsc{executed}): energy residual $\le6\times10^{-16}$ in 12 cases
+and the welded normal-incidence $R=0.033630$ matched the Fresnel value. This does
+not validate any piezothermoelastic solver and is not cited as validation.
+
+\subsection{Validation route V3: mathematical and numerical correctness}
+
+\begin{enumerate}
+  \item Eigenmode residual $\lVert M\bm{a}\rVert/(\lVert M\rVert\lVert\bm{a}\rVert)$
+    with an independent root formulation (polynomial versus state-space/boundary
+    matrix); outgoing selection by flux and decay, not by the sign of
+    $\operatorname{Re}\xi$ alone.
+  \item Boundary residual and rank: normalized $\lVert B\bm{a}-\bm{b}\rVert$,
+    singular values, condition number, independent-equation count including gauge
+    constraints, near-degenerate roots and critical angles.
+  \item Convergence: at least three tightened root/eigen tolerances and two
+    numerical resolutions where relevant; scattering-matrix versus direct
+    linear-system agreement; record changes in $R$, $T$, roots and the location
+    of any minimum.
+  \item Robustness against artificial minima: coarse independent grid with local
+    refinement; repeat near candidate minima at higher precision; exclude branch
+    swaps, nonphysical parameters, wrong attenuation signs and absorption
+    mislabeled as transmission.
+\end{enumerate}
+
+\subsection{Compulsory energy gates}
+
+\textbf{E1 LS energy-flux derivation.} From the adopted constitutive relations,
+LS conduction and Maxwell (quasi-static) equations, derive the coupled
+electromechanical--thermal energy identity, the normal total-field flux and its
+thermal term, and the stored-energy/entropy expressions including the
+$\tau_q$-dependent terms. Verify positivity of bulk dissipation under the
+stability conditions. No flux expression is adopted from another thermal theory.
+
+\textbf{E2 Interface dissipation.} Derive the mechanical, thermal and electrical
+(if any) contact dissipation as nonnegative forms from the contact laws, including
+sign conventions, and cross-check them against the flux difference across the
+contact.
+
+\textbf{E3 Numerical energy balance.} Evaluate Eq.\ (8) with the derived flux and
+dissipations on evaluation planes in the half-spaces; require convergent residuals
+for lossless reductions, and a physically signed, convergent balance for
+dissipative cases.
+
+\textbf{Failure of any energy gate blocks the reporting of $R$, $T$ or $A$.}
+
+\subsection{Evidence acceptance and presentation}
+
+Produce one main-text validation figure (a compatible published overlay or an
+analytical limit) and one validation table with reference or analytical value,
+assumptions, present value, absolute and relative discrepancy, solver settings and
+status. Numerical tolerances are fixed \emph{before} reporting; values such as
+$10^{-6}$ for benchmark discrepancy or $10^{-8}$ for normalized residuals are
+targets to be tested, not guarantees. Where the reference precision or conditioning
+is weaker, report the limitation.
+
+\begin{center}
+\begin{tabular}{@{}p{0.20\textwidth}p{0.48\textwidth}p{0.16\textwidth}@{}}
+\toprule
+\textbf{Evidence test} & \textbf{Proposed acceptance rule (justify against
+scales)} & \textbf{Status} \\
+\midrule
+V1 published comparison & Compatibility check passed; discrepancy within source
+  precision and demonstrated convergence & Pending \\
+V2 exact limits & Analytical relation reproduced to tight tolerance, including
+  the scalar proposition & Pending \\
+E1--E3 energy gates & Derived flux, signed dissipations, convergent balance &
+  Pending \\
+Interface rank and residual & Independent rank correct, small normalized
+  residual, no spurious gauge amplitudes & Pending \\
+Numerical minimum & Persists under refinement and perturbation; $\Delta T$ and
+  $A$ reported & Pending \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Stop rule.} If any mandatory validation fails, no submission-ready results
+are generated; repair the model or narrow the hypothesis. A genuine null result
+may be reported but does not replace validation.
+
+\section{Staged gates and honest failure routes}
+
+\begin{center}
+\begin{tabular}{@{}p{0.07\textwidth}p{0.50\textwidth}p{0.30\textwidth}@{}}
+\toprule
+\textbf{Gate} & \textbf{Required evidence} & \textbf{Decision on failure} \\
+\midrule
+G0 & Full-text prior-art comparison: Guha; Karmakar; Gupta-group baselines;
+  Wang; Ghazaryan; at least one recent layered comparator. & Refine one
+  mechanism, not the field. \\
+G1 & Sourced complete bulk constants, dimensional check, symmetry,
+  thermodynamic stability, thermal parameters. & Replace pair or simplify
+  theory. \\
+G2 & Derived $M$, root count and parity for the chosen symmetry, gauge/zero
+  roots, outward selection, convergence. & Correct model and boundary closure. \\
+G3 & Validation routes V1 (conditional) and V2 (exact limits) completed,
+  including the $h\to0$ derivation and the scalar proposition limits. & Repair
+  algebra before parametric plots. \\
+G4 & E1: derived LS energy identity and flux. & Do not quote any energy ratio. \\
+G5 & E2 and E3: derived interface dissipation and convergent numerical energy
+  balance. & Do not quote any energy ratio. \\
+G6 & Parameter search within the pre-declared box and thresholds
+  $\varepsilon_R$, $\delta_T$ reports H1 and H2 outcomes with $\Delta R$,
+  $\Delta T$, $A$. & Report the negative result; adjust only through a logged
+  decision. \\
+G7 & Competitor comparison shows a specific mathematical or physical distinction
+  with substantiated benefit. & Retitle as a narrower study or stop. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+No guessed curves, fabricated supplementary data, unsupported novelty claim, or
+numerical result without code, constants, tolerances and raw outputs. A compiled
+LaTeX file is not validated physics.
+
+\section{Flexible workflow and permitted adjustments}
+
+If an anti-reflection hypothesis fails, the permitted responses are: change
+contact parameters within physically justified and sourced ranges; change the
+interphase thickness or material; change the material pair; change the incident
+mode or angle range; replace the contact law with another passive law. Each
+response is logged. The following are \emph{not} permitted: fabricating or
+adjusting results; tuning a parameter outside its justified range solely to
+produce a minimum; changing $\varepsilon_R$, $\delta_T$, the parameter box or the
+validation criteria after seeing results without a logged justification that is
+reported in the paper; reporting dissipation-driven suppression as
+useful-transmission anti-reflection. Parameter optimization, if used, is confined
+to the declared box and its settings and outputs are retained.
+
+\section{Proposed paper organization and evidence plan}
+
+\begin{enumerate}
+  \item Introduction: motivation, competitors, precisely limited question.
+  \item Formulation: geometry, symmetry, three coupled categories, LS theory.
+  \item Contact and interphase conditions: spring--dashpot, electrothermal
+    closure, passivity, equation count.
+  \item Wave solutions: characteristic roots, admissibility, scattering algebra,
+    interphase reduction.
+  \item Reflection suppression and power: scalar proposition, coupled criteria,
+    flux balance, loss--transmission separation.
+  \item Validation and results: validation figure and table first, convergence,
+    baseline-versus-interphase comparison, sensitivity, limitations.
+  \item Discussion and conclusions: what was shown, what was not, scope for
+    future extensions.
+\end{enumerate}
+Planned figures (earned by findings): schematic; root structure; $R,T,A$ versus
+angle or frequency; contact-parameter response; baseline versus interphase
+comparison; energy residual and convergence. Target 5--7 figures and 2--4 tables,
+not a fixed count.
+
+\section{Decision record (mandatory)}
+
+For each change to an assumption, mechanism, parameter box, threshold or model,
+add a dated row: original assumption; reason; calculation or citation; revised
+model; effect on boundary conditions and flux accounting; retests; effect on title
+and novelty; status. Negative results are retained. Not fixed: material pair,
+$\tau_q$, polarization, contact parameters, $\varepsilon_R$, $\delta_T$ (until
+declared), final title. Fixed unless the whole first paper is reconsidered:
+piezothermoelastic wave dynamics, scattering analysis, coupled-field consistency,
+and an independently validated energy account.
+
+\section{Referee checklist}
+
+A reviewer should cite section, quote the claim, classify
+(critical/major/minor/preference), give the calculation or reference, state
+assumptions and the smallest correction. Specifically check: LS signs and
+pyroelectric term; mode count and gauge roots from the derived $M$; contact
+passivity and equation rank; the $h\to0$ derivation; the scalar proposition
+(assumptions S1--S4) and whether H1 as stated is consistent with it; the energy
+gates; benchmark compatibility; full-text overlap rather than abstract-level
+originality.
+
+\section{Final research management and agent work orders}
+
+\textbf{Ownership.} The principal investigator/supervising research team retains
+control of the final physical model, material pair, hypotheses, manuscript
+structure, and approval. Neither Claude nor Arena may introduce a new physical
+field, replace piezothermoelasticity, switch to device engineering, or promote a
+speculative finding into a conclusion. Scientific corrections are welcome;
+uncontrolled programme redesign is not.
+
+\subsection*{Single-paper scope lock}
+\begin{itemize}
+  \item \textbf{Primary paper:} passive reflection suppression of an incident
+    quasi-longitudinal coupled wave in two outer piezothermoelastic media with a
+    finite piezothermoelastic interphase and generalized passive imperfect
+    contact. Oblique incidence is investigated after the normal-incidence limit is
+    stable.
+  \item \textbf{Compulsory comparators:} welded two-half-space model and
+    imperfect-contact two-half-space model, with like-for-like material parameters
+    and clear parameter counts.
+  \item \textbf{Optional within-paper decisions:} material selection, one
+    physically supported contact law, and interphase thickness. Switch to
+    two-half-space primary formulation only if the predeclared gate in Section 6
+    fails. Such switching is disclosed, not hidden.
+  \item \textbf{Deferred:} Gurtin--Murdoch surface elasticity,
+    Klein--Gordon/NSGT nonlocality, additional coupled fields, experiments and
+    device fabrication. These are not required to rescue a disappointing result.
+\end{itemize}
+
+\subsection*{Phase ownership and deliverables}
+\begin{center}
+\begin{tabular}{@{}p{0.20\textwidth}p{0.36\textwidth}p{0.38\textwidth}@{}}
+\toprule
+\textbf{Phase} & \textbf{Primary assignment} & \textbf{Required acceptance
+evidence} \\
+\midrule
+P0 Claude: prior-art and constants & DOI/title/author cross-check; closest
+  full-text comparison when accessible; complete sourced constitutive parameter
+  table; explicit missing fields. & \\
+P1 Claude: constitutive/boundary derivation & Thermodynamic potential, corrected
+  LS coupling, full contact power balance, independent BC rank and dimension
+  checks. & \\
+P2 Arena: symbolic and numerical solver & Reproducible scripts, eigenmode
+  residuals, root selection, direct boundary solve and stable scattering
+  calculation, raw arrays and environment details. & Reproducible scripts,
+  eigenmode residuals, root selection, direct boundary solve and stable
+  scattering calculation, raw arrays and environment details. \\
+P3 Arena: independent validation & Classical elastic limits, identical-media,
+  zero-thickness composition, scalar proposition, published benchmark when
+  compatible, solver cross-check, converged energy residuals. & \\
+P4 Claude: critical independent audit & Examine Arena outputs and scripts,
+  identify genuine errors with equations/line numbers, and distinguish verified
+  defects from preferences. & \\
+P5 Supervisor: final interpretation & Approve or narrow hypotheses, choose final
+  title, ensure novelty evidence, approve manuscript only when all critical gates
+  pass. & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Mandatory evidence contract for every agent}
+Each deliverable must state (i) which source files were actually opened,
+(ii) commands/code run versus not run, (iii) exact input constants and provenance,
+(iv) equations and units, (v) residuals/tolerances, (vi) deviations from this
+working blueprint, and (vii) unresolved or failed tests. Labels \textsc{derived},
+\textsc{executed}, \textsc{verified source}, and \textsc{unverified} must be used
+faithfully. Do not write ``validated'', ``Q1 ready'', ``supplementary files
+provided'', or ``simulation completed'' without matching evidence. Agent
+disagreement is resolved by reproducible calculation, not by a vote or a numerical
+score.
+
+\subsection*{Stage-gate decisions}
+Gate A: complete sourced constants and well-posed field/interface model. Gate B:
+independent analytical limits and stable modal/scattering solver. Gate C: derived
+coupled power accounting and converged passive energy balance. Gate D: a
+meaningful, independently validated reflection--transmission finding relative to
+both baselines. Gate E: source-grounded novelty and clear mathematical
+contribution. A failed gate stops the associated claim, not necessarily the full
+research programme. No manuscript result may be presented as experimental or
+computed without passing its relevant gates.
+
+\subsection*{Additional mathematical closure checks before numerical claims}
+\begin{enumerate}
+  \item The scalar Proposition 1 remains a \emph{benchmark theorem} for the stated
+    scalar topologies, not a universal no-go theorem for coupled
+    piezothermoelastic scattering. Its traction sign and Voigt mapping must be
+    checked independently against the adopted global traction convention.
+  \item The interface electrical charge-storage relation needs a complete
+    charge-balance and time-harmonic current formulation. Never impose both
+    arbitrary free surface charge and independent potential/$D$ conditions
+    without counting constraints.
+  \item The proposed thermal-contact dissipation must be derived with consistent
+    absolute-temperature factors. Check both dimensions and nonnegative entropy
+    production rather than adopting a quadratic expression by analogy.
+  \item A dissipative half-space has complex modes and possible interference
+    terms. The definition of reflected/transmitted power, evaluation planes, and
+    separation from bulk loss must be fixed before quoting $R$, $T$, or $A$.
+  \item Hypothesis H2 requires comparisons with both a welded two-half-space
+    reference and the imperfect-contact reference; a superior result obtained
+    using more tunable parameters is not by itself proof of a new physical
+    mechanism.
+\end{enumerate}
+
+\section{Disposition}
+
+\textbf{Working paper identity:} Reflection suppression of coupled waves in
+piezothermoelastic media through generalized imperfect interface conditions.
+
+\textbf{Primary candidate configuration:} finite piezothermoelastic matching
+interphase with passive spring--dashpot faces. \textbf{Baseline:} two-half-space
+generalized imperfect interface.
+
+\textbf{Approval status:} final working blueprint authorized for scoped
+feasibility and validation; not an approval of novelty claims or manuscript
+submission. No coupled-field numerical result has been produced.
+
+\appendix
+\section{Historical change log: V4.1 $\to$ V4.2}
+
+\begin{center}
+\begin{tabular}{@{}p{0.04\textwidth}p{0.22\textwidth}p{0.64\textwidth}@{}}
+\toprule
+\# & Location & Change \\
+\midrule
+1 & Section 5 (new 5.2--5.4) & Added scalar assumptions (S1--S4), derivations of
+  $r,t,R,T,A$ for both contact topologies, Proposition (a)--(c) with proof,
+  executed checks, and the interpretation of the transmission cost; added the
+  scalar lossless-layer benchmark. \\
+2 & Section 2, H1 & H1 no longer presumes simultaneous reduction of $R$ with
+  $T\ge T_w$. Now uses pre-declared $\varepsilon_R$, $\delta_T$, states the
+  derived counterexample, conditions for possible coupled-case success, and
+  falsification rules F1--F3. \\
+3 & Sections 1, 2, 6 & Finite interphase is the primary candidate configuration
+  (H2); two-half-space interface is the comparison baseline. V4.1 had the
+  interphase as a conditional extension. \\
+4 & Section 7, V1 & Exact reproduction of Barak et al.\ replaced by a conditional
+  benchmark with a documented compatibility check (nonlocal, memory,
+  two-temperature limits; heterogeneous mode count); fallback and ``not usable''
+  status added. \\
+5 & Section 7, V1 and V2 & Two independent validation routes stated: published
+  compatible $R/T$ results \emph{and} exact analytical limits (including scalar
+  proposition and quarter-wave limits). \\
+6 & Section 7, E1--E3; Section 8 & LS energy-flux derivation, interface
+  dissipation and numerical energy balance made compulsory gates blocking any
+  energy-ratio claim; gates G4, G5 restructured. \\
+7 & Sections 3, 6 & Mode count and $h\to0$ reduction are to be derived, not
+  assumed: removed the pre-set counts; added the state-space composition for the
+  reduction with the expected form marked as a hypothesis; toy-polynomial
+  observation explicitly excluded as evidence. \\
+8 & Section 9 & Added explicit permitted and prohibited adjustments consistent
+  with the flexible workflow. \\
+9 & Section 2 & Ghazaryan et al.\ DOI record checked (Crossref); competitors'
+  read-status stated. \\
+10 & Sections 1, 12 & Gurtin--Murdoch and Klein--Gordon excluded unless a
+  demonstrated need is logged; disposition updated. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\end{document}
