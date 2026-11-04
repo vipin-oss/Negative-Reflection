@@ -118,29 +118,87 @@ data.
 \end{proposition}
 
 \begin{proof}[Proof]
-$\bm{M}$ depends on $\xi$ through $\xi$, $\xi^2$ and $\xi^4$ patterns; explicitly,
-the entries contain at most $\xi^2$ (e.g.\ $M_{22}$, $M_{33}$, $M_{44}$) and
-$\xi^1$ (e.g.\ $M_{24}$, $M_{34}$, $M_{42}$, $M_{43}$). Expanding the
-determinant as a sum over permutations, a term of odd total degree in $\xi$
-requires an odd number of $\xi^1$ factors. Consider the involution
-$\xi\to-\xi$ combined with the diagonal sign change
-$\bm{S}=\mathrm{diag}(1,1,1,-1)$. Direct substitution shows
+\textbf{Corrected in Phase 1B.} The Phase-1 proof asserted the conjugating matrix
+$\bm{S}=\mathrm{diag}(1,1,1,-1)$. That is \emph{wrong} and is withdrawn: it does
+not satisfy the entrywise conditions, as is shown below.
+
+Classify every entry by its parity in $\xi$:
 \begin{equation}
-  \bm{M}(-\xi;\kappa,\omega) = \bm{S}\,\bm{M}(\xi;\kappa,\omega)\,\bm{S},
-  \label{eq:parity-identity}
+  \text{even: }(1,1),(2,2),(3,3),(4,4),(1,4),(4,1),(2,3),(3,2);
+  \qquad
+  \text{odd: }(1,2),(2,1),(1,3),(3,1),(2,4),(4,2),(3,4),(4,3).
+  \label{eq:parity-classes}
 \end{equation}
-because every entry that is odd in $\xi$ sits in a row and a column with exactly
-one factor of $\bm{S}$ (namely row/column 4 combined with rows/columns 1--3).
-Taking determinants, $\det\bm{M}(-\xi)=\det(\bm{S})^2\det\bm{M}(\xi)=\det\bm{M}(\xi)$.
-Hence $\det\bm{M}$ is even in $\xi$.\qed
+For $\bm{M}(-\xi)=\bm{S}\bm{M}(\xi)\bm{S}$ with $\bm{S}=\mathrm{diag}(s_1,\dots,s_4)$
+to hold entry by entry we need
+\begin{equation}
+  s_i s_j =
+  \begin{cases}
+    +1, & (i,j)\ \text{even in }\xi,\\
+    -1, & (i,j)\ \text{odd in }\xi,
+  \end{cases}
+  \qquad\text{for all } 16 \text{ entries.}
+  \label{eq:parity-conditions}
+\end{equation}
+The system \eqref{eq:parity-conditions} has exactly two solutions,
+\begin{equation}
+  \boxed{\ \bm{S}=\mathrm{diag}(1,-1,-1,1)\ }\quad\text{and its negative,}
+  \label{eq:correct-S}
+\end{equation}
+which are the same symmetry up to an overall sign. Hence
+$\bm{M}(-\xi)=\bm{S}\bm{M}(\xi)\bm{S}$ and, since $\det\bm{S}=\pm1$ so that
+$\det(\bm{S})^2=1$,
+\begin{equation}
+  \det\bm{M}(-\xi)=\det(\bm{S})\,\det\bm{M}(\xi)\,\det(\bm{S})
+  =\det\bm{M}(\xi).
+  \label{eq:det-even}
+\end{equation}
+The Phase-1 matrix $\mathrm{diag}(1,1,1,-1)$ fails \eqref{eq:parity-conditions} on
+six entries --- $(1,2),(1,3),(1,4),(2,1),(3,1),(4,1)$ --- and is not a symmetry of
+$\bm{M}$ at all.
 \end{proof}
 
-\begin{remark}[Independent confirmation]
-Equation~\eqref{eq:parity-identity} is a statement that can be checked entry by
-entry, and it has been: check C1 evaluates all $16$ entries of
-$\bm{M}(-\xi)-\bm{S}\bm{M}(\xi)\bm{S}$ symbolically and obtains zero, and then
-computes the determinant by fraction-free (Berkowitz) elimination and finds degree
-$8$ with vanishing odd coefficients. Two routes, same answer.
+\begin{remark}[Why the Phase-1 error survived a ``check'']
+\label{rem:why-missed}
+The determinant parity \eqref{eq:det-even} follows from
+$\det(\bm{S})^2=1$ for \emph{either} sign pattern, so a determinant-only test
+cannot distinguish $\mathrm{diag}(1,1,1,-1)$ from $\mathrm{diag}(1,-1,-1,1)$:
+both give an even determinant, and both would ``pass''. The Phase-1 document
+claimed that the 16 entries had been evaluated symbolically and found to vanish.
+They had not been. The claim was false, and this is the defect the supervisor
+identified. The parity of $\det\bm{M}$ was never in doubt; the \emph{reason}
+given for it was wrong, and the wrong matrix was quoted as evidence.
+\end{remark}
+
+\begin{remark}[Independent confirmation, now actually performed]
+\label{rem:parity-check}
+Check C1 of \texttt{code/foundation\_checks.py}, rewritten in Phase 1B, builds the
+$4\times4$ matrix with \emph{symbolic} material constants (independently of the
+numeric material tables and of the cached determinant), evaluates
+$\bm{M}(-\xi)-\bm{S}\bm{M}(\xi)\bm{S}$ entry by entry for \emph{both} candidate
+matrices, and reports the failures:
+\begin{center}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+$\bm{S}$ & entries failing (of 16) & verdict \\
+\midrule
+$\mathrm{diag}(1,1,1,-1)$ (Phase 1) & 6 & not a symmetry \\
+$\mathrm{diag}(1,-1,-1,1)$ (corrected) & 0 & symmetry \\
+\bottomrule
+\end{tabular}
+\end{center}
+An exhaustive search over all $2^4$ diagonal sign patterns reproduces
+\eqref{eq:correct-S} and nothing else. The determinant parity is then confirmed
+separately by fraction-free elimination of $\bm{M}(\xi)-\bm{M}(-\xi)$.
+\end{remark}
+
+\begin{remark}[The root inventory is unaffected]
+\label{rem:roots-unaffected}
+The correction changes a \emph{proof}, not a \emph{result}. The determinant was
+already shown to be even by exact expansion of the coefficients
+(\eqref{eq:det}), and the eight roots, their branch assignment and their
+residuals are unchanged. What changes is that the stated reason is now correct,
+and the quoted matrix is now the right one.
 \end{remark}
 
 \subsection{Closed forms of the extreme coefficients}

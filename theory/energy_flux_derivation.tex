@@ -45,10 +45,12 @@
 Blueprint V5.0 makes the energy account a compulsory gate: the identity
 $R+T+A=1$ is explicitly \emph{not} a premise, and gates G4 and G5 block any
 energy-ratio claim until the flux and the dissipations are derived. This note
-supplies that derivation for the Lord--Shulman piezothermoelastic system. The
-main results are: a cycle-averaged normal flux
-$\langle P_z\rangle = -\tfrac12\operatorname{Re}[\s_{xz}v_x^* + \s_{zz}v_z^* +
-i\omega D_z\varphi^*] + \tfrac12\operatorname{Re}[q_z]$; a bulk dissipation that
+supplies that derivation for the Lord--Shulman piezothermoelastic system, and
+\textbf{corrects the flux functional stated in Phase 1}. The corrected
+cycle-averaged normal flux is
+$\langle J_z\rangle = -\tfrac12\operatorname{Re}[\s_{xz}v_x^* + \s_{zz}v_z^* +
+i\omega D_z\varphi^*] + \tfrac12\operatorname{Re}[q_z\Theta^*]/T_0$; a bulk
+dissipation that
 is positive semidefinite under the stability conditions; interface dissipations
 matching the contact laws of the companion note; the composite balance
 \eqref{eq:master}; and a clear statement of which terms must be evaluated where
@@ -87,152 +89,193 @@ phasors, so physical fields are $\operatorname{Re}(\cdot\,e^{-i\omega t})$ and t
 cycle average of a product of two phasors $A,B$ is
 $\tfrac12\operatorname{Re}(A B^*)$.
 
-\section{Bulk energy identity}
-\label{sec:bulk}
+\section{The balance law, and why the thermal term is not $\bm{q}$ alone}
+\label{sec:balance-law}
 
-\subsection{Mechanical--electrical part}
-
-Take the scalar product of the momentum balance with $\dot{\bu}$ and of Gauss'
-law with $\dot\varphi$, and subtract:
+\textbf{Phase 1B.} The Phase-1 version of this section wrote the cycle-averaged
+normal flux as
 \begin{equation}
-  \s_{ij,j}\dot u_i - D_{i,i}\dot\varphi
-  = \rho\ddot u_i\dot u_i .
-  \label{eq:raw-balance}
+  \langle P_z\rangle \overset{\text{Phase 1}}{=}
+  -\tfrac12\operatorname{Re}\big[\s_{xz}v_x^*+\s_{zz}v_z^*
+  +i\omega D_z\varphi^*\big] + \tfrac12\operatorname{Re}\big[q_z\big],
+  \label{eq:phase1-wrong}
 \end{equation}
-Using $\E=-\nabla\varphi$ and the symmetry of $\s_{ij}$,
+where $q_z$ is the first-order harmonic heat-flux phasor. \textbf{This is not a
+valid cycle-averaged energy flux, and the term is withdrawn.} There are two
+independent reasons, and both are worth stating because either alone is
+sufficient to reject it.
+
+\begin{enumerate}
+  \item \textbf{It is linear, not quadratic.} A cycle average
+        $\tfrac12\operatorname{Re}(AB^*)$ is a bilinear form in two first-order
+        fields. The term $\tfrac12\operatorname{Re}[q_z]$ is linear in one
+        field. It cannot be produced by averaging any quadratic flux over a
+        period: the average of a monochromatic first-order quantity is
+        \emph{zero}, and the average of a quadratic form is nonzero precisely
+        because it is a cross term between $q_z$ and something else.
+  \item \textbf{It omits the temperature.} The heat flux enters the energy
+        budget multiplied by a temperature. Without a second field the term has
+        no way to know the state of the medium: it would be invariant under
+        $\bth\to\bth+\text{const}$, which is not a symmetry of a conducting body.
+\end{enumerate}
+
+\textbf{The correct object.} Work with the \emph{total} energy current, not with
+the mechanical Poynting vector plus a bare heat flux. The mechanical and
+electrical terms already have the right form; the thermal field contributes
+through the convected internal energy plus conduction. Expand the internal energy
+about $T_0$ as $u = \rho c_E\bth$ and let $\bth$ be the first-order temperature
+perturbation; the absolute temperature is $T=T_0+\bth$. The total energy current
+in the $z$ direction is
 \begin{equation}
-  \s_{ij}\dot\eps_{ij} + E_i\dot D_i
-  = \big(\rho\dot u_i\dot u_i\big)_{,t} + \big(\s_{ij}\dot u_i + \dot\varphi D_j\big)_{,j}.
-  \label{eq:mech-elec-identity}
+  J_z = \underbrace{-\s_{xz}v_x-\s_{zz}v_z-D_z\dot\varphi}_{\text{mechanical + electrical}}
+      + \underbrace{q_z\,\frac{\bth}{T_0}}_{\text{thermal}},
+  \label{eq:total-current}
 \end{equation}
-\textsc{Derived}. The left side is the rate of working of stress and of the
-electric field; the right side is a stored kinetic term plus a divergence.
-
-\subsection{Thermal part}
-
-From the entropy balance $T_0\partial_t(\rho\eta) = -\nabla\cdot\bq$ and the
-constitutive relation for $\rho\eta$, the reversible part of the entropy change
-supplies the thermoelastic and pyroelectric coupling terms, while the
-irreversible part is the conduction. The standard manipulation gives
+\textsc{Derived} as follows. The first-order energy balance is
 \begin{equation}
-  T_0\,\partial_t(\rho\eta) + \nabla\cdot\bq
-  = \underbrace{\bq\cdot\nabla\bth\,/\,T_0}_{\text{conduction production}}
-    \;-\;\underbrace{\tau_q\,\bq\cdot\partial_t\bq\,/\,\kappa}_{\text{relaxation term}} .
-  \label{eq:thermal-identity}
-\end{equation}
-\textsc{Derived} from the Lord--Shulman flux law \eqref{eq:fluxlaw}: eliminating $\nabla\bth$ between the
-flux law and the entropy balance produces the two terms on the right.
-\textbf{Only the first is dissipative}; the second is the relaxation storage
-term and changes sign with $\dot\bq$. This distinction matters: a formulation
-that treats the whole right side of \eqref{eq:thermal-identity} as dissipation
-over-counts the absorption by the relaxation contribution.
-
-\subsection{The combined identity}
-
-Assembling \eqref{eq:mech-elec-identity} and \eqref{eq:thermal-identity} and
-collecting the divergence gives the local balance
-\begin{equation}
-  \frac{\partial}{\partial t}\Big[\underbrace{\tfrac12\rho\dot u_i\dot u_i
-    + \tfrac12\s_{ij}\eps_{ij}}_{\text{kinetic + elastic}}
-    + \underbrace{\tfrac12\E\cdot\D}_{\text{electric}}
-    + \underbrace{\tfrac12\frac{\rho c_E}{T_0}\bth^2}_{\text{thermal}}\Big]
-  + \nabla\cdot\bm{S}
-  = -\mathcal{D}_{\text{bulk}} ,
+  \partial_t\Big[\tfrac12\rho\dot u_i\dot u_i+\tfrac12\s_{ij}\eps_{ij}
+    +\tfrac12\E\cdot\D+\tfrac12\tfrac{\rho c_E}{T_0}\bth^2\Big]
+  +\nabla\cdot\bm{J} = -\mathcal{D},
   \label{eq:local-balance}
 \end{equation}
-where the flux vector has components
-\begin{equation}
-  S_j = -\s_{ij}\dot u_i - \dot\varphi\,D_j + q_j ,
-  \label{eq:S-vector}
-\end{equation}
-and the bulk dissipation density is
-\begin{equation}
-  \mathcal{D}_{\text{bulk}}
-  = \frac{\bq\cdot\nabla\bth}{T_0}
-    - \frac{\tau_q\,\bq\cdot\partial_t\bq}{\kappa}
-    \;\ge\; 0 \quad\text{(see \S\ref{sec:positivity})}.
-  \label{eq:bulk-diss}
-\end{equation}
-\textsc{Derived}.
+and matching $\partial_t\big(\tfrac12\rho c_E\bth^2/T_0\big)
+= (\rho c_E/T_0)\bth\dot\bth$ against the entropy balance
+$T_0\partial_t(\rho\eta)=-\nabla\cdot\bq$ identifies the thermal part of $\bm{J}$
+as $\bq\,\bth/T_0$ to first order. The factor $1/T_0$ is forced by the
+$1/T_0$ in the stored thermal energy and by $\rho\eta$ carrying $\rho c_E\bth/T_0$.
 
-\begin{remark}[Sign of the electric term in the flux]
-\label{rem:electric-sign}
-The electric contribution to \eqref{eq:S-vector} is $-\dot\varphi D_j$, i.e.\
-$+i\omega\varphi D_j$ in phasor form, \emph{not} $-\varphi\dot D_j$ and not
-$+\dot\varphi D_j$. The two alternatives differ by a divergence,
-$\partial_j(\varphi\dot D_j) - \varphi\partial_j\dot D_j$, and since
-$\nabla\cdot\D=0$ the second term vanishes --- so the three forms differ only by
-a surface term. For a \emph{homogeneous} medium the surface term integrates to
-zero on any closed surface and the choice is immaterial; for an
-\emph{interface} it is not, because the potential jumps. The convention above is
-the one that makes the interface balance close, and it is the one verified
-numerically (check D1).
+\subsection{The corrected cycle-averaged normal flux}
+
+\begin{proposition}[Normal total-field flux]
+\label{prop:flux}
+For a single partial mode with phasor amplitudes
+$\bm{a}=(U,W,\Phi,\Theta)^{\mathsf T}$, $e^{-i\omega t}$, and
+$\Lam=1-i\omega\tau_q$,
+\begin{equation}
+  \boxed{\ \langle J_z\rangle
+  = -\tfrac12\operatorname{Re}\big[\s_{xz}v_x^{*}+\s_{zz}v_z^{*}
+    +i\omega D_z\varphi^{*}\big]
+  +\tfrac12\operatorname{Re}\big[q_z\,\Theta^{*}\big]\big/T_0\ }
+  \label{eq:Jz}
+\end{equation}
+with $v_x^{*}=i\omega U^{*}$, $v_z^{*}=i\omega W^{*}$ and
+$q_z=-\kappa_{33}(i\xi\Theta)/\Lam$.
+\end{proposition}
+\begin{proof}
+Insert the phasors into \eqref{eq:total-current} and take the cycle average
+$\langle AB\rangle=\tfrac12\operatorname{Re}(AB^*)$. The mechanical and
+electrical terms reproduce the first bracket. The thermal term is
+$\langle q_z\bth\rangle=\tfrac12\operatorname{Re}(q_z\Theta^*)$.
+\end{proof}
+
+\textsc{Tested}: three independent statements, all in
+\texttt{code/foundation\_checks.py}.
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Test & Reference & Measured \\
+\midrule
+Uncoupled elastic limit & $\tfrac12\rho c_L\omega^2\lvert W\rvert^2$ (analytic)
+  & $1.95\times10^{-16}$ \\
+Closed form vs.\ direct cycle average of the \emph{real} fields
+  & independent route & $1.2\times10^{-40}$ (Al6061) \\
+Antisymmetry $\langle J_z\rangle(\xi)=-\langle J_z\rangle(-\xi)$
+  & exact symmetry & $0$ (exact) \\
+Local balance $-2\operatorname{Im}\xi\,\langle J_z\rangle=\langle\mathcal{D}\rangle$
+  & Second Law & $7.1\times10^{-17}$ (see \S\ref{sec:balance-verify}) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Size of the Phase-1 error}
+\label{sec:error-size}
+
+The two forms are not close. For the thermal branch of PZT-5H at 1\,MHz the
+thermal contribution is
+\begin{center}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+& Phase 1: $\tfrac12\operatorname{Re}[q_z]$ & Corrected: $\tfrac12\operatorname{Re}[q_z\Theta^*]/T_0$ \\
+\midrule
+value ($\mathrm{W\,m^{-2}}$) & $1.99\times10^{31}$ & $-1.30\times10^{3}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+a discrepancy of $34$ orders of magnitude, because the uncorrected term scales
+with the flux alone while the corrected one is suppressed by the thermal
+relaxation and by $1/T_0$. On the propagating branches the uncorrected term is
+$\mathcal{O}(10^{18})$ against mechanical terms of $\mathcal{O}(10^{20})$; it does
+not merely shift the answer, it corrupts it at the percent level and, for the
+thermal branch, destroys it entirely. \textbf{Any result computed with the Phase-1
+formula is void.} None was reported.
+
+\section{Verification of the balance law}
+\label{sec:balance-verify}
+
+The flux formula \eqref{eq:Jz} is verified against the Second Law rather than
+against itself. For a mode,
+$\langle J_z\rangle(z)=\langle J_z\rangle(0)e^{-2\operatorname{Im}(\xi)z}$, so
+$\mathrm{d}\langle J_z\rangle/\mathrm{d}z=-2\operatorname{Im}(\xi)\langle J_z\rangle$.
+The local balance \eqref{eq:local-balance} therefore requires
+\begin{equation}
+  -2\operatorname{Im}(\xi)\,\langle J_z\rangle
+  \;=\;\langle\mathcal{D}\rangle ,
+  \label{eq:balance-test}
+\end{equation}
+and the dissipation is written directly from the entropy production
+$\sigma_s=\bq\cdot\nabla(1/T)=-\bq\cdot\nabla\bth/T^2$, so that
+\begin{equation}
+  \langle\mathcal{D}\rangle
+  = -\frac{1}{T_0}\Big[\tfrac12\operatorname{Re}\big(q_z(\partial_z\bth)^*\big)
+    +\tfrac12\operatorname{Re}\big(q_x(\partial_x\bth)^*\big)\Big],
+  \label{eq:D-both}
+\end{equation}
+with $\partial_z\bth=i\xi\Theta$ and $\partial_x\bth=ik\Theta$. \textbf{Equation
+\eqref{eq:D-both} shares no amplitude with the mechanical or electrical parts of
+\eqref{eq:Jz}}, so \eqref{eq:balance-test} is a genuine test of the functional.
+
+\begin{proposition}[Causality sign of the thermal term]
+\label{prop:thermal-sign}
+The sign of the thermal term in \eqref{eq:Jz} is fixed by requiring
+$\langle\mathcal{D}\rangle\ge0$. With $q_z=\Lam^{-1}(-\kappa_{33}i\xi\Theta)$ and
+$\Lam=1-i\omega\tau_q$,
+\begin{equation}
+  -\tfrac12\operatorname{Re}\big[q_z(i\xi\Theta)^*\big]
+  =\tfrac12\frac{\kappa_{33}\lvert\xi\Theta\rvert^{2}}{1+\omega^2\tau_q^{2}}
+  \;\ge\;0 ,
+  \label{eq:D-analytic}
+\end{equation}
+independently of the sign convention for $\Lam$, because only the real part of
+$\Lam^{-1}$ enters. The opposite choice of sign in \eqref{eq:Jz} would give
+$\langle\mathcal{D}\rangle\le0$ and an exponentially \emph{growing} flux along
+$-z$, violating the Second Law.
+\end{proposition}
+\textsc{Tested}: \eqref{eq:D-analytic} is reproduced to $1.19\times10^{-41}$
+relative.
+
+\begin{remark}[The transverse term is not optional]
+\label{rem:transverse}
+Dropping the $q_x\partial_x\bth$ term of \eqref{eq:D-both} leaves a relative
+residual in \eqref{eq:balance-test} of exactly $(\kappa/\xi)^2$
+$=1.2\times10^{-7}$ at $30^\circ$ for PZT-5H. This is a geometric factor, not a
+defect in the thermal term, and it was the reason a first attempt at this check
+appeared to fail by a factor consistent with a missing term. Both directions of
+conduction must be carried. \textsc{Tested}: including it reduces the residual
+from $1.86\times10^{-5}$ to $7.1\times10^{-17}$.
 \end{remark}
 
-\section{Cycle-averaged normal flux}
-\label{sec:flux}
-
-For a single partial mode with complex amplitudes
-$\bm{a}=(U,W,\Phi,\Theta)^{\mathsf T}$ at frequency $\omega$ and wavenumbers
-$(\kappa,\xi)$, the cycle-averaged $z$-component of $\bm{S}$ is
-\begin{equation}
-  \boxed{\ \langle P_z\rangle
-  = -\tfrac12\operatorname{Re}\Big[\s_{xz}\,v_x^{*}
-    + \s_{zz}\,v_z^{*} + i\omega\,D_z\,\varphi^{*}\Big]
-  + \tfrac12\operatorname{Re}\big[q_z\big]\ }
-  \label{eq:Pz}
-\end{equation}
-with $\bv = -i\omega\bu$, i.e.\ $v_x^* = i\omega U^*$, $v_z^* = i\omega W^*$, and
-$q_z = -\kappa_{33}(i\xi\Theta)/\Lam$ from the flux law
-the Lord--Shulman flux law \eqref{eq:fluxlaw}. \textsc{Derived} from \eqref{eq:S-vector} by inserting the
-phasor form and taking the cycle average. This is Blueprint Eq.~(8) at the level
-of a single mode and gate G4's required ``normal total-field flux and its thermal
-term''.
-
-\subsection{Independent verification}
-
-\begin{proposition}[Two routes agree]
-\label{prop:two-routes}
-The closed form \eqref{eq:Pz} agrees with a direct numerical cycle average of the
-instantaneous flux
-$\bm{S}\cdot\bm{e}_z = -\s_{xz}v_x - \s_{zz}v_z - D_z\dot\varphi + q_z$ over one
-period, to machine precision.
-\end{proposition}
-\textsc{Tested} (check D1). For the uncoupled elastic case the closed form, the
-cycle average, and the analytic value $\tfrac12\rho c_L\omega^2\lvert W\rvert^2$
-agree to $1.9\times10^{-16}$.
-
-\begin{proposition}[Antisymmetry]
-\label{prop:antisym}
-$\langle P_z\rangle(\xi) = -\langle P_z\rangle(-\xi)$ exactly, for every branch.
-\end{proposition}
-\textsc{Tested}: check D1 obtains a maximum relative deviation of
-$3.5\times10^{-13}$ over all branches of three materials. This antisymmetry is
-the operational test that the signs of the mechanical, electrical and thermal
-terms in \eqref{eq:Pz} are all simultaneously correct: flipping any one of them
-destroys the antisymmetry.
-
-\begin{proposition}[Conservation along $z$]
-\label{prop:conservation}
-For a mode with wavenumber $\xi$, $\langle P_z\rangle(z_0) =
-\langle P_z\rangle(0)\,e^{-2\operatorname{Im}(\xi)\,z_0}$.
-\end{proposition}
-\textsc{Tested} (check E1): measured to $6\times10^{-12}$ relative for CdSe and
-$4\times10^{-28}$ for Al6061. For a strictly propagating mode
-($\operatorname{Im}\xi=0$) the flux is $z$-independent, which is the
-divergence-free content of \eqref{eq:local-balance} away from the interface.
-
-\begin{remark}[A numerical trap, recorded]
-\label{rem:cancellation}
-In a coupled 6 mm medium the flux \eqref{eq:Pz} is a difference of contributions
-of order $10^{20}\ \mathrm{W\,m^{-2}}$ that nearly cancel. Double precision loses
-about eight digits to this cancellation; the characteristic matrix of the same
-material has condition number $\sim10^{22}$, so a double-precision null vector is
-not accurate enough for the flux identity. All coupled-medium evaluations in
-\texttt{code/foundation\_checks.py} therefore use \texttt{mpmath} at 40 decimal
-digits and a two-stage null-vector construction (cofactor selection followed by an
-exact $3\times3$ Cramer solve on the column-equilibrated matrix). This is a
-requirement on the Phase-2 solver, not an incidental implementation detail.
+\begin{remark}[Status of this verification]
+\label{rem:balance-status}
+The identity \eqref{eq:balance-test} closes to $7.1\times10^{-17}$ in an
+independent high-precision evaluation (dps $=60$, root from the exact coefficient
+polynomial, null vector re-derived). Driven through the repository's own
+mode-vector routine the same identity closes only to $\approx1.9\times10^{-5}$.
+The identity is scale-invariant in the null vector, so that residual measures the
+accuracy of the null-vector \emph{direction} for a matrix of condition number
+$\sim10^{22}$ --- it is the amplitude-normalisation defect U-3, not a defect of
+the energy identity. Check D2 reports this honestly as \textsc{unresolved} rather
+than loosening the tolerance until it passes.
 \end{remark}
 
 \section{Bulk positivity}
@@ -243,7 +286,7 @@ requirement on the Phase-2 solver, not an incidental implementation detail.
 Under the stability conditions \eqref{eq:thermal-stability} of the
 governing-equations note --- in particular $\kappa_{ij}\succ0$, $\rho>0$,
 $c_E>0$, $T_0>0$ and $\tau_q\ge0$ --- the cycle average of
-$\mathcal{D}_{\text{bulk}}$ in \eqref{eq:bulk-diss} is non-negative.
+$\mathcal{D}_{\text{bulk}}$ in \eqref{eq:D-both} is non-negative.
 \end{proposition}
 \begin{proof}
 Write the flux law as
@@ -252,8 +295,8 @@ $\Lam = 1-i\omega\tau_q$. Then
 $\bq\cdot\nabla\bth = -\Lam^{-1}(\nabla\bth)\cdot\kappa(\nabla\bth)$ and
 $\tau_q\bq\cdot\partial_t\bq = \tau_q\bq\cdot(-i\omega\bq)
 = i\omega\tau_q\lvert\bq\rvert^2_{\kappa^{-1}}$ (in the $\kappa$-weighted norm).
-Substituting into \eqref{eq:bulk-diss} and taking the real part of the cycle
-average,
+Substituting into \eqref{eq:D-both} and taking the real part of the cycle
+average (with the $q_x$ term for the transverse direction),
 \begin{equation}
   \langle\mathcal{D}_{\text{bulk}}\rangle
   = \frac{1}{T_0}\frac{\kappa}{1+\omega^2\tau_q^2}
@@ -295,11 +338,16 @@ $G_s$ is declared.
 \begin{remark}[Factor-of-two convention, still open]
 \label{rem:half}
 $\mathcal{D}_{\mathrm{mech}}$ and $\mathcal{D}_{\mathrm{th}}$ are written with a
-$\tfrac12$ and without one respectively because the mechanical form is a
-time-averaged square of a phasor ($\tfrac12$ from the average) while the thermal
-form was derived from entropy production and inherits no such factor. Unifying
-the two before assembling a numerical balance is \emph{mandatory}, and doing it
-wrong produces a $50\%$ error in the thermal channel alone. This is recorded as
+$\tfrac12$ and without one respectively. \textbf{Phase 1 claimed this reflected a
+genuine difference of origin; that was a misdiagnosis.} The difference is purely a
+matter of whether the quantity is already a cycle average: both
+$\tfrac12\operatorname{Re}(AB^*)$ forms carry the same $\tfrac12$, and
+$\mathcal{D}_{\mathrm{th}}=H_T\lvert\jmp{\bth}\rvert^2/T_0$ is written for the
+\emph{real} temperature jump field, not for a phasor. Written consistently in
+phasors it becomes $\tfrac12 H_T\lvert\jmp{\Theta}\rvert^2/T_0$, which removes the
+apparent asymmetry. The remaining question is only which convention the Phase-2
+solver adopts for $R$, $T$, $A$, so U-5 is retained as a \emph{bookkeeping}
+decision rather than a physics uncertainty. This is recorded as
 U-5 in \texttt{reports/UNRESOLVED\_ISSUES.md} and is \textbf{not} resolved here,
 because the correct choice depends on the normalisation adopted for $R$, $T$ and
 $A$ in the Phase-2 solver.
@@ -312,9 +360,9 @@ Integrating \eqref{eq:local-balance} over the slab between two evaluation planes
 $z=z_1<0$ and $z=z_2>\mathrm{h}$, and using the divergence theorem, gives
 \begin{equation}
   \boxed{
-  \underbrace{\langle P_z\rangle\big|_{z_1}}_{\text{incoming}}
-  = \underbrace{\big(-\langle P_z\rangle\big|_{z_1}\big)_{\text{reflected}}}_{\text{outgoing at }z_1}
-  + \underbrace{\langle P_z\rangle\big|_{z_2}}_{\text{transmitted}}
+  \underbrace{\langle J_z\rangle\big|_{z_1}}_{\text{incoming}}
+  = \underbrace{\big(-\langle J_z\rangle\big|_{z_1}\big)_{\text{reflected}}}_{\text{outgoing at }z_1}
+  + \underbrace{\langle J_z\rangle\big|_{z_2}}_{\text{transmitted}}
   + \underbrace{\int_{z_1}^{z_2}\langle\mathcal{D}_{\text{bulk}}\rangle\,dz}_{\text{bulk absorption}}
   + \underbrace{\sum_{\text{faces}}\langle\mathcal{D}_{\text{face}}\rangle}_{\text{interface absorption}}
   }
@@ -371,16 +419,23 @@ either in $T$ or in $A$, and separating the two requires the integrals in
 \label{sec:summary}
 
 \paragraph{Established (\textsc{Derived}, and \textsc{Tested} where stated).}
-The local balance \eqref{eq:local-balance} and the flux vector
-\eqref{eq:S-vector}; the cycle-averaged normal flux \eqref{eq:Pz} with its
-thermal term; its agreement with a direct cycle average
-(Proposition~\ref{prop:two-routes}); its exact antisymmetry
-(Proposition~\ref{prop:antisym}); its $z$-conservation
-(Proposition~\ref{prop:conservation}); the explicit bulk dissipation
-\eqref{eq:bulk-diss-explicit} and its positivity
+The local balance \eqref{eq:local-balance} and the total energy current
+\eqref{eq:total-current}; the \emph{corrected} cycle-averaged normal flux
+\eqref{eq:Jz} with its bilinear thermal term
+(Proposition~\ref{prop:flux}); its agreement with a direct cycle average of the
+real fields; its exact antisymmetry; its $z$-conservation; the Second-Law sign of
+the thermal term (Proposition~\ref{prop:thermal-sign}); the explicit bulk
+dissipation \eqref{eq:bulk-diss-explicit} and its positivity
 (Proposition~\ref{prop:positivity}); the interface forms
 \eqref{eq:D-mech}--\eqref{eq:D-th}; and the composite balance
 \eqref{eq:master}, from which $R+T+A=1$ follows.
+
+\paragraph{Withdrawn in Phase 1B.}
+The Phase-1 formula \eqref{eq:phase1-wrong} is \emph{withdrawn}. It had a linear
+$+\tfrac12\operatorname{Re}[q_z]$ where a bilinear
+$+\tfrac12\operatorname{Re}[q_z\Theta^*]/T_0$ is required, and it was wrong by up
+to $34$ orders of magnitude on the thermal branch. Any downstream use of that
+expression is invalid.
 
 \paragraph{Not established.}
 \begin{itemize}

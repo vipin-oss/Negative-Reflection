@@ -140,12 +140,18 @@ Run: `python3 code/check_05_dispute_resolution.py` (~7 s).
 
 # Phase 1 (Blueprint V5.0) — Foundation deliverables and reproduction
 
-> **STATUS: PHASE 1 COMPLETE, NOT APPROVED.** No reflection, transmission or
-> absorption coefficient is reported anywhere in Phase 1, and **no novelty
-> claim is made**. See [`reports/UNRESOLVED_ISSUES.md`](reports/UNRESOLVED_ISSUES.md).
+> **STATUS: PHASE 1 COMPLETE AND PHASE 1B-REPAIRED, NOT APPROVED.** No reflection,
+> transmission or absorption coefficient is reported, and **no novelty claim is
+> made**. Gates **G4 and G5 are NOT PASSED**.
+>
+> Three Phase-1 defects were confirmed by supervisor review and corrected; see
+> [`reports/PHASE_01B_CRITICAL_REPAIR.md`](reports/PHASE_01B_CRITICAL_REPAIR.md)
+> and [`reports/PHASE_01B_SUPERVISOR_RESPONSE.md`](reports/PHASE_01B_SUPERVISOR_RESPONSE.md).
+> A fourth change was a **withdrawal** rather than a correction: the τ_q causality
+> rule was wrong and is gone.
 
 Phase 1 implements the theoretical foundation demanded by Blueprint V5.0 §3–§7.
-It stops before any numerical scattering experiment.
+Phase 1B repairs it. Both stop before any numerical scattering experiment.
 
 ## What was produced
 
@@ -153,54 +159,63 @@ It stops before any numerical scattering experiment.
 |---|---|
 | [`blueprint/Piezothermoelastic_AntiReflection_Master_Blueprint_V5.tex`](blueprint/Piezothermoelastic_AntiReflection_Master_Blueprint_V5.tex) | Faithful LaTeX transcription of the V5.0 blueprint (source text only — **not compiled**, no TeX engine available) |
 | [`literature/verified_references.csv`](literature/verified_references.csv) | 10 Crossref-verified records, R02–R11, 15 columns. Every row `read_status = metadata only` |
-| [`literature/material_constants.csv`](literature/material_constants.csv) | 80 constitutive constants, 4 materials, each tagged VERIFIED / ASSUMED / DERIVED / ZERO / CHOSEN_ABOVE_CAUSAL_FLOOR |
+| [`literature/material_constants.csv`](literature/material_constants.csv) | 80 constitutive constants, 4 materials, each tagged VERIFIED / ASSUMED / DERIVED / ZERO / VERIFIED_TO_ORDER_OF_MAGNITUDE |
 | [`literature/research_gap_matrix.md`](literature/research_gap_matrix.md) | 3 direct competitors, 6 candidate gaps (all UNRESOLVED), 7 closed derived results |
 | [`theory/governing_equations.tex`](theory/governing_equations.tex) | Single-potential 6 mm piezothermoelastic formulation, Lord–Shulman conduction, stability conditions |
 | [`theory/interface_conditions.tex`](theory/interface_conditions.tex) | Spring–dashpot, capacitive-gap and thermal-conductance contact laws; dissipations; the `h → 0` interphase map |
 | [`theory/characteristic_matrix.tex`](theory/characteristic_matrix.tex) | The 4×4 `M(ξ,k,ω)`, its exact `det M`, parity, block structure, gauge roots, branch inventory |
 | [`theory/energy_flux_derivation.tex`](theory/energy_flux_derivation.tex) | Normal total-field flux, bulk positivity, interface dissipation, the composite power balance from which `R + T + A = 1` *follows* |
 | [`validation/benchmark_plan.md`](validation/benchmark_plan.md) | All 19 benchmarks + 3 energy gates, each with expected value, source, acceptance rule and honest status |
-| [`reports/UNRESOLVED_ISSUES.md`](reports/UNRESOLVED_ISSUES.md) | 9 self-corrected errors and 10 open items, with what each one blocks |
+| [`reports/UNRESOLVED_ISSUES.md`](reports/UNRESOLVED_ISSUES.md) | 9 self-corrected errors and 10 open items (partly superseded by Phase 1B) |
+| [`reports/PHASE_01B_CRITICAL_REPAIR.md`](reports/PHASE_01B_CRITICAL_REPAIR.md) | Every Phase-1B issue: original statement, why it was wrong, correct derivation, file and line, executed verification, remaining uncertainty |
+| [`reports/PHASE_01B_SUPERVISOR_RESPONSE.md`](reports/PHASE_01B_SUPERVISOR_RESPONSE.md) | Point-by-point response, gate status, open items |
+| [`code/elastic_psv.py`](code/elastic_psv.py) | Reduced elastic P–SV scattering solver — the validated reference for the coupled problem |
+| [`validation/phase_01b_test_results.json`](validation/phase_01b_test_results.json) | Machine-readable results for all 16 checks |
 | [`code/foundation_checks.py`](code/foundation_checks.py) | The 13-check automated suite (output in [`data/foundation_checks.json`](data/foundation_checks.json)) |
 
 ## Reproducing the foundation checks
 
 ```bash
 pip install --break-system-packages numpy sympy mpmath
-python3 code/foundation_checks.py          # ~4 s, writes data/foundation_checks.json
+python3 code/foundation_checks.py          # ~6 s
 ```
 
-Expected final line:
+Expected final lines:
 
 ```
-foundation_checks: 13 PASS, 0 FAIL, 13 total
+foundation_checks: 15 PASS, 0 FAIL, 1 UNRESOLVED, 0 WITHDRAWN, 16 total
+executed test cases across all checks: 151
+  UNRESOLVED: D2  local balance d<J_z>/dz = -<D> (thermal branch)
 ```
 
-Exit status 0. The suite is self-contained: it needs no network, no input files
-beyond `code/det_coeffs.json` (a cached exact coefficient set, regenerated
-symbolically in ~4 s if deleted), and no TeX engine.
+**Exit status 1**, because one check is unresolved. That is intentional: the
+script does not report success while anything is unresolved, and a check that
+executes zero cases can never be reported as PASS.
 
-### What the 13 checks test
+Machine-readable results: [`validation/phase_01b_test_results.json`](validation/phase_01b_test_results.json).
 
-| Check | Tests | Independent reference? |
-|---|---|---|
-| A1 | Material tensor symmetry and thermodynamic stability | no — internal |
-| A2 | SI dimensional consistency of every entry of `M` | yes — dimensional analysis |
-| B1 | Constitutive set derives from **one** potential (Maxwell bracketing) | yes — potential identity |
-| B2 | Lord–Shulman heat equation from the entropy balance | yes — entropy balance |
-| C1 | `det M` degree 8, even in ξ, block structure, gauge root | yes — symbolic structure |
-| C2 | 8 roots: branch identification and eigen residual (2.2e-27) | no — internal |
-| D1 | Energy flux, **two independent routes**, plus antisymmetry | yes — direct cycle average |
-| E1 | Flux conservation along z for each mode | yes — analytic decay |
-| F1 | Interface passivity and equation count | yes — non-negative quadratic forms |
-| G1 | Fresnel, Proposition 1(a)(b)(c), quarter-wave | **yes — closed forms** |
-| H1 | Thermodynamic stability + Lord–Shulman causality floor | yes — derived bound |
-| I1 | Exact roots vs closed-form elastic branches | **yes — external (24 cases, 1.65e-15)** |
-| I2 | Interface independent-equation count and rank | no — internal |
+### What the 16 checks test
 
-Four checks (D1, G1, I1, and the flux half of E1) compare against references that
-are external to the code, which is the minimum for calling them validation rather
-than self-consistency.
+| Check | Status | n_exec | Tests | Independent reference? |
+|---|---|---|---|---|
+| A1 | PASS | 4 | Material tensor symmetry and stability | no — internal |
+| A2 | PASS | 26 | SI dimensional consistency of every entry of `M` | yes — dimensional analysis |
+| B1 | PASS | 6 | Constitutive set derives from **one** potential | yes — potential identity |
+| B2 | PASS | 4 | Lord–Shulman heat equation from the entropy balance | yes — entropy balance |
+| C1 | PASS | 16 | `det M` degree, **parity entry-by-entry for both candidate S**, gauge root | yes — symbolic structure |
+| C2 | PASS | 8 | 8 roots: branch identification, eigen residual 2.2e-27 | no — internal |
+| D1 | PASS | 12 | Corrected flux: analytic limit, independent cycle average, antisymmetry | yes — ½ρc_Lω²\|W\|² |
+| **D2** | **UNRESOLVED** | 2 | Local balance `d<J_z>/dz = −<D>` | yes — Second Law |
+| E1 | PASS | 10 | Flux conservation along z | yes — analytic decay |
+| F1 | PASS | 3 | Interface passivity | yes — quadratic forms |
+| G1 | PASS | 6 | Fresnel, Proposition 1(a)(b)(c), quarter-wave | **yes — closed forms** |
+| H1 | PASS | 4 | Universal stability only; speed-ordering rule withdrawn | yes — thermodynamic |
+| I1 | PASS | 24 | Exact roots vs closed-form elastic branches | **yes — external, 1.65e-15** |
+| I2 | PASS | 3 | Interface rank | no — internal |
+| J1 | PASS | 5 | Decoupled limit is a **reduction**, not coupling→0 | yes — symbolic factorisation |
+| J2 | PASS | 18 | Reduced elastic P–SV solver vs Fresnel + energy closure | **yes — 1e-16** |
+
+Seven checks compare against references external to the code.
 
 ## Two results worth naming
 
@@ -214,18 +229,15 @@ P₈ = −C₄₄ · κ₃₃ · (C₃₃ · ε₃₃ + e₃₃²)
 so the piezoelectrically stiffened 1-D modulus `C₃₃ + e₃₃²/ε₃₃` appears in the
 highest-order coefficient. Verified symbolically, not asserted.
 
-**A causality floor nobody was checking.** Lord–Shulman conduction admits a thermal
-wave, and requiring it not to be superluminal gives
-
-```
-τ_q  ≥  τ_q,min  =  κ / (ρ c_E c_L²)
-```
-
-At `1 MHz` the four materials give 2.83e-14 / 1.45e-14 / 1.73e-12 / 4.67e-13 s
-(PZT-5H / BaTiO₃ / Al6061 / CdSe). The CdSe working value inherited from the
-earlier audit, `1.0e-13 s`, was **below its own floor** and has been withdrawn;
-the value now used is `5.0e-13 s` (ratio 1.07). Check H1 now computes the ratio for
-every material and fails if any is below 1.
+**A causality rule that was wrong, and has been withdrawn.** Phase 1 imposed
+`τ_q ≥ κ/(ρ c_E c_L²)` and, on that basis, changed the CdSe working value from
+1.0e-13 s to 5.0e-13 s. The rule conflated a **constitutive relaxation front** with
+a **signal speed**: Lord–Shulman theory contains no mechanism bounding the thermal
+wave speed by the elastic speed, and `v_T ~ 10³ m/s` sits nine orders of magnitude
+below `c`. The rule is **withdrawn**, the sourced value is **restored**, and the
+material table no longer contains a value tuned to satisfy a rule that does not
+exist. What is retained as universal is only ρ>0, c_E>0, T_0>0, C>0, ε>0, κ>0,
+τ_q≥0 — the last because Cattaneo must relax *toward* Fourier, not away.
 
 ## What Phase 1 did not do
 

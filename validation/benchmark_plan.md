@@ -239,8 +239,8 @@ impossible in Phase 1 and all three are `CONDITIONAL`.**
 ### B-19 — Energy gates E1/E2/E3
 | Gate | What is required | Phase-1 status |
 |---|---|---|
-| E1 | LS energy identity and normal total-field flux derived, including the thermal term and the τ_q-dependent stored quantities; bulk dissipation positivity verified | **`CLOSED`** — derived in `theory/energy_flux_derivation.tex`; flux verified by two independent routes (check D1, 3.5e-13), antisymmetry exact, z-conservation to 6e-12 (check E1); positivity proved and checked |
-| E2 | Mechanical, thermal and electrical contact dissipations derived as non-negative forms with units checked and signs fixed | **`CLOSED except the factor-of-two convention** — derived and unit-checked (checks F1, G1); U-5 open |
+| E1 | LS energy identity and normal total-field flux derived, including the thermal term and the τ_q-dependent stored quantities; bulk dissipation positivity verified | **`NOT PASSED`** — Phase 1 stated an invalid linear thermal term (`+½Re[q_z]`) and is withdrawn. The corrected bilinear form `+½Re[q_zΘ*]/T0` is now derived and verified: elastic limit to 1.95e-16, antisymmetry exact, z-conservation to 2e-41, Second-Law sign reproduced to 1.2e-41. The full coupled local-balance identity closes to 7.1e-17 in an independent dps=60 evaluation but only to 1.9e-5 through the repository null-vector routine (open item U-3). Check D2 is reported **UNRESOLVED**. Until that closes, E1 is not passed. |
+| E2 | Mechanical, thermal and electrical contact dissipations derived as non-negative forms with units checked and signs fixed | **`NOT PASSED`** — derived and unit-checked (checks F1, G1), but the ½-bookkeeping between the mechanical and thermal forms is not yet unified for the Phase-2 flux normalisation (U-5). Phase 1 wrongly described this as a difference of physical origin; it is a convention question only. |
 | E3 | Numerical energy balance evaluated on planes in the half-spaces with convergent residuals | **`UNAVAILABLE`** — requires the coupled solver. **No energy ratio may be quoted until this closes** |
 
 ---
@@ -250,12 +250,12 @@ impossible in Phase 1 and all three are `CONDITIONAL`.**
 | Benchmark | Type | Phase-1 status |
 |---|---|---|
 | B-01 identical media | internal | PARTIAL |
-| B-02 Fresnel elastic | **independent** | CLOSED for roots; UNAVAILABLE for the solve (U-3) |
+| B-02 Fresnel elastic | **independent** | **CLOSED in the reduced system** (check J2: 1.67e-16 at normal incidence; energy closure ≤1e-15 over 7 angles). UNAVAILABLE in the coupled system (U-3) |
 | B-03 elastic P–SV oblique | **independent** | PLANNED |
 | B-04 Proposition 1 | internal | **CLOSED** |
 | B-05 quarter-wave | internal | **CLOSED** |
 | B-06 LS → Fourier | internal | **CLOSED** |
-| B-07 coupling → 0 | internal | **UNAVAILABLE** (U-3) |
+| B-07 coupling → 0 | internal | **SUPERSEDED** — Phase 1B shows the e=β=p=0 limit is a *reduction* (two gauge variables and their 0=0 conditions), not a λ→0 continuation. Established symbolically by check J1. |
 | B-08 SH thermal decoupling | structural | **CLOSED** |
 | B-09 BC rank / residual | internal | PARTIAL (rank CLOSED) |
 | B-10 h → 0 | internal + independent | PLANNED |

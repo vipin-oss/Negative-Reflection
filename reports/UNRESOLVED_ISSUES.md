@@ -1,5 +1,13 @@
 # Unresolved Issues — Phase 1, Blueprint V5.0
 
+> **SUPERSEDED IN PART BY PHASE 1B.** Several items below were found to be
+> incorrect during the Phase-1B supervisor review. Read this document together
+> with [`PHASE_01B_CRITICAL_REPAIR.md`](PHASE_01B_CRITICAL_REPAIR.md), which
+> supersedes: the parity claim (**S** = diag(1,1,1,−1) is WRONG), the energy-flux
+> formula (`+½Re[q_z]` is WRONG), the τ_q causality rule (WITHDRAWN), and error
+> **E-9** (the causality "fix" to CdSe τ_q is itself reverted).
+> **Gates G4 and G5 are NOT PASSED.**
+
 **Date:** 4 November 2026
 **Scope:** items that Phase 1 did **not** close, plus the errors made and corrected
 during Phase 1. Nothing here is hidden or softened: an item that failed is listed
@@ -141,6 +149,9 @@ sums are valid only where orthogonality has been shown — which is precisely wh
 Blueprint §5.1 warns about.
 
 ### E-9 — Claimed the CdSe parameter set was Lord–Shulman causal when it was not
+**[PHASE 1B: THIS "FIX" WAS ITSELF WRONG — see P1-A of PHASE_01B_CRITICAL_REPAIR.md.
+The τ_q floor is not a physical requirement; the rule is withdrawn and the sourced
+value 1.0e−13 s is restored.]**
 **Class:** Unsupported claim / physical inconsistency.
 **Symptom.** Check H1 reported `LS causal=True` for all four materials. But the
 CdSe working value `τ_q = 1.0e-13 s` is **below** the derived causal floor
