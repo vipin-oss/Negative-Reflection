@@ -1,0 +1,1237 @@
+{
+  "experiment_id": "PHASE-02A-MODAL-CORRECTED-2",
+  "supersedes": "PHASE-02A-MODAL-CORRECTED-1",
+  "supersession_reason": "P0-1: exported Re_xi, Im_xi, abs_xi and J_z were read from a loop variable after iteration, so every row in a block carried the last branch's values. Artifact is INVALID as scientific evidence.",
+  "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+  "working_precision_dps": 60,
+  "frequency_hz": 1000000.0,
+  "materials": [
+    "PZT-5H",
+    "Al6061",
+    "CdSe"
+  ],
+  "angles_deg": [
+    0.0,
+    15.0,
+    30.0,
+    45.0,
+    60.0
+  ],
+  "rows": 120,
+  "labels_changed_vs_phase_1d": 78,
+  "output": "validation/phase_02a_modal_inventory_v2.csv",
+  "output_sha256": "a3b2965319a49fb21bd0d045840cd8810ee2562b15100767a1fef7d4cefd5f46",
+  "columns": [
+    "experiment_id",
+    "material",
+    "theta_deg",
+    "branch",
+    "Re_xi",
+    "Im_xi",
+    "abs_xi",
+    "attenuation_ratio",
+    "attenuation_basis",
+    "decay_length_m",
+    "decay_length_in_transverse_wavelengths",
+    "spatial_class",
+    "radiation_dir",
+    "radiation_source",
+    "energy_flux_status",
+    "confidence",
+    "mech_content",
+    "elec_content",
+    "thermal_content",
+    "thermal_dispersion_ratio",
+    "J_z",
+    "J_z_sign",
+    "normalisation_basis",
+    "nullspace_agreement",
+    "cramer_gap",
+    "gram_residual",
+    "structural_columns",
+    "admissible_side",
+    "outgoing_status",
+    "phase_1d_label",
+    "label_changed",
+    "reasons"
+  ],
+  "preserved_evidence": [
+    "validation/phase_01d_independent_comparison.csv",
+    "validation/phase_02a_modal_inventory.csv"
+  ],
+  "halfspace_screens": {
+    "PZT-5H@0.0": {
+      "z>0_admissible": [
+        1,
+        5,
+        6,
+        7
+      ],
+      "z<0_admissible": [
+        0,
+        1,
+        2,
+        6
+      ],
+      "non_decaying": [
+        1,
+        6
+      ],
+      "gauge_excluded": [
+        3,
+        4
+      ],
+      "non_decaying_flux_sign": {
+        "1": "-",
+        "6": "+"
+      },
+      "roles": {
+        "z>0": {
+          "outgoing": [
+            5,
+            6,
+            7
+          ],
+          "incoming": [
+            1
+          ],
+          "excluded": {
+            "0": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -2.56936e+6: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "2": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -6.31542e-8: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "3": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "4": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ]
+          }
+        },
+        "z<0": {
+          "outgoing": [
+            0,
+            1,
+            2
+          ],
+          "incoming": [
+            6
+          ],
+          "excluded": {
+            "3": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "4": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "5": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 6.31542e-8: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "7": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 2.56936e+6: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        }
+      }
+    },
+    "PZT-5H@15.0": {
+      "z>0_admissible": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "z<0_admissible": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "non_decaying": [],
+      "gauge_excluded": [],
+      "non_decaying_flux_sign": {},
+      "roles": {
+        "z>0": {
+          "outgoing": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "incoming": [],
+          "excluded": {
+            "0": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -2.56936e+6: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "1": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -2.17892e-10: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "2": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -6.59557e-8: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "3": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -437.033: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        },
+        "z<0": {
+          "outgoing": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "incoming": [],
+          "excluded": {
+            "4": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 437.033: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "5": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 6.59557e-8: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "6": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 2.17892e-10: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "7": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 2.56936e+6: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        }
+      }
+    },
+    "PZT-5H@30.0": {
+      "z>0_admissible": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "z<0_admissible": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "non_decaying": [],
+      "gauge_excluded": [],
+      "non_decaying_flux_sign": {},
+      "roles": {
+        "z>0": {
+          "outgoing": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "incoming": [],
+          "excluded": {
+            "0": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -2.56936e+6: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "1": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -1.04686e-9: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "2": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -7.62441e-8: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "3": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -845.206: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        },
+        "z<0": {
+          "outgoing": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "incoming": [],
+          "excluded": {
+            "4": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 845.206: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "5": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 7.62441e-8: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "6": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 1.04686e-9: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "7": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 2.56936e+6: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        }
+      }
+    },
+    "PZT-5H@45.0": {
+      "z>0_admissible": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "z<0_admissible": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "non_decaying": [],
+      "gauge_excluded": [],
+      "non_decaying_flux_sign": {},
+      "roles": {
+        "z>0": {
+          "outgoing": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "incoming": [],
+          "excluded": {
+            "0": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -2.56936e+6: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "1": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -2.81867e-9: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "2": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -1.01033e-7: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "3": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -1196.3: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        },
+        "z<0": {
+          "outgoing": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "incoming": [],
+          "excluded": {
+            "4": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 1196.3: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "5": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 1.01033e-7: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "6": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 2.81867e-9: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "7": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 2.56936e+6: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        }
+      }
+    },
+    "PZT-5H@60.0": {
+      "z>0_admissible": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "z<0_admissible": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "non_decaying": [],
+      "gauge_excluded": [],
+      "non_decaying_flux_sign": {},
+      "roles": {
+        "z>0": {
+          "outgoing": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "incoming": [],
+          "excluded": {
+            "0": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -2.56936e+6: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "1": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -5.48207e-9: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "2": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -1.64028e-7: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "3": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -1465.51: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        },
+        "z<0": {
+          "outgoing": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "incoming": [],
+          "excluded": {
+            "4": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 1465.51: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "5": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 1.64028e-7: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "6": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 5.48207e-9: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "7": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 2.56936e+6: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        }
+      }
+    },
+    "Al6061@0.0": {
+      "z>0_admissible": [
+        1,
+        5,
+        6,
+        7
+      ],
+      "z<0_admissible": [
+        0,
+        1,
+        2,
+        6
+      ],
+      "non_decaying": [
+        1,
+        6
+      ],
+      "gauge_excluded": [
+        3,
+        4
+      ],
+      "non_decaying_flux_sign": {
+        "1": "-",
+        "6": "+"
+      },
+      "roles": {
+        "z>0": {
+          "outgoing": [
+            5,
+            6,
+            7
+          ],
+          "incoming": [
+            1
+          ],
+          "excluded": {
+            "0": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -216712.0: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "2": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -0.000160054: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "3": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "4": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ]
+          }
+        },
+        "z<0": {
+          "outgoing": [
+            0,
+            1,
+            2
+          ],
+          "incoming": [
+            6
+          ],
+          "excluded": {
+            "3": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "4": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "5": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 0.000160054: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "7": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 216712.0: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        }
+      }
+    },
+    "Al6061@15.0": {
+      "z>0_admissible": [
+        1,
+        5,
+        6,
+        7
+      ],
+      "z<0_admissible": [
+        0,
+        1,
+        2,
+        6
+      ],
+      "non_decaying": [
+        1,
+        6
+      ],
+      "gauge_excluded": [
+        3,
+        4
+      ],
+      "non_decaying_flux_sign": {
+        "1": "-",
+        "6": "+"
+      },
+      "roles": {
+        "z>0": {
+          "outgoing": [
+            5,
+            6,
+            7
+          ],
+          "incoming": [
+            1
+          ],
+          "excluded": {
+            "0": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -216712.0: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "2": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -0.000175913: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "3": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "4": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ]
+          }
+        },
+        "z<0": {
+          "outgoing": [
+            0,
+            1,
+            2
+          ],
+          "incoming": [
+            6
+          ],
+          "excluded": {
+            "3": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "4": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "5": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 0.000175913: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "7": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 216712.0: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        }
+      }
+    },
+    "Al6061@30.0": {
+      "z>0_admissible": [
+        1,
+        5,
+        6,
+        7
+      ],
+      "z<0_admissible": [
+        0,
+        1,
+        2,
+        6
+      ],
+      "non_decaying": [
+        1,
+        6
+      ],
+      "gauge_excluded": [
+        3,
+        4
+      ],
+      "non_decaying_flux_sign": {
+        "1": "-",
+        "6": "+"
+      },
+      "roles": {
+        "z>0": {
+          "outgoing": [
+            5,
+            6,
+            7
+          ],
+          "incoming": [
+            1
+          ],
+          "excluded": {
+            "0": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -216713.0: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "2": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -0.000267722: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "3": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "4": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ]
+          }
+        },
+        "z<0": {
+          "outgoing": [
+            0,
+            1,
+            2
+          ],
+          "incoming": [
+            6
+          ],
+          "excluded": {
+            "3": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "4": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "5": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 0.000267722: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "7": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 216713.0: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        }
+      }
+    },
+    "Al6061@45.0": {
+      "z>0_admissible": [
+        1,
+        5,
+        6,
+        7
+      ],
+      "z<0_admissible": [
+        0,
+        1,
+        2,
+        6
+      ],
+      "non_decaying": [
+        1,
+        6
+      ],
+      "gauge_excluded": [
+        3,
+        4
+      ],
+      "non_decaying_flux_sign": {
+        "1": "-",
+        "6": "+"
+      },
+      "roles": {
+        "z>0": {
+          "outgoing": [
+            5,
+            6,
+            7
+          ],
+          "incoming": [
+            1
+          ],
+          "excluded": {
+            "0": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -216713.0: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "2": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -523.22: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "3": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "4": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ]
+          }
+        },
+        "z<0": {
+          "outgoing": [
+            0,
+            1,
+            2
+          ],
+          "incoming": [
+            6
+          ],
+          "excluded": {
+            "3": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "4": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "5": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 523.22: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "7": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 216713.0: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        }
+      }
+    },
+    "Al6061@60.0": {
+      "z>0_admissible": [
+        1,
+        5,
+        6,
+        7
+      ],
+      "z<0_admissible": [
+        0,
+        1,
+        2,
+        6
+      ],
+      "non_decaying": [
+        1,
+        6
+      ],
+      "gauge_excluded": [
+        3,
+        4
+      ],
+      "non_decaying_flux_sign": {
+        "1": "-",
+        "6": "+"
+      },
+      "roles": {
+        "z>0": {
+          "outgoing": [
+            5,
+            6,
+            7
+          ],
+          "incoming": [
+            1
+          ],
+          "excluded": {
+            "0": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -216714.0: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "2": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -943.721: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "3": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "4": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ]
+          }
+        },
+        "z<0": {
+          "outgoing": [
+            0,
+            1,
+            2
+          ],
+          "incoming": [
+            6
+          ],
+          "excluded": {
+            "3": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "4": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "5": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 943.721: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "7": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 216714.0: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        }
+      }
+    },
+    "CdSe@0.0": {
+      "z>0_admissible": [
+        1,
+        5,
+        6,
+        7
+      ],
+      "z<0_admissible": [
+        0,
+        1,
+        2,
+        6
+      ],
+      "non_decaying": [
+        1,
+        6
+      ],
+      "gauge_excluded": [
+        3,
+        4
+      ],
+      "non_decaying_flux_sign": {
+        "1": "-",
+        "6": "+"
+      },
+      "roles": {
+        "z>0": {
+          "outgoing": [
+            5,
+            6,
+            7
+          ],
+          "incoming": [
+            1
+          ],
+          "excluded": {
+            "0": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -865945.0: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "2": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -1.06346e-6: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "3": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "4": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ]
+          }
+        },
+        "z<0": {
+          "outgoing": [
+            0,
+            1,
+            2
+          ],
+          "incoming": [
+            6
+          ],
+          "excluded": {
+            "3": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "4": [
+              "GAUGE_EXCLUDED",
+              "pure electric gauge: bounded, but carries no mechanical motion, so it is not a physical scattering channel"
+            ],
+            "5": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 1.06346e-6: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "7": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 865945.0: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        }
+      }
+    },
+    "CdSe@15.0": {
+      "z>0_admissible": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "z<0_admissible": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "non_decaying": [],
+      "gauge_excluded": [],
+      "non_decaying_flux_sign": {},
+      "roles": {
+        "z>0": {
+          "outgoing": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "incoming": [],
+          "excluded": {
+            "0": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -865945.0: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "1": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -1.5083e-7: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "2": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -1.14612e-6: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "3": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -388.417: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        },
+        "z<0": {
+          "outgoing": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "incoming": [],
+          "excluded": {
+            "4": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 388.417: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "5": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 1.14612e-6: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "6": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 1.5083e-7: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "7": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 865945.0: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        }
+      }
+    },
+    "CdSe@30.0": {
+      "z>0_admissible": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "z<0_admissible": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "non_decaying": [],
+      "gauge_excluded": [],
+      "non_decaying_flux_sign": {},
+      "roles": {
+        "z>0": {
+          "outgoing": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "incoming": [],
+          "excluded": {
+            "0": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -865945.0: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "1": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -5.22716e-7: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "2": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -1.41623e-6: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "3": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -750.22: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        },
+        "z<0": {
+          "outgoing": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "incoming": [],
+          "excluded": {
+            "4": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 750.22: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "5": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 1.41623e-6: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "6": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 5.22716e-7: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "7": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 865945.0: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        }
+      }
+    },
+    "CdSe@45.0": {
+      "z>0_admissible": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "z<0_admissible": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "non_decaying": [],
+      "gauge_excluded": [],
+      "non_decaying_flux_sign": {},
+      "roles": {
+        "z>0": {
+          "outgoing": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "incoming": [],
+          "excluded": {
+            "0": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -865945.0: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "1": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -9.2446e-7: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "2": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -1.93909e-6: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "3": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -1063.57: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        },
+        "z<0": {
+          "outgoing": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "incoming": [],
+          "excluded": {
+            "4": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 1063.57: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "5": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 1.93909e-6: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "6": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 9.2446e-7: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "7": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 865945.0: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        }
+      }
+    },
+    "CdSe@60.0": {
+      "z>0_admissible": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "z<0_admissible": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "non_decaying": [],
+      "gauge_excluded": [],
+      "non_decaying_flux_sign": {},
+      "roles": {
+        "z>0": {
+          "outgoing": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "incoming": [],
+          "excluded": {
+            "0": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -865945.0: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "1": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -1.186e-6: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "2": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -2.80562e-6: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "3": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = -1310.55: the mode decays AWAY from z>0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        },
+        "z<0": {
+          "outgoing": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "incoming": [],
+          "excluded": {
+            "4": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 1310.55: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "5": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 2.80562e-6: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "6": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 1.186e-6: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ],
+            "7": [
+              "EVANESCENT_NO_TRANSPORT",
+              "Im(xi) = 865945.0: the mode decays AWAY from z<0, so it grows there and is not admissible -- it belongs to the other half-space"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "reproduce": "cd code && python3 -m scattering.export_inventory"
+}

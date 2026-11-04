@@ -4,10 +4,10 @@
   "phase": "1C",
   "base_commit_verified": "127eba77f397be6baaf7b24fc5b8607a903d402b",
   "claims": {
-    "total": 45,
+    "total": 49,
     "status_counts": {
-      "VERIFIED_STRONG": 29,
-      "VERIFIED_WEAK": 9,
+      "VERIFIED_STRONG": 32,
+      "VERIFIED_WEAK": 10,
       "UNVERIFIED": 5,
       "INVALID": 2
     },
@@ -46,7 +46,8 @@
         "closure": "recorded; the balance oracle is the real test"
       }
     },
-    "phase_1d_note": "Tallies re-derived from evidence/claim_registry.csv in Phase 1D. Four changes: CLM-D2-01 moved UNRESOLVED -> VERIFIED_STRONG after the flux correction (tolerance unchanged); CLM-LS-01 ADDED as VERIFIED_STRONG to record the resolved Lord-Shulman stored-energy question; EQ-ENG-02, EQ-ENG-05 and EQ-EIG-01 moved to VERIFIED_STRONG with explicit RETRACTIONS of the earlier \"null-vector direction is accurate only to 1e-5\" diagnosis. No claim was promoted without an executed test and a code binding."
+    "phase_1d_note": "Tallies re-derived from evidence/claim_registry.csv in Phase 1D. Four changes: CLM-D2-01 moved UNRESOLVED -> VERIFIED_STRONG after the flux correction (tolerance unchanged); CLM-LS-01 ADDED as VERIFIED_STRONG to record the resolved Lord-Shulman stored-energy question; EQ-ENG-02, EQ-ENG-05 and EQ-EIG-01 moved to VERIFIED_STRONG with explicit RETRACTIONS of the earlier \"null-vector direction is accurate only to 1e-5\" diagnosis. No claim was promoted without an executed test and a code binding.",
+    "phase_2a_note": "Phase 2A task 1R added 4 claims (CLM-02A-01..04): 3 VERIFIED_STRONG, 1 VERIFIED_WEAK. CLM-02A-03 is WEAK because the lossless-mode roles are not yet confirmed against an independent elastic solver (BLK-02A-04, Task 3 deliverable)."
   },
   "equations": {
     "total": 41,

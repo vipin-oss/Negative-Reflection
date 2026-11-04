@@ -120,9 +120,19 @@ THERMAL_DISPERSION_TOL = 0.1
 #: volts). A gauge is machine zero; it is not "small against volts".
 GAUGE_MECHANICAL = 1.0e-40
 
-SPATIAL_CLASSES = ("EVANESCENT", "WEAKLY_DAMPED", "THERMAL_DIFFUSIVE",
-                   "GAUGE", "UNCLASSIFIED")
-RADIATION_DIRS = ("DECAYS_TOWARD_PLUS_Z", "DECAYS_TOWARD_MINUS_Z", "NONE")
+#: A mode with Im(xi) EXACTLY zero does not decay. It must not be given a
+#: *damping* label at all: calling it WEAKLY_DAMPED with a damping of exactly
+#: zero is a vocabulary contradiction of the same kind as PHYSICAL_GROWING.
+SPATIAL_CLASSES = ("PROPAGATING_NON_DECAYING", "EVANESCENT", "WEAKLY_DAMPED",
+                   "THERMAL_DIFFUSIVE", "GAUGE", "UNCLASSIFIED")
+#: Radiation direction. For a decaying mode this is fixed by the sign of Im(xi).
+#: For a mode with Im(xi) = 0 the direction is carried by the real part of the
+#: axial Poynting component, i.e. ENERGY FLOW, because a lossless mode is not
+#: localised at the interface at all -- nothing about it decays, so "toward the
+#: interface" is not defined and only the flux direction carries information.
+RADIATION_DIRS = ("DECAYS_TOWARD_PLUS_Z", "DECAYS_TOWARD_MINUS_Z",
+                  "TRAVELS_TOWARD_PLUS_Z", "TRAVELS_TOWARD_MINUS_Z",
+                  "NONE")
 ENERGY_STATUSES = ("FLOWING", "ZERO", "UNDEFINED")
 CONFIDENCES = ("HIGH", "MEDIUM", "LOW")
 
@@ -267,6 +277,30 @@ def classify_mode(m, k, xi, w, a, jz=None, jz_scale=None, z_ref=None):
         reasons.append(f"follows the thermal diffusion relation: "
                        f"|xi|/|xi_th| = {mp.nstr(thermal_ratio, 4)} "
                        f"(tolerance +/-{THERMAL_DISPERSION_TOL:g})")
+    elif xi_i == 0 and atten_ratio is not None \
+            and atten_ratio > ATTENUATION_WEAK:
+        # Im(xi) is EXACTLY zero but the mode is still strongly evanescent: it
+        # decays along x (Re xi ~ k, Im xi = 0). CdSe branches 3/4 at 30 deg
+        # have Re xi = +-8.7e-11 with Im xi = -+750.2, so Im xi is NOT zero
+        # there; the genuinely zero-Im cases are Al6061 br1/br6 and the k=0
+        # gauges. This arm exists so that a future root that really does sit on
+        # the axis while evanescent is not mislabelled as propagating.
+        spatial = "EVANESCENT"
+        reasons.append("Im xi = 0 but the mode decays along x: evanescent")
+    elif xi_i == 0:
+        # Im(xi) exactly zero: no damping in z at all. It must not be given a
+        # DAMPING label -- WEAKLY_DAMPED with a damping of exactly zero is the
+        # same kind of vocabulary contradiction as PHYSICAL_GROWING. Al6061
+        # branches 1 and 6 were reported this way while carrying
+        # <J_z> = -+1.815e20, i.e. perfectly good propagating waves.
+        spatial = "PROPAGATING_NON_DECAYING"
+        reasons.append("Im xi = 0 exactly: the mode propagates without decay "
+                       "and is not localised at the interface")
+        if k_abs == 0:
+            confidence = "MEDIUM"
+            reasons.append("confidence capped at MEDIUM: k = 0, so the "
+                           "attenuation claim rests on the thermal-scale "
+                           "fallback")
     elif atten_ratio is not None and atten_ratio >= ATTENUATION_EVANESCENT:
         spatial = "EVANESCENT"
         reasons.append(f"|Im xi|/|k| = {mp.nstr(atten_ratio, 3)} >= "
@@ -292,20 +326,70 @@ def classify_mode(m, k, xi, w, a, jz=None, jz_scale=None, z_ref=None):
         reasons.append(f"k = 0: classified on |Im xi|/|xi_th| = "
                        f"{mp.nstr(atten_ratio, 3)}")
         confidence = "MEDIUM"
+        reasons.append("confidence capped at MEDIUM: the classification used "
+                       "the thermal-scale fallback rather than the physical "
+                       "transverse wavenumber")
 
     # a thermal-diffusive branch is almost always also strongly attenuated;
     # report the attenuation ratio either way so the reader can see both
     # statements rather than one collapsed label.
 
     # --- radiation direction ----------------------------------------------
-    # DERIVED from the e^{+i xi z} convention: Im(xi) > 0 decays toward +z.
+    # TWO CASES, because a lossless mode has no decay direction to speak of.
+    #
+    # 1. Im(xi) != 0. The mode is exponentially localised at the interface and
+    #    the DERIVED convention e^{+i xi z} fixes which side it decays toward:
+    #    Im(xi) > 0  =>  decays toward +z.
+    #
+    # 2. Im(xi) == 0. The mode does NOT decay anywhere. It is admissible in
+    #    both half-spaces on boundedness grounds, and the direction that
+    #    carries physical information is the direction of ENERGY FLOW, given by
+    #    the cycle-averaged axial Poynting component <J_z>. For an isotropic
+    #    elastic medium this is simply the group-velocity direction, and
+    #    <J_z> = +-c*E with c = sqrt(mu/rho) > 0, so the sign of <J_z> IS the
+    #    sign of the axial phase/energy velocity. This is the physically
+    #    justified test that the earlier code was missing: it reported these
+    #    branches as "NONE" and then filed them under `non_decaying`, which
+    #    discarded the only information that distinguishes an outgoing wave
+    #    from an incoming one.
+    #
+    # A zero-flux lossless mode also exists -- the pure gauge -- and it is
+    # neither incoming nor outgoing. It is caught earlier by the gauge test, so
+    # by the time we reach the flux branch below the mechanical content is
+    # non-zero; if <J_z> is nonetheless below the resolvable scale we report
+    # NONE and LOW confidence rather than inventing a direction.
+    radiation_source = ""
     if xi_i > 0:
         radiation = "DECAYS_TOWARD_PLUS_Z"
+        radiation_source = "Im(xi) > 0 under e^{+i xi z}"
+        if atten_ratio is not None and atten_ratio <= ATTENUATION_WEAK:
+            # Near-lossless. sign(Im xi) is still well defined and is exactly
+            # what the limiting-absorption continuation gives in the limit
+            # Im(xi) -> 0+, so no separate branch is needed; the point is that
+            # a damping this small does NOT make the direction ambiguous.
+            reasons.append(
+                f"damping is negligible in magnitude (ratio "
+                f"{mp.nstr(atten_ratio, 3)}) but its SIGN is what fixes the "
+                f"decay direction, and it is unambiguous")
     elif xi_i < 0:
         radiation = "DECAYS_TOWARD_MINUS_Z"
+        radiation_source = "Im(xi) < 0 under e^{+i xi z}"
+    elif xi_i == 0 and jz is not None and abs(jz) > mp.mpf("1e-40"):
+        radiation = ("TRAVELS_TOWARD_PLUS_Z" if jz > 0
+                     else "TRAVELS_TOWARD_MINUS_Z")
+        radiation_source = ("Im(xi) = 0 (lossless): direction taken from the "
+                            "sign of the axial energy flux <J_z>")
+        reasons.append(
+            f"Im xi = 0: mode does not decay, so it is admissible on BOTH "
+            f"sides on boundedness grounds; <J_z> = {mp.nstr(jz, 6)} makes it "
+            f"an {'outgoing' if jz > 0 else 'incoming'} wave with respect to "
+            f"an interface at z = 0")
     else:
         radiation = "NONE"
-        reasons.append("Im xi = 0: no decay in either direction")
+        radiation_source = "no decay and no resolvable flux"
+        reasons.append("Im xi = 0 and <J_z> is not resolvable: the mode is "
+                       "neither incoming nor outgoing")
+        confidence = "LOW"
 
     # --- energy flux -------------------------------------------------------
     if jz is None:
@@ -328,7 +412,9 @@ def classify_mode(m, k, xi, w, a, jz=None, jz_scale=None, z_ref=None):
             energy = "ZERO"
             reasons.append(
                 f"|J_z| = {mp.nstr(abs(jz), 4)} is below the resolvable scale; "
-                "this mode carries no mechanical energy (pure gauge)")
+                "this mode carries no mechanical energy, so it is not an "
+                "outgoing channel (a wire gauge, or a mode with no axial "
+                "transport)")
             if confidence == "HIGH":
                 confidence = "MEDIUM"
         elif jz_scale is not None and abs(jz) <= mp.mpf("1e-20") * max(jz_scale, mp.mpf("1e-300")):
@@ -339,7 +425,31 @@ def classify_mode(m, k, xi, w, a, jz=None, jz_scale=None, z_ref=None):
             reasons.append(f"J_z = {mp.nstr(jz, 6)} "
                            f"({'+z' if jz > 0 else '-z'} at u_z = 1)")
 
+    # A lossless direction rests entirely on the flux, so the prose must say
+    # which way the energy goes. Without this line the CSV carried a
+    # TRAVELS_TOWARD_* label next to a reasons field that never mentioned the
+    # flux -- a label no reader could check, which is the failure mode this
+    # whole task is about.
+    if radiation.startswith("TRAVELS_") and jz is not None:
+        reasons.append(
+            f"direction rests on the axial energy flux: <J_z> = "
+            f"{mp.nstr(jz, 6)} {'>' if jz > 0 else '<'} 0, energy flows "
+            f"{'toward +z' if jz > 0 else 'toward -z'}")
+
     # --- numerical confidence ---------------------------------------------
+    # AT NORMAL INCIDENCE the transverse wavenumber is zero, so the physical
+    # scale |Im xi|/|k| does not exist and every attenuation statement rests on
+    # the thermal fallback. No classification at k = 0 may be HIGH confidence,
+    # whatever arm produced it: the tolerance that separates thermal from
+    # acoustic was calibrated at oblique incidence and is being extrapolated.
+    # This is applied once, globally, rather than inside each arm, because an
+    # earlier version capped it in three of the five arms and left the other
+    # two reporting HIGH -- which is how six rows escaped the check.
+    if k_abs == 0 and confidence == "HIGH":
+        confidence = "MEDIUM"
+        reasons.append(
+            "confidence capped at MEDIUM: k = 0, so the attenuation scale is "
+            "the thermal fallback rather than the physical transverse one")
     # flag the genuinely awkward cases rather than hiding them behind a label
     if xi_r != 0 and k_abs > 0 and abs(xi_r) < mp.mpf("1e-6") * k_abs:
         reasons.append("Re(xi) is negligible against k: the sign of Re(xi) "
@@ -349,8 +459,21 @@ def classify_mode(m, k, xi, w, a, jz=None, jz_scale=None, z_ref=None):
     if spatial == "THERMAL_DIFFUSIVE" and thermal_ratio is not None:
         dist = abs(thermal_ratio - 1)
         if dist > 0.5 * THERMAL_DISPERSION_TOL:
+            # The gap measured over 4 materials x 5 angles was thermal in
+            # 1.000..1.016 and acoustic below 6.1e-3, so a thermal branch at
+            # |ratio-1| = 0.29 is still clearly thermal. But at k=0 the thermal
+            # ratio genuinely degrades to 1/sqrt(2) = 0.707, so the tolerance is
+            # being asked to do work it was not calibrated for. Report MEDIUM
+            # there rather than claiming HIGH confidence from an uncalibrated
+            # regime -- a HIGH label that rests on a test outside its measured
+            # range is exactly the kind of claim this phase must not make.
             reasons.append(f"thermal dispersion match is marginal "
                            f"(|ratio - 1| = {mp.nstr(dist, 3)})")
+            confidence = "MEDIUM"
+        if k_abs == 0 and confidence == "HIGH":
+            reasons.append(
+                "k = 0: the thermal tolerance was calibrated at oblique "
+                "incidence only, so confidence is capped at MEDIUM")
             confidence = "MEDIUM"
 
     # dimensionless diagnostics, always reported
@@ -369,6 +492,7 @@ def classify_mode(m, k, xi, w, a, jz=None, jz_scale=None, z_ref=None):
         confidence=confidence,
         attenuation_ratio=atten_ratio,
         attenuation_basis=atten_basis,
+        radiation_source=radiation_source,
         decay_length_m=decay_len,
         decay_length_in_transverse_wavelengths=decay_in_lambda,
         mech_content=mech, elec_content=elec, thermal_content=therm,
@@ -380,61 +504,52 @@ def classify_mode(m, k, xi, w, a, jz=None, jz_scale=None, z_ref=None):
 
 
 # ---------------------------------------------------------------------------
-def screen_halfspaces(modes):
-    """Assign each branch to the half-space where it is admissible, and to the
-    incoming / outgoing role, from the DERIVED direction convention only.
+def screen_halfspaces(modes, jzs=None):
+    """Admissibility of each branch in each half-space.
 
-    A half-space problem is well posed when, in each region, the admissible
-    (non-growing) set is used for the transmitted field and the admissible plus
-    one incoming mode for the reflected field.
+    TWO CONDITIONS, and an earlier version checked only the first:
 
-        region z > 0 : require Im(xi) > 0  (decays toward +z)
-        region z < 0 : require Im(xi) < 0  (decays toward -z)
+      1. BOUNDEDNESS   the field must not grow as it moves away from the
+                       interface. For Im(xi) != 0 this is the Im(xi) sign test.
+                       For Im(xi) == 0 the mode is bounded EVERYWHERE and is
+                       therefore admissible on both sides -- it is not excluded
+                       from either.
 
-    A branch with Im(xi) = 0 propagates without decay and is admissible in
-    either half-space; it is reported separately because its treatment depends
-    on the radiation condition chosen, and choosing that silently is exactly
-    the failure this module exists to prevent.
+      2. NON-TRIVIALITY  the mode must be physically realisable. A pure electric
+                       wire gauge is bounded and is a genuine null vector, but
+                       carries no mechanical motion, so it is not a scattering
+                       channel.
 
-    TWO INDEPENDENT CONDITIONS, and an earlier version of this function checked
-    only the first:
+    A third question -- whether an admissible non-decaying mode is INCOMING or
+    OUTGOING -- is NOT decidable from boundedness at all. It needs the modal
+    energy flux, and lives in `scattering.radiation`, which callers must use for
+    mode selection. Reporting these branches under `non_decaying` and stopping
+    there was the P0-3 defect: it discarded the incoming/outgoing distinction
+    for exactly the branches where that distinction is the only thing there is
+    to know.
 
-      1. BOUNDEDNESS   the mode must not grow as |z| -> infinity. This is the
-                       Im(xi) sign condition above. It is about the SPATIAL
-                       behaviour of the field, nothing else.
-
-      2. NON-TRIVIALITY  the mode must be a physically realisable field. A pure
-                       electric wire gauge (phi = 1, u = w = theta = 0) is
-                       perfectly bounded and satisfies the PDE, and it is a
-                       genuine null vector of the operator -- but it carries no
-                       mechanical motion and therefore cannot be excited by, or
-                       transport energy to, a mechanical wave. Admitting it as a
-                       physical mode is how a scattering matrix acquires a rank
-                       it should not have.
-
-    Screening on boundedness alone admitted the Al6061 wire gauges (branches 3
-    and 4) into the half-spaces as physical modes. They are now excluded and
-    reported under `gauge_excluded`, separately from `non_decaying`, so the two
-    different reasons for exclusion stay distinguishable. Collapsing them would
-    recreate, in a new place, exactly the single-label defect Phase 2A exists to
-    correct.
+    `jzs`, when supplied, is used only to record the flux sign in the
+    `non_decaying` detail; the role decision stays in `radiation`.
     """
-    out = {"z>0_admissible": [], "z<0_admissible": [],
-           "non_decaying": [], "gauge_excluded": []}
+    out = {"z>0_admissible": [], "z<0_admissible": [], "non_decaying": [],
+           "gauge_excluded": [], "non_decaying_flux_sign": {}}
     for i, md in enumerate(modes):
-        if md is None:
+        if md is None or md["spatial_class"] == "GAUGE":
             out["gauge_excluded"].append(i)
             continue
-        if md["spatial_class"] == "GAUGE":
-            out["gauge_excluded"].append(i)
-            continue
-        d = md["radiation_dir"]
-        if d == "DECAYS_TOWARD_PLUS_Z":
+        im = md["xi_im"]
+        if im > 0:
             out["z>0_admissible"].append(i)
-        elif d == "DECAYS_TOWARD_MINUS_Z":
+        elif im < 0:
             out["z<0_admissible"].append(i)
         else:
+            # bounded on BOTH sides -- admissible in each. Not an exclusion.
+            out["z>0_admissible"].append(i)
+            out["z<0_admissible"].append(i)
             out["non_decaying"].append(i)
+            if jzs is not None and jzs[i] is not None:
+                out["non_decaying_flux_sign"][i] = (
+                    "+" if jzs[i] > 0 else "-" if jzs[i] < 0 else "0")
     return out
 
 

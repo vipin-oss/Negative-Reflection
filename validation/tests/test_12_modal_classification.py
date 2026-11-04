@@ -230,20 +230,46 @@ def test_mac03_fields_are_independent():
                             bad.append(f"{material} br{br}: emitted {v}")
                     if md["radiation_dir"] not in (
                             "DECAYS_TOWARD_PLUS_Z", "DECAYS_TOWARD_MINUS_Z",
+                            "TRAVELS_TOWARD_PLUS_Z", "TRAVELS_TOWARD_MINUS_Z",
                             "NONE"):
                         bad.append(f"{material} br{br}: bad radiation_dir")
                     if md["energy_flux_status"] not in (
                             "FLOWING", "ZERO", "UNDEFINED"):
                         bad.append(f"{material} br{br}: bad energy status")
-                    # radiation_dir must be a function of Im(xi) alone, NOT of
-                    # spatial_class: an evanescent and a thermal mode with the
-                    # same Im(xi) sign must get the same direction
+                    # radiation_dir rule (task 1R, supersedes the Im-only rule):
+                    #   Im(xi) != 0 -> the decay direction, fixed by the sign
+                    #                  of Im(xi) under e^{+i xi z}
+                    #   Im(xi) == 0 -> the mode does not decay at all, so the
+                    #                  only quantity carrying direction is the
+                    #                  axial energy flux <J_z>; the label must be
+                    #                  TRAVELS_TOWARD_* and its sign must follow
+                    #                  the flux.
+                    # Equating Im(xi)=0 with "no direction" was the P0-3 defect:
+                    # it discarded the incoming/outgoing distinction for exactly
+                    # the modes where that distinction is all there is.
                     im = mp.im(xi)
-                    want = ("DECAYS_TOWARD_PLUS_Z" if im > 0 else
-                            "DECAYS_TOWARD_MINUS_Z" if im < 0 else "NONE")
+                    if im > 0:
+                        want = "DECAYS_TOWARD_PLUS_Z"
+                    elif im < 0:
+                        want = "DECAYS_TOWARD_MINUS_Z"
+                    else:
+                        jzv = md["jz"]
+                        if md["spatial_class"] == "GAUGE" or jzv is None \
+                                or abs(jzv) <= mp.mpf("1e-40"):
+                            want = "NONE"
+                        else:
+                            want = ("TRAVELS_TOWARD_PLUS_Z" if jzv > 0
+                                    else "TRAVELS_TOWARD_MINUS_Z")
                     if md["radiation_dir"] != want:
                         bad.append(f"{material} br{br}: Im xi={float(im):.3e} "
-                                   f"but direction {md['radiation_dir']}")
+                                   f"but direction {md['radiation_dir']} "
+                                   f"(expected {want})")
+                    if md["radiation_dir"] not in (
+                            "DECAYS_TOWARD_PLUS_Z", "DECAYS_TOWARD_MINUS_Z",
+                            "TRAVELS_TOWARD_PLUS_Z", "TRAVELS_TOWARD_MINUS_Z",
+                            "NONE"):
+                        bad.append(f"{material} br{br}: bad radiation_dir "
+                                   f"{md['radiation_dir']}")
         if bad:
             return ("FAIL", checked, f"{len(bad)} violations", "; ".join(bad[:3]))
         return ("PASS", checked,
@@ -257,7 +283,8 @@ def test_mac03_fields_are_independent():
         oracle_independent=True,
         fixture="PZT-5H, Al6061, CdSe at 0/30/60 deg, 1 MHz",
         expected="no PHYSICAL_GROWING or other self-contradictory label; "
-                 "radiation_dir determined by Im(xi) alone",
+                 "radiation_dir from sign(Im xi) when it is non-zero, and from "
+                 "sign(<J_z>) when the mode is lossless",
         tolerance=0.0,
         tol_justification="categorical equality; no numeric tolerance applies",
         level="1"), body)
@@ -442,10 +469,18 @@ def test_mac07_halfspace_screening_is_permitted_direction():
                 in_nd = i in hs["non_decaying"]
                 in_gx = i in hs["gauge_excluded"]
 
-                # every branch must land in exactly one category
-                if sum((in_up, in_dn, in_nd, in_gx)) != 1:
-                    bad.append(f"{material} br{i}: in {sum((in_up, in_dn, in_nd, in_gx))} "
-                               f"categories at once")
+                # A branch may legitimately appear in MORE than one category:
+                # a lossless mode (Im xi = 0) is bounded in BOTH half-spaces and
+                # is also reported as non-decaying. Requiring exactly one
+                # category was the old model, in which a lossless mode was
+                # dumped into `non_decaying` and nothing else -- which is the
+                # P0-3 defect. What must still hold is:
+                #   * a gauge is in gauge_excluded and NOWHERE ELSE
+                #   * a decaying mode is in exactly one half-space
+                #   * a lossless mode is in both half-spaces AND non_decaying
+                if in_gx and sum((in_up, in_dn, in_nd)) > 0:
+                    bad.append(f"{material} br{i}: gauge also listed as "
+                               f"admissible in a half-space")
 
                 # condition 2 first: a gauge is excluded regardless of Im(xi)
                 if md["spatial_class"] == "GAUGE":
@@ -467,9 +502,29 @@ def test_mac07_halfspace_screening_is_permitted_direction():
                 if im > 0 and in_dn:
                     bad.append(f"{material} br{i}: grows toward -z but "
                                f"admitted into z<0")
-                if im == 0 and not in_nd:
-                    bad.append(f"{material} br{i}: Im xi=0 but not reported "
-                               f"as non-decaying")
+                if im == 0 and not in_gx:
+                    # lossless and not a gauge: it must be admissible on BOTH
+                    # sides on boundedness grounds, and be reported as
+                    # non-decaying, and carry a definite radiation role.
+                    if not in_nd:
+                        bad.append(f"{material} br{i}: Im xi=0 but not "
+                                   f"reported as non-decaying")
+                    if not (in_up and in_dn):
+                        bad.append(f"{material} br{i}: lossless mode is bounded "
+                                   f"on both sides but is not admissible on "
+                                   f"both")
+                    if md["radiation_dir"] == "NONE":
+                        bad.append(f"{material} br{i}: lossless flux-carrying "
+                                   f"mode has NO radiation direction -- P0-3 "
+                                   f"regression")
+                    if md["radiation_dir"].startswith("TRAVELS_"):
+                        jzv = md["jz"]
+                        want = ("TRAVELS_TOWARD_PLUS_Z" if jzv > 0
+                                else "TRAVELS_TOWARD_MINUS_Z")
+                        if md["radiation_dir"] != want:
+                            bad.append(f"{material} br{i}: lossless direction "
+                                       f"{md['radiation_dir']} contradicts "
+                                       f"<J_z> = {jzv}")
         if bad:
             return ("FAIL", checked, f"{len(bad)} screening errors",
                     "; ".join(bad[:3]))
@@ -484,9 +539,9 @@ def test_mac07_halfspace_screening_is_permitted_direction():
         oracle="boundedness of e^{+i xi z} as |z| -> infinity",
         oracle_independent=True,
         fixture="PZT-5H, Al6061, CdSe at 30 deg, 1 MHz",
-        expected="each branch in exactly one of z>0 / z<0 / non_decaying / "
-                 "gauge_excluded; decays toward +z => z>0 admissible, and "
-                 "vice versa; gauges excluded on non-triviality",
+        expected="gauges only in gauge_excluded; decaying modes in exactly one "
+                 "half-space; lossless modes admissible in BOTH halves, listed "
+                 "as non-decaying AND carrying a flux-derived direction",
         tolerance=0.0,
         tol_justification="categorical; Im(xi) is exactly zero or not",
         level="1"), body)

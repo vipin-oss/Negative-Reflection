@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Registry of every evidence artifact, with its validity state. An artifact marked INVALID or SUPERSEDED is NEVER deleted: its bytes stay on disk so the record of what was published, and what was wrong with it, survives. A correction adds a new artifact and moves the old one's status.",
+  "rules": [
+    "An INVALID artifact may not be cited as evidence for any claim.",
+    "A SUPERSEDED artifact remains readable and its checksum is preserved, but the artifact that supersedes it must be named.",
+    "Every ACTIVE artifact must have a manifest with a matching sha256.",
+    "Changing an artifact in place is forbidden: the checksum here is the frozen record."
+  ],
+  "artifacts": [
+    {
+      "artifact_id": "ART-01D-INDEP-COMPARISON",
+      "path": "validation/phase_01d_independent_comparison.csv",
+      "sha256": "76c7174c08923ded6005da1f312d795086f867a7c1f6590cb2fb7985991eb56b",
+      "experiment_id": "PHASE-01D",
+      "status": "HISTORICAL",
+      "note": "Phase 1D evidence. Contains the modal-classification defects audited in Phase 2A task 1 (PROPAGATING applied to thermal branches). Preserved unchanged as the record of what the Phase 1D pipeline produced.",
+      "superseded_by": "ART-02A-INVENTORY-V2",
+      "introduced": "Phase 1D",
+      "defects": [
+        "D1 thermal branches labelled PROPAGATING",
+        "D2 PHYSICAL_GROWING vocabulary",
+        "D3 single mode_class field"
+      ]
+    },
+    {
+      "artifact_id": "ART-02A-INVENTORY-V1",
+      "path": "validation/phase_02a_modal_inventory.csv",
+      "sha256": "1f09b475d7133dc6a88e5b59283a75673d9f1ed36455f29c302faee27ee9499c",
+      "experiment_id": "PHASE-02A-MODAL-CORRECTED-1",
+      "status": "INVALID",
+      "note": "DO NOT CITE. Exported Re_xi, Im_xi, abs_xi and J_z were read from a loop variable AFTER iteration finished, so every row in a material/angle block carried the LAST branch's values. Confirmed: all eight PZT-5H rows at 30 deg carry branch 7's Re_xi = +2.569e6, including branch 0 whose true Re_xi is -2.569e6.",
+      "invalidation_reason": "P0-1 cross-branch value contamination",
+      "invalidated_at_commit": "3cee074",
+      "defects": [
+        "P0-1 cross-branch root contamination",
+        "P0-1 cross-branch flux contamination",
+        "P0-3 non-decaying flux-carrying modes filed as non_decaying with no radiation test"
+      ],
+      "superseded_by": "ART-02A-INVENTORY-V2",
+      "retained": "bytes preserved unchanged; this entry records why it was withdrawn"
+    },
+    {
+      "artifact_id": "ART-02A-INVENTORY-V2",
+      "path": "validation/phase_02a_modal_inventory_v2.csv",
+      "sha256": "a3b2965319a49fb21bd0d045840cd8810ee2562b15100767a1fef7d4cefd5f46",
+      "manifest": "validation/phase_02a_modal_inventory_v2_manifest.json",
+      "experiment_id": "PHASE-02A-MODAL-CORRECTED-2",
+      "status": "ACTIVE",
+      "note": "Corrected export. Rows are generated from immutable per-branch records. Independently verified row by row by INV01..INV05.",
+      "supersedes": "ART-02A-INVENTORY-V1",
+      "verification_tests": [
+        "INV00",
+        "INV01",
+        "INV02",
+        "INV03",
+        "INV04",
+        "INV05"
+      ],
+      "introduced": "Phase 2A task 1R"
+    }
+  ]
+}

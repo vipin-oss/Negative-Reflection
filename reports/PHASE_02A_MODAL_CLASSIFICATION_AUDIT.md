@@ -10,6 +10,18 @@ remains in the tree unchanged as historical evidence of what the Phase 1D
 pipeline actually output, defects included; test `MAC00` pins its sha256
 (`76c7174c…1eb56b`) so the record cannot drift.
 
+
+> **SUPERSEDED FIGURES (task 1R).** The class counts and CSVs named in this
+> report describe `PHASE-02A-MODAL-CORRECTED-1`, which task 1R marked **INVALID**
+> (cross-branch value contamination — see
+> `reports/PHASE_02A_TASK1R_REPAIR.md`). The analysis of the Phase 1D defects
+> (D1–D4) stands, and so does the convention derivation. The corrected
+> inventory is `PHASE-02A-MODAL-CORRECTED-2` in
+> `validation/phase_02a_modal_inventory_v2.csv`, whose figures are:
+> `WEAKLY_DAMPED` 54, `THERMAL_DIFFUSIVE` 30, `PROPAGATING_NON_DECAYING` 14,
+> `GAUGE` 14, `EVANESCENT` 8, `PROPAGATING` 0; 120 rows; 78 labels changed
+> against Phase 1D.
+
 ---
 
 ## 1. The audited artifact

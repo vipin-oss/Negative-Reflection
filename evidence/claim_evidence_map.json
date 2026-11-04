@@ -363,6 +363,51 @@
         "avg_qq"
       ],
       "file": "validation/tests/test_09_ls_relaxation.py"
+    },
+    {
+      "claim_id": "CLM-02A-01",
+      "check": "MAC01",
+      "fn": "test_mac01_no_mode_with_large_im_xi_is_called_propagating",
+      "asserted_quantity": "no spatial class contradicts its own reported attenuation ratio, over 3 materials x 3 angles x 8 branches",
+      "required_tokens": [
+        "attenuation_ratio",
+        "ATTENUATION_EVANESCENT"
+      ],
+      "file": "validation/tests/test_12_modal_classification.py"
+    },
+    {
+      "claim_id": "CLM-02A-02",
+      "check": "MAC07",
+      "fn": "test_mac07_halfspace_screening_is_permitted_direction",
+      "asserted_quantity": "gauges appear only in gauge_excluded; lossless modes are admissible on both sides AND carry a flux-derived direction",
+      "required_tokens": [
+        "gauge_excluded",
+        "non_decaying",
+        "TRAVELS_"
+      ],
+      "file": "validation/tests/test_12_modal_classification.py"
+    },
+    {
+      "claim_id": "CLM-02A-03",
+      "check": "INV03",
+      "fn": "test_inv03_energy_identity_for_lossless_modes",
+      "asserted_quantity": "for Im(xi)=0 branches, sign(J_z) equals sign(Re xi) with c = sqrt(mu/rho) > 0",
+      "required_tokens": [
+        "c = mp.sqrt(mu / rho)",
+        "jz > 0"
+      ],
+      "file": "validation/tests/test_13_inventory_integrity.py"
+    },
+    {
+      "claim_id": "CLM-02A-04",
+      "check": "INV01",
+      "fn": "test_inv01_every_row_matches_its_branch",
+      "asserted_quantity": "all 120 exported rows match an independent recomputation of root, flux, class, direction, admissibility and confidence",
+      "required_tokens": [
+        "validate_inventory",
+        "_rows"
+      ],
+      "file": "validation/tests/test_13_inventory_integrity.py"
     }
   ],
   "negative_bindings": [
