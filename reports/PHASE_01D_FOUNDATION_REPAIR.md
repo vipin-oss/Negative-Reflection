@@ -3,6 +3,8 @@
 **Author:** Vipin Gupta, ORCID 0000-0002-5238-1963
 **Branch:** `arena/a3ede4fe-negative-reflection`
 **Start commit:** `5bf01f10ba66c638a57f89cc73656c6538dd50eb`
+**Delivered commit:** `30ea2cc60d25e2e488930287fba88d8c65afee3b`
+**CI:** run 41825495880 — completed / success
 **Date:** 4 November 2026
 
 ---
@@ -488,9 +490,12 @@ See `reports/PHASE_01D_BLOCKER_DECISIONS.md` for the per-criterion record. Summa
    solver must handle it explicitly; `SCT06` currently only proves the detection works.
 6. **Four branches at normal incidence are genuinely excluded** (`u_x` column at
    1e-104). Any solver must exclude rather than invert them.
-7. **CI has not been inspected on the Phase 1D commit.** The prior green run
-   (41818854579) predates this work; a run URL will not be quoted until the pushed
-   commit's workflow result has actually been read.
+7. **CI was inspected, after the push, on the actual commit.** Run **41825495880**
+   on `30ea2cc` — `completed` / `success` (job "Level 1 (fast) validation: success").
+   Recorded in `validation/phase_01d_test_results.json` under `ci`. The prior green
+   run 41819120262 belongs to the Phase 1C commit and is superseded, not inherited.
+   The CI *artifact* was not downloaded (the sandbox cannot reach the blob host), and
+   no artifact content is claimed.
 
 ---
 

@@ -147,7 +147,15 @@
   },
   "independent_comparison_result": "production and the equilibrated Gram-matrix reference agree to 1e-59..1e-60 after a common physical normalisation on all 8 branches",
   "ci": {
-    "note": "a workflow result must be inspected on the pushed commit before any run URL is quoted",
-    "prior_green_run": 41818854579
-  }
+    "run_id": 41825495880,
+    "run_url": "https://github.com/vipin-oss/Negative-Reflection/actions/runs/41825495880",
+    "head_sha": "30ea2cc60d25e2e488930287fba88d8c65afee3b",
+    "status": "completed",
+    "conclusion": "success",
+    "job": "Level 1 (fast) validation: success",
+    "inspected_via": "gh run view --json (the CI artifact download fails in this sandbox with a blob storage EOF; no artifact content was read, and none is claimed)",
+    "note": "An actual remote workflow result was inspected before this was recorded. The prior green run 41819120262 belongs to the Phase 1C commit and is superseded."
+  },
+  "final_commit": "30ea2cc60d25e2e488930287fba88d8c65afee3b",
+  "remote_verified": true
 }
