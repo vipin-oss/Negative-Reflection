@@ -1,0 +1,18 @@
+Q1 S1 closed-form vs direct, rel err = 1.81e-15
+Q1 S2 |R| at quarter wave          = 8.97e-17
+Q1 degenerate Zm=Z2: max|Im Zin|   = 0.00e+00
+Q1 attainable real Zin: [(0.0, 1.0), (0.5, 0.639309), (1.0, 1.0), (1.5, 0.639309)]
+Q1 loss sign: Im k = -1.029e+00 for (1+iet), +1.029e+00 for (1-iet)  -> decay needs (1-iet)
+Q1 lossy three-media (matched layer, |R| minimised over h):
+   eta=0e+00  min|R|=1.397e-05 at h=1.2500 lam | R_E=1.953e-10  T_E=1.000000  A_E=+0.000e+00
+   eta=1e-04  min|R|=9.444e-05 at h=0.2500 lam | R_E=8.918e-09  T_E=0.999646  A_E=+3.540e-04
+   eta=1e-03  min|R|=8.159e-04 at h=0.2497 lam | R_E=6.657e-07  T_E=0.996470  A_E=+3.529e-03
+   eta=1e-02  min|R|=7.983e-03 at h=0.2469 lam | R_E=6.373e-05  T_E=0.965690  A_E=+3.425e-02
+Q2 S3 Fourier rel err 0.00e+00 | S4 v_T rel err 1.25e-09 | S5 causal True
+Q2 PZT-5H (CTS 3203HD / NASA CR-1998-208708)  eps=1.20e-04 tau/tau_min=  10.0 v_T/c_L=0.3162 f_on=4.35e+11
+Q2 BaTiO3 (lead-free, illustrative)           eps=2.45e-03 tau/tau_min=  10.0 v_T/c_L=0.3162 f_on=6.44e+11
+Q2 Aluminium (reference)                      eps=7.10e-03 tau/tau_min=  10.0 v_T/c_L=0.3162 f_on=7.54e+09
+Q5 checks: identical-media |R|=1.5e-16 ; near-normal |R|=0.114512 vs bulk 0.114512
+Q5 PIEZO   : min|R|=0.114512 at k=0.000  monotone=True  |R|(kcrit)=0.8840
+Q5 ELASTIC : min|R|=8.864e-07 at k=1237.522  monotone=False  |R|(kcrit)=0.9083
+wrote /home/user/Negative-Reflection/data/check_05_dispute_resolution.json

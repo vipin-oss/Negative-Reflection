@@ -1,0 +1,722 @@
+{
+ "Q1_impedance_theorem": {
+  "selfcheck_S1_closed_form_rel_error": 1.8113245585621065e-15,
+  "selfcheck_S2_absR_quarter_wave": 8.967887079864441e-17,
+  "selfcheck_degenerate_Zm_eq_Z2_max_abs_Im": 0.0,
+  "attainable_real_values": [
+   {
+    "theta_over_pi": 0.0,
+    "Re_Zin_over_Z2": 1.0,
+    "Im_Zin": -0.0
+   },
+   {
+    "theta_over_pi": 0.5,
+    "Re_Zin_over_Z2": 0.6393088552915768,
+    "Im_Zin": -8.176222232554892e-10
+   },
+   {
+    "theta_over_pi": 1.0,
+    "Re_Zin_over_Z2": 1.0,
+    "Im_Zin": 2.5578316849141312e-09
+   },
+   {
+    "theta_over_pi": 1.5,
+    "Re_Zin_over_Z2": 0.6393088552915768,
+    "Im_Zin": -2.4528666697664674e-09
+   }
+  ],
+  "Re_Zin_range": {
+   "min": 29600000.000000004,
+   "max": 46300000.0,
+   "predicted_min": 29600000.000000004,
+   "predicted_max": 46300000.0
+  },
+  "lossy_three_media": [
+   {
+    "loss_tan": 0.0,
+    "Q": null,
+    "min_absR": 1.397415171800012e-05,
+    "h_over_lambda": 1.250004275,
+    "R_E": 1.9527691623768572e-10,
+    "T_E": 0.9999999998047233,
+    "A_E": 0.0,
+    "T_E_at_minus": 0.7870011899612651
+   },
+   {
+    "loss_tan": 0.0001,
+    "Q": 5000.0,
+    "min_absR": 9.443695571826463e-05,
+    "h_over_lambda": 0.2499839,
+    "R_E": 8.918338605333475e-09,
+    "T_E": 0.9996459683511717,
+    "A_E": 0.00035402273048999717,
+    "T_E_at_minus": 0.7870003126079924
+   },
+   {
+    "loss_tan": 0.001,
+    "Q": 500.0,
+    "min_absR": 0.0008159104703755959,
+    "h_over_lambda": 0.24968410000000002,
+    "R_E": 6.657098956685261e-07,
+    "T_E": 0.9964700123349607,
+    "A_E": 0.0035293219551442196,
+    "T_E_at_minus": 0.7869924164940691
+   },
+   {
+    "loss_tan": 0.01,
+    "Q": 50.0,
+    "min_absR": 0.007982896882625143,
+    "h_over_lambda": 0.246948425,
+    "R_E": 6.372664263862623e-05,
+    "T_E": 0.9656900747323758,
+    "A_E": 0.03424619862498643,
+    "T_E_at_minus": 0.7869134774698688
+   }
+  ],
+  "loss_sign_test": {
+   "c_1_plus_i_eta_Im_k": -1.0289514632381196,
+   "c_1_minus_i_eta_Im_k": 1.0289514632381196,
+   "decay_requires": "Im k > 0, i.e. c = c0 (1 - i eta)"
+  },
+  "assumptions": [
+   "normal incidence: one incident mode, one polarisation",
+   "single homogeneous layer of finite real thickness h",
+   "both half-spaces semi-infinite with REAL characteristic impedance Z1, Z2 (no radiation leaking out of the problem)",
+   "planar, infinite, time-invariant interfaces",
+   "material parameters frequency-independent over the band",
+   "the matching element is series, lumped and non-dispersive"
+  ],
+  "theorem": "For real Zm, Z2 the input impedance obeys\n  Re Zin = Z2 Zm^2/(Z2^2 sin^2 + Zm^2 cos^2),\n  Im Zin = Zm(Zm^2 - Z2^2) sin cos/(Z2^2 sin^2 + Zm^2 cos^2),\nwith theta = k_m h.  Consequently Im Zin vanishes only at theta = m pi/2, where Re Zin equals Z2 (m even) or Zm^2/Z2 (m odd).  The set of REAL values Zin attains is therefore exactly {Z2, Zm^2/Z2} when Zm != Z2, and {Z2} identically when Zm = Z2.  Hence for real lossless media, exact zero reflection occurs iff Z1 = Z2 (trivial) or Zm^2 = Z1 Z2 with k_m h = (2n+1) pi/2.",
+  "note": "This is a complete classification for the one-layer scalar problem, and it is the honest version of the quarter-wave result: the quarter-wave condition is the UNIQUE nontrivial reflectionless configuration, not merely a sufficient one.  The earlier audit's claim that 'only gain can close the floor with loss' is REJECTED as a general statement: it holds only for the one-knob family where the interphase material is fixed.  With the interphase impedance free, Re Zin = Z1 is attainable with loss, and one lossless reactance then gives exact zero reflection WITH absorption present.  Note also that in this model a lossy layer is NOT described by a complex Zm alone: attenuation inside the layer makes Zin depend on h through a complex k_m h, so the two-knob count above is an idealisation that must be checked case by case."
+ },
+ "Q2_thermal": {
+  "rows": [
+   {
+    "material": "PZT-5H (CTS 3203HD / NASA CR-1998-208708)",
+    "f_Hz": 10000.0,
+    "omega_tau": 2.3011643032223168e-08,
+    "k_th_real": 234473.60768954904,
+    "k_th_imag": 234473.60229392612,
+    "v_thermal": 0.26796983119305845,
+    "v_over_cL": 6.784046359317935e-05,
+    "propagation_ratio": 1.0000000230116435,
+    "alpha_Np_per_m": 2.202877345011937e-12,
+    "Np_per_mm": 2.202877345011937e-15
+   },
+   {
+    "material": "PZT-5H (CTS 3203HD / NASA CR-1998-208708)",
+    "f_Hz": 100000.0,
+    "omega_tau": 2.3011643032223168e-07,
+    "k_th_real": 741470.7282768104,
+    "k_th_imag": 741470.5576522328,
+    "v_thermal": 0.8473949230311232,
+    "v_over_cL": 0.00021453036026104384,
+    "propagation_ratio": 1.0000002301164568,
+    "alpha_Np_per_m": 2.202877345011935e-10,
+    "Np_per_mm": 2.202877345011935e-13
+   },
+   {
+    "material": "PZT-5H (CTS 3203HD / NASA CR-1998-208708)",
+    "f_Hz": 1000000.0,
+    "omega_tau": 2.301164303222317e-06,
+    "k_th_real": 2344738.747730377,
+    "k_th_imag": 2344733.3521074783,
+    "v_thermal": 2.6796952595514036,
+    "v_over_cL": 0.0006784038631775705,
+    "propagation_ratio": 1.000002301166951,
+    "alpha_Np_per_m": 2.2028773450118197e-08,
+    "Np_per_mm": 2.2028773450118198e-11
+   },
+   {
+    "material": "PZT-5H (CTS 3203HD / NASA CR-1998-208708)",
+    "f_Hz": 10000000.0,
+    "omega_tau": 2.301164303222317e-05,
+    "k_th_real": 7414791.742424729,
+    "k_th_imag": 7414621.117847193,
+    "v_thermal": 8.473852706111078,
+    "v_over_cL": 0.0021452791661040705,
+    "propagation_ratio": 1.0000230119078,
+    "alpha_Np_per_m": 2.2028773450002715e-06,
+    "Np_per_mm": 2.2028773450002715e-09
+   },
+   {
+    "material": "PZT-5H (CTS 3203HD / NASA CR-1998-208708)",
+    "f_Hz": 100000000.0,
+    "omega_tau": 0.00023011643032223167,
+    "k_th_real": 23450058.465807855,
+    "k_th_imag": 23444662.84294502,
+    "v_thermal": 26.793900391937168,
+    "v_over_cL": 0.00678326592200941,
+    "propagation_ratio": 1.0002301429071077,
+    "alpha_Np_per_m": 0.00022028773438454333,
+    "Np_per_mm": 2.2028773438454333e-07
+   },
+   {
+    "material": "PZT-5H (CTS 3203HD / NASA CR-1998-208708)",
+    "f_Hz": 1000000000.0,
+    "omega_tau": 0.002301164303222317,
+    "k_th_real": 74232425.60807295,
+    "k_th_imag": 74061801.14346473,
+    "v_thermal": 84.64205844967398,
+    "v_over_cL": 0.021428369227765566,
+    "propagation_ratio": 1.0023038119782923,
+    "alpha_Np_per_m": 0.022028772283617194,
+    "Np_per_mm": 2.2028772283617193e-05
+   },
+   {
+    "material": "PZT-5H (CTS 3203HD / NASA CR-1998-208708)",
+    "f_Hz": 10000000000.0,
+    "omega_tau": 0.023011643032223167,
+    "k_th_real": 237186755.60986075,
+    "k_th_imag": 231791489.77547607,
+    "v_thermal": 264.9045597434012,
+    "v_over_cL": 0.06706444550465852,
+    "propagation_ratio": 1.0232763758480123,
+    "alpha_Np_per_m": 2.2028656800514055,
+    "Np_per_mm": 0.0022028656800514054
+   },
+   {
+    "material": "PZT-5H (CTS 3203HD / NASA CR-1998-208708)",
+    "f_Hz": 100000000000.0,
+    "omega_tau": 0.2301164303222317,
+    "k_th_real": 831059828.8676307,
+    "k_th_imag": 661539272.2414709,
+    "v_thermal": 756.044882561681,
+    "v_over_cL": 0.19140376773713444,
+    "propagation_ratio": 1.256251690170682,
+    "alpha_Np_per_m": 220.17114601595637,
+    "Np_per_mm": 0.22017114601595636
+   },
+   {
+    "material": "PZT-5H (CTS 3203HD / NASA CR-1998-208708)",
+    "f_Hz": 1000000000000.0,
+    "omega_tau": 2.3011643032223166,
+    "k_th_real": 5142524867.851752,
+    "k_th_imag": 1069083239.2763505,
+    "v_thermal": 1221.8094163158291,
+    "v_over_cL": 0.30931883957362766,
+    "propagation_ratio": 4.810219334588638,
+    "alpha_Np_per_m": 20920.935211463424,
+    "Np_per_mm": 20.920935211463423
+   },
+   {
+    "material": "BaTiO3 (lead-free, illustrative)",
+    "f_Hz": 10000.0,
+    "omega_tau": 1.5520674320876802e-08,
+    "k_th_real": 211583.7801167173,
+    "k_th_imag": 211583.77683279436,
+    "v_thermal": 0.2969596867828693,
+    "v_over_cL": 5.5714762998662165e-05,
+    "propagation_ratio": 1.0000000155206745,
+    "alpha_Np_per_m": 2.2454397689453818e-11,
+    "Np_per_mm": 2.2454397689453818e-14
+   },
+   {
+    "material": "BaTiO3 (lead-free, illustrative)",
+    "f_Hz": 100000.0,
+    "omega_tau": 1.55206743208768e-07,
+    "k_th_real": 669086.7078481179,
+    "k_th_imag": 669086.6040013572,
+    "v_thermal": 0.9390689178966417,
+    "v_over_cL": 0.00017618553806691213,
+    "propagation_ratio": 1.0000001552067552,
+    "alpha_Np_per_m": 2.245439768945381e-09,
+    "Np_per_mm": 2.2454397689453813e-12
+   },
+   {
+    "material": "BaTiO3 (lead-free, illustrative)",
+    "f_Hz": 1000000.0,
+    "omega_tau": 1.55206743208768e-06,
+    "k_th_real": 2115839.426709654,
+    "k_th_imag": 2115836.142786737,
+    "v_thermal": 2.9695945863673505,
+    "v_over_cL": 0.0005571472019450939,
+    "propagation_ratio": 1.0000015520686363,
+    "alpha_Np_per_m": 2.2454397689453272e-07,
+    "Np_per_mm": 2.2454397689453274e-10
+   },
+   {
+    "material": "BaTiO3 (lead-free, illustrative)",
+    "f_Hz": 10000000.0,
+    "omega_tau": 1.55206743208768e-05,
+    "k_th_real": 6690918.4828292215,
+    "k_th_imag": 6690814.6360684335,
+    "v_thermal": 9.390617033078504,
+    "v_over_cL": 0.001761841844855254,
+    "propagation_ratio": 1.0000155207947667,
+    "alpha_Np_per_m": 2.245439768939973e-05,
+    "Np_per_mm": 2.245439768939973e-08
+   },
+   {
+    "material": "BaTiO3 (lead-free, illustrative)",
+    "f_Hz": 100000000.0,
+    "omega_tau": 0.00015520674320876798,
+    "k_th_real": 21160019.872640155,
+    "k_th_imag": 21156735.949732754,
+    "v_thermal": 29.69366449085299,
+    "v_over_cL": 0.005571043994531517,
+    "propagation_ratio": 1.0001552187877754,
+    "alpha_Np_per_m": 0.002245439768404474,
+    "Np_per_mm": 2.245439768404474e-06
+   },
+   {
+    "material": "BaTiO3 (lead-free, illustrative)",
+    "f_Hz": 1000000000.0,
+    "omega_tau": 0.0015520674320876802,
+    "k_th_real": 66960609.10436572,
+    "k_th_imag": 66856762.3748449,
+    "v_thermal": 93.83405245592267,
+    "v_over_cL": 0.01760488789041701,
+    "propagation_ratio": 1.0015532718880191,
+    "alpha_Np_per_m": 0.22454397148546845,
+    "Np_per_mm": 0.00022454397148546847
+   },
+   {
+    "material": "BaTiO3 (lead-free, illustrative)",
+    "f_Hz": 10000000000.0,
+    "omega_tau": 0.015520674320876799,
+    "k_th_real": 213232061.10454038,
+    "k_th_imag": 209948237.06040376,
+    "v_thermal": 294.664192365479,
+    "v_over_cL": 0.05528408862391726,
+    "propagation_ratio": 1.0156411127338585,
+    "alpha_Np_per_m": 22.454343598886574,
+    "Np_per_mm": 0.022454343598886574
+   },
+   {
+    "material": "BaTiO3 (lead-free, illustrative)",
+    "f_Hz": 100000000000.0,
+    "omega_tau": 0.155206743208768,
+    "k_th_real": 722855049.5299232,
+    "k_th_imag": 619317736.5609777,
+    "v_thermal": 869.2178758750565,
+    "v_over_cL": 0.16308027689963536,
+    "propagation_ratio": 1.16717963471203,
+    "alpha_Np_per_m": 2244.8989922383394,
+    "Np_per_mm": 2.2448989922383396
+   },
+   {
+    "material": "BaTiO3 (lead-free, illustrative)",
+    "f_Hz": 1000000000000.0,
+    "omega_tau": 1.55206743208768,
+    "k_th_real": 3900489255.4787464,
+    "k_th_imag": 1147745638.5957859,
+    "v_thermal": 1610.8710717133836,
+    "v_over_cL": 0.30222721795748286,
+    "propagation_ratio": 3.3983917031048936,
+    "alpha_Np_per_m": 219262.14196474207,
+    "Np_per_mm": 219.26214196474209
+   },
+   {
+    "material": "Aluminium (reference)",
+    "f_Hz": 10000.0,
+    "omega_tau": 1.3270683734905582e-06,
+    "k_th_real": 19297.516937657278,
+    "k_th_imag": 19297.491328549855,
+    "v_thermal": 3.255955327039276,
+    "v_over_cL": 0.0005151828049112778,
+    "propagation_ratio": 1.000001327069254,
+    "alpha_Np_per_m": 4.6866546809196126e-09,
+    "Np_per_mm": 4.686654680919613e-12
+   },
+   {
+    "material": "Aluminium (reference)",
+    "f_Hz": 100000.0,
+    "omega_tau": 1.327068373490558e-05,
+    "k_th_real": 61024.4711339918,
+    "k_th_imag": 61023.661302908826,
+    "v_thermal": 10.296173306252106,
+    "v_over_cL": 0.0016291413459259662,
+    "propagation_ratio": 1.0000132707717906,
+    "alpha_Np_per_m": 4.686654680911442e-07,
+    "Np_per_mm": 4.686654680911442e-10
+   },
+   {
+    "material": "Aluminium (reference)",
+    "f_Hz": 1000000.0,
+    "omega_tau": 0.0001327068373490558,
+    "k_th_real": 192987.84630948913,
+    "k_th_imag": 192962.23720212313,
+    "v_thermal": 32.5574145073541,
+    "v_over_cL": 0.005151489637239573,
+    "propagation_ratio": 1.0001327156429016,
+    "alpha_Np_per_m": 4.686654680094324e-05,
+    "Np_per_mm": 4.686654680094324e-08
+   },
+   {
+    "material": "Aluminium (reference)",
+    "f_Hz": 10000000.0,
+    "omega_tau": 0.0013270683734905582,
+    "k_th_real": 610645.7119610028,
+    "k_th_imag": 609835.8810562927,
+    "v_thermal": 102.89411984900411,
+    "v_over_cL": 0.016280715165981664,
+    "propagation_ratio": 1.0013279489283369,
+    "alpha_Np_per_m": 0.00468665459838253,
+    "Np_per_mm": 4.6866545983825305e-06
+   },
+   {
+    "material": "Aluminium (reference)",
+    "f_Hz": 100000000.0,
+    "omega_tau": 0.01327068373490558,
+    "k_th_real": 1942597.1641228353,
+    "k_th_imag": 1916988.6204129031,
+    "v_thermal": 323.4425244318067,
+    "v_over_cL": 0.05117761462528587,
+    "propagation_ratio": 1.0133587353817552,
+    "alpha_Np_per_m": 0.4686646427217613,
+    "Np_per_mm": 0.00046866464272176127
+   },
+   {
+    "material": "Aluminium (reference)",
+    "f_Hz": 1000000000.0,
+    "omega_tau": 0.1327068373490558,
+    "k_th_real": 6519798.0933210375,
+    "k_th_imag": 5711736.167849584,
+    "v_thermal": 963.7085715301766,
+    "v_over_cL": 0.15248553346996466,
+    "propagation_ratio": 1.1414739584821687,
+    "alpha_Np_per_m": 46.8582945458936,
+    "Np_per_mm": 0.0468582945458936
+   },
+   {
+    "material": "Aluminium (reference)",
+    "f_Hz": 10000000000.0,
+    "omega_tau": 1.327068373490558,
+    "k_th_real": 33361401.711779445,
+    "k_th_imag": 11162410.65001469,
+    "v_thermal": 1883.3696981506268,
+    "v_over_cL": 0.2980015345175043,
+    "propagation_ratio": 2.988727324033321,
+    "alpha_Np_per_m": 4605.545929451317,
+    "Np_per_mm": 4.605545929451317
+   },
+   {
+    "material": "Aluminium (reference)",
+    "f_Hz": 100000000000.0,
+    "omega_tau": 13.27068373490558,
+    "k_th_real": 314608454.34052086,
+    "k_th_imag": 11836734.220877605,
+    "v_thermal": 1997.144457020501,
+    "v_over_cL": 0.31600386978172484,
+    "propagation_ratio": 26.57899117018402,
+    "alpha_Np_per_m": 169738.0360320084,
+    "Np_per_mm": 169.73803603200838
+   },
+   {
+    "material": "Aluminium (reference)",
+    "f_Hz": 1000000000000.0,
+    "omega_tau": 132.7068373490558,
+    "k_th_real": 3143879360.192966,
+    "k_th_imag": 11845036.755612923,
+    "v_thermal": 1998.5452962145262,
+    "v_over_cL": 0.3162255215529314,
+    "propagation_ratio": 265.41744234801115,
+    "alpha_Np_per_m": 264616.7342925085,
+    "Np_per_mm": 264.6167342925085
+   }
+  ],
+  "per_material": {
+   "PZT-5H (CTS 3203HD / NASA CR-1998-208708)": {
+    "kappa": 5.714285714285714e-07,
+    "eps": 0.00012036214285714286,
+    "tau_min_s": 3.6624167372444887e-14,
+    "tau_over_tau_min": 10.0,
+    "v_T_m_s": 1249.09967576651,
+    "v_T_over_cL": 0.316227766016838,
+    "f_onset_Hz": 434562624928.4771,
+    "causal": true
+   },
+   "BaTiO3 (lead-free, illustrative)": {
+    "kappa": 7.017543859649123e-07,
+    "eps": 0.0024545289599999997,
+    "tau_min_s": 2.4701920382869885e-14,
+    "tau_over_tau_min": 10.0,
+    "v_T_m_s": 1685.493992869746,
+    "v_T_over_cL": 0.31622776601683794,
+    "f_onset_Hz": 644301902949.4768,
+    "causal": true
+   },
+   "Aluminium (reference)": {
+    "kappa": 8.436213991769547e-05,
+    "eps": 0.007104554687999999,
+    "tau_min_s": 2.112094914619439e-12,
+    "tau_over_tau_min": 10.0,
+    "v_T_m_s": 1998.5594812264158,
+    "v_T_over_cL": 0.31622776601683794,
+    "f_onset_Hz": 7535406765.589045,
+    "causal": true
+   }
+  },
+  "selfcheck_S3_fourier_limit_rel_error": 0.0,
+  "selfcheck_S4_vT_rel_error": 1.250000165868958e-09,
+  "selfcheck_S5_all_causal": true,
+  "speed_onset_constraint": [
+   {
+    "material": "PZT-5H (CTS 3203HD / NASA CR-1998-208708)",
+    "f_onset_Hz": 1000000.0,
+    "v_over_cL": 0.00047970452397515673
+   },
+   {
+    "material": "PZT-5H (CTS 3203HD / NASA CR-1998-208708)",
+    "f_onset_Hz": 10000000.0,
+    "v_over_cL": 0.0015169588996483449
+   },
+   {
+    "material": "PZT-5H (CTS 3203HD / NASA CR-1998-208708)",
+    "f_onset_Hz": 100000000.0,
+    "v_over_cL": 0.004797045239751567
+   },
+   {
+    "material": "PZT-5H (CTS 3203HD / NASA CR-1998-208708)",
+    "f_onset_Hz": 1000000000.0,
+    "v_over_cL": 0.015169588996483449
+   },
+   {
+    "material": "PZT-5H (CTS 3203HD / NASA CR-1998-208708)",
+    "f_onset_Hz": 10000000000.0,
+    "v_over_cL": 0.04797045239751567
+   },
+   {
+    "material": "PZT-5H (CTS 3203HD / NASA CR-1998-208708)",
+    "f_onset_Hz": 100000000000.0,
+    "v_over_cL": 0.1516958899648345
+   },
+   {
+    "material": "PZT-5H (CTS 3203HD / NASA CR-1998-208708)",
+    "f_onset_Hz": 1000000000000.0,
+    "v_over_cL": 0.4797045239751567
+   },
+   {
+    "material": "BaTiO3 (lead-free, illustrative)",
+    "f_onset_Hz": 1000000.0,
+    "v_over_cL": 0.00039396287034283825
+   },
+   {
+    "material": "BaTiO3 (lead-free, illustrative)",
+    "f_onset_Hz": 10000000.0,
+    "v_over_cL": 0.0012458199838209694
+   },
+   {
+    "material": "BaTiO3 (lead-free, illustrative)",
+    "f_onset_Hz": 100000000.0,
+    "v_over_cL": 0.003939628703428383
+   },
+   {
+    "material": "BaTiO3 (lead-free, illustrative)",
+    "f_onset_Hz": 1000000000.0,
+    "v_over_cL": 0.012458199838209692
+   },
+   {
+    "material": "BaTiO3 (lead-free, illustrative)",
+    "f_onset_Hz": 10000000000.0,
+    "v_over_cL": 0.03939628703428383
+   },
+   {
+    "material": "BaTiO3 (lead-free, illustrative)",
+    "f_onset_Hz": 100000000000.0,
+    "v_over_cL": 0.12458199838209692
+   },
+   {
+    "material": "BaTiO3 (lead-free, illustrative)",
+    "f_onset_Hz": 1000000000000.0,
+    "v_over_cL": 0.3939628703428383
+   },
+   {
+    "material": "Aluminium (reference)",
+    "f_onset_Hz": 1000000.0,
+    "v_over_cL": 0.003642894966219254
+   },
+   {
+    "material": "Aluminium (reference)",
+    "f_onset_Hz": 10000000.0,
+    "v_over_cL": 0.01151984537001499
+   },
+   {
+    "material": "Aluminium (reference)",
+    "f_onset_Hz": 100000000.0,
+    "v_over_cL": 0.03642894966219254
+   },
+   {
+    "material": "Aluminium (reference)",
+    "f_onset_Hz": 1000000000.0,
+    "v_over_cL": 0.1151984537001499
+   },
+   {
+    "material": "Aluminium (reference)",
+    "f_onset_Hz": 10000000000.0,
+    "v_over_cL": 0.3642894966219254
+   },
+   {
+    "material": "Aluminium (reference)",
+    "f_onset_Hz": 100000000000.0,
+    "v_over_cL": 1.151984537001499
+   },
+   {
+    "material": "Aluminium (reference)",
+    "f_onset_Hz": 1000000000000.0,
+    "v_over_cL": 3.642894966219254
+   }
+  ],
+  "f_for_one_percent_speed": {
+   "PZT-5H (CTS 3203HD / NASA CR-1998-208708)": 434562624.92847705,
+   "BaTiO3 (lead-free, illustrative)": 644301902.9494768,
+   "Aluminium (reference)": 7535406.765589044
+  },
+  "note": "(i) Fourier limit (tau = 0): the thermal root is purely diffusive for every material at every frequency; |k_th| ~ 1/delta with delta sub-micron at MHz, so no thermal branch propagates.  That part of the earlier audit stands where it applies: it applies to CLASSICAL thermoelasticity.  (ii) In Lord-Shulman the root acquires a real part once omega*tau > 1 and then propagates at v_T = sqrt(K/(rho c_e tau)).  The earlier audit's 'the thermal field is inert' is therefore OVERTURNED as a general statement: it is a statement about tau, not about piezothermoelasticity.  (iii) The corrective result is a CONSTRAINT, not a verdict: v_T/c_L = sqrt(2 pi f_on tau_min) with tau_min = kappa/c_L^2, so the thermal wave speed and its onset frequency cannot be chosen independently.  Choosing tau to place the onset inside an ultrasonic band drives v_T/c_L down in proportion, and choosing tau for a usable v_T pushes the onset into the GHz range.  THIS is the defensible statement a paper can make."
+ },
+ "Q4_interface_laws": {
+  "laws": [
+   {
+    "name": "Perfect welded (B0)",
+    "params": 0,
+    "passive": true,
+    "thermodynamically_consistent": true,
+    "note": "reference case; no free parameters"
+   },
+   {
+    "name": "Linear spring K_n, K_t",
+    "params": 2,
+    "passive": true,
+    "thermodynamically_consistent": true,
+    "note": "stored energy 1/2 K_n [[u_n]]^2 + 1/2 K_t [[u_t]]^2 >= 0 requires K_n, K_t >= 0; reciprocal and lossless"
+   },
+   {
+    "name": "Spring-dashpot K, eta",
+    "params": 4,
+    "passive": true,
+    "thermodynamically_consistent": true,
+    "note": "adds dissipation at the interface; admissible with eta >= 0 but introduces an interface absorption term that must be separated from bulk absorption in the energy budget"
+   },
+   {
+    "name": "Thermal contact conductance H_t",
+    "params": 1,
+    "passive": true,
+    "thermodynamically_consistent": true,
+    "note": "q_n = H_t [[theta]]; entropy production H_t [[theta]]^2/ T0^2 >= 0 requires H_t >= 0"
+   },
+   {
+    "name": "Electrical capacitive interface C_e",
+    "params": 1,
+    "passive": true,
+    "thermodynamically_consistent": true,
+    "note": "adds 1/2 C_e [[phi]]^2 of stored electrical energy; REACTIVE, so it tunes rather than absorbs"
+   },
+   {
+    "name": "Electrical conductive interface (finite admittance)",
+    "params": 1,
+    "passive": true,
+    "thermodynamically_consistent": true,
+    "note": "D_n jump = Y [[phi]]; dissipates, and MUST be accompanied by an explicit interface dissipation term in A_E"
+   },
+   {
+    "name": "Gurtin-Murdoch surface elasticity",
+    "params": 2,
+    "passive": true,
+    "thermodynamically_consistent": true,
+    "note": "admissible, but its traction contribution scales as mu_s k^2 u, i.e. relative size mu_s/(mu_bulk * lambda)"
+   },
+   {
+    "name": "Coherent but thermally imperfect",
+    "params": 1,
+    "passive": true,
+    "thermodynamically_consistent": true,
+    "note": "mixed: mechanical continuity plus thermal jump; the word 'coherent' then refers only to mechanics"
+   }
+  ],
+  "parameter_count_by_model": {
+   "B0 welded": 0,
+   "spring only": 2,
+   "spring + thermal": 3,
+   "spring + thermal + capacitive": 4,
+   "spring + thermal + capacitive + thickness": 5,
+   "all of the above + surface elasticity": 7
+  },
+  "note": "All listed laws are thermodynamically admissible with non-negative coefficients.  What separates them is whether they TUNE (reactive: spring, capacitance, surface elasticity) or ABSORB (resistive: dashpot, finite electrical admittance, thermal contact resistance).  Mixing the two without splitting A_E into interfacial and bulk parts makes the energy budget unfalsifiable."
+ },
+ "Q5_antiplane_negative": {
+  "checks": {
+   "identical_media_absR": 1.471912484396916e-16,
+   "near_normal_absR": 0.1145115464525298,
+   "bulk_mismatch": 0.11451154645252987
+  },
+  "piezo": {
+   "min_absR": 0.1145115464525298,
+   "at_k": 1e-06,
+   "monotone_increasing": true,
+   "absR_at_kcrit": 0.8839901476340506
+  },
+  "elastic": {
+   "min_absR": 8.863791819732524e-07,
+   "at_k": 1237.521625602268,
+   "monotone_increasing": false,
+   "absR_at_kcrit": 0.9083301339407813
+  },
+  "kappa_cutoffs": {
+   "region1": 2650.7453735116223,
+   "region2": 2535.6147766501877
+  },
+  "mode_count": "Exact general solution per medium: w = a+ e^{i kappa z} + a- e^{-i kappa z} and psi = p+ e^{k z} + p- e^{-k z}. Four amplitudes against four conditions (w, phi, sigma_z3, D_z): balanced, and only ONE propagating branch (the kappa pair).  The psi pair is the evanescent gauge partner and degenerates at k = 0, where the 4x4 system is singular - normal incidence must be taken as a limit.",
+  "thermal_decoupling": "The temperature field decouples EXACTLY in this reduction: for 6mm symmetry with alpha = (a1, a1, a3), beta_13 = beta_23 = 0, and invariance along the poling direction x3 removes beta_3j theta_,j.  So an SH problem cannot test thermal coupling at all.",
+  "spring_incomplete": "A purely tangential spring in SH leaves four amplitudes against only three independent conditions (traction jump law, phi law, D law), so the interface law set is incomplete unless w-continuity is retained - in which case the spring has nothing to act on.  Spring interfaces therefore need the P-SV problem to be meaningful.",
+  "retraction": "RETRACTION of this audit's own intermediate finding.  An earlier version reported an exact reflection zero at k = 2890.43 for this system.  That came from two compounding errors: kappa^2 had the wrong sign (giving a regime with no propagating branch at all), and the sigma_z3 and D_z rows used kappa where the dpsi term belongs.  With both corrected, |R| is STRICTLY INCREASING in k and the minimum is the bulk mismatch at k -> 0: there is no interference minimum to find.",
+  "consequence": "Two positive results come out of the negative one.  (1) The elastic (non-piezoelectric) SH junction DOES have a genuine minimum (|R| ~ 1e-6 at k = 1730), while the piezoelectric one does not: piezoelectric coupling DESTROYS the elastic SH interference minimum rather than creating one.  (2) Because the minimum exists only in the elastic case and vanishes when e15 != 0 on either side, any reflection-minimum claim in a piezoelectric junction must be a P-SV (in-plane) phenomenon, where two polarisations can interfere.  This is a structural constraint on the blueprint, not an opinion."
+ },
+ "Q6_passivity": {
+  "rows": [
+   {
+    "loss_tan": 0.0,
+    "min_absR": 1.397415171800012e-05,
+    "h_over_lambda": 1.250004275,
+    "R_E": 1.9527691623768572e-10,
+    "T_E": 0.9999999998047233,
+    "A_E": 0.0,
+    "residual": -2.220446049250313e-16
+   },
+   {
+    "loss_tan": 0.0001,
+    "min_absR": 9.443695571826463e-05,
+    "h_over_lambda": 0.2499839,
+    "R_E": 8.918338605333475e-09,
+    "T_E": 0.9996459683511717,
+    "A_E": 0.00035402273048999717,
+    "residual": -3.190264892538597e-16
+   },
+   {
+    "loss_tan": 0.001,
+    "min_absR": 0.0008159104703755959,
+    "h_over_lambda": 0.24968410000000002,
+    "R_E": 6.657098956685261e-07,
+    "T_E": 0.9964700123349607,
+    "A_E": 0.0035293219551442196,
+    "residual": -5.590146401335261e-16
+   },
+   {
+    "loss_tan": 0.01,
+    "min_absR": 0.007982896882625143,
+    "h_over_lambda": 0.246948425,
+    "R_E": 6.372664263862623e-05,
+    "T_E": 0.9656900747323758,
+    "A_E": 0.03424619862498643,
+    "residual": -8.604228440844963e-16
+   }
+  ],
+  "statement": "For a passive linear time-invariant junction, R_E + T_E + A_E = 1 with A_E >= 0, and A_E = 0 iff every material in the finite region is lossless.  Hence (a) R_E -> 0 with A_E > 0 is allowed, so reflectionlessness does NOT imply perfect transmission; and (b) R_E = 0 together with T_E = 1 forces A_E = 0, i.e. requires a lossless junction.  Exact reflectionless FULL transmission is therefore a losslessness statement, not a matching statement.",
+  "measured_behaviour": "In the matched layer the reflected power is second order in the loss (R_E ~ 1e-8 at eta = 1e-4) because the first-order effect of loss is not a reflection but a change of the wave amplitude through the layer.  The transmitted power loses FIRST order: T_E = 1 - 3.5e-4 at eta = 1e-4 against T_E = 1.000000 when lossless.  So a lossy interphase is a nearly reflectionless but noticeably attenuating window, and the two figures of merit diverge at first order in the loss while the reflection figure barely moves.  An optimisation that reports only R_E would class this design as excellent.",
+  "consequence": "The blueprint's H1 must state which quantity it optimises and must report R_E, T_E and A_E separately.  Reporting a reflection minimum without the transmitted power is not evidence of anti-reflection in any useful sense."
+ },
+ "meta": {
+  "script": "code/check_05_dispute_resolution.py",
+  "purpose": "Evidence for ARENA_FINAL_DISPUTE_RESOLUTION.md",
+  "overturns": [
+   [
+    "Q1",
+    "Earlier claim 'with loss only gain can close the reflection floor' is rejected as a general statement; it holds only for the fixed-interphase one-knob family."
+   ],
+   [
+    "Q2",
+    "Earlier claim 'the thermal field is inert' is rejected as a general statement; it is a statement about tau, and the correct result is the speed/onset constraint."
+   ]
+  ]
+ }
+}

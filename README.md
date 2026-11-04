@@ -108,3 +108,30 @@ Run: `python3 code/check_04_blueprint_audit.py` (~14 s).
 Three self-checks must pass on every run: uniform-medium limit (|R| = 3e-16),
 lossless energy balance (residual <= 7e-16), matched-layer quarter-wave limit
 (R_E = 6e-10).
+
+---
+
+## Controlled audit V3 (4 Nov 2026)
+
+`CONTROLLED_BLUEPRINT_AUDIT_V3.md` — re-audit of Blueprint V2 after supervisor
+dispute. Verdict: **CONDITIONAL REVISION** (prior audit's REDESIGN downgraded).
+
+Five prior-audit claims are corrected here, two of them rejected outright:
+- **D2** "with loss only gain closes the reflection floor" — rejected as a
+  general claim; `Re Z_in < Z₁` in 198/366 configurations once the interphase
+  impedance is free.
+- **D3** "the thermal field is inert" — rejected; it is a statement about τ_q.
+  Replaced by the constraint `v_T/c_L = √(2π f_on τ_min)` with causality
+  `τ_q ≥ κ/c_L²`.
+- **D9** an "exact reflection zero at k = 2890.43" found during this audit was
+  **retracted** — two compounding sign/term errors. Corrected: no zero exists.
+- **D10** *(new)* piezoelectric coupling **destroys** the elastic SH reflection
+  minimum (elastic: |R| = 8.9e-7; piezo: strictly monotone, min = bulk mismatch).
+  Consequence: reflection minima must be a P–SV phenomenon.
+
+Recommended: **Option A** (two half-spaces + imperfect interface), 8.52/10.
+
+- `code/check_05_dispute_resolution.py` — Parts Q1/Q2/Q4/Q5/Q6, 8 self-checks
+- `data/check_05_dispute_resolution.json`, `data/check_05_log.txt`
+
+Run: `python3 code/check_05_dispute_resolution.py` (~7 s).
