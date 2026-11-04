@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "purpose": "The enumerated set of cases that are allowed to be non-passing in CI, with a reason and the blocker that owns each one. This exists so that an HONEST unknown does not make CI permanently red, without ever converting an unknown into a pass.",
+  "rules": [
+    "An entry here does NOT make its test pass. The test still reports UNRESOLVED in every report.",
+    "The CI gate passes only if every non-passing case is listed here. Any NEW unresolved or withdrawn case fails the build.",
+    "Any FAIL anywhere always fails the build, listed here or not: a contradiction is never acceptable.",
+    "Adding an entry requires a blocker id in reports/PHASE_01C_OPEN_BLOCKERS.json. An entry whose blocker is closed must be removed, and the gate fails if it is not.",
+    "This file is the only place an unknown may be tolerated. It is not a suppression list and it prints every entry in the job summary."
+  ],
+  "entries": [
+    {
+      "test_id": "SCT02",
+      "status": "UNRESOLVED",
+      "reason": "No coupled piezothermoelastic scattering solver exists, so R/T/A cannot be evaluated. The case exists to say so explicitly rather than to be omitted.",
+      "blocker": "BLK-G5",
+      "since": "2026-11-04",
+      "closes_when": "a coupled solver reproduces the elastic reference (test SCT01) and a numerical energy balance closes"
+    }
+  ]
+}
