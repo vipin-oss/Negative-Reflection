@@ -47,8 +47,16 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11.9"
+          # 3.11 rather than 3.11.9: the pinned patch release is not guaranteed to be
+          # published as a prebuilt toolcache image, and setup-python fails outright
+          # when a requested exact version is unavailable. The dependency pins, not
+          # the interpreter patch level, are what make this reproducible.
+          python-version: "3.11"
+          # `cache: pip` looks for requirements.txt / pyproject.toml by default and
+          # FAILS the job when it finds neither. This project has only
+          # requirements-research.txt, so the path must be given explicitly.
           cache: pip
+          cache-dependency-path: requirements-research.txt
 
       - name: Install pinned research dependencies
         run: |
