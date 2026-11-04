@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
   "level": "1",
-  "generated_unix": 1793790056,
-  "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+  "generated_unix": 1793790610,
+  "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
   "python": "3.11.2",
   "summary": {
     "total": 36,
@@ -15,7 +15,7 @@
     "zero_case_tests": [
       "SCT02"
     ],
-    "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+    "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
     "by_category": {
       "1-data-integrity": {
         "PASS": 3,
@@ -244,8 +244,8 @@
       "n_exec": 80,
       "actual": "80 rows; 0 illegal status; 0 rows missing fields",
       "detail": "illegal: []",
-      "duration_s": 0.0036509037017822266,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.003628253936767578,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -263,8 +263,8 @@
       "n_exec": 80,
       "actual": "0 tuned-looking labels",
       "detail": "[]",
-      "duration_s": 0.003548145294189453,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.0034270286560058594,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -282,8 +282,8 @@
       "n_exec": 44,
       "actual": "44 claims, 0 duplicate, 0 bad status, 0 without test_id",
       "detail": "dup=[] bad=[] notest=[]",
-      "duration_s": 0.0032715797424316406,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.0031180381774902344,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -301,8 +301,8 @@
       "n_exec": 36,
       "actual": "36 VERIFIED claims checked; 0 unsupported",
       "detail": "[]",
-      "duration_s": 0.003864765167236328,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.0036416053771972656,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -320,8 +320,8 @@
       "n_exec": 2,
       "actual": "2 INVALID claims retained; 0 bad pointers",
       "detail": "bad=[]",
-      "duration_s": 0.003221750259399414,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.0030269622802734375,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -339,8 +339,8 @@
       "n_exec": 41,
       "actual": "41 equations; 0 bad status; 0 dangling deps",
       "detail": "bad=[] dangling=[]",
-      "duration_s": 0.0033028125762939453,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.003343820571899414,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -358,8 +358,8 @@
       "n_exec": 15,
       "actual": "15/15 present",
       "detail": "missing=[]",
-      "duration_s": 0.0030562877655029297,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.0031435489654541016,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -377,8 +377,8 @@
       "n_exec": 8,
       "actual": "8/8 checksums match",
       "detail": "[]",
-      "duration_s": 0.0032639503479003906,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.0031888484954833984,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -396,8 +396,8 @@
       "n_exec": 72,
       "actual": "72 constants compared; 0 mismatches",
       "detail": "",
-      "duration_s": 0.003365039825439453,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.003138303756713867,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -415,8 +415,8 @@
       "n_exec": 33,
       "actual": "16/16 nonzero entries, 33 additive terms, 0 dimensional mismatches",
       "detail": "[]",
-      "duration_s": 0.034638166427612305,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.034772396087646484,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -434,8 +434,8 @@
       "n_exec": 7,
       "actual": "6 relations + Maxwell; 0 bad",
       "detail": "[]",
-      "duration_s": 0.03420376777648926,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.03438115119934082,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -453,8 +453,8 @@
       "n_exec": 2,
       "actual": "dim null(M(0,0)) = 1, vector support = [2]; det M(k,0) = -k**2*(C44*eps11*k**2 + e15**2*k**2 - eps11*omega**2*rho)*(-C11*cE*k**2*omega**2*rho*tauq - I*C11*cE*k**2*omega*rho + C11*k**4*kappa11 - T0*beta1**2*k**2*omega**2*tauq - I*T0*beta1**2*k**2*omega + cE*omega**4*rho**2*tauq + I*cE*omega**3*rho**2 - k**2*kappa11*omega**2*rho) (non-zero => no null direction)",
       "detail": "",
-      "duration_s": 1.6345241069793701,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 1.645509958267212,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -472,8 +472,8 @@
       "n_exec": 2,
       "actual": "xi=0 pattern OK; k=0 pattern OK",
       "detail": "xi=0 extra=set() missing=set()\nk=0  extra=set() missing=set()",
-      "duration_s": 0.12721681594848633,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.12380480766296387,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -491,8 +491,8 @@
       "n_exec": 8628,
       "actual": "passive min = 1.301e-05 (>=0: True); negative control min = -2.861e+00 over 3628 indefinite draws (detected: True)",
       "detail": "the negative control is what makes this falsifiable; without it the test would pass even if the sign of the form were wrong",
-      "duration_s": 0.13098955154418945,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.13234448432922363,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -510,8 +510,8 @@
       "n_exec": 3,
       "actual": "closed 3.3644785110e+20 cycle 3.3644785110e+20 analytic 3.3644785110e+20 max rel dev 1.95e-16",
       "detail": "",
-      "duration_s": 0.004931211471557617,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.005244016647338867,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -529,8 +529,8 @@
       "n_exec": 2,
       "actual": "linear-term residual 1.000e+00; bilinear-term residual 4.672e-08; ratio 2.1e+07",
       "detail": "the linear form is rejected by an oracle it shares no amplitude with",
-      "duration_s": 0.24600982666015625,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.18178343772888184,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -548,8 +548,8 @@
       "n_exec": 8,
       "actual": "|dR| vs Fresnel 1.67e-16; worst |R+T-1| 9.99e-16; max R identical media 0.00e+00",
       "detail": "",
-      "duration_s": 0.009373664855957031,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.006135463714599609,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -567,8 +567,8 @@
       "n_exec": 1,
       "actual": "R = 1.250e-19, T = 1.000000000000",
       "detail": "",
-      "duration_s": 0.0039026737213134766,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.002881765365600586,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -586,8 +586,8 @@
       "n_exec": 40,
       "actual": "40 usable cases; worst relative deviation 2.177e-14",
       "detail": "",
-      "duration_s": 0.25990962982177734,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.25225019454956055,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -605,8 +605,8 @@
       "n_exec": 17,
       "actual": "survivors over 16 sign patterns: [(1, -1, -1, 1), (-1, 1, 1, -1)] (= +/-S, one up to sign); Phase-1 S fails 6 entries",
       "detail": "failing entries: [(0, 1), (0, 2), (0, 3), (1, 0), (2, 0), (3, 0)]",
-      "duration_s": 0.6241118907928467,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.6077187061309814,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -624,8 +624,8 @@
       "n_exec": 9,
       "actual": "9/9 cases computed; 6 rank-deficient",
       "detail": "PZT-5H|PZT-5H@5.0: rank 4 ; PZT-5H|PZT-5H@30.0: rank 4 ; PZT-5H|PZT-5H@60.0: rank 4 ; Al6061|Al6061@5.0: rank 4 ; Al6061|Al6061@30.0: rank 4 ; Al6061|Al6061@60.0: rank 4 ",
-      "duration_s": 1.1760661602020264,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 1.1956875324249268,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -643,8 +643,8 @@
       "n_exec": 1,
       "actual": "R = 0.2173405898400244, T = 0.7826594101599752",
       "detail": "",
-      "duration_s": 0.08261227607727051,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.09179878234863281,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -662,8 +662,8 @@
       "n_exec": 0,
       "actual": "no coupled solver: BLK-G5 and BLK-U3 remain open. Forced to UNRESOLVED by the harness.",
       "detail": "FORCED UNRESOLVED: 0 cases executed, so a PASS or NOT_APPLICABLE would be unevidenced.\n",
-      "duration_s": 0.003182649612426758,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.0032579898834228516,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -681,8 +681,8 @@
       "n_exec": 2,
       "actual": "max relative root shift over 2 precision steps 1.505e-31",
       "detail": "",
-      "duration_s": 0.24384236335754395,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.24831318855285645,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -700,8 +700,8 @@
       "n_exec": 1,
       "actual": "recorded 16 checks/151 cases {'PASS': 15, 'UNRESOLVED': 1}; reproduced 16 checks/151 cases {'PASS': 15, 'UNRESOLVED': 1}; exit 1",
       "detail": "",
-      "duration_s": 6.29944372177124,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 5.922947883605957,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -719,8 +719,8 @@
       "n_exec": 3,
       "actual": "3 manifests; 0 problems",
       "detail": "[]",
-      "duration_s": 0.004367351531982422,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.0037636756896972656,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -738,8 +738,8 @@
       "n_exec": 17,
       "actual": "17 downstream; missing=[]; wrongly included=[]",
       "detail": "",
-      "duration_s": 0.04583930969238281,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.033049821853637695,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -757,8 +757,8 @@
       "n_exec": 2,
       "actual": "README.md query exit 2; bogus equation query exit 2 (both must be non-zero)",
       "detail": "",
-      "duration_s": 0.07279634475708008,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.0609736442565918,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -776,8 +776,8 @@
       "n_exec": 36,
       "actual": "36 VERIFIED claims; 36 BOUND; 0 problems",
       "detail": "[]",
-      "duration_s": 0.022078752517700195,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.017869949340820312,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -795,8 +795,8 @@
       "n_exec": 3,
       "actual": "defect state {'c1_has_nullspace': False, 'i2_hardcoded_pass': True, 'f1_samples_psd': True}; as recorded",
       "detail": "if this fails because a defect was FIXED, update claim_evidence_map.json and the claim registry in the same commit",
-      "duration_s": 0.011940956115722656,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.004080533981323242,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -814,8 +814,8 @@
       "n_exec": 44,
       "actual": "36 positive, 8 negative bindings; 0 unknown ids; 0 non-VERIFIED claims bound as if verified",
       "detail": "unknown=[] wrong=[]",
-      "duration_s": 0.007406711578369141,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.0031397342681884766,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -833,8 +833,8 @@
       "n_exec": 5,
       "actual": "registry {'VERIFIED_STRONG': 27, 'VERIFIED_WEAK': 9, 'UNVERIFIED': 5, 'INVALID': 2, 'UNRESOLVED': 1}",
       "detail": "disagreements {}",
-      "duration_s": 0.0036351680755615234,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.003103017807006836,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -852,8 +852,8 @@
       "n_exec": 9,
       "actual": "3 baselines (2 not active, retained on purpose); 6 manuscript entries; 0 violations",
       "detail": "[]",
-      "duration_s": 0.0033185482025146484,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.0028395652770996094,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -871,8 +871,8 @@
       "n_exec": 35,
       "actual": "35 evidence references; 0 problems",
       "detail": "[]",
-      "duration_s": 0.0038444995880126953,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.003270864486694336,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -890,8 +890,8 @@
       "n_exec": 3,
       "actual": "3 baselines; duplicate ids=False duplicate SHAs=False; 0 chain problems",
       "detail": "[]",
-      "duration_s": 0.0030536651611328125,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.0027577877044677734,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     },
     {
@@ -909,13 +909,13 @@
       "n_exec": 1,
       "actual": "1 figure entries; 0 without a regeneration path",
       "detail": "[]",
-      "duration_s": 0.0031943321228027344,
-      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "duration_s": 0.0028061866760253906,
+      "commit": "9066ec401af8087f44949cfe82b5ab33916e5618",
       "remote_verified": false
     }
   ],
   "level_name": "FAST",
   "description": "every-commit gate: syntax, schema, units, symbolic identities, one analytical benchmark, evidence consistency, dependency chain",
-  "wall_clock_s": 12.13,
+  "wall_clock_s": 11.36,
   "pytest_exit": 1
 }

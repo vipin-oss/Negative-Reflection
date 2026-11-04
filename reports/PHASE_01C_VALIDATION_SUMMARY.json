@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_utc": "2026-11-04T11:01:11+00:00",
+  "generated_utc": "2026-11-04T11:09:54+00:00",
   "phase": "1C",
   "base_commit_verified": "127eba77f397be6baaf7b24fc5b8607a903d402b",
   "claims": {
@@ -240,13 +240,44 @@
   ],
   "ci": {
     "workflow": ".github/workflows/research-validation.yml",
-    "status": "NOT_YET_OBSERVED",
-    "note": "no remote workflow result has been inspected; CI is not claimed to have succeeded"
+    "status": "VERIFIED_GREEN",
+    "run_id": 41818854579,
+    "job_id": 126536555964,
+    "head_sha": "9066ec4",
+    "duration_s": 53,
+    "observed": "all 15 steps succeeded, including 'Gate -- contradictions fail, unregistered unknowns fail'",
+    "inference": "the gate step can only pass with zero FAIL and every UNRESOLVED case registered in validation/known_open.json; therefore the remote run had 0 FAIL and exactly one registered unknown (SCT02)",
+    "history": [
+      {
+        "run": 41818228896,
+        "result": "failure",
+        "cause": "actions/setup-python: 'cache: pip' found no requirements.txt/pyproject.toml; fixed with explicit cache-dependency-path"
+      },
+      {
+        "run": 41818366238,
+        "result": "failure",
+        "cause": "Level 1 step exits 2 on unknowns, which CI reads as failure; fixed with validation/ci_gate.py + known_open.json rather than by suppressing the exit code"
+      },
+      {
+        "run": 41818854579,
+        "result": "success",
+        "cause": null
+      }
+    ],
+    "caveat": "the uploaded artifact could not be downloaded in this sandbox (egress restriction), so the remote tallies are inferred from the gate contract rather than read from the artifact; the job and every step are confirmed from the run view",
+    "promotion_gate_in_ci": "REFUSED, as designed and as expected while blockers are open"
   },
   "demonstrations": {
     "total": 9,
     "satisfied": 9,
     "unresolved": [],
     "report": "validation/evidence/demonstration.json"
+  },
+  "mutation_subset_in_ci": {
+    "mutations": [
+      "M01",
+      "M10"
+    ],
+    "result": "both detected"
   }
 }

@@ -49,7 +49,7 @@ All paths are relative to the repository root.
 | E | `validation/mutation_tests/` (11 mutations) | complete |
 | F | `validation/evidence/*/manifest.json`, `validation/make_manifests.py` | 3 experiments |
 | G | `validation/run_fast.py`, `run_standard.py`, `run_full.py` | complete |
-| H | `.github/workflows/research-validation.yml` | written, **not yet observed running** |
+| H | `.github/workflows/research-validation.yml` | **green on the remote**: run 41818854579, all 15 steps |
 | I | `evidence/approved_baselines.json` | 3 baselines, 2 retained as rejected |
 | J | `evidence/manuscript_evidence_map.json`, `test_05_manuscript.py` | complete |
 | K | `reports/PHASE_01C_OPEN_BLOCKERS.{md,json}` | 8 blockers, 7 blocking |
@@ -184,13 +184,13 @@ Two design decisions matter:
 
 ### 4.2 The equation registry
 
-41 equations. Each carries assumptions, variables with dimensions, derivation
+41 equations (40 at audit, plus `EQ-EIG-01` added when the root-set was registered). Each carries assumptions, variables with dimensions, derivation
 status, the symbolic test, an **independent** oracle description, downstream
 dependencies and a verification status.
 
 | status | count |
 |---|---|
-| `VERIFIED_STRONG` | 16 |
+| `VERIFIED_STRONG` | 17 |
 | `VERIFIED_WEAK` | 7 |
 | `UNRESOLVED` | 9 |
 | `DEFINED_NOT_TESTED` | 3 |
@@ -407,10 +407,36 @@ executed. Collapsing 1 and 2 would let "we have no evidence" masquerade as a
 failure to investigate, and `--promotion` adds a fourth: promotion refused while a
 blocker is open, even with zero failures.
 
-**CI.** `.github/workflows/research-validation.yml` is written, YAML-validated and
-pins every dependency. **I have not observed it run on the remote.** Per the
-standing instruction, CI is therefore reported as `NOT_YET_OBSERVED`, and no claim
-of a successful CI run is made anywhere in this phase.
+**CI — observed, and it took three attempts.** `.github/workflows/research-validation.yml`
+pins every dependency. The remote results, read from actual workflow runs rather
+than assumed:
+
+| run | result | cause | fix |
+|---|---|---|---|
+| 41818228896 | **failure** | `actions/setup-python` with `cache: pip` looks for `requirements.txt`/`pyproject.toml`; this project has only `requirements-research.txt`, so the step errored before anything ran | explicit `cache-dependency-path`; `3.11` instead of the exact `3.11.9`, which is not guaranteed to exist as a prebuilt toolcache image |
+| 41818366238 | **failure** | setup-python fixed; the Level 1 step then failed because `run_fast.py` correctly exits 2 for "unknown" and a CI step reads any non-zero exit as failure. With `SCT02` permanently UNRESOLVED, the build would have been red forever | **not** suppressed. Added `validation/known_open.json` (enumerated tolerated cases, each with a reason and an owning blocker) plus `validation/ci_gate.py` |
+| 41818854579 | **success** | — | all 15 steps green, 53 s |
+
+The gate is the interesting part, because the obvious fix — making unknowns exit
+0 — would have destroyed the property the whole phase is about. Instead:
+
+- any `FAIL` fails the build, always;
+- any `UNRESOLVED`/`WITHDRAWN` **not** pre-registered fails the build;
+- a registered case that did not run fails the build (an invisible unknown is not
+  tolerated, it is hidden);
+- a register entry whose blocker has since closed fails the build, so the register
+  cannot outlive its justification.
+
+Verified in both directions with injected controls: real FAIL → exit 1,
+unregistered unknown → exit 2, registered test absent → exit 2, clean report →
+exit 0. A tolerated unknown is still reported as `UNRESOLVED` everywhere in every
+report; it is tolerated by decision, never converted into a pass.
+
+**Caveat, stated rather than glossed:** the uploaded CI artifact could not be
+downloaded inside this sandbox (egress restriction), so the remote *tallies* are
+inferred from the gate's contract — the gate step passed, which is only possible
+with zero failures and every unknown registered — rather than read out of the
+artifact. The job and all fifteen steps are confirmed directly from the run view.
 
 ---
 
@@ -463,11 +489,11 @@ python3 validation/demonstrate.py                  # the 8 demonstrations
   "demonstrations":   {"satisfied": 9, "total": 9, "unresolved": []},
   "claims":           {"VERIFIED_STRONG": 27, "VERIFIED_WEAK": 9, "UNVERIFIED": 5,
                        "UNRESOLVED": 1, "INVALID": 2},
-  "equations":        {"VERIFIED_STRONG": 16, "VERIFIED_WEAK": 7, "UNRESOLVED": 9,
+  "equations":        {"VERIFIED_STRONG": 17, "VERIFIED_WEAK": 7, "UNRESOLVED": 9,
                        "DEFINED_NOT_TESTED": 3, "PARTIAL": 2, "INVALID": 3},
   "manifests":        {"reproducible": 3, "total": 3},
   "promotion_allowed": false,
-  "ci":               "NOT_YET_OBSERVED"
+  "ci":               "VERIFIED_GREEN"
 }
 ```
 
