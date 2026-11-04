@@ -1,0 +1,52 @@
+{
+  "title": "Phase 1B foundation check suite (16 checks, A1-J2)",
+  "date_utc": "2026-11-04T10:44:10+00:00",
+  "code_commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+  "material_source_version": "8f43844a9f99fe2f1c236fd527b289f994ac9d91c88de2c73e9f1bd6cd2a40cb",
+  "dependency_versions": {
+    "python": "3.11.2",
+    "numpy": "2.4.6",
+    "sympy": "1.14.0",
+    "mpmath": "1.3.0",
+    "platform": "Linux-6.1.158+-x86_64-with-glibc2.36"
+  },
+  "seeds": {
+    "foundation_checks_RNG": "fixed constants in code; see check bodies"
+  },
+  "precision": {
+    "mpmath_dps": 50,
+    "numeric_materials": "mpmath mpf at working dps",
+    "linear_algebra": "mpmath"
+  },
+  "tolerances": {
+    "per_check": "each check declares its own tol; see the JSON"
+  },
+  "input_config": {
+    "materials": [
+      "PZT-5H",
+      "BaTiO3",
+      "Al6061",
+      "CdSe"
+    ],
+    "frequency_Hz": 1000000.0,
+    "angles_deg": [
+      5,
+      30,
+      60
+    ]
+  },
+  "command": "python3 code/foundation_checks.py",
+  "outputs": {
+    "data/foundation_checks.json": "a3c530d438349953fd1c86f8c307e66a500b2c90728f0fbafecd647a49390392",
+    "validation/evidence/EXP-FOUND-01B/stdout.txt": "c1b31b436c535ef1ad1f70d6a240f903e4779e1a9d20467afb2691481249c25b"
+  },
+  "convergence": {
+    "executed_cases": 151,
+    "process_exit_code": 1
+  },
+  "validation_status": "UNRESOLVED",
+  "figures": [],
+  "supersedes": "phase_01b_test_results.json",
+  "notes": "15 of 16 checks PASS; non-PASS: ['D2']. The suite exits 1 by design while D2 is unresolved. Recorded as UNRESOLVED because BLK-G4 and BLK-U3 remain open.",
+  "experiment_id": "EXP-FOUND-01B"
+}

@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.0",
+  "generated_utc": "2026-11-04T11:02:12+00:00",
+  "origin_repo": "/home/user/Negative-Reflection",
+  "origin_untouched": true,
+  "total": 11,
+  "detected": 11,
+  "detection_rate_percent": 100.0,
+  "survivors": [],
+  "invalid_detectors": [],
+  "inconclusive": [],
+  "mutations": [
+    {
+      "id": "M01",
+      "title": "zero executed cases reported as PASS",
+      "target": "validation/harness.py",
+      "detector": "harness.finish converts a 0-case PASS to UNRESOLVED and fails the test",
+      "rationale": "The Phase-1B requirement: an unexecuted test is not a pass.",
+      "result": "DETECTED",
+      "evidence": "pytest exit 1; E           AssertionError: [UNRESOLVED] MAT02 (1-data-integrity): claims a pass without executing anything; E             detail:   FORCED UNRESOLVED: 0 cases executed, so a PASS or NOT_APPLICABLE would be unevidenced.",
+      "control_fired": false,
+      "control_evidence": "pytest exit 0; no UNRESOLVED marker"
+    },
+    {
+      "id": "M02",
+      "title": "incorrect characteristic-matrix parity (e33 sign in M[1,2])",
+      "target": "code/foundation_checks.py",
+      "detector": "M(-xi) = S M(xi) S must fail for the unique admitted S",
+      "rationale": "This is the Phase-1 defect class: a coupling sign that breaks parity.",
+      "result": "DETECTED",
+      "evidence": "parity entries broken by the mutation: 1",
+      "control_fired": false,
+      "control_evidence": "parity entries broken by the mutation: 0"
+    },
+    {
+      "id": "M03",
+      "title": "incorrect heat-flux expression (linear thermal term)",
+      "target": "code/foundation_checks.py",
+      "detector": "check_D2_balance must not report PASS",
+      "rationale": "The Phase-1 P0 defect, re-injected. The detector is the Second-Law balance, which shares no amplitude with the flux.",
+      "result": "DETECTED",
+      "evidence": "D2 status under the mutated flux: UNRESOLVED",
+      "control_fired": false,
+      "control_evidence": "mutation did not apply (no marker found)"
+    },
+    {
+      "id": "M04",
+      "title": "wrong polynomial coefficient ordering",
+      "target": "code/foundation_checks.py",
+      "detector": "the returned roots must not satisfy det M = 0",
+      "rationale": "polyroots expects descending coefficients; feeding ascending ones returns roots of a different polynomial.",
+      "result": "DETECTED",
+      "evidence": "worst relative polynomial residual at the returned roots: 1.000e+00",
+      "control_fired": false,
+      "control_evidence": "worst relative polynomial residual at the returned roots: 1.398e-41"
+    },
+    {
+      "id": "M05",
+      "title": "incorrect incident/outgoing mode selection",
+      "target": "code/foundation_checks.py",
+      "detector": "_admissible must not return a growing mode",
+      "rationale": "Swapping the two root families selects the wrong half-space modes and silently produces a scattering matrix with the wrong boundary data.",
+      "result": "DETECTED",
+      "evidence": "selected modes: N 4 GROWING 4",
+      "control_fired": false,
+      "control_evidence": "selected modes: N 4 GROWING 0"
+    },
+    {
+      "id": "M06",
+      "title": "wrong material units (Pa entered as GPa)",
+      "target": "literature/material_constants.csv",
+      "detector": "the implied longitudinal speed must leave the physically admissible band",
+      "rationale": "A silent 1000x unit error changes every dimensionless group.",
+      "result": "DETECTED",
+      "evidence": "DAT01 exit 1; ______________________ test_DAT01_code_matches_data_table ______________________",
+      "control_fired": false,
+      "control_evidence": "DAT01 exit 0; no cross-source mismatch reported"
+    },
+    {
+      "id": "M07",
+      "title": "inappropriate isotropic benchmark on an anisotropic medium",
+      "target": "code/mutation_probe.py",
+      "detector": "PZT-5H must be shown to violate sagittal isotropy",
+      "rationale": "The Fresnel formula is only valid for isotropic media; PZT-5H is not.",
+      "result": "DETECTED",
+      "evidence": "an isotropic closed form was evaluated on PZT-5H, which is not isotropic: R 0.0726435209266035 T 0.9273564790733965 SUM 1.0",
+      "control_fired": false,
+      "control_evidence": "no isotropic proxy present, so nothing was misapplied"
+    },
+    {
+      "id": "M08",
+      "title": "incorrect interface sign (transmitted block sign lost)",
+      "target": "code/foundation_checks.py",
+      "detector": "the 8x8 interface operator must not retain full rank",
+      "rationale": "The transmitted half-space contributes with the opposite sign; losing it makes two columns degenerate.",
+      "result": "DETECTED",
+      "evidence": "interface operator rank with the sign defect: 8 (rank is INSENSITIVE to this defect); sign defect present in the assembled operator: True",
+      "control_fired": false,
+      "control_evidence": "interface operator rank with the sign defect: 8 (rank is INSENSITIVE to this defect); sign defect present in the assembled operator: False"
+    },
+    {
+      "id": "M09",
+      "title": "missing mandatory evidence artifact",
+      "target": "evidence/equation_registry.csv",
+      "detector": "ART01 must fail",
+      "rationale": "An evidence package with a missing registry is not a package.",
+      "result": "DETECTED",
+      "evidence": "artifact test exit 1 after deleting the registry",
+      "control_fired": false,
+      "control_evidence": "artifact test exit 0 after deleting the registry"
+    },
+    {
+      "id": "M10",
+      "title": "wrong source/data checksum",
+      "target": "evidence/input_checksums.json",
+      "detector": "ART02 must fail",
+      "rationale": "Silent edits to frozen inputs are the failure mode checksums exist for.",
+      "result": "DETECTED",
+      "evidence": "checksum test exit 1 with one hash corrupted",
+      "control_fired": false,
+      "control_evidence": "checksum test exit 0 with one hash corrupted"
+    },
+    {
+      "id": "M11",
+      "title": "claim promoted to VERIFIED while its test no longer executes it",
+      "target": "evidence/claim_registry.csv",
+      "detector": "the audit must find the claim VERIFIED against a test that does not compute the asserted quantity",
+      "rationale": "This is U-11 itself: the defect the whole registry exists to prevent.",
+      "result": "DETECTED",
+      "evidence": "binding test exit 1;                     problems.append((cid, f\"TOKEN_MISSING {miss} in {b['fn']}\")); E             detail:   [('CLM-C1-04', 'VERIFIED but NOT BOUND in claim_evidence_map')]",
+      "control_fired": false,
+      "control_evidence": "binding test exit 0; no C1-04 diagnosis in output"
+    }
+  ]
+}

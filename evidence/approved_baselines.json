@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0",
+  "policy": [
+    "A baseline is a FROZEN claim about what was accepted, by whom, on what evidence.",
+    "It is never overwritten. A correction creates a new baseline and marks the old one SUPERSEDED or STALE, keeping the old outputs visible.",
+    "Automated PASS is NECESSARY but NOT SUFFICIENT: only the supervisor authorises PROMOTION. status ACTIVE below at CANDIDATE level means 'this run passed its automation gates'; it does not mean the science is accepted.",
+    "While any blocker in reports/PHASE_01C_OPEN_BLOCKERS.json has promotion_blocked=true, no baseline may be created at APPROVED level at all."
+  ],
+  "baseline_id_scheme": "BASELINE-<phase>-<n>",
+  "baselines": [
+    {
+      "baseline_id": "BASELINE-01B-1",
+      "status": "SUPERSEDED",
+      "level": "REJECTED",
+      "code_commit": "0000000000000000000000000000000000000000",
+      "code_commit_note": "Phase 1 (pre-repair) state. The exact SHA is not recoverable from this checkout: the parity and flux corrections were committed together with the Phase 1B report. Recorded explicitly as unrecoverable rather than guessed.",
+      "phase": "1",
+      "material_data_version": "pre-1B: CdSe tau_q tuned to 5.0e-13 s under the withdrawn causality rule",
+      "equation_revision": "Phase-1 parity S=diag(1,1,1,-1); flux thermal term 1/2 Re[q_z]",
+      "test_suite_revision": "no automated suite",
+      "approved_outputs": {},
+      "passed_tests": [],
+      "unresolved_issues": ["U-3", "U-4", "U-11"],
+      "superseded_by": "BASELINE-01B-2",
+      "supersession_reason": "Two P0 defects: the parity transform was wrong (6 of 16 entries) and the thermal flux term was linear in one phasor (34 orders of magnitude wrong on the thermal branch). The CdSe relaxation time had also been tuned to clear a rule that was later withdrawn.",
+      "authorised_by": null,
+      "note": "Retained so the failure remains on record."
+    },
+    {
+      "baseline_id": "BASELINE-01B-2",
+      "status": "SUPERSEDED",
+      "level": "CANDIDATE",
+      "code_commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "phase": "1B",
+      "material_data_version": "CdSe tau_q = 1.0e-13 s (sourced value restored); kappa = 6.0 W/(m K)",
+      "equation_revision": "parity S=diag(1,-1,-1,1); flux thermal term +1/2 Re[q_z Theta*]/T0; tau_q causality rule withdrawn",
+      "test_suite_revision": "code/foundation_checks.py, 16 checks A1-J2",
+      "approved_outputs": {
+        "validation/phase_01b_test_results.json": "recorded",
+        "data/foundation_checks.json": "recorded"
+      },
+      "passed_tests": {"PASS": 15, "FAIL": 0, "UNRESOLVED": 1, "WITHDRAWN": 0,
+                       "total": 16, "executed_cases": 151},
+      "unresolved_issues": ["U-3 (D2 only)", "U-4", "U-5", "U-6", "U-7", "U-8", "U-9",
+                            "U-12"],
+      "superseded_by": "BASELINE-01C-1",
+      "supersession_reason": "Superseded by Phase 1C, which adds the claim and equation registries, the dependency graph, an automated suite, a mutation suite and experiment manifests. The 1B defect is unchanged: D2 remains UNRESOLVED.",
+      "authorised_by": null,
+      "note": "Never authorised: the process exit code was 1 and gate G4 was NOT PASSED."
+    },
+    {
+      "baseline_id": "BASELINE-01C-1",
+      "status": "ACTIVE",
+      "level": "CANDIDATE",
+      "code_commit": "PENDING_SEE_reports/PHASE_01C_VALIDATION_SUMMARY.json",
+      "commit_rule": "filled from git rev-parse at report-generation time; a placeholder must never be read as an approved SHA",
+      "phase": "1C",
+      "material_data_version": "unchanged from 1B: CdSe tau_q = 1.0e-13 s, kappa = 6.0 W/(m K); beta and p remain ASSUMED (BLK-G1)",
+      "equation_revision": "unchanged from 1B; three equations are registered INVALID on purpose (EQ-GOV-12, EQ-CM-06, EQ-ENG-09)",
+      "test_suite_revision": "validation/tests/ (20+ cases across 12 categories) + validation/mutation_tests/ (11 mutations)",
+      "approved_outputs": {
+        "validation/evidence/EXP-ELASTIC-REF": "PASS, hashes verified",
+        "validation/evidence/EXP-PARITY-FLUX": "PASS, hashes verified",
+        "validation/evidence/EXP-FOUND-01B": "UNRESOLVED by design (D2)"
+      },
+      "passed_tests": "SEE reports/PHASE_01C_VALIDATION_SUMMARY.json",
+      "unresolved_issues": ["BLK-U3", "BLK-G0", "BLK-G1", "BLK-G4", "BLK-G5",
+                            "BLK-U5", "BLK-LS-STORAGE"],
+      "superseded_by": null,
+      "supersession_reason": null,
+      "authorised_by": null,
+      "note": "CANDIDATE, not APPROVED. Six mandatory blockers are open, so promotion is refused by construction. No supervisor authorisation has been sought or given."
+    }
+  ],
+  "change_log": [
+    {
+      "at": "2026-11-04",
+      "baseline": "BASELINE-01B-1",
+      "change": "created retroactively to record the Phase-1 rejected state",
+      "reason": "a correction must not erase the evidence of the earlier failure"
+    },
+    {
+      "at": "2026-11-04",
+      "baseline": "BASELINE-01B-2",
+      "change": "status CANDIDATE -> SUPERSEDED",
+      "reason": "Phase 1C infrastructure added; the 1B scientific state is unchanged"
+    },
+    {
+      "at": "2026-11-04",
+      "baseline": "BASELINE-01C-1",
+      "change": "created at CANDIDATE",
+      "reason": "Phase 1C validation infrastructure completed; promotion still refused by open blockers"
+    }
+  ]
+}

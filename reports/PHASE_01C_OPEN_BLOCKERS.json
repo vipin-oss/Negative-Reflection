@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0",
+  "as_of_commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+  "note": "Mandatory scientific blockers. A blocker with promotion_blocked=true prevents promotion to an approved baseline no matter how many tests pass. Closing a blocker requires scientific work, never a test-suite change.",
+  "blockers": [
+    {
+      "id": "BLK-U3",
+      "severity": "P0",
+      "title": "Coupled scattering amplitude normalisation / null-vector direction accuracy",
+      "detail": "The null-vector DIRECTION for the 6mm characteristic matrix (cond ~1e22) is accurate only to ~1e-5. Because the energy balance identity is scale-invariant in the null vector, this residual cannot be a magnitude error. It is the root cause of every coupled R/T/A result being unavailable.",
+      "blocks": ["BLK-G4", "BLK-G5", "EQ-SCT-01", "EQ-SCT-02"],
+      "evidence": "check D2: 1.86e-5 residual through the production null-vector path vs 7.1e-17 in an independent dps=60 evaluation",
+      "promotion_blocked": true,
+      "closed_by": null
+    },
+    {
+      "id": "BLK-G4",
+      "severity": "P0",
+      "title": "Gate G4 - Lord-Shulman energy identity not passed",
+      "detail": "The corrected flux functional is derived and verified against the Second Law in an independent evaluation, but the identity does not close through the production code path. The gate asks for it to hold in the solver that will be used.",
+      "blocks": ["any energy ratio claim"],
+      "evidence": "phase_01b_test_results.json: D2 UNRESOLVED",
+      "promotion_blocked": true,
+      "closed_by": null
+    },
+    {
+      "id": "BLK-G5",
+      "severity": "P0",
+      "title": "Gate G5 - interface dissipation and numerical energy balance not passed",
+      "detail": "Requires a working coupled scattering solver and a converged numerical balance on evaluation planes in the half-spaces. Neither exists. Blueprint 7.4 forbids reporting R, T or A until this closes.",
+      "blocks": ["any R/T/A claim", "all reflection-suppression figures"],
+      "evidence": "no coupled solve implemented",
+      "promotion_blocked": true,
+      "closed_by": null
+    },
+    {
+      "id": "BLK-G0",
+      "severity": "P0",
+      "title": "Gate G0 - full-text prior art not reviewed",
+      "detail": "All ten literature records are metadata-only. No compatibility check with any competitor is possible, so no novelty claim can be made and the six candidate gaps remain questions.",
+      "blocks": ["any novelty claim", "CLM-LIT-02"],
+      "evidence": "literature/verified_references.csv: every row read_status = metadata only",
+      "promotion_blocked": true,
+      "closed_by": null
+    },
+    {
+      "id": "BLK-G1",
+      "severity": "P0",
+      "title": "Gate G1 - incompletely sourced material constants",
+      "detail": "beta_1, beta_3 and the pyroelectric coefficient p are ASSUMED for PZT-5H and BaTiO3. CdSe tau_q is an order-of-magnitude value. Any result depending quantitatively on the thermal or pyroelectric channel is unsupported.",
+      "blocks": ["any thermal-channel quantitative result", "CLM-MAT-02"],
+      "evidence": "literature/material_constants.csv status column",
+      "promotion_blocked": true,
+      "closed_by": null
+    },
+    {
+      "id": "BLK-U5",
+      "severity": "P1",
+      "title": "U-5 - factor-of-one-half bookkeeping between mechanical and thermal interface dissipation",
+      "detail": "A bookkeeping convention, not a physics uncertainty: the mechanical form carries a 1/2 from the cycle average while the thermal form is written for the real temperature jump. The Phase-2 solver must pick one convention and apply it uniformly before any numerical balance is assembled. Doing it wrong produces a 50 percent error in the thermal channel alone.",
+      "blocks": ["E2 gate", "numerical energy balance"],
+      "evidence": "theory/energy_flux_derivation.tex, remark on the half factor",
+      "promotion_blocked": true,
+      "closed_by": null
+    },
+    {
+      "id": "BLK-LS-STORAGE",
+      "severity": "P1",
+      "title": "Open scientific question: vanishing cycle-averaged time derivative versus vanishing stored-energy term in Lord-Shulman theory",
+      "detail": "The cycle average of q.dq/dt is IDENTICALLY ZERO for a monochromatic field, because it is the average of a product of a quantity with its own time derivative over a period. Phase 1 treated tau_q q.dq/dt/kappa as a 'relaxation storage' term and then as a dissipation; both readings are unsupported for a monochromatic field, since the term is zero. It is therefore NEITHER storage NOR dissipation in the harmonic regime. Whether Lord-Shulman theory carries a genuine out-of-phase stored-energy contribution, and if so what its correct harmonic expression is, is NOT settled by the observation that this particular term vanishes. Resolving it requires a complete thermodynamic derivation of the LS internal energy, not a numerical test.",
+      "blocks": ["EQ-ENG-07", "a defensible statement of the LS energy identity in the harmonic regime"],
+      "evidence": "numeric: 3.27e-6 against a 1e34 dissipation scale, i.e. zero to machine precision",
+      "promotion_blocked": true,
+      "preserve_as_question": true,
+      "closed_by": null
+    },
+    {
+      "id": "BLK-DOC-01",
+      "severity": "P1",
+      "title": "governing_equations.tex still states the withdrawn tau_q causality floor",
+      "detail": "The code and reports were corrected in Phase 1B; the .tex section 'Causality floor on tau_q' was not. The document and the code currently disagree. This is recorded rather than silently fixed so the correction is traceable.",
+      "blocks": ["document consistency"],
+      "evidence": "evidence/phase_01_claim_audit.md U-11-4; CLM-H1-02 status INVALID",
+      "promotion_blocked": false,
+      "closed_by": null
+    }
+  ]
+}

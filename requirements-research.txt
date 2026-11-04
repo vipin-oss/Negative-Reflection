@@ -1,0 +1,16 @@
+# Phase 1C research validation stack -- PINNED, minimal.
+# Verified working on CPython 3.11.9, Linux x86_64.
+#
+# Deliberately short. Every package here is load-bearing:
+#   numpy    numeric linear algebra (elastic solver, random controls)
+#   sympy    exact symbolic algebra: the ONLY independent oracle for the
+#            constitutive and determinant identities
+#   mpmath   arbitrary-precision arithmetic: required because the 4x4 null
+#            vector has condition number ~1e22 and float64 cannot resolve it
+#   pytest   the test runner and case collection
+# Nothing else is used. matplotlib is NOT a runtime dependency: figure
+# regeneration is optional and is only checked at Level 3.
+numpy==2.4.6
+sympy==1.14.0
+mpmath==1.3.0
+pytest==9.2.0

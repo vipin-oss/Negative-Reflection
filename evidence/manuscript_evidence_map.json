@@ -1,0 +1,176 @@
+{
+  "schema_version": "1.0",
+  "status": "INFRASTRUCTURE ONLY -- no manuscript content exists and none is written in Phase 1C",
+  "purpose": "Stable evidence identifiers for every FUTURE equation, table, figure, result and conclusion, so that when evidence changes the affected manuscript content is identified mechanically instead of by memory.",
+  "id_scheme": {
+    "equation": "MS-EQ-<nnn>",
+    "table": "MS-TAB-<nnn>",
+    "figure": "MS-FIG-<nnn>",
+    "result": "MS-RES-<nnn>",
+    "conclusion": "MS-CON-<nnn>",
+    "rule": "ids are allocated once and never reused, even if the item is withdrawn; a withdrawn item keeps its id with status WITHDRAWN"
+  },
+  "entries": [
+    {
+      "id": "MS-EQ-001",
+      "kind": "equation",
+      "title": "Lord-Shulman governing system",
+      "evidence": [
+        "EQ-GOV-02",
+        "EQ-GOV-03",
+        "EQ-GOV-04",
+        "EQ-GOV-05",
+        "EQ-GOV-06",
+        "EQ-GOV-08",
+        "EQ-GOV-09",
+        "EQ-GOV-10"
+      ],
+      "claims": [
+        "CLM-B1-01",
+        "CLM-B1-02",
+        "CLM-B2-01"
+      ],
+      "experiments": [],
+      "figures": [],
+      "status": "BLOCKED",
+      "blocked_by": [
+        "BLK-LS-STORAGE"
+      ],
+      "note": "Cannot be written until the LS stored-energy question is settled.",
+      "baseline_ref": "BASELINE-01C-1"
+    },
+    {
+      "id": "MS-EQ-002",
+      "kind": "equation",
+      "title": "Characteristic matrix M and its determinant",
+      "evidence": [
+        "EQ-CM-01",
+        "EQ-CM-02",
+        "EQ-CM-03",
+        "EQ-EIG-01"
+      ],
+      "claims": [
+        "CLM-C1-01",
+        "CLM-C1-02",
+        "CLM-C1-03",
+        "CLM-A2-01"
+      ],
+      "experiments": [],
+      "figures": [],
+      "status": "BLOCKED",
+      "blocked_by": [
+        "BLK-DOC-01"
+      ],
+      "note": "Ready on evidence; the printed causal-floor section in the theory note must be corrected first.",
+      "baseline_ref": "BASELINE-01C-1"
+    },
+    {
+      "id": "MS-EQ-003",
+      "kind": "equation",
+      "title": "Energy flux functional",
+      "evidence": [
+        "EQ-ENG-01",
+        "EQ-ENG-02",
+        "EQ-ENG-03",
+        "EQ-ENG-05"
+      ],
+      "claims": [
+        "CLM-D1-01",
+        "CLM-D1-02",
+        "CLM-D1-03",
+        "CLM-D2-02"
+      ],
+      "experiments": [
+        "EXP-FOUND-01B"
+      ],
+      "figures": [],
+      "status": "BLOCKED",
+      "blocked_by": [
+        "BLK-G4",
+        "BLK-U3"
+      ],
+      "note": "Derived and verified against the Second Law in an independent evaluation, but it does not close through the production code path.",
+      "baseline_ref": "BASELINE-01C-1"
+    },
+    {
+      "id": "MS-FIG-001",
+      "kind": "figure",
+      "title": "Reflection/transmission/absorption vs angle",
+      "evidence": [
+        "EQ-SCT-01",
+        "EQ-SCT-02",
+        "EQ-ENG-08"
+      ],
+      "claims": [],
+      "experiments": [],
+      "figures": [
+        "fig1"
+      ],
+      "status": "BLOCKED",
+      "blocked_by": [
+        "BLK-G5",
+        "BLK-U3"
+      ],
+      "regeneration": {
+        "required": [
+          "raw data",
+          "plotting script",
+          "recorded command"
+        ],
+        "command": "python3 validation/figures/regenerate.py --figure fig1",
+        "script_present": false,
+        "raw_data_present": false,
+        "note": "fig1 exists in reports/figures/ with NO regeneration path. Recorded as UNVERIFIED (CLM-FIG-01); it may not appear in a manuscript until the regeneration command reproduces it from raw data at Level 3."
+      },
+      "baseline_ref": "BASELINE-01C-1"
+    },
+    {
+      "id": "MS-RES-001",
+      "kind": "result",
+      "title": "Elastic reference benchmark",
+      "evidence": [
+        "EQ-ELAS-01",
+        "EQ-ELAS-02"
+      ],
+      "claims": [
+        "CLM-J2-01",
+        "CLM-J2-02",
+        "CLM-I1-01"
+      ],
+      "experiments": [
+        "EXP-ELASTIC-REF",
+        "EXP-FOUND-01B"
+      ],
+      "figures": [],
+      "status": "EVIDENCE_READY",
+      "note": "The only result whose energy closure is independently verified.",
+      "baseline_ref": "BASELINE-01C-1"
+    },
+    {
+      "id": "MS-CON-001",
+      "kind": "conclusion",
+      "title": "The framework is validated",
+      "evidence": [],
+      "claims": [],
+      "experiments": [],
+      "figures": [],
+      "status": "FORBIDDEN",
+      "blocked_by": [
+        "BLK-G0",
+        "BLK-G1",
+        "BLK-G4",
+        "BLK-G5",
+        "BLK-U3",
+        "BLK-U5",
+        "BLK-LS-STORAGE"
+      ],
+      "note": "No such conclusion may be written while any of these is open.",
+      "baseline_ref": "BASELINE-01C-1"
+    }
+  ],
+  "staleness_rules": [
+    "If an evidence id in an entry becomes INVALID, WITHDRAWN or its claim becomes UNVERIFIED, the entry MUST be marked BLOCKED before the next commit.",
+    "If a baseline is SUPERSEDED or STALE, every entry drawing on it becomes STALE, not merely BLOCKED: STALE means the numbers were right once and may no longer be.",
+    "A claim whose evidence is STALE or INVALID cannot remain VERIFIED. Enforced by test_04_claim_binding.py::test_BIND05_stale_baseline_blocks_claims."
+  ]
+}

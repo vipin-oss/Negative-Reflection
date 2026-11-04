@@ -1,0 +1,148 @@
+# Phase 1C research validation -- Level 1 on every push and pull request.
+#
+# Deliberate design choices:
+#
+#  * Pinned dependencies in requirements-research.txt. A floating pytest or
+#    sympy minor version can change symbolic simplification and therefore the
+#    verdict of a test. Research CI must not drift.
+#
+#  * Level 1 ONLY. Level 2 (mutation suite, ~7 min) and Level 3 (manifest
+#    regeneration, figure rebuild) are too heavy for every push and are run
+#    locally before a phase submission. The limits of this workflow are stated
+#    in the job summary so a green badge is never mistaken for full validation.
+#
+#  * The exit code is passed through unchanged. There is no `|| true`, no
+#    `continue-on-error`, and no step that converts UNRESOLVED into success.
+#    A run that cannot execute is a FAILURE here, not a skip: run_fast.py exits
+#    3 when no cases were recorded, which fails the job.
+#
+#  * Promotion is checked separately and blocks. `--promotion` exits 1 while any
+#    mandatory blocker is open, even when every test passed. That step is
+#    intentionally failing today, and it must stay that way until the science
+#    closes the blockers -- it is excluded from the job's failure condition ONLY
+#    because the blocker state is reported in the summary, never because the
+#    gate is bypassed. See the "Promotion gate" step.
+
+name: research-validation
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  level-1:
+    name: Level 1 (fast) validation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11.9"
+          cache: pip
+
+      - name: Install pinned research dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-research.txt
+          python -c "import numpy,sympy,mpmath,pytest;print('numpy',numpy.__version__);print('sympy',sympy.__version__);print('mpmath',mpmath.__version__);print('pytest',pytest.__version__)"
+
+      - name: "Show what is being validated"
+        run: |
+          echo "commit: $(git rev-parse HEAD)"
+          echo "branch: $(git rev-parse --abbrev-ref HEAD)"
+          echo "--- registry tallies ---"
+          python - <<'PY'
+          import csv, collections
+          for f, col in (("evidence/claim_registry.csv", "evidence_status"),
+                         ("evidence/equation_registry.csv", "verification_status")):
+              rows = list(csv.DictReader(open(f)))
+              print(f, len(rows), dict(collections.Counter(r[col] for r in rows)))
+          PY
+
+      - name: Graph integrity
+        run: python evidence/impact_analysis.py --check
+
+      - name: Level 1 test suite
+        id: level1
+        run: python validation/run_fast.py --json-out validation/evidence/ci_level1.json
+
+      - name: Verify evidence manifests and their referenced files
+        run: python validation/regen_manifests.py
+
+      - name: "Mutation suite: the two cheapest detectors"
+        run: python validation/mutation_tests/run_mutations.py --only M01 --only M10
+
+      - name: "Promotion gate (expected to REFUSE while blockers are open)"
+        id: promotion
+        continue-on-error: true
+        run: python validation/run_fast.py --promotion
+
+      - name: Readable summary
+        if: always()
+        run: |
+          {
+            echo "## Research validation -- Level 1"
+            echo ""
+            echo "Commit: \`$(git rev-parse HEAD)\`"
+            echo ""
+            echo "| Result | Count |"
+            echo "|---|---|"
+            python - <<'PY'
+          import json, pathlib
+          p = pathlib.Path("validation/evidence/ci_level1.json")
+          if not p.exists():
+              print("| NO REPORT | the suite did not run |")
+          else:
+              s = json.loads(p.read_text())["summary"]
+              for k in ("PASS", "FAIL", "UNRESOLVED", "WITHDRAWN", "NOT_APPLICABLE", "total"):
+                  print(f"| {k} | {s[k]} |")
+              print(f"| executed cases | {s['executed_cases']} |")
+              print(f"| zero-case tests | {len(s['zero_case_tests'])} |")
+          PY
+            echo ""
+            echo "### Tests that DID NOT run in this workflow"
+            echo ""
+            echo "Level 2 and Level 3 are excluded from CI by design. Run locally:"
+            echo ""
+            echo '```'
+            echo "python validation/run_standard.py    # mutation suite, energy, convergence"
+            echo "python validation/run_full.py        # manifest regen, sensitivity, figures"
+            echo '```'
+            echo ""
+            echo "### Promotion"
+            echo ""
+            echo "A green Level 1 badge means 'nothing is known to be broken'."
+            echo "It does NOT mean the research claims are accepted: promotion requires"
+            echo "every mandatory blocker closed AND supervisor authorisation."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Machine-readable summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: level1-evidence
+          path: |
+            validation/evidence/ci_level1.json
+            validation/mutation_tests/last_mutation_run.json
+          retention-days: 90
+
+      - name: Fail the job on any real failure
+        if: always()
+        run: |
+          if [ "${{ steps.level1.outcome }}" != "success" ]; then
+            echo "Level 1 suite did not pass: ${{ steps.level1.outcome }}"
+            exit 1
+          fi
+          echo "Level 1 passed. Promotion gate outcome: ${{ steps.promotion.outcome }}"
+          echo "(A promotion outcome of 'failure' is EXPECTED while blockers are open;"
+          echo " it is reported, not converted into a pass.)"

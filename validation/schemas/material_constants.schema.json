@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "material_constants.schema.json",
+  "title": "literature/material_constants.csv",
+  "description": "One constant per row. The status vocabulary is closed: a value is either VERIFIED against a citable source, DERIVED from verified values, ASSUMED (and then no quantitative claim may rest on it alone), FIXED by convention or exactness, ZERO by crystal symmetry, or VERIFIED_TO_ORDER_OF_MAGNITUDE. Tuned/FITTED/CHOSEN labels are forbidden: a parameter may never be selected to make a validation rule pass (Phase 1B P1-A).",
+  "type": "object",
+  "required": ["material","constant","symbol","value","unit","status","source","uncertainty","notes"],
+  "columns": {
+    "material": {"type": "string", "minLength": 1},
+    "constant": {"type": "string", "minLength": 1},
+    "symbol":   {"type": "string", "minLength": 1},
+    "value":    {"type": "number"},
+    "unit":     {"type": "string", "minLength": 1},
+    "status":   {"enum": ["VERIFIED","DERIVED","ASSUMED","FIXED","ZERO(centrosym)","VERIFIED_TO_ORDER_OF_MAGNITUDE"]},
+    "source":   {"type": "string", "minLength": 1},
+    "uncertainty": {"type": "string", "minLength": 1},
+    "notes":    {"type": "string"}
+  },
+  "cross_checks": [
+    {"id": "MAT-X1", "rule": "every ASSUMED row must say ASSUMED in notes", "enforced_by": "MAT01, MAT03"},
+    {"id": "MAT-X2", "rule": "no status may contain CHOSEN/TUNED/FITTED", "enforced_by": "MAT02"},
+    {"id": "MAT-X3", "rule": "value must parse as a float", "enforced_by": "MAT01"},
+    {"id": "MAT-X4", "rule": "ASSUMED rows block Gate G1", "enforced_by": "task I approved_baselines.json"}
+  ]
+}

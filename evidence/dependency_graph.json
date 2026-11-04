@@ -1,0 +1,758 @@
+{
+  "schema_version": "1.0",
+  "generated_for_commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+  "description": "Research dependency graph for the piezothermoelastic anti-reflection project. Nodes are material sources, constants, equations, code modules, tests, claims, experiments and manuscript artefacts. Edges are directed dependencies: A -> B means 'B depends on A', so a change to A propagates to B.",
+  "node_kinds": [
+    "source",
+    "constant",
+    "equation",
+    "module",
+    "test",
+    "claim",
+    "experiment",
+    "figure",
+    "manuscript",
+    "blocker"
+  ],
+  "nodes": [
+    {
+      "id": "SRC-CROSSREF",
+      "kind": "source",
+      "label": "Crossref metadata records R02-R11",
+      "file": "literature/verified_references.csv",
+      "status": "VERIFIED_METADATA_ONLY"
+    },
+    {
+      "id": "SRC-FULLTEXT",
+      "kind": "source",
+      "label": "Full-text prior art (NOT ACCESSED)",
+      "file": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "SRC-TEXT",
+      "kind": "source",
+      "label": "Standard reference tables for C, e, eps, rho, cE, kappa",
+      "file": "literature/material_constants.csv",
+      "status": "MIXED"
+    },
+    {
+      "id": "CONST-PZT5H",
+      "kind": "constant",
+      "label": "PZT-5H constant set",
+      "file": "literature/material_constants.csv",
+      "status": "PARTIAL_ASSUMED"
+    },
+    {
+      "id": "CONST-BATIO3",
+      "kind": "constant",
+      "label": "BaTiO3 constant set",
+      "file": "literature/material_constants.csv",
+      "status": "PARTIAL_ASSUMED"
+    },
+    {
+      "id": "CONST-AL6061",
+      "kind": "constant",
+      "label": "Al6061 constant set",
+      "file": "literature/material_constants.csv",
+      "status": "DERIVED"
+    },
+    {
+      "id": "CONST-CdSe",
+      "kind": "constant",
+      "label": "CdSe constant set",
+      "file": "literature/material_constants.csv",
+      "status": "PARTIAL_ASSUMED"
+    },
+    {
+      "id": "EQ-GOV-02",
+      "kind": "equation",
+      "label": "Helmholtz potential psi",
+      "file": "theory/governing_equations.tex",
+      "status": "VERIFIED_STRONG"
+    },
+    {
+      "id": "EQ-GOV-03",
+      "kind": "equation",
+      "label": "sigma_zz",
+      "file": "theory/governing_equations.tex",
+      "status": "VERIFIED_STRONG"
+    },
+    {
+      "id": "EQ-GOV-04",
+      "kind": "equation",
+      "label": "sigma_xz",
+      "file": "theory/governing_equations.tex",
+      "status": "VERIFIED_STRONG"
+    },
+    {
+      "id": "EQ-GOV-05",
+      "kind": "equation",
+      "label": "D_z",
+      "file": "theory/governing_equations.tex",
+      "status": "VERIFIED_STRONG"
+    },
+    {
+      "id": "EQ-GOV-06",
+      "kind": "equation",
+      "label": "rho eta",
+      "file": "theory/governing_equations.tex",
+      "status": "VERIFIED_STRONG"
+    },
+    {
+      "id": "EQ-GOV-08",
+      "kind": "equation",
+      "label": "Lord-Shulman heat equation",
+      "file": "theory/governing_equations.tex",
+      "status": "VERIFIED_STRONG"
+    },
+    {
+      "id": "EQ-GOV-09",
+      "kind": "equation",
+      "label": "Cattaneo flux law",
+      "file": "theory/governing_equations.tex",
+      "status": "VERIFIED_STRONG"
+    },
+    {
+      "id": "EQ-GOV-10",
+      "kind": "equation",
+      "label": "Lambda = 1 - i omega tau_q",
+      "file": "theory/governing_equations.tex",
+      "status": "VERIFIED_STRONG"
+    },
+    {
+      "id": "EQ-GOV-11",
+      "kind": "equation",
+      "label": "Stability conditions",
+      "file": "theory/governing_equations.tex",
+      "status": "VERIFIED_STRONG"
+    },
+    {
+      "id": "EQ-GOV-12",
+      "kind": "equation",
+      "label": "tau_q causality floor (WITHDRAWN)",
+      "file": "theory/governing_equations.tex",
+      "status": "INVALID"
+    },
+    {
+      "id": "EQ-CM-01",
+      "kind": "equation",
+      "label": "Characteristic matrix M",
+      "file": "theory/characteristic_matrix.tex",
+      "status": "VERIFIED_WEAK"
+    },
+    {
+      "id": "EQ-CM-02",
+      "kind": "equation",
+      "label": "det M degree and parity",
+      "file": "theory/characteristic_matrix.tex",
+      "status": "VERIFIED_STRONG"
+    },
+    {
+      "id": "EQ-CM-03",
+      "kind": "equation",
+      "label": "Parity transform S=diag(1,-1,-1,1)",
+      "file": "theory/characteristic_matrix.tex",
+      "status": "VERIFIED_STRONG"
+    },
+    {
+      "id": "EQ-CM-06",
+      "kind": "equation",
+      "label": "Parity transform diag(1,1,1,-1) (INVALID)",
+      "file": "theory/characteristic_matrix.tex",
+      "status": "INVALID"
+    },
+    {
+      "id": "EQ-ENG-01",
+      "kind": "equation",
+      "label": "Mechanical+electrical flux term",
+      "file": "theory/energy_flux_derivation.tex",
+      "status": "VERIFIED_STRONG"
+    },
+    {
+      "id": "EQ-ENG-02",
+      "kind": "equation",
+      "label": "Thermal flux term (corrected)",
+      "file": "theory/energy_flux_derivation.tex",
+      "status": "UNRESOLVED"
+    },
+    {
+      "id": "EQ-ENG-03",
+      "kind": "equation",
+      "label": "Bulk dissipation from entropy production",
+      "file": "theory/energy_flux_derivation.tex",
+      "status": "VERIFIED_STRONG"
+    },
+    {
+      "id": "EQ-ENG-04",
+      "kind": "equation",
+      "label": "Local balance law",
+      "file": "theory/energy_flux_derivation.tex",
+      "status": "UNRESOLVED"
+    },
+    {
+      "id": "EQ-ENG-05",
+      "kind": "equation",
+      "label": "Total-field flux J_z",
+      "file": "theory/energy_flux_derivation.tex",
+      "status": "UNRESOLVED"
+    },
+    {
+      "id": "EQ-ENG-07",
+      "kind": "equation",
+      "label": "LS relaxation term (open scientific question)",
+      "file": "theory/energy_flux_derivation.tex",
+      "status": "UNRESOLVED"
+    },
+    {
+      "id": "EQ-ENG-08",
+      "kind": "equation",
+      "label": "Composite power balance",
+      "file": "theory/energy_flux_derivation.tex",
+      "status": "UNRESOLVED"
+    },
+    {
+      "id": "EQ-ENG-09",
+      "kind": "equation",
+      "label": "1/2 Re[q_z] flux (INVALID)",
+      "file": "theory/energy_flux_derivation.tex",
+      "status": "INVALID"
+    },
+    {
+      "id": "EQ-ENG-10",
+      "kind": "equation",
+      "label": "R, T, A definitions",
+      "file": "theory/energy_flux_derivation.tex",
+      "status": "DEFINED_NOT_TESTED"
+    },
+    {
+      "id": "EQ-IFC-01",
+      "kind": "equation",
+      "label": "Mechanical contact law",
+      "file": "theory/interface_conditions.tex",
+      "status": "VERIFIED_WEAK"
+    },
+    {
+      "id": "EQ-IFC-04",
+      "kind": "equation",
+      "label": "Thermal contact dissipation",
+      "file": "theory/interface_conditions.tex",
+      "status": "VERIFIED_WEAK"
+    },
+    {
+      "id": "EQ-IFC-08",
+      "kind": "equation",
+      "label": "Interface equation count and rank",
+      "file": "theory/interface_conditions.tex",
+      "status": "VERIFIED_WEAK"
+    },
+    {
+      "id": "EQ-SCT-01",
+      "kind": "equation",
+      "label": "Mode-matching scattering system",
+      "file": null,
+      "status": "NOT_IMPLEMENTED"
+    },
+    {
+      "id": "EQ-SCT-02",
+      "kind": "equation",
+      "label": "R+T+A=1 closure",
+      "file": null,
+      "status": "UNRESOLVED"
+    },
+    {
+      "id": "EQ-ELAS-01",
+      "kind": "equation",
+      "label": "Reduced elastic P-SV operator",
+      "file": "code/elastic_psv.py",
+      "status": "VERIFIED_STRONG"
+    },
+    {
+      "id": "EQ-ELAS-02",
+      "kind": "equation",
+      "label": "Decoupled limit is a reduction",
+      "file": "theory/characteristic_matrix.tex",
+      "status": "VERIFIED_STRONG"
+    },
+    {
+      "id": "MOD-FOUNDATION",
+      "kind": "module",
+      "label": "foundation_checks.py",
+      "file": "code/foundation_checks.py",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "MOD-ELASTIC",
+      "kind": "module",
+      "label": "elastic_psv.py",
+      "file": "code/elastic_psv.py",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "MOD-DETCOEFFS",
+      "kind": "module",
+      "label": "det_coeffs.json exact coefficient cache",
+      "file": "code/det_coeffs.json",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "BLK-U3",
+      "kind": "blocker",
+      "label": "U-3 amplitude normalisation / null-vector direction",
+      "file": "reports/PHASE_01C_OPEN_BLOCKERS.md",
+      "status": "OPEN"
+    },
+    {
+      "id": "BLK-G0",
+      "kind": "blocker",
+      "label": "G0 full-text prior art",
+      "file": "reports/PHASE_01C_OPEN_BLOCKERS.md",
+      "status": "OPEN"
+    },
+    {
+      "id": "BLK-G1",
+      "kind": "blocker",
+      "label": "G1 sourced constants (beta, p)",
+      "file": "reports/PHASE_01C_OPEN_BLOCKERS.md",
+      "status": "OPEN"
+    },
+    {
+      "id": "BLK-G4",
+      "kind": "blocker",
+      "label": "G4 energy identity not passed",
+      "file": "reports/PHASE_01C_OPEN_BLOCKERS.md",
+      "status": "OPEN"
+    },
+    {
+      "id": "BLK-G5",
+      "kind": "blocker",
+      "label": "G5 numerical energy balance not passed",
+      "file": "reports/PHASE_01C_OPEN_BLOCKERS.md",
+      "status": "OPEN"
+    },
+    {
+      "id": "BLK-U5",
+      "kind": "blocker",
+      "label": "U-5 half-factor bookkeeping",
+      "file": "reports/PHASE_01C_OPEN_BLOCKERS.md",
+      "status": "OPEN"
+    },
+    {
+      "id": "BLK-LS-STORAGE",
+      "kind": "blocker",
+      "label": "LS stored-energy vs vanishing time-derivative (open scientific question)",
+      "file": "reports/PHASE_01C_OPEN_BLOCKERS.md",
+      "status": "OPEN"
+    },
+    {
+      "id": "EQ-EIG-01",
+      "kind": "equation",
+      "label": "Eigenvalue problem and root set",
+      "file": "theory/characteristic_matrix.tex",
+      "status": "VERIFIED_WEAK"
+    }
+  ],
+  "edges": [
+    {
+      "from": "SRC-CROSSREF",
+      "to": "CONST-PZT5H",
+      "relation": "provenance",
+      "strength": "metadata_only"
+    },
+    {
+      "from": "SRC-TEXT",
+      "to": "CONST-PZT5H",
+      "relation": "provenance",
+      "strength": "partial"
+    },
+    {
+      "from": "SRC-TEXT",
+      "to": "CONST-BATIO3",
+      "relation": "provenance",
+      "strength": "partial"
+    },
+    {
+      "from": "SRC-TEXT",
+      "to": "CONST-AL6061",
+      "relation": "provenance",
+      "strength": "derived"
+    },
+    {
+      "from": "SRC-TEXT",
+      "to": "CONST-CdSe",
+      "relation": "provenance",
+      "strength": "partial"
+    },
+    {
+      "from": "SRC-FULLTEXT",
+      "to": "BLK-G0",
+      "relation": "blocks",
+      "strength": "missing"
+    },
+    {
+      "from": "CONST-PZT5H",
+      "to": "EQ-GOV-02",
+      "relation": "parameterises",
+      "strength": "partial"
+    },
+    {
+      "from": "CONST-BATIO3",
+      "to": "EQ-GOV-02",
+      "relation": "parameterises",
+      "strength": "partial"
+    },
+    {
+      "from": "CONST-AL6061",
+      "to": "EQ-GOV-02",
+      "relation": "parameterises",
+      "strength": "derived"
+    },
+    {
+      "from": "CONST-CdSe",
+      "to": "EQ-GOV-02",
+      "relation": "parameterises",
+      "strength": "partial"
+    },
+    {
+      "from": "EQ-GOV-02",
+      "to": "EQ-GOV-03",
+      "relation": "differentiated",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-GOV-02",
+      "to": "EQ-GOV-04",
+      "relation": "differentiated",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-GOV-02",
+      "to": "EQ-GOV-05",
+      "relation": "differentiated",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-GOV-02",
+      "to": "EQ-GOV-06",
+      "relation": "differentiated",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-GOV-09",
+      "to": "EQ-GOV-08",
+      "relation": "eliminated_into",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-GOV-06",
+      "to": "EQ-GOV-08",
+      "relation": "eliminated_into",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-GOV-08",
+      "to": "EQ-GOV-10",
+      "relation": "time_harmonic_image",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-GOV-03",
+      "to": "EQ-CM-01",
+      "relation": "assembled_into",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-GOV-04",
+      "to": "EQ-CM-01",
+      "relation": "assembled_into",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-GOV-05",
+      "to": "EQ-CM-01",
+      "relation": "assembled_into",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-GOV-08",
+      "to": "EQ-CM-01",
+      "relation": "assembled_into",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-GOV-10",
+      "to": "EQ-CM-01",
+      "relation": "assembled_into",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-CM-01",
+      "to": "EQ-CM-02",
+      "relation": "determinant",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-CM-01",
+      "to": "EQ-CM-03",
+      "relation": "symmetry",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-CM-01",
+      "to": "EQ-SCT-01",
+      "relation": "modes_for",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-GOV-03",
+      "to": "EQ-ENG-01",
+      "relation": "flux_term",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-GOV-04",
+      "to": "EQ-ENG-01",
+      "relation": "flux_term",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-GOV-05",
+      "to": "EQ-ENG-01",
+      "relation": "flux_term",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-GOV-09",
+      "to": "EQ-ENG-02",
+      "relation": "flux_term",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-GOV-08",
+      "to": "EQ-ENG-03",
+      "relation": "dissipation_source",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-GOV-02",
+      "to": "EQ-ENG-04",
+      "relation": "energy_density",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-ENG-01",
+      "to": "EQ-ENG-05",
+      "relation": "summand",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-ENG-02",
+      "to": "EQ-ENG-05",
+      "relation": "summand",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-ENG-03",
+      "to": "EQ-ENG-04",
+      "relation": "dissipation_term",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-ENG-05",
+      "to": "EQ-ENG-04",
+      "relation": "flux_vector",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-ENG-04",
+      "to": "EQ-ENG-08",
+      "relation": "integrated_over_slab",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-IFC-01",
+      "to": "EQ-ENG-08",
+      "relation": "face_term",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-IFC-04",
+      "to": "EQ-ENG-08",
+      "relation": "face_term",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-ENG-08",
+      "to": "EQ-ENG-10",
+      "relation": "defines",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-ENG-10",
+      "to": "EQ-SCT-02",
+      "relation": "closes",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-SCT-01",
+      "to": "EQ-SCT-02",
+      "relation": "supplies",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-GOV-05",
+      "to": "EQ-IFC-01",
+      "relation": "traction_continuity",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-CM-01",
+      "to": "EQ-IFC-08",
+      "relation": "rank_input",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-ELAS-01",
+      "to": "EQ-SCT-01",
+      "relation": "reference_oracle",
+      "strength": "acceptance"
+    },
+    {
+      "from": "EQ-ELAS-02",
+      "to": "EQ-SCT-01",
+      "relation": "reduction_requirement",
+      "strength": "acceptance"
+    },
+    {
+      "from": "EQ-GOV-11",
+      "to": "BLK-G1",
+      "relation": "unsatisfied_for",
+      "strength": "partial"
+    },
+    {
+      "from": "EQ-ENG-02",
+      "to": "BLK-U3",
+      "relation": "blocked_by",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-ENG-04",
+      "to": "BLK-G4",
+      "relation": "blocks",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-SCT-01",
+      "to": "BLK-G5",
+      "relation": "blocks",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-ENG-07",
+      "to": "BLK-LS-STORAGE",
+      "relation": "raises",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-IFC-04",
+      "to": "BLK-U5",
+      "relation": "raises",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-GOV-12",
+      "to": "CONST-CdSe",
+      "relation": "had_forced_change",
+      "strength": "withdrawn"
+    },
+    {
+      "from": "EQ-CM-06",
+      "to": "EQ-CM-03",
+      "relation": "superseded_by",
+      "strength": "correction"
+    },
+    {
+      "from": "EQ-ENG-09",
+      "to": "EQ-ENG-02",
+      "relation": "superseded_by",
+      "strength": "correction"
+    },
+    {
+      "from": "EQ-CM-02",
+      "to": "EQ-EIG-01",
+      "relation": "roots_of",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-EIG-01",
+      "to": "EQ-SCT-01",
+      "relation": "supplies_modes",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-CM-01",
+      "to": "MOD-FOUNDATION",
+      "relation": "implemented_by",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-ENG-05",
+      "to": "MOD-FOUNDATION",
+      "relation": "implemented_by",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-EIG-01",
+      "to": "MOD-FOUNDATION",
+      "relation": "implemented_by",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-CM-02",
+      "to": "MOD-DETCOEFFS",
+      "relation": "coefficient_cache",
+      "strength": "full"
+    },
+    {
+      "from": "EQ-ELAS-02",
+      "to": "MOD-ELASTIC",
+      "relation": "implemented_by",
+      "strength": "full"
+    },
+    {
+      "from": "MOD-FOUNDATION",
+      "to": "BLK-U3",
+      "relation": "produces_evidence",
+      "strength": "full"
+    },
+    {
+      "from": "MOD-ELASTIC",
+      "to": "EQ-SCT-01",
+      "relation": "acceptance_oracle",
+      "strength": "full"
+    }
+  ],
+  "impact_rules": {
+    "description": "Transitive downstream closure. A node changed at depth 0 invalidates every node reachable along 'from -> to' edges, except where an edge strength is 'withdrawn' or a target is already marked INVALID for an unrelated reason.",
+    "propagating_statuses": [
+      "VERIFIED_STRONG",
+      "VERIFIED_WEAK",
+      "PARTIAL",
+      "UNRESOLVED",
+      "DEFINED_NOT_TESTED"
+    ],
+    "terminal_statuses": [
+      "INVALID"
+    ],
+    "strength_semantics": {
+      "full": "the target is a function of the source; a change invalidates the target",
+      "partial": "the target is partially determined by the source",
+      "metadata_only": "no numerical propagation",
+      "derived": "deterministically computed from the source",
+      "acceptance": "the target must reproduce the source",
+      "withdrawn": "historical link only; do not propagate",
+      "correction": "the source replaces the target; do not propagate"
+    },
+    "unrelated_changes_do_not_propagate": true
+  }
+}

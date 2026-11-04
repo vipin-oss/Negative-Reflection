@@ -1,0 +1,331 @@
+{
+  "schema_version": "1.0",
+  "level": "pytest",
+  "generated_unix": 1793790097,
+  "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+  "python": "3.11.2",
+  "summary": {
+    "total": 9,
+    "PASS": 9,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0,
+    "executed_cases": 378,
+    "zero_case_tests": [],
+    "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+    "by_category": {
+      "1-data-integrity": {
+        "PASS": 3,
+        "FAIL": 0,
+        "UNRESOLVED": 0,
+        "WITHDRAWN": 0,
+        "NOT_APPLICABLE": 0
+      },
+      "12-claim-traceability": {
+        "PASS": 4,
+        "FAIL": 0,
+        "UNRESOLVED": 0,
+        "WITHDRAWN": 0,
+        "NOT_APPLICABLE": 0
+      },
+      "11-reproducibility": {
+        "PASS": 2,
+        "FAIL": 0,
+        "UNRESOLVED": 0,
+        "WITHDRAWN": 0,
+        "NOT_APPLICABLE": 0
+      }
+    }
+  },
+  "promotion_allowed": false,
+  "promotion_blocked_reasons": [
+    "blocker BLK-U3 open (P0)",
+    "blocker BLK-G4 open (P0)",
+    "blocker BLK-G5 open (P0)",
+    "blocker BLK-G0 open (P0)",
+    "blocker BLK-G1 open (P0)",
+    "blocker BLK-U5 open (P1)",
+    "blocker BLK-LS-STORAGE open (P1)"
+  ],
+  "blockers": [
+    {
+      "id": "BLK-U3",
+      "severity": "P0",
+      "title": "Coupled scattering amplitude normalisation / null-vector direction accuracy",
+      "detail": "The null-vector DIRECTION for the 6mm characteristic matrix (cond ~1e22) is accurate only to ~1e-5. Because the energy balance identity is scale-invariant in the null vector, this residual cannot be a magnitude error. It is the root cause of every coupled R/T/A result being unavailable.",
+      "blocks": [
+        "BLK-G4",
+        "BLK-G5",
+        "EQ-SCT-01",
+        "EQ-SCT-02"
+      ],
+      "evidence": "check D2: 1.86e-5 residual through the production null-vector path vs 7.1e-17 in an independent dps=60 evaluation",
+      "promotion_blocked": true,
+      "closed_by": null
+    },
+    {
+      "id": "BLK-G4",
+      "severity": "P0",
+      "title": "Gate G4 - Lord-Shulman energy identity not passed",
+      "detail": "The corrected flux functional is derived and verified against the Second Law in an independent evaluation, but the identity does not close through the production code path. The gate asks for it to hold in the solver that will be used.",
+      "blocks": [
+        "any energy ratio claim"
+      ],
+      "evidence": "phase_01b_test_results.json: D2 UNRESOLVED",
+      "promotion_blocked": true,
+      "closed_by": null
+    },
+    {
+      "id": "BLK-G5",
+      "severity": "P0",
+      "title": "Gate G5 - interface dissipation and numerical energy balance not passed",
+      "detail": "Requires a working coupled scattering solver and a converged numerical balance on evaluation planes in the half-spaces. Neither exists. Blueprint 7.4 forbids reporting R, T or A until this closes.",
+      "blocks": [
+        "any R/T/A claim",
+        "all reflection-suppression figures"
+      ],
+      "evidence": "no coupled solve implemented",
+      "promotion_blocked": true,
+      "closed_by": null
+    },
+    {
+      "id": "BLK-G0",
+      "severity": "P0",
+      "title": "Gate G0 - full-text prior art not reviewed",
+      "detail": "All ten literature records are metadata-only. No compatibility check with any competitor is possible, so no novelty claim can be made and the six candidate gaps remain questions.",
+      "blocks": [
+        "any novelty claim",
+        "CLM-LIT-02"
+      ],
+      "evidence": "literature/verified_references.csv: every row read_status = metadata only",
+      "promotion_blocked": true,
+      "closed_by": null
+    },
+    {
+      "id": "BLK-G1",
+      "severity": "P0",
+      "title": "Gate G1 - incompletely sourced material constants",
+      "detail": "beta_1, beta_3 and the pyroelectric coefficient p are ASSUMED for PZT-5H and BaTiO3. CdSe tau_q is an order-of-magnitude value. Any result depending quantitatively on the thermal or pyroelectric channel is unsupported.",
+      "blocks": [
+        "any thermal-channel quantitative result",
+        "CLM-MAT-02"
+      ],
+      "evidence": "literature/material_constants.csv status column",
+      "promotion_blocked": true,
+      "closed_by": null
+    },
+    {
+      "id": "BLK-U5",
+      "severity": "P1",
+      "title": "U-5 - factor-of-one-half bookkeeping between mechanical and thermal interface dissipation",
+      "detail": "A bookkeeping convention, not a physics uncertainty: the mechanical form carries a 1/2 from the cycle average while the thermal form is written for the real temperature jump. The Phase-2 solver must pick one convention and apply it uniformly before any numerical balance is assembled. Doing it wrong produces a 50 percent error in the thermal channel alone.",
+      "blocks": [
+        "E2 gate",
+        "numerical energy balance"
+      ],
+      "evidence": "theory/energy_flux_derivation.tex, remark on the half factor",
+      "promotion_blocked": true,
+      "closed_by": null
+    },
+    {
+      "id": "BLK-LS-STORAGE",
+      "severity": "P1",
+      "title": "Open scientific question: vanishing cycle-averaged time derivative versus vanishing stored-energy term in Lord-Shulman theory",
+      "detail": "The cycle average of q.dq/dt is IDENTICALLY ZERO for a monochromatic field, because it is the average of a product of a quantity with its own time derivative over a period. Phase 1 treated tau_q q.dq/dt/kappa as a 'relaxation storage' term and then as a dissipation; both readings are unsupported for a monochromatic field, since the term is zero. It is therefore NEITHER storage NOR dissipation in the harmonic regime. Whether Lord-Shulman theory carries a genuine out-of-phase stored-energy contribution, and if so what its correct harmonic expression is, is NOT settled by the observation that this particular term vanishes. Resolving it requires a complete thermodynamic derivation of the LS internal energy, not a numerical test.",
+      "blocks": [
+        "EQ-ENG-07",
+        "a defensible statement of the LS energy identity in the harmonic regime"
+      ],
+      "evidence": "numeric: 3.27e-6 against a 1e34 dissipation scale, i.e. zero to machine precision",
+      "promotion_blocked": true,
+      "preserve_as_question": true,
+      "closed_by": null
+    },
+    {
+      "id": "BLK-DOC-01",
+      "severity": "P1",
+      "title": "governing_equations.tex still states the withdrawn tau_q causality floor",
+      "detail": "The code and reports were corrected in Phase 1B; the .tex section 'Causality floor on tau_q' was not. The document and the code currently disagree. This is recorded rather than silently fixed so the correction is traceable.",
+      "blocks": [
+        "document consistency"
+      ],
+      "evidence": "evidence/phase_01_claim_audit.md U-11-4; CLM-H1-02 status INVALID",
+      "promotion_blocked": false,
+      "closed_by": null
+    }
+  ],
+  "cases": [
+    {
+      "test_id": "MAT01",
+      "category": "1-data-integrity",
+      "purpose": "Material constants carry complete, legal provenance metadata",
+      "oracle": "schema defined in validation/schemas/material_constants.schema.json and the status vocabulary of literature/material_constants.csv",
+      "oracle_independent": true,
+      "fixture": "literature/material_constants.csv",
+      "expected": ">=70 rows; all 9 required columns; every status in the allowed set",
+      "tolerance": null,
+      "tol_justification": "exact structural check; no tolerance applies",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 80,
+      "actual": "80 rows; 0 illegal status; 0 rows missing fields",
+      "detail": "illegal: []",
+      "duration_s": 0.003483295440673828,
+      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "remote_verified": false
+    },
+    {
+      "test_id": "MAT02",
+      "category": "1-data-integrity",
+      "purpose": "No material constant is tuned to satisfy a validation rule",
+      "oracle": "regression on the Phase-1B defect (P1-A): the label CHOSEN_ABOVE_CAUSAL_FLOOR must never reappear",
+      "oracle_independent": false,
+      "fixture": "literature/material_constants.csv status column",
+      "expected": "0 occurrences of any 'CHOSEN'/'TUNED' status",
+      "tolerance": null,
+      "tol_justification": "string search; exact",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 80,
+      "actual": "0 tuned-looking labels",
+      "detail": "[]",
+      "duration_s": 0.00328826904296875,
+      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "remote_verified": false
+    },
+    {
+      "test_id": "CLM01",
+      "category": "12-claim-traceability",
+      "purpose": "Claim registry is well formed and traceable",
+      "oracle": "schema in validation/schemas/claim_registry.schema.json",
+      "oracle_independent": true,
+      "fixture": "evidence/claim_registry.csv",
+      "expected": ">=40 rows; unique ids; statuses legal; test_id present on all",
+      "tolerance": null,
+      "tol_justification": "structural; exact",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 44,
+      "actual": "44 claims, 0 duplicate, 0 bad status, 0 without test_id",
+      "detail": "dup=[] bad=[] notest=[]",
+      "duration_s": 0.0030927658081054688,
+      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "remote_verified": false
+    },
+    {
+      "test_id": "CLM02",
+      "category": "12-claim-traceability",
+      "purpose": "Every VERIFIED claim names a test that actually exists",
+      "oracle": "the union of test ids discoverable in code/foundation_checks.py and validation/tests/",
+      "oracle_independent": true,
+      "fixture": "evidence/claim_registry.csv cross-referenced against the code",
+      "expected": "0 VERIFIED claims naming a non-existent test",
+      "tolerance": null,
+      "tol_justification": "set membership; exact",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 36,
+      "actual": "36 VERIFIED claims checked; 0 unsupported",
+      "detail": "[]",
+      "duration_s": 0.003590106964111328,
+      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "remote_verified": false
+    },
+    {
+      "test_id": "CLM03",
+      "category": "12-claim-traceability",
+      "purpose": "Corrections do not erase the evidence of the earlier failure",
+      "oracle": "Phase 1C section I: an approved baseline and its history are immutable",
+      "oracle_independent": false,
+      "fixture": "evidence/claim_registry.csv rows with status INVALID",
+      "expected": "every INVALID row has a superseded_by target that exists",
+      "tolerance": null,
+      "tol_justification": "structural; exact",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 2,
+      "actual": "2 INVALID claims retained; 0 bad pointers",
+      "detail": "bad=[]",
+      "duration_s": 0.0030364990234375,
+      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "remote_verified": false
+    },
+    {
+      "test_id": "EQ01",
+      "category": "12-claim-traceability",
+      "purpose": "Equation registry is well formed and its cross-references resolve",
+      "oracle": "schema in validation/schemas/equation_registry.schema.json",
+      "oracle_independent": true,
+      "fixture": "evidence/equation_registry.csv",
+      "expected": ">=35 rows; unique ids; statuses legal; every named dep exists",
+      "tolerance": null,
+      "tol_justification": "structural; exact",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 41,
+      "actual": "41 equations; 0 bad status; 0 dangling deps",
+      "detail": "bad=[] dangling=[]",
+      "duration_s": 0.0031800270080566406,
+      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "remote_verified": false
+    },
+    {
+      "test_id": "ART01",
+      "category": "11-reproducibility",
+      "purpose": "All mandatory evidence artifacts exist",
+      "oracle": "the deliverable list in the Phase 1C brief, section L",
+      "oracle_independent": true,
+      "fixture": "repository tree",
+      "expected": "all 12 mandatory artifacts exist and are non-empty",
+      "tolerance": null,
+      "tol_justification": "existence; exact",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 15,
+      "actual": "15/15 present",
+      "detail": "missing=[]",
+      "duration_s": 0.006504535675048828,
+      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "remote_verified": false
+    },
+    {
+      "test_id": "ART02",
+      "category": "11-reproducibility",
+      "purpose": "Frozen scientific inputs have not changed silently",
+      "oracle": "evidence/input_checksums.json produced by this phase",
+      "oracle_independent": true,
+      "fixture": "literature/*.csv, code/det_coeffs.json, theory/*.tex",
+      "expected": "all recorded SHA-256 values match",
+      "tolerance": null,
+      "tol_justification": "cryptographic hash; exact",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 8,
+      "actual": "8/8 checksums match",
+      "detail": "[]",
+      "duration_s": 0.0030808448791503906,
+      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "remote_verified": false
+    },
+    {
+      "test_id": "DAT01",
+      "category": "1-data-integrity",
+      "purpose": "Every constant used by the code equals the value in the tracked material table",
+      "oracle": "literature/material_constants.csv, read independently of foundation_checks.build_materials()",
+      "oracle_independent": true,
+      "fixture": "4 media x all comparable constants (72 values)",
+      "expected": "0 mismatches at 1e-9 relative, and >=60 values compared",
+      "tolerance": 1e-09,
+      "tol_justification": "both sides are decimal literals for the same quantity, so agreement should be exact; 1e-9 allows only textual reformatting, never a unit slip",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 72,
+      "actual": "72 constants compared; 0 mismatches",
+      "detail": "",
+      "duration_s": 0.10598111152648926,
+      "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+      "remote_verified": false
+    }
+  ]
+}
