@@ -90,3 +90,21 @@ recorded in `05` §7.
   plates is established in the literature; the existence of the *fold* in a coupled plate is computed
   here; whether that fold yields usable negative reflection is the open question the proposal is
   designed to answer, starting with a cheap go/no-go gate.
+
+---
+
+## Audit of Blueprint V2.0 (4 Nov 2026)
+
+Referee audit of the author's own `FINAL RESEARCH BLUEPRINT — V2.0`
+(piezothermoelastic anti-reflection). Verdict: **REDESIGN**.
+
+- `ARENA_V2_CRITICAL_AUDIT.md` — full referee report, 4 critical / 6 major / 6 minor
+  findings with exact corrections, plus a staged redesign.
+- `ARENA_V2_CLAIM_EVIDENCE.csv` — 23 evidence rows, one per checkable claim.
+- `code/check_04_blueprint_audit.py` — all supporting numbers (Parts A–H).
+- `data/check_04_blueprint_audit.json`, `data/check_04_audit_log.txt` — results, log.
+
+Run: `python3 code/check_04_blueprint_audit.py` (~14 s).
+Three self-checks must pass on every run: uniform-medium limit (|R| = 3e-16),
+lossless energy balance (residual <= 7e-16), matched-layer quarter-wave limit
+(R_E = 6e-10).

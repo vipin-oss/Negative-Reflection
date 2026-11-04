@@ -363,10 +363,35 @@ def energy_velocity(pl, k: float, f: float):
     equals d(omega)/dk, but it is obtained WITHOUT differentiating a dispersion
     curve, so it needs no branch tracking and is robust across branch crossings.
 
+    SCOPE RESTRICTION (2026-11-04)
+    ------------------------------
+    This routine is ELASTIC-ONLY and now raises for a coupled plate.  Reason:
+    it computes sig = C:S, which omits the piezoelectric contribution, so it
+    is NOT domega/dk in a piezoelectric medium (measured discrepancy: the
+    uncorrected value differs from the true flux by up to a factor 2.1 at
+    k = 600 1/m; see check_03 V3).  Earlier results in check_02 that used this
+    routine for PZT-5H are therefore SUPERSEDED by
+    coupled_plate.GeneralPlate.flux(), which is validated against 2*pi*df/dk
+    for both elastic and coupled plates (check_03 V2a/V2b).
+
     Returns (v_e, P, T).
     """
-    q, _ = pl.eigen(k, f)
+    e = getattr(pl, "e", None)
+    if e is not None and np.any(np.asarray(e) != 0.0):
+        raise NotImplementedError(
+            "energy_velocity is validated for ELASTIC plates only.\n"
+            "For a piezoelectric / magneto-electro-elastic plate the physical "
+            "stress is\n    sig = C:S + e:E + q:H\nand the flux must include "
+            "the coupled stress.  Two independent implementations of that "
+            "expression\nwere found to disagree during development (the "
+            "potential recovered by eigen_full() does not reproduce the "
+            "Hellmann-Feynman value), so no coupled version is offered here.\n"
+            "Use coupled_plate.GeneralPlate.flux(), which is validated "
+            "against 2*pi*df/dk for both elastic and coupled plates\n"
+            "(code/check_03_multiphysics_premise.py, V2a/V2b).")
+
     n, D, w = pl.n, pl.D, pl.w
+    q, _ = pl.eigen(k, f)
     u1, u2 = q[0:n], q[n:2 * n]
     a = np.max(np.abs(q)) + 1e-300
     u1, u2 = u1 / a, u2 / a
@@ -376,6 +401,7 @@ def energy_velocity(pl, k: float, f: float):
     Sv[1] = D @ u2
     Sv[5] = D @ u1 + ik * u2
     sig = pl.C @ Sv
+
     om = 2 * np.pi * f
     P = (om / 2.0) * np.imag(np.sum(w * (sig[0] * np.conj(u1) + sig[5] * np.conj(u2))))
     T = (pl.rho * om ** 2 / 4.0) * np.sum(w * (np.abs(u1) ** 2 + np.abs(u2) ** 2))

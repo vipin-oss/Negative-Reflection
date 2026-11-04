@@ -1,0 +1,24 @@
+evidence_id,finding,claim,evidence_source,value,status
+EV-01,C-1,"Quarter-wave identity is exact, hence not a contribution","Part E (lossless scalar layer, Zm=sqrt(Z1Z2))",min|R| = 1.92e-06,VERIFIED
+EV-02,C-1,Same identity inside full elastic P-SV three-region model at normal incidence,"Part F5, theta=0","min R_E = 6.28e-10, T_E = 1.000000",VERIFIED
+EV-03,C-2,Matched condition degrades by 7 orders off normal incidence,"Part F5, theta=0 vs theta=20",R_E 6.28e-10 -> 1.88e-02,VERIFIED
+EV-04,C-2,Optimal interphase thickness leaves lambda/4 off normal incidence,Part F5,"h/lam = 0 deg:0.250, 10 deg:0.246, 20 deg:0.826, 30 deg:0.898, 40 deg:0.961",VERIFIED
+EV-05,C-2,Energy balance closed to machine precision in every F5 row,Part F5 residual column,max |residual| = 6.7e-16,SELF-CHECK PASS
+EV-06,C-3,"Thermal root is diffusive, never a propagating channel below 1e10 Hz",Part A,PZT-5H k_th/k_ac at 1 MHz = 1.47e+03; crossover 2.17e+12 Hz,VERIFIED
+EV-07,C-3,"Thermoelastic coupling parameter is O(1e-3), not O(1)",Part H,"PZT-5H 3.16e-03, BaTiO3 8.23e-03, Al 3.18e-02",VERIFIED
+EV-08,C-3,"Absorption term A_E is ~1e-10 Np/mm at 1 MHz, i.e. numerically zero",Part H,PZT-5H 5.8e-10 Np/mm; Aluminium 2.1e-07 Np/mm,VERIFIED
+EV-09,C-3,Lord-Shulman and Fourier indistinguishable in the intended band,Part B,"omega*tau_q = 6.3e-05 at tau=1e-11 s, f=1 MHz",VERIFIED
+EV-10,C-4,Sandwiched TEE layer + LS + R/T/dissipation ratios already published,Crossref 10.1016/j.compstruct.2023.117564,"Compos. Struct. 324:117564 (2023), Wang et al.",VERIFIED METADATA; full text not read
+EV-11,C-4,Piezoelectric (non-thermal) sandwiched plate between two half-spaces already published,Crossref 10.1016/j.tws.2021.108306,"Thin-Walled Struct. 168:108306 (2021), Liu et al.",VERIFIED METADATA; full text not read
+EV-12,C-4,Author prior art includes nonlocal piezothermoelastic R/T,Crossref 10.1108/hff-04-2022-0259,"Gupta, Kumar, Kumar, Pathania, Barak (2022)",VERIFIED METADATA; full text not read
+EV-13,M-1,"DOF count: n=8 forces 8 interface conditions, 16 for three regions",Part G derivation,"4R unknowns, 2 interfaces, C=2R => C=8, total 16",DERIVED
+EV-14,M-1,Seven-condition interface leaves rank deficiency one for this geometry,"Part G, seven_condition_analysis",deficit = 1,DERIVED; needs source paper to resolve
+EV-15,M-2,Reactive interface element cannot remove resistive mismatch,"Part E2, R_floor = |ReZin-Z1|/(ReZin+Z1)",floor lossless 4.4e-11 -> Q=1e2 1.7e-03,DERIVED + VERIFIED
+EV-16,M-2,Re(Zin)-Z1 > 0 for every h: only gain could close the floor,Part E2,needs_gain = True in all four cases,VERIFIED
+EV-17,M-3,Quarter-wave interphase impedance not realisable for piezoceramic-to-fluid,Part D,"required 6.67 MRayl, nearest solid Epoxy 2.95 MRayl (56% off)",VERIFIED (illustrative constants)
+EV-18,M-3,Best impedance match found is a solid-solid pair at 1.7%,Part D,PZT-5H|Steel error 1.7%,VERIFIED (illustrative constants)
+EV-19,m-5,Surface elasticity is ~6 orders too weak at 1 mm wavelength,Part C,eta_s = 1.21e-06 at lam=1e-3 m; unity at lam=1.2e-09 m,VERIFIED
+EV-20,m-1,Document does not compile: bare setlength on line 8,source inspection of preamble,missing backslash on setlength,VERIFIED BY INSPECTION (no TeX available)
+EV-21,C-4,"Self-check: uniform medium gives R=0, T=1",Part F1,"|Rp|=3.3e-16, T_E=1.000000000000",SELF-CHECK PASS
+EV-22,M-4,Lossless energy balance closes to 1e-16 in nine configurations,"Parts F2, F4, F5",max |R_E+T_E-1| = 7e-16,SELF-CHECK PASS
+EV-23,C-1,Blueprint's own compulsory benchmark realises the textbook result,SS9.1 vs EV-01/EV-02,"identity reproduced to 1e-10, therefore no analytical novelty","JUDGEMENT (derived from EV-01,2)"

@@ -1,0 +1,273 @@
+{
+  "validation": {
+    "V1_max_rel_freq_diff_vs_plate_spectral": 6.988229812239662e-12,
+    "V2a_elastic_hf_vs_dfdk_max_rel": 2.039819834164596e-07,
+    "V2b_piezo_hf_vs_dfdk_max_rel": 4.783303219897334e-08,
+    "V3_correction": [
+      {
+        "k": 600.0,
+        "f": 1137983.2359531748,
+        "v_validated": -357.89476197893,
+        "v_uncorrected": -202.15097475403013,
+        "ratio_uncorrected": 0.5648335662591542
+      },
+      {
+        "k": 700.0,
+        "f": 1133013.0005836985,
+        "v_validated": -259.84337031920387,
+        "v_uncorrected": -122.74785800478008,
+        "ratio_uncorrected": 0.47239172526892187
+      },
+      {
+        "k": 1200.0,
+        "f": 1147402.5561760233,
+        "v_validated": 746.8529256828625,
+        "v_uncorrected": 728.031066023039,
+        "ratio_uncorrected": 0.9747984388725339
+      }
+    ],
+    "V3_plate_spectral_guard": "raises NotImplementedError for coupled plates"
+  },
+  "premise": {
+    "thickness_mm": 1.5,
+    "elastic": {
+      "f_MHz": 1.8903825991841015,
+      "k": 1061.0228342749529,
+      "abs_ve": 0.10018159037517363
+    },
+    "MEE piezo only @ 1.7847 MHz": {
+      "n_fields": 1,
+      "f_MHz": 1.7847120729915422,
+      "k": 919.7798964218456,
+      "abs_ve": 0.16783986684505395
+    },
+    "MEE magnetic only @ 1.7753 MHz": {
+      "n_fields": 1,
+      "f_MHz": 1.7752965631980209,
+      "k": 932.5800376647834,
+      "abs_ve": 0.06338083674432528
+    },
+    "MEE fully coupled @ 1.7879 MHz": {
+      "n_fields": 2,
+      "f_MHz": 1.7878739755711532,
+      "k": 911.9821092278719,
+      "abs_ve": 0.11152452715635235
+    },
+    "MEE bc open/open @ 1.7879 MHz": {
+      "f_MHz": 1.7878739755711532,
+      "k": 911.9821092278719,
+      "abs_ve": 0.11152452715635235
+    },
+    "MEE bc short/open @ 1.7874 MHz": {
+      "f_MHz": 1.787351233509016,
+      "k": 902.8601694915254,
+      "abs_ve": 0.15977781827060636
+    },
+    "MEE bc open/short @ 1.7857 MHz": {
+      "f_MHz": 1.7856841520784923,
+      "k": 911.9821092278719,
+      "abs_ve": 0.1508417249612564
+    },
+    "MEE bc short/short @ 1.7847 MHz": {
+      "f_MHz": 1.784730680884612,
+      "k": 899.1819679849341,
+      "abs_ve": 0.12939262000607138
+    },
+    "MEE_mesh_invariance_rel": 6.160590860042365e-08,
+    "thermo_beta1_Pa_per_K": 2316800.0,
+    "thermo_note": "thermal scalar is mathematically equivalent to an extra quasi-static potential in the lossless/Fourier limit; hyperbolic (MGT/TPL) conduction makes the operator NON-self-adjoint and is outside this module's contract"
+  },
+  "scaling": {
+    "reference_window_at_1p5mm": {
+      "k": [
+        450.0,
+        1700.0
+      ],
+      "f_MHz": [
+        0.85,
+        2.4
+      ]
+    },
+    "table": {
+      "2h=0.05 mm": {
+        "isotropic elastic": [
+          {
+            "k": 31831.068840579712,
+            "f_MHz": 56.71147797049953,
+            "abs_ve": 0.06434582816420681,
+            "genuine": true
+          }
+        ],
+        "PZT-5H open": [
+          {
+            "k": 26184.93357487923,
+            "f_MHz": 33.875722443208026,
+            "abs_ve": 0.0736601935987815,
+            "genuine": true
+          }
+        ],
+        "PZT-5H short": [
+          {
+            "k": 26800.120772946862,
+            "f_MHz": 33.869153613714296,
+            "abs_ve": 0.021243918651798466,
+            "genuine": true
+          }
+        ],
+        "MEE open/open": [
+          {
+            "k": 27358.695652173912,
+            "f_MHz": 53.636219257165976,
+            "abs_ve": 0.051686167502814746,
+            "genuine": true
+          }
+        ],
+        "MEE short/short": [
+          {
+            "k": 26973.731884057972,
+            "f_MHz": 53.54192040891165,
+            "abs_ve": 0.0011265468518127553,
+            "genuine": true
+          }
+        ]
+      },
+      "2h=0.50 mm": {
+        "isotropic elastic": [
+          {
+            "k": 3183.1068840579715,
+            "f_MHz": 5.671147797049658,
+            "abs_ve": 0.06434582917091786,
+            "genuine": true
+          }
+        ],
+        "PZT-5H open": [
+          {
+            "k": 2618.493357487923,
+            "f_MHz": 3.387572244320689,
+            "abs_ve": 0.07365985437472801,
+            "genuine": true
+          }
+        ],
+        "PZT-5H short": [
+          {
+            "k": 2680.012077294686,
+            "f_MHz": 3.386915361371448,
+            "abs_ve": 0.021243719984950497,
+            "genuine": true
+          }
+        ],
+        "MEE open/open": [
+          {
+            "k": 2735.869565217391,
+            "f_MHz": 5.363621925716826,
+            "abs_ve": 0.05168554580993443,
+            "genuine": true
+          }
+        ],
+        "MEE short/short": [
+          {
+            "k": 2697.373188405797,
+            "f_MHz": 5.354192040891012,
+            "abs_ve": 0.0011267208530845278,
+            "genuine": true
+          }
+        ]
+      },
+      "2h=1.50 mm": {
+        "isotropic elastic": [
+          {
+            "k": 1061.0356280193237,
+            "f_MHz": 1.8903825990166305,
+            "abs_ve": 0.06434578820155376,
+            "genuine": true
+          }
+        ],
+        "PZT-5H open": [
+          {
+            "k": 872.831119162641,
+            "f_MHz": 1.1291907481068966,
+            "abs_ve": 0.07365999118779715,
+            "genuine": true
+          }
+        ],
+        "PZT-5H short": [
+          {
+            "k": 893.3373590982287,
+            "f_MHz": 1.1289717871237928,
+            "abs_ve": 0.021243588278682102,
+            "genuine": true
+          }
+        ],
+        "MEE open/open": [
+          {
+            "k": 911.9565217391305,
+            "f_MHz": 1.7878739752387778,
+            "abs_ve": 0.051685991745649515,
+            "genuine": true
+          }
+        ],
+        "MEE short/short": [
+          {
+            "k": 899.1243961352658,
+            "f_MHz": 1.7847306802970446,
+            "abs_ve": 0.0011263669101989767,
+            "genuine": true
+          }
+        ]
+      }
+    },
+    "geometric_scaling": {
+      "isotropic elastic": {
+        "f_times_2h": [
+          2.8355738985249768,
+          2.835573898524829,
+          2.8355738985249457
+        ],
+        "spread_f_pct": 5.218048215738236e-12,
+        "spread_k_pct": 2.220446049250313e-14
+      },
+      "PZT-5H open": {
+        "f_times_2h": [
+          1.6937861221604014,
+          1.6937861221603445,
+          1.6937861221603447
+        ],
+        "spread_f_pct": 3.3528735343679728e-12,
+        "spread_k_pct": 2.220446049250313e-14
+      },
+      "PZT-5H short": {
+        "f_times_2h": [
+          1.693457680685715,
+          1.693457680685724,
+          1.6934576806856891
+        ],
+        "spread_f_pct": 2.065014825802791e-12,
+        "spread_k_pct": 2.220446049250313e-14
+      },
+      "MEE open/open": {
+        "f_times_2h": [
+          2.681810962858299,
+          2.681810962858413,
+          2.6818109628581666
+        ],
+        "spread_f_pct": 9.192646643896296e-12,
+        "spread_k_pct": 2.220446049250313e-14
+      },
+      "MEE short/short": {
+        "f_times_2h": [
+          2.6770960204455827,
+          2.677096020445506,
+          2.6770960204455667
+        ],
+        "spread_f_pct": 2.864375403532904e-12,
+        "spread_k_pct": 2.220446049250313e-14
+      }
+    },
+    "pct_at_1p5mm": {
+      "pzt_open_vs_elastic": -40.26654981408012,
+      "pzt_short_vs_open": -0.019390965031451657,
+      "mee_open_vs_elastic": -5.422638984890005,
+      "mee_short_vs_open": -0.1758118852484225
+    }
+  }
+}

@@ -1,0 +1,91 @@
+========================================================================
+V1/V2/V3  validation of the generalised solver
+========================================================================
+  V1  generalised vs validated piezoelectric solver : 6.99e-12  PASS
+  V2a k=  900.0  v_e=   -417.8704  2pi*df/dk=   -417.8704  rel=2.5e-08
+  V2a k= 1000.0  v_e=   -166.0449  2pi*df/dk=   -166.0449  rel=1.0e-07
+  V2a k= 1100.0  v_e=    111.1879  2pi*df/dk=    111.1879  rel=2.0e-07
+  V2a k= 1200.0  v_e=    416.9574  2pi*df/dk=    416.9575  rel=7.1e-08
+  V2a elastic: worst relative difference 2.04e-07  PASS
+  V2b k=  500.0  v_e=   -412.8143  2pi*df/dk=   -412.8143  rel=1.9e-08
+  V2b k=  600.0  v_e=   -357.8948  2pi*df/dk=   -357.8948  rel=2.4e-08
+  V2b k=  700.0  v_e=   -259.8434  2pi*df/dk=   -259.8434  rel=4.8e-08
+  V2b k= 1200.0  v_e=    746.8529  2pi*df/dk=    746.8529  rel=1.9e-08
+  V2b k= 1300.0  v_e=   1018.9334  2pi*df/dk=   1018.9334  rel=4.6e-09
+  V2b piezo:   worst relative difference 4.78e-08  PASS
+
+  V3  CORRECTION: the flux must include the piezoelectric stress
+      sig = C:S + e:E   (the uncorrected form used only C:S):
+      k=  600.0  f=1.137983 MHz  uncorrected=  -202.151  validated=  -357.895  ratio= 0.565
+      k=  700.0  f=1.133013 MHz  uncorrected=  -122.748  validated=  -259.843  ratio= 0.472
+      k= 1200.0  f=1.147403 MHz  uncorrected=   728.031  validated=   746.853  ratio= 0.975
+      plate_spectral.energy_velocity now refuses coupled plates (guard active)
+
+========================================================================
+V4-V8  multiphysics premise: does the fold exist?
+========================================================================
+  elastic baseline            f_ZGV=  1.89038 MHz  k= 1061.02  |v_e|=1.00e-01
+  MEE piezo only             (1 field) f_ZGV=  1.78471 MHz  k=  919.78  |v_e|=1.68e-01
+  MEE magnetic only          (1 field) f_ZGV=  1.77530 MHz  k=  932.58  |v_e|=6.34e-02
+  MEE fully coupled          (2 fields) f_ZGV=  1.78787 MHz  k=  911.98  |v_e|=1.12e-01
+  MEE bc open/open                f_ZGV=  1.78787 MHz  k=  911.98  |v_e|=1.12e-01
+  MEE bc short/open               f_ZGV=  1.78735 MHz  k=  902.86  |v_e|=1.60e-01
+  MEE bc open/short               f_ZGV=  1.78568 MHz  k=  911.98  |v_e|=1.51e-01
+  MEE bc short/short              f_ZGV=  1.78473 MHz  k=  899.18  |v_e|=1.29e-01
+  MEE mesh invariance N=24 vs 30: 6.16e-08 (PASS)
+
+  piezothermoelastic: the thermal scalar enters the LOSSLESS quasi-static limit
+  exactly like an extra potential, with the thermal-conductivity block in place
+  of the permittivity block. It is included here to show the fold survives;
+  a Fourier-type thermal field adds NO new branch.
+      thermal-stress coefficients beta_1 = 2.3168e+06 Pa/K  (from alpha = 8.0e-06 1/K)
+
+========================================================================
+V9  fold location, thickness scaling, surface-condition sensitivity
+========================================================================
+  2h=0.05 mm   isotropic elastic  f_ZGV=  56.71148 MHz  k=  31831.07  2h*k= 1.5916  |v_e|=6.43e-02
+  2h=0.05 mm   PZT-5H open        f_ZGV=  33.87572 MHz  k=  26184.93  2h*k= 1.3092  |v_e|=7.37e-02
+  2h=0.05 mm   PZT-5H short       f_ZGV=  33.86915 MHz  k=  26800.12  2h*k= 1.3400  |v_e|=2.12e-02
+  2h=0.05 mm   MEE open/open      f_ZGV=  53.63622 MHz  k=  27358.70  2h*k= 1.3679  |v_e|=5.17e-02
+  2h=0.05 mm   MEE short/short    f_ZGV=  53.54192 MHz  k=  26973.73  2h*k= 1.3487  |v_e|=1.13e-03
+  2h=0.50 mm   isotropic elastic  f_ZGV=   5.67115 MHz  k=   3183.11  2h*k= 1.5916  |v_e|=6.43e-02
+  2h=0.50 mm   PZT-5H open        f_ZGV=   3.38757 MHz  k=   2618.49  2h*k= 1.3092  |v_e|=7.37e-02
+  2h=0.50 mm   PZT-5H short       f_ZGV=   3.38692 MHz  k=   2680.01  2h*k= 1.3400  |v_e|=2.12e-02
+  2h=0.50 mm   MEE open/open      f_ZGV=   5.36362 MHz  k=   2735.87  2h*k= 1.3679  |v_e|=5.17e-02
+  2h=0.50 mm   MEE short/short    f_ZGV=   5.35419 MHz  k=   2697.37  2h*k= 1.3487  |v_e|=1.13e-03
+  2h=1.50 mm   isotropic elastic  f_ZGV=   1.89038 MHz  k=   1061.04  2h*k= 1.5916  |v_e|=6.43e-02
+  2h=1.50 mm   PZT-5H open        f_ZGV=   1.12919 MHz  k=    872.83  2h*k= 1.3092  |v_e|=7.37e-02
+  2h=1.50 mm   PZT-5H short       f_ZGV=   1.12897 MHz  k=    893.34  2h*k= 1.3400  |v_e|=2.12e-02
+  2h=1.50 mm   MEE open/open      f_ZGV=   1.78787 MHz  k=    911.96  2h*k= 1.3679  |v_e|=5.17e-02
+  2h=1.50 mm   MEE short/short    f_ZGV=   1.78473 MHz  k=    899.12  2h*k= 1.3487  |v_e|=1.13e-03
+
+  geometric scaling (2h*f and 2h*k must be constant):
+    isotropic elastic  2h*f = ['2.8356', '2.8356', '2.8356']   spread 0.000 %
+    PZT-5H open        2h*f = ['1.6938', '1.6938', '1.6938']   spread 0.000 %
+    PZT-5H short       2h*f = ['1.6935', '1.6935', '1.6935']   spread 0.000 %
+    MEE open/open      2h*f = ['2.6818', '2.6818', '2.6818']   spread 0.000 %
+    MEE short/short    2h*f = ['2.6771', '2.6771', '2.6771']   spread 0.000 %
+
+  all genuine folds found:
+    2h=0.05 mm   isotropic elastic  56.7115 MHz @ k=31831.1
+    2h=0.05 mm   PZT-5H open        33.8757 MHz @ k=26184.9
+    2h=0.05 mm   PZT-5H short       33.8692 MHz @ k=26800.1
+    2h=0.05 mm   MEE open/open      53.6362 MHz @ k=27358.7
+    2h=0.05 mm   MEE short/short    53.5419 MHz @ k=26973.7
+    2h=0.50 mm   isotropic elastic  5.6711 MHz @ k=3183.1
+    2h=0.50 mm   PZT-5H open        3.3876 MHz @ k=2618.5
+    2h=0.50 mm   PZT-5H short       3.3869 MHz @ k=2680.0
+    2h=0.50 mm   MEE open/open      5.3636 MHz @ k=2735.9
+    2h=0.50 mm   MEE short/short    5.3542 MHz @ k=2697.4
+    2h=1.50 mm   isotropic elastic  1.8904 MHz @ k=1061.0
+    2h=1.50 mm   PZT-5H open        1.1292 MHz @ k=872.8
+    2h=1.50 mm   PZT-5H short       1.1290 MHz @ k=893.3
+    2h=1.50 mm   MEE open/open      1.7879 MHz @ k=912.0
+    2h=1.50 mm   MEE short/short    1.7847 MHz @ k=899.1
+  at 1.5 mm:
+    pzt_open_vs_elastic     -40.2665 %
+    pzt_short_vs_open        -0.0194 %
+    mee_open_vs_elastic      -5.4226 %
+    mee_short_vs_open        -0.1758 %
+
+wrote /home/user/Negative-Reflection/data/check_03_multiphysics_premise.json

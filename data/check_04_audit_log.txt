@@ -1,0 +1,29 @@
+self-check F1 uniform medium : |Rp|=3.26e-16 |Rs|=3.06e-17 T_E=1.000000000000 res=-1.1e-16
+  F2 h/lam=0.10  R_E=+0.158468  T_E=+0.841532  res=+4.4e-16
+  F2 h/lam=0.25  R_E=+0.110722  T_E=+0.889278  res=-1.1e-16
+  F2 h/lam=0.50  R_E=+0.172159  T_E=+0.827841  res=-3.3e-16
+  F2 h/lam=0.75  R_E=+0.129945  T_E=+0.870055  res=-4.4e-16
+  F5 ideal matched layer, theta= 0 : min R_E=6.280e-10 at h/lam=0.2500 (|Rpp|=2.51e-05 |Rps|=0.00e+00)
+  F5 ideal matched layer, theta=10 : min R_E=6.147e-03 at h/lam=0.2461 (|Rpp|=2.13e-02 |Rps|=5.28e-02)
+  F5 ideal matched layer, theta=20 : min R_E=1.877e-02 at h/lam=0.8255 (|Rpp|=7.62e-02 |Rps|=7.82e-02)
+  F5 ideal matched layer, theta=30 : min R_E=9.187e-03 at h/lam=0.8978 (|Rpp|=8.03e-02 |Rps|=3.48e-02)
+  F5 ideal matched layer, theta=40 : min R_E=2.693e-05 at h/lam=0.9608 (|Rpp|=4.86e-03 |Rps|=1.15e-03)
+F3 min reflected POWER at h/lam=0.8400 : R_E=9.0771e-02  T_E=0.909229  |Rpp|=2.2930e-01 |Rps|=1.3003e-01
+   min |Rpp| at h/lam=1.3395 : |Rpp|=1.9820e-01 |Rps|=1.9869e-01 R_E=1.2846e-01
+  H PZT-5H     eps=0.0032 f=1e+04 alpha_th=5.79e-11 Np/m (5.8e-14 Np/mm)
+  H PZT-5H     eps=0.0032 f=1e+05 alpha_th=5.79e-09 Np/m (5.8e-12 Np/mm)
+  H PZT-5H     eps=0.0032 f=1e+06 alpha_th=5.79e-07 Np/m (5.8e-10 Np/mm)
+  H PZT-5H     eps=0.0032 f=1e+07 alpha_th=5.79e-05 Np/m (5.8e-08 Np/mm)
+  H BaTiO3     eps=0.0082 f=1e+04 alpha_th=8.76e-11 Np/m (8.8e-14 Np/mm)
+  H BaTiO3     eps=0.0082 f=1e+05 alpha_th=8.76e-09 Np/m (8.8e-12 Np/mm)
+  H BaTiO3     eps=0.0082 f=1e+06 alpha_th=8.76e-07 Np/m (8.8e-10 Np/mm)
+  H BaTiO3     eps=0.0082 f=1e+07 alpha_th=8.76e-05 Np/m (8.8e-08 Np/mm)
+  H Aluminium  eps=0.0318 f=1e+04 alpha_th=2.09e-08 Np/m (2.1e-11 Np/mm)
+  H Aluminium  eps=0.0318 f=1e+05 alpha_th=2.09e-06 Np/m (2.1e-09 Np/mm)
+  H Aluminium  eps=0.0318 f=1e+06 alpha_th=2.09e-04 Np/m (2.1e-07 Np/mm)
+  H Aluminium  eps=0.0318 f=1e+07 alpha_th=2.09e-02 Np/m (2.1e-05 Np/mm)
+  H Steel      eps=0.0099 f=1e+04 alpha_th=1.16e-09 Np/m (1.2e-12 Np/mm)
+  H Steel      eps=0.0099 f=1e+05 alpha_th=1.16e-07 Np/m (1.2e-10 Np/mm)
+  H Steel      eps=0.0099 f=1e+06 alpha_th=1.16e-05 Np/m (1.2e-08 Np/mm)
+  H Steel      eps=0.0099 f=1e+07 alpha_th=1.16e-03 Np/m (1.2e-06 Np/mm)
+wrote /home/user/Negative-Reflection/data/check_04_blueprint_audit.json
