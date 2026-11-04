@@ -1,8 +1,8 @@
 {
   "title": "Reduced elastic P-SV reflection at an Al6061 / steel-like interface",
-  "date_utc": "2026-11-04T10:44:03+00:00",
-  "code_commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
-  "material_source_version": "8f43844a9f99fe2f1c236fd527b289f994ac9d91c88de2c73e9f1bd6cd2a40cb",
+  "date_utc": "2026-11-04T11:52:32+00:00",
+  "code_commit": "5bf01f10ba66c638a57f89cc73656c6538dd50eb",
+  "material_source_version": "d2736d7fce41a7a5d508a5af6023af929613a4e10aee02dc172a376494a2985c",
   "dependency_versions": {
     "python": "3.11.2",
     "numpy": "2.4.6",

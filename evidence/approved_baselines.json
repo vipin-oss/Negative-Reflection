@@ -20,7 +20,11 @@
       "test_suite_revision": "no automated suite",
       "approved_outputs": {},
       "passed_tests": [],
-      "unresolved_issues": ["U-3", "U-4", "U-11"],
+      "unresolved_issues": [
+        "U-3",
+        "U-4",
+        "U-11"
+      ],
       "superseded_by": "BASELINE-01B-2",
       "supersession_reason": "Two P0 defects: the parity transform was wrong (6 of 16 entries) and the thermal flux term was linear in one phasor (34 orders of magnitude wrong on the thermal branch). The CdSe relaxation time had also been tuned to clear a rule that was later withdrawn.",
       "authorised_by": null,
@@ -39,10 +43,24 @@
         "validation/phase_01b_test_results.json": "recorded",
         "data/foundation_checks.json": "recorded"
       },
-      "passed_tests": {"PASS": 15, "FAIL": 0, "UNRESOLVED": 1, "WITHDRAWN": 0,
-                       "total": 16, "executed_cases": 151},
-      "unresolved_issues": ["U-3 (D2 only)", "U-4", "U-5", "U-6", "U-7", "U-8", "U-9",
-                            "U-12"],
+      "passed_tests": {
+        "PASS": 15,
+        "FAIL": 0,
+        "UNRESOLVED": 1,
+        "WITHDRAWN": 0,
+        "total": 16,
+        "executed_cases": 151
+      },
+      "unresolved_issues": [
+        "U-3 (D2 only)",
+        "U-4",
+        "U-5",
+        "U-6",
+        "U-7",
+        "U-8",
+        "U-9",
+        "U-12"
+      ],
       "superseded_by": "BASELINE-01C-1",
       "supersession_reason": "Superseded by Phase 1C, which adds the claim and equation registries, the dependency graph, an automated suite, a mutation suite and experiment manifests. The 1B defect is unchanged: D2 remains UNRESOLVED.",
       "authorised_by": null,
@@ -64,12 +82,48 @@
         "validation/evidence/EXP-FOUND-01B": "UNRESOLVED by design (D2)"
       },
       "passed_tests": "SEE reports/PHASE_01C_VALIDATION_SUMMARY.json",
-      "unresolved_issues": ["BLK-U3", "BLK-G0", "BLK-G1", "BLK-G4", "BLK-G5",
-                            "BLK-U5", "BLK-LS-STORAGE"],
+      "unresolved_issues": [
+        "BLK-U3",
+        "BLK-G0",
+        "BLK-G1",
+        "BLK-G4",
+        "BLK-G5",
+        "BLK-U5",
+        "BLK-LS-STORAGE"
+      ],
       "superseded_by": null,
       "supersession_reason": null,
       "authorised_by": null,
       "note": "CANDIDATE, not APPROVED. Six mandatory blockers are open, so promotion is refused by construction. No supervisor authorisation has been sought or given."
+    },
+    {
+      "baseline_id": "BASELINE-01D-1",
+      "status": "ACTIVE",
+      "level": "CANDIDATE",
+      "code_commit": "see the Phase 1D commit on arena/a3ede4fe-negative-reflection",
+      "phase": "1D",
+      "material_data_version": "literature/material_constants.csv @ d2736d7fce41 (UNCHANGED by Phase 1D); code/foundation_checks.py now LOADS this table instead of hard-coding the same values",
+      "equation_revision": "Phase 1D: flux_z_mp Dz uses eps33 (was eps11); transverse conduction added to the dissipation channel, deliberately NOT to the flux",
+      "test_suite_revision": "36 -> 40 L1 cases; new test_07_u3_direction.py (U3A-U3D)",
+      "approved_outputs": {},
+      "passed_tests": [
+        "U3A",
+        "U3B",
+        "U3C",
+        "U3D"
+      ],
+      "unresolved_issues": [
+        "BLK-G4",
+        "BLK-G5",
+        "BLK-G0",
+        "BLK-G1",
+        "BLK-U5",
+        "BLK-LS-STORAGE"
+      ],
+      "supersedes": null,
+      "authorised_by": null,
+      "note": "Phase 1D corrective baseline. Recorded because the EXP-FOUND-01B manifest output hash legitimately changed: D2 (the flux balance) now closes at 6.4e-62 instead of 1.86e-5, after the eps11->eps33 correction in flux_z_mp. This is a CORRECTION, not a tolerance relaxation: the tolerance in check_D2_balance was not touched. The pre-repair outputs are preserved verbatim in reports/phase_01d_pre_repair_evidence/ and the pre-repair checksums in reports/PHASE_01D_PRE_REPAIR_INPUT_CHECKSUMS.json. NOT an APPROVED baseline: promotion remains blocked.",
+      "code_commit_note": "Recorded as a commit reference rather than a SHA because this file is part of the commit it describes; the SHA is on the branch and in the PR."
     }
   ],
   "change_log": [
@@ -90,6 +144,18 @@
       "baseline": "BASELINE-01C-1",
       "change": "created at CANDIDATE",
       "reason": "Phase 1C validation infrastructure completed; promotion still refused by open blockers"
+    }
+  ],
+  "phase_01d_change_log": [
+    {
+      "utc": "2026-11-04T11:36:53+00:00",
+      "files_changed": {
+        "theory/energy_flux_derivation.tex": "appended Sec. 'Lord-Shulman thermodynamic closure' (LS stored-energy question resolved at the mathematical level)",
+        "theory/governing_equations.tex": "removed withdrawn tau_q causality floor from active theory; recorded retraction + 4-category separation (A active assumptions / B withdrawn / C optional restrictions / D unresolved)",
+        "code/foundation_checks.py": "flux_z_mp: eps11->eps33 in Dz (U3-A); build_materials now loads the versioned table with a validated fallback"
+      },
+      "reason": "Phase 1D foundation repair, tasks 2-5. Every change is a correction with a regression test; no tolerance was relaxed.",
+      "preserved": "reports/phase_01d_pre_repair_evidence/, reports/PHASE_01D_PRE_REPAIR_INPUT_CHECKSUMS.json, reports/PHASE_01D_MANIFEST_VERIFY_BEFORE.txt"
     }
   ]
 }

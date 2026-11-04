@@ -1,10 +1,10 @@
 {
   "schema_version": "1.0",
-  "generated_utc": "2026-11-04T11:02:12+00:00",
+  "generated_utc": "2026-11-04T11:59:07+00:00",
   "origin_repo": "/home/user/Negative-Reflection",
   "origin_untouched": true,
-  "total": 11,
-  "detected": 11,
+  "total": 19,
+  "detected": 19,
   "detection_rate_percent": 100.0,
   "survivors": [],
   "invalid_detectors": [],
@@ -39,7 +39,7 @@
       "detector": "check_D2_balance must not report PASS",
       "rationale": "The Phase-1 P0 defect, re-injected. The detector is the Second-Law balance, which shares no amplitude with the flux.",
       "result": "DETECTED",
-      "evidence": "D2 status under the mutated flux: UNRESOLVED",
+      "evidence": "D2 status under the mutated flux: FAIL (n_exec=2, worst rel. residual 1.00e+00)",
       "control_fired": false,
       "control_evidence": "mutation did not apply (no marker found)"
     },
@@ -72,9 +72,9 @@
       "detector": "the implied longitudinal speed must leave the physically admissible band",
       "rationale": "A silent 1000x unit error changes every dimensionless group.",
       "result": "DETECTED",
-      "evidence": "DAT01 exit 1; ______________________ test_DAT01_code_matches_data_table ______________________",
+      "evidence": "DAT01+PRV06 exit 1; ______________ test_PRV06_table_values_are_physically_admissible _______________",
       "control_fired": false,
-      "control_evidence": "DAT01 exit 0; no cross-source mismatch reported"
+      "control_evidence": "DAT01+PRV06 exit 0; no mismatch reported"
     },
     {
       "id": "M07",
@@ -130,6 +130,94 @@
       "evidence": "binding test exit 1;                     problems.append((cid, f\"TOKEN_MISSING {miss} in {b['fn']}\")); E             detail:   [('CLM-C1-04', 'VERIFIED but NOT BOUND in claim_evidence_map')]",
       "control_fired": false,
       "control_evidence": "binding test exit 0; no C1-04 diagnosis in output"
+    },
+    {
+      "id": "M12",
+      "title": "inaccurate eigenvector direction despite a tiny characteristic residual",
+      "target": "code/foundation_checks.py",
+      "detector": "U3C must detect that the null-vector DIRECTION moved",
+      "rationale": "The Phase 1D warning: a small |M a| residual does not certify the direction. Phase 1C used the residual as a proxy and reached a wrong diagnosis as a result.",
+      "result": "DETECTED",
+      "evidence": "U3C exit 1;             detail = \"\\n\".join(f\"branch |Im xi|={a}: direction difference = {b}\"",
+      "control_fired": false,
+      "control_evidence": "U3C exit 0; no diagnosis"
+    },
+    {
+      "id": "M13",
+      "title": "wrong displacement-vs-potential scaling",
+      "target": "code/foundation_checks.py",
+      "detector": "the energy balance must fail when phi is scaled relative to u",
+      "rationale": "A gauge/scaling error leaves M a = 0 intact but changes every boundary-state quantity.",
+      "result": "DETECTED",
+      "evidence": "balance residual under the scaling error: 120.23294777262858",
+      "control_fired": false,
+      "control_evidence": "balance residual under the scaling error: 3.4428762383795767e-62"
+    },
+    {
+      "id": "M14",
+      "title": "incorrectly removed electric gauge mode",
+      "target": "code/foundation_checks.py",
+      "detector": "the root count must remain 8",
+      "rationale": "Dropping the gauge branch loses a genuine mode and corrupts the incoming/outgoing selection.",
+      "result": "DETECTED",
+      "evidence": "root counts under the mutation: [4, 4] (must be [8, 8])",
+      "control_fired": false,
+      "control_evidence": "root counts under the mutation: [8, 8] (must be [8, 8])"
+    },
+    {
+      "id": "M15",
+      "title": "missing Lord-Shulman relaxation operator in the heat flux",
+      "target": "code/foundation_checks.py",
+      "detector": "the energy balance must fail when (1 - i w tau_q) is dropped",
+      "rationale": "The relaxation operator IS the Lord-Shulman correction; dropping it silently reverts to Fourier conduction.",
+      "result": "DETECTED",
+      "evidence": "balance residual with the relaxation operator removed: 2.324773050455118e-06",
+      "control_fired": false,
+      "control_evidence": "balance residual with the relaxation operator removed: 3.4428762383795767e-62"
+    },
+    {
+      "id": "M16",
+      "title": "invalid material-data provenance (literal drifts from the table)",
+      "target": "code/foundation_checks.py",
+      "detector": "DAT02 must fail",
+      "rationale": "A hard-coded value that no longer matches the versioned table is the provenance defect the review names.",
+      "result": "DETECTED",
+      "evidence": "DAT02 exit 1;         \"\"\"The frozen literals must equal the table-loaded values exactly.",
+      "control_fired": false,
+      "control_evidence": "DAT02 exit 0; no diagnosis"
+    },
+    {
+      "id": "M17",
+      "title": "stale evidence registry after a theory correction",
+      "target": "theory/energy_flux_derivation.tex",
+      "detector": "the frozen-input check must fail",
+      "rationale": "The theory text is checksummed; editing it without regenerating the register must be caught.",
+      "result": "DETECTED",
+      "evidence": "ART02 exit 1; energy_flux_derivation.tex named in the diagnosis: True",
+      "control_fired": false,
+      "control_evidence": "ART02 exit 0; energy_flux_derivation.tex named in the diagnosis: False"
+    },
+    {
+      "id": "M18",
+      "title": "promotion with an open mandatory blocker / non-computing test",
+      "target": "evidence/claim_registry.csv",
+      "detector": "claim binding must fail",
+      "rationale": "A passing suite must not promote a claim whose named test no longer computes the asserted quantity.",
+      "result": "DETECTED",
+      "evidence": "claim-binding exit 1;                 # rewriting CLM-D2-01's test_id to a test that does not compute the",
+      "control_fired": false,
+      "control_evidence": "claim-binding exit 0; no diagnosis"
+    },
+    {
+      "id": "M19",
+      "title": "withdrawn tau_q causality floor restored to the active theory",
+      "target": "theory/governing_equations.tex",
+      "detector": "THY02 must detect an active causality-floor assertion",
+      "rationale": "BLK-DOC-01 was still live in Phase 1D: the boxed floor survived as a \textsc{Derived} result long after the claim was marked INVALID.",
+      "result": "DETECTED",
+      "evidence": "THY02 exit 1;                       f\"active causality-floor assertions found: {len(active_hits)}\")",
+      "control_fired": false,
+      "control_evidence": "THY02 exit 0; no diagnosis"
     }
   ]
 }

@@ -1,0 +1,153 @@
+{
+  "schema_version": "1.0",
+  "phase": "1D",
+  "generated_utc": "2026-11-04T11:56:02+00:00",
+  "branch": "arena/a3ede4fe-negative-reflection",
+  "start_commit": "5bf01f10ba66c638a57f89cc73656c6538dd50eb",
+  "reproduce": {
+    "level1": "cd validation && python3 run_fast.py",
+    "level2": "cd validation && python3 run_standard.py",
+    "mutations": "python3 validation/mutation_tests/run_mutations.py",
+    "manifest_verify": "python3 validation/regen_manifests.py",
+    "gate": "cd validation && python3 ci_gate.py",
+    "impact": "python3 evidence/impact_analysis.py --changed EQ-ENG-02",
+    "foundation": "python3 code/foundation_checks.py"
+  },
+  "level1": {
+    "total": 56,
+    "pass": 55,
+    "fail": 0,
+    "unresolved": 1,
+    "withdrawn": 0,
+    "not_applicable": 0,
+    "executed_cases": 9449,
+    "exit_code": 2,
+    "zero_case_tests": [
+      "SCT02"
+    ],
+    "baseline_before_phase_1d": {
+      "total": 36,
+      "pass": 35,
+      "fail": 0,
+      "unresolved": 1,
+      "executed_cases": 9292
+    }
+  },
+  "foundation_suite": {
+    "checks": 16,
+    "pass": 16,
+    "fail": 0,
+    "note": "all 16 PASS; D2 improved from 1.86e-5 to 3.45e-42"
+  },
+  "mutations": {
+    "total": 19,
+    "detected": [
+      "M01",
+      "M02",
+      "M03",
+      "M04",
+      "M05",
+      "M06",
+      "M07",
+      "M08",
+      "M09",
+      "M10",
+      "M11",
+      "M12",
+      "M13",
+      "M14",
+      "M15",
+      "M16",
+      "M17",
+      "M18",
+      "M19"
+    ],
+    "survivors": [],
+    "invalid_detectors": [],
+    "inconclusive": [],
+    "new_in_phase_1d": [
+      "M12",
+      "M13",
+      "M14",
+      "M15",
+      "M16",
+      "M17",
+      "M18",
+      "M19"
+    ],
+    "detection_rate": "19/19 = 100%"
+  },
+  "registries": {
+    "claims": {
+      "total": 45,
+      "tally": {
+        "VERIFIED_STRONG": 29,
+        "VERIFIED_WEAK": 9,
+        "UNVERIFIED": 5,
+        "INVALID": 2
+      }
+    },
+    "equations": {
+      "total": 41,
+      "tally": {
+        "DEFINED_NOT_TESTED": 3,
+        "VERIFIED_STRONG": 20,
+        "INVALID": 3,
+        "VERIFIED_WEAK": 6,
+        "UNRESOLVED": 7,
+        "PARTIAL": 2
+      }
+    }
+  },
+  "blockers": {
+    "closed_in_phase_1d": [
+      "BLK-U3"
+    ],
+    "partially_resolved": {
+      "BLK-LS-STORAGE": "mathematical half resolved, physical half open"
+    },
+    "still_open_p0": [
+      "BLK-G4",
+      "BLK-G5",
+      "BLK-G0",
+      "BLK-G1"
+    ],
+    "still_open_p1": [
+      "BLK-U5",
+      "BLK-LS-STORAGE"
+    ],
+    "gates": {
+      "G0": "NOT PASSED",
+      "G1": "NOT PASSED",
+      "G2": "PASSED",
+      "G3": "PARTIAL",
+      "G4": "NOT PASSED",
+      "G5": "NOT PASSED"
+    }
+  },
+  "blk_u3_numerical_conditioning": {
+    "column_norms_decades": 23,
+    "equilibrated_singular_values": [
+      1.73,
+      1.0,
+      0.00287,
+      4.06e-19
+    ],
+    "worst_pivot_at_true_root": "1.92e-125",
+    "direction_vs_independent_reference": "better than 1e-40 on all 8 branches",
+    "balance_residual_before": "1.86e-5 (PZT-5H), 8.28e-8 (CdSe)",
+    "balance_residual_after": "3.45e-42 (PZT-5H), 3.12e-63 (CdSe)",
+    "precision_sweep_dps_60_80_100_140": [
+      "3.44e-62",
+      "3.06e-81",
+      "5.51e-102",
+      "8.38e-142"
+    ],
+    "tolerance_changed": false
+  },
+  "independent_comparison_result": "production and the equilibrated Gram-matrix reference agree to 1e-59..1e-60 after a common physical normalisation on all 8 branches",
+  "ci": {
+    "note": "a workflow result must be inspected on the pushed commit before any run URL is quoted",
+    "prior_green_run": 41818854579
+  }
+}

@@ -31,6 +31,7 @@ Exit codes: 0 if every mutation was correctly detected, 1 if any survived,
 from __future__ import annotations
 
 import argparse
+import csv
 import hashlib
 import json
 import shutil
@@ -199,41 +200,53 @@ def m02_detect(root: Path) -> tuple[bool, str]:
 # M03 -- incorrect heat-flux expression (the Phase-1 defect, re-injected)
 # ===========================================================================
 def m03_mutate(root: Path) -> None:
+    """Re-inject the Phase-1 linear thermal term into the flux D2 actually uses.
+
+    NOTE (Phase 1D): the first version of this mutation patched `flux_z`, the
+    float routine. `check_D2_balance` calls `flux_z_mp`, so the mutation was
+    applied to code the detector never executes and the mutation SURVIVED. That
+    survivor was a genuine finding about this mutation file, not about the
+    theory: a mutation must be applied to the code path the detector runs.
+    """
     f = root / "code" / "foundation_checks.py"
     s = f.read_text()
-    old = ("    qz = -(k33 * (I * xi * Th)) / (1 - I * w * tq)"
-           if "qz = -(k33 * (I * xi * Th)) / (1 - I * w * tq)" in s else None)
-    # inject the historical linear thermal term into the flux functional
-    marker = "    return mech + elec +"
-    if marker in s:
-        s = s.replace(marker, "    # MUTATION: linear thermal term (Phase-1 defect)\n"
-                              "    th = mp.mpf(1) / 2 * mp.re(qz)\n"
-                              + marker, 1)
-    else:
-        # fall back: patch flux_z_mp's thermal part
-        s = s.replace("+ mp.mpf(1) / 2 * mp.re(qz * mp.conj(Th)) / T0",
-                      "+ mp.mpf(1) / 2 * mp.re(qz)   # MUTATION: linear thermal term")
+    old = "+ mp.mpf(1) / 2 * mp.re(qz * mp.conj(Th)) / T0)"
+    assert old in s, "mpmath thermal term not found"
+    s = s.replace(old,
+                  "+ mp.mpf(1) / 2 * mp.re(qz)  # MUTATION: linear thermal term\n            )", 1)
     f.write_text(s)
 
 
 def m03_detect(root: Path) -> tuple[bool, str]:
-    """Reject via the Second-Law balance oracle, not via any stored expectation."""
+    """Reject via the Second-Law balance oracle, not via any stored expectation.
+
+    The detector is strict: D2 must be FAIL. Accepting UNRESOLVED would let the
+    mutation pass for the wrong reason, which is how it survived before.
+    """
     f = root / "code" / "foundation_checks.py"
     s = f.read_text()
     if "MUTATION: linear thermal term" not in s:
         return False, "mutation did not apply (no marker found)"
+    # A mutation that does not compile is not a scientific defect: refuse to
+    # score it as detected, so a syntax error can never masquerade as a catch.
+    comp = subprocess.run([sys.executable, "-m", "py_compile", str(f)],
+                          capture_output=True, text=True, timeout=120)
+    if comp.returncode != 0:
+        return False, "mutation did not compile; not counted as detection"
     prog = ("import sys; sys.path.insert(0,'code')\n"
             "import foundation_checks as fc\n"
             "st,lab,det,n=fc.check_D2_balance(fc.build_materials())\n"
-            "print('STATUS',st)\n")
+            "print('STATUS',st)\n"
+            "print('MEASURED',lab)\n")
     r = subprocess.run([sys.executable, "-c", prog], cwd=root,
                        capture_output=True, text=True, timeout=1800)
-    st = ""
+    st, measured = "", ""
     for line in r.stdout.splitlines():
         if line.startswith("STATUS"):
-            st = line.split()[1]
-    detected = st in ("FAIL", "UNRESOLVED")
-    return detected, f"D2 status under the mutated flux: {st or 'not reached'}"
+            st = line.split(None, 1)[1].strip()
+        if line.startswith("MEASURED"):
+            measured = line.split(None, 1)[1].strip()
+    return st == "FAIL", f"D2 status under the mutated flux: {st or 'not reached'} ({measured})"
 
 
 # ===========================================================================
@@ -358,16 +371,21 @@ def m06_detect(root: Path) -> tuple[bool, str]:
     A unit slip in the table is invisible to every physics test precisely because
     the code never reads the table; only a cross-source comparison can see it.
     """
+    # PHASE 1D: DAT01 alone is no longer sufficient. Once production LOADS the
+    # table, DAT01 compares the loaded object against the rows it came from -- a
+    # tautology. The physical-band check PRV06 is the detector that still has
+    # independent content, so both are run and the verdict requires PRV06.
     r = subprocess.run([sys.executable, "-m", "pytest",
                         "tests/test_01_data_integrity.py::test_DAT01_code_matches_data_table",
+                        "tests/test_08_provenance.py::test_PRV06_table_values_are_physically_admissible",
                         "-q", "--no-header", "-p", "no:cacheprovider"],
                        cwd=root / "validation", capture_output=True, text=True,
                        timeout=600)
     detected = r.returncode != 0
     hit = [ln.strip() for ln in r.stdout.splitlines()
-           if "table" in ln and "code" in ln]
-    return detected, (f"DAT01 exit {r.returncode}; " +
-                      (hit[0][:200] if hit else "no cross-source mismatch reported"))
+           if "implausible" in ln or "unit slip" in ln or "physical" in ln]
+    return detected, (f"DAT01+PRV06 exit {r.returncode}; " +
+                      (hit[0][:200] if hit else "no mismatch reported"))
 
 
 # ===========================================================================
@@ -585,6 +603,231 @@ def m11_detect(root: Path) -> tuple[bool, str]:
 
 
 # ===========================================================================
+# ===========================================================================
+# PHASE 1D MUTATIONS -- task 7 of the Phase 1D brief.
+#
+# Each re-injects a defect of the kind the review names, and each must be caught
+# by a LEGITIMATE scientific or evidence-integrity test. Survivors are reported.
+# ===========================================================================
+
+def _pytest_in_copy(root, target, timeout=900):
+    return subprocess.run([sys.executable, "-m", "pytest", target, "-q",
+                           "--no-header", "-p", "no:cacheprovider"],
+                          cwd=root / "validation", capture_output=True,
+                          text=True, timeout=timeout)
+
+
+def _balance_worst(root):
+    """Run the production balance in a copy and return the worst residual."""
+    prog = (
+        "import sys; sys.path.insert(0,'code'); import mpmath as mp\n"
+        "import numpy as np, foundation_checks as fc\n"
+        "mp.mp.dps=60\n"
+        "mats=fc.build_materials(); w=2*np.pi*1e6\n"
+        "k=mp.mpf(repr(float(w*np.sin(np.deg2rad(30))/4000.0))); W=mp.mpf(repr(float(w)))\n"
+        "worst=0\n"
+        "for nm in ('PZT-5H','CdSe'):\n"
+        "    m=mats[nm]\n"
+        "    xi=max([mp.mpc(z) for z in m.xi_roots(k,W)],key=lambda z:abs(mp.im(z)))\n"
+        "    a=fc.kernel_scaled(m,k,xi,W)\n"
+        "    J=fc.flux_z_mp(m,k,xi,W,a)\n"
+        "    Dz,Dx=fc._dissipation_terms_mp(m,k,xi,W,a)\n"
+        "    worst=max(worst,float(abs(-2*mp.im(xi)*J+Dz+Dx)/abs(Dz+Dx)))\n"
+        "print('WORST',worst)\n")
+    r = subprocess.run([sys.executable, "-c", prog], cwd=root,
+                       capture_output=True, text=True, timeout=900)
+    for line in r.stdout.splitlines():
+        if line.startswith("WORST"):
+            return float(line.split()[1]), r
+    return None, r
+
+
+# ---- M12: inaccurate eigenvector DIRECTION despite a tiny residual ----------
+def m12_mutate(root):
+    f = root / "code" / "foundation_checks.py"
+    s = f.read_text()
+    s += (
+        "\n\n# MUTATION M12: perturb the null-vector direction while keeping the\n"
+        "# characteristic residual negligible.\n"
+        "_orig_ks_12 = kernel_scaled\n\n\n"
+        "def kernel_scaled(self, k, xi, w):\n"
+        "    v = _orig_ks_12(self, k, xi, w)\n"
+        "    if v is None:\n"
+        "        return v\n"
+        "    v = list(v)\n"
+        "    v[3] = v[3] * (mp.mpf(1) + mp.mpf('1e-3'))\n"
+        "    return v\n\n\n"
+        "setattr(Medium6mm, 'kernel_scaled', kernel_scaled)\n"
+        "setattr(Medium6mm, 'mode_vector_mp', kernel_scaled)\n")
+    f.write_text(s)
+
+
+def m12_detect(root):
+    r = _pytest_in_copy(root, "tests/test_07_u3_direction.py::test_U3C_direction_is_not_the_defect")
+    hit = [ln for ln in r.stdout.splitlines() if "direction difference" in ln]
+    return r.returncode != 0, ("U3C exit %d; %s" % (r.returncode, hit[0] if hit else "no diagnosis"))
+
+
+# ---- M13: wrong displacement-vs-potential scaling --------------------------
+def m13_mutate(root):
+    f = root / "code" / "foundation_checks.py"
+    s = f.read_text()
+    s += (
+        "\n\n# MUTATION M13: wrong displacement-vs-potential scaling.\n"
+        "_orig_ks_13 = kernel_scaled\n\n\n"
+        "def kernel_scaled(self, k, xi, w):\n"
+        "    v = _orig_ks_13(self, k, xi, w)\n"
+        "    if v is None:\n"
+        "        return v\n"
+        "    v = list(v)\n"
+        "    v[2] = v[2] * mp.mpf(1000)\n"
+        "    return v\n\n\n"
+        "setattr(Medium6mm, 'kernel_scaled', kernel_scaled)\n"
+        "setattr(Medium6mm, 'mode_vector_mp', kernel_scaled)\n")
+    f.write_text(s)
+
+
+def m13_detect(root):
+    worst, r = _balance_worst(root)
+    return (worst is not None and worst > 1e-8), "balance residual under the scaling error: %s" % worst
+
+
+# ---- M14: incorrectly removed gauge mode -----------------------------------
+def m14_mutate(root):
+    f = root / "code" / "foundation_checks.py"
+    s = f.read_text()
+    s += (
+        "\n\n# MUTATION M14: drop the electric gauge branch.\n"
+        "_orig_xi_roots_14 = Medium6mm.xi_roots\n\n\n"
+        "def _xi_roots_14(self, k, w):\n"
+        "    roots = list(_orig_xi_roots_14(self, k, w))\n"
+        "    out = [r for r in roots if abs(mp.im(mp.mpc(r))) > 1e-3]\n"
+        "    return out if len(out) >= 4 else roots\n\n\n"
+        "setattr(Medium6mm, 'xi_roots', _xi_roots_14)\n")
+    f.write_text(s)
+
+
+def m14_detect(root):
+    prog = (
+        "import sys; sys.path.insert(0,'code'); import mpmath as mp\n"
+        "import numpy as np, foundation_checks as fc\n"
+        "mp.mp.dps=50\n"
+        "mats=fc.build_materials(); w=2*np.pi*1e6\n"
+        "k=mp.mpf(repr(float(w*np.sin(np.deg2rad(30))/4000.0))); W=mp.mpf(repr(float(w)))\n"
+        "print('NROOTS', len(mats['PZT-5H'].xi_roots(k,W)), len(mats['CdSe'].xi_roots(k,W)))\n")
+    r = subprocess.run([sys.executable, "-c", prog], cwd=root,
+                       capture_output=True, text=True, timeout=600)
+    got = None
+    for line in r.stdout.splitlines():
+        if line.startswith("NROOTS"):
+            got = [int(x) for x in line.split()[1:]]
+    ok = got is not None and all(n == 8 for n in got)
+    return (not ok), "root counts under the mutation: %s (must be [8, 8])" % got
+
+
+# ---- M15: missing Lord-Shulman relaxation operator -------------------------
+def m15_mutate(root):
+    f = root / "code" / "foundation_checks.py"
+    s = f.read_text()
+    old = ("    qz = -(mp.mpf(repr(self.kappa33)) * (I * xi * Th)) / \\\n"
+           "        (1 - I * w * mp.mpf(repr(self.tauq)))")
+    assert old in s, "heat-flux denominator not found"
+    s = s.replace(old, "    qz = -(mp.mpf(repr(self.kappa33)) * (I * xi * Th))  # MUTATION M15: tau_q dropped", 1)
+    f.write_text(s)
+
+
+def m15_detect(root):
+    worst, r = _balance_worst(root)
+    return (worst is not None and worst > 1e-8), "balance residual with the relaxation operator removed: %s" % worst
+
+
+# ---- M16: literal drifts from the versioned table --------------------------
+def m16_mutate(root):
+    f = root / "code" / "foundation_checks.py"
+    s = f.read_text()
+    old = "        C11=126.0e9, C12=79.5e9, C13=84.1e9, C33=117.0e9, C44=23.3e9,"
+    assert old in s
+    s = s.replace(old, "        C11=127.0e9, C12=79.5e9, C13=84.1e9, C33=117.0e9, C44=23.3e9,  # MUTATION M16", 1)
+    f.write_text(s)
+
+
+def m16_detect(root):
+    r = _pytest_in_copy(root, "tests/test_08_provenance.py::test_PRV02_fallback_equals_table")
+    hit = [ln for ln in r.stdout.splitlines() if "differ" in ln or "values" in ln]
+    return r.returncode != 0, ("DAT02 exit %d; %s" % (r.returncode, hit[0] if hit else "no diagnosis"))
+
+
+# ---- M17: stale equation registry after a theory correction ----------------
+def m17_mutate(root):
+    f = root / "theory" / "energy_flux_derivation.tex"
+    s = f.read_text()
+    assert "q_z\\Theta^*" in s
+    f.write_text(s.replace("q_z\\Theta^*", "q_z", 1))
+
+
+def m17_detect(root):
+    """ART02 must fail SPECIFICALLY because energy_flux_derivation.tex changed.
+
+    A bare non-zero exit is not enough: the copy is made from a tree in which
+    evidence/input_checksums.json is itself the frozen reference, so an
+    unrelated ART02 failure would also produce a non-zero exit. We therefore
+    require the diagnosis to NAME the file that the mutation edited.
+    """
+    r = _pytest_in_copy(root, "tests/test_01_data_integrity.py::test_ART02_input_checksums_stable")
+    named = "energy_flux_derivation.tex" in r.stdout
+    return (r.returncode != 0 and named), (
+        "ART02 exit %d; energy_flux_derivation.tex named in the diagnosis: %s"
+        % (r.returncode, named))
+
+
+# ---- M18: promotion while a mandatory blocker is open ----------------------
+def m18_mutate(root):
+    """Promote a claim whose mandatory blocker (BLK-G5) is still open."""
+    p = root / "evidence" / "claim_registry.csv"
+    rows = list(csv.DictReader(open(p, newline="")))
+    hdr = list(rows[0].keys())
+    for r in rows:
+        if r["claim_id"] == "CLM-D2-01":
+            r["evidence_status"] = "VERIFIED_STRONG"
+            r["test_id"] = "C1"      # a test that does not compute the balance
+    with open(p, "w", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=hdr)
+        w.writeheader()
+        for r in rows:
+            w.writerow({k: r.get(k, "") for k in hdr})
+
+
+def m18_detect(root):
+    r = _pytest_in_copy(root, "tests/test_04_claim_binding.py")
+    hit = [ln for ln in r.stdout.splitlines()
+           if "BLK-G5" in ln or "blocker" in ln.lower() or "promot" in ln.lower()
+           or "TOKEN" in ln or "CLM-D2-01" in ln]
+    return r.returncode != 0, ("claim-binding exit %d; %s" % (r.returncode, hit[0] if hit else "no diagnosis"))
+
+
+
+# ---- M19: withdrawn claim restored to the ACTIVE theory ----------------
+def m19_mutate(root):
+    """Re-assert the withdrawn tau_q causality floor as a Derived result."""
+    f = root / "theory" / "governing_equations.tex"
+    s = f.read_text()
+    i = s.index(r"\paragraph{The relaxation time")
+    j = s.index(r"\section{Dimensional audit}")
+    injected = (
+        "\\paragraph{Causality floor on $\\tau_q$.} The Lord--Shulman theory admits a\n"
+        "thermal wave of speed $v_T = \\sqrt{\\kappa/(\\rho c_E\\tau_q)}$. Requiring it\n"
+        "not to exceed the elastic longitudinal speed $c_L$ gives $\\tau_q \\ge "
+        "\\kappa/(\\rho c_E c_L^{2})$. \\textsc{Derived}. Every working value is chosen "
+        "above the floor.\n\n")
+    f.write_text(s[:i] + injected + s[j:])
+
+
+def m19_detect(root):
+    r = _pytest_in_copy(root, "tests/test_10_theory_consistency.py::test_THY02_withdrawn_causality_floor_not_active")
+    hit = [ln for ln in r.stdout.splitlines() if "active causality-floor" in ln]
+    return r.returncode != 0, ("THY02 exit %d; %s" % (r.returncode, hit[0] if hit else "no diagnosis"))
+
+
 SUITE = [
     Mutation("M01", "zero executed cases reported as PASS",
              "validation/harness.py",
@@ -645,7 +888,54 @@ SUITE = [
              "the audit must find the claim VERIFIED against a test that does not "
              "compute the asserted quantity",
              "This is U-11 itself: the defect the whole registry exists to prevent.",
-             m11_mutate, m11_detect),
+             m11_mutate, m11_detect),    Mutation("M12", "inaccurate eigenvector direction despite a tiny characteristic residual",
+             "code/foundation_checks.py",
+             "U3C must detect that the null-vector DIRECTION moved",
+             "The Phase 1D warning: a small |M a| residual does not certify the "
+             "direction. Phase 1C used the residual as a proxy and reached a "
+             "wrong diagnosis as a result.",
+             m12_mutate, m12_detect),
+    Mutation("M13", "wrong displacement-vs-potential scaling",
+             "code/foundation_checks.py",
+             "the energy balance must fail when phi is scaled relative to u",
+             "A gauge/scaling error leaves M a = 0 intact but changes every "
+             "boundary-state quantity.",
+             m13_mutate, m13_detect),
+    Mutation("M14", "incorrectly removed electric gauge mode",
+             "code/foundation_checks.py",
+             "the root count must remain 8",
+             "Dropping the gauge branch loses a genuine mode and corrupts the "
+             "incoming/outgoing selection.",
+             m14_mutate, m14_detect),
+    Mutation("M15", "missing Lord-Shulman relaxation operator in the heat flux",
+             "code/foundation_checks.py",
+             "the energy balance must fail when (1 - i w tau_q) is dropped",
+             "The relaxation operator IS the Lord-Shulman correction; dropping it "
+             "silently reverts to Fourier conduction.",
+             m15_mutate, m15_detect),
+    Mutation("M16", "invalid material-data provenance (literal drifts from the table)",
+             "code/foundation_checks.py",
+             "DAT02 must fail",
+             "A hard-coded value that no longer matches the versioned table is the "
+             "provenance defect the review names.",
+             m16_mutate, m16_detect),
+    Mutation("M17", "stale evidence registry after a theory correction",
+             "theory/energy_flux_derivation.tex",
+             "the frozen-input check must fail",
+             "The theory text is checksummed; editing it without regenerating the "
+             "register must be caught.",
+             m17_mutate, m17_detect),
+    Mutation("M18", "promotion with an open mandatory blocker / non-computing test",
+             "evidence/claim_registry.csv",
+             "claim binding must fail",
+             "A passing suite must not promote a claim whose named test no longer "
+             "computes the asserted quantity.",
+             m18_mutate, m18_detect),    Mutation("M19", "withdrawn tau_q causality floor restored to the active theory",
+             "theory/governing_equations.tex",
+             "THY02 must detect an active causality-floor assertion",
+             "BLK-DOC-01 was still live in Phase 1D: the boxed floor survived as a "
+             "\textsc{Derived} result long after the claim was marked INVALID.",
+             m19_mutate, m19_detect),
 ]
 
 

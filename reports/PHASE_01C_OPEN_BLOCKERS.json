@@ -6,19 +6,36 @@
     {
       "id": "BLK-U3",
       "severity": "P0",
-      "title": "Coupled scattering amplitude normalisation / null-vector direction accuracy",
-      "detail": "The null-vector DIRECTION for the 6mm characteristic matrix (cond ~1e22) is accurate only to ~1e-5. Because the energy balance identity is scale-invariant in the null vector, this residual cannot be a magnitude error. It is the root cause of every coupled R/T/A result being unavailable.",
-      "blocks": ["BLK-G4", "BLK-G5", "EQ-SCT-01", "EQ-SCT-02"],
+      "title": "[CLOSED in Phase 1D] Coupled scattering amplitude normalisation / null-vector direction accuracy",
+      "detail": "CLOSED. The recorded diagnosis was WRONG and is retracted. The null-vector DIRECTION was never the problem: measured against an independent two-sided-equilibrated dps=120 Gram-matrix eigenvector it agrees to better than 1e-40 on all four branches (regression test U3C). The 1.86e-5 energy residual came from two defects in flux_z_mp: (i) D_z built with eps11 instead of eps33, a 13 percent error in the dielectric term that produced 1.8555e-5 exactly; and (ii) the transverse dissipation channel <D_x> omitted, which leaves exactly (k/xi)^2 = 4.67e-8 at 30 degrees. Both are corrected.",
+      "blocks": [
+        "BLK-G4",
+        "BLK-G5",
+        "EQ-SCT-01",
+        "EQ-SCT-02"
+      ],
       "evidence": "check D2: 1.86e-5 residual through the production null-vector path vs 7.1e-17 in an independent dps=60 evaluation",
-      "promotion_blocked": true,
-      "closed_by": null
+      "promotion_blocked": false,
+      "closed_by": "Phase 1D, commit on branch arena/a3ede4fe-negative-reflection",
+      "status": "CLOSED",
+      "original_diagnosis": "The null-vector DIRECTION for the 6mm characteristic matrix (cond ~1e22) is accurate only to ~1e-5. Because the energy balance identity is scale-invariant in the null vector, this residual cannot be a magnitude error. It is the root cause of every coupled R/T/A result being unavailable.",
+      "closure_evidence": {
+        "independent_formulation": "two genuinely different constructions: (a) production column-equilibrated Gaussian elimination; (b) eigenvector of the equilibrated Gram matrix C^H C at dps=120 with a dps=160 Newton-refined root",
+        "agreement": "production balance closes at 3.45e-42 (PZT-5H) and 3.12e-63 (CdSe) against a 1e-8 tolerance that was NEVER relaxed",
+        "precision_stability": "residual shrinks with precision: 3.4e-62, 3.1e-81, 5.5e-102, 8.4e-142 at dps 60/80/100/140 (test U3D)",
+        "physical_boundary_quantities": "the balance is stated in traction sxz, electric displacement Dz and heat flux qz, not in eigenvalues alone; the D1 two-route flux comparison agrees to 1.95e-16",
+        "degenerate_branches": "all four branches handled by their own null vector and each measured independently in U3C; branches 3/4 are an exact conjugate pair and 1<->6, 2<->5 are conjugate pairs, none are mixed",
+        "executed_regression": "U3A, U3B, U3C, U3D all PASS; mutations M12, M13, M14, M15 all DETECTED"
+      }
     },
     {
       "id": "BLK-G4",
       "severity": "P0",
       "title": "Gate G4 - Lord-Shulman energy identity not passed",
       "detail": "The corrected flux functional is derived and verified against the Second Law in an independent evaluation, but the identity does not close through the production code path. The gate asks for it to hold in the solver that will be used.",
-      "blocks": ["any energy ratio claim"],
+      "blocks": [
+        "any energy ratio claim"
+      ],
       "evidence": "phase_01b_test_results.json: D2 UNRESOLVED",
       "promotion_blocked": true,
       "closed_by": null
@@ -28,7 +45,10 @@
       "severity": "P0",
       "title": "Gate G5 - interface dissipation and numerical energy balance not passed",
       "detail": "Requires a working coupled scattering solver and a converged numerical balance on evaluation planes in the half-spaces. Neither exists. Blueprint 7.4 forbids reporting R, T or A until this closes.",
-      "blocks": ["any R/T/A claim", "all reflection-suppression figures"],
+      "blocks": [
+        "any R/T/A claim",
+        "all reflection-suppression figures"
+      ],
       "evidence": "no coupled solve implemented",
       "promotion_blocked": true,
       "closed_by": null
@@ -38,7 +58,10 @@
       "severity": "P0",
       "title": "Gate G0 - full-text prior art not reviewed",
       "detail": "All ten literature records are metadata-only. No compatibility check with any competitor is possible, so no novelty claim can be made and the six candidate gaps remain questions.",
-      "blocks": ["any novelty claim", "CLM-LIT-02"],
+      "blocks": [
+        "any novelty claim",
+        "CLM-LIT-02"
+      ],
       "evidence": "literature/verified_references.csv: every row read_status = metadata only",
       "promotion_blocked": true,
       "closed_by": null
@@ -48,7 +71,10 @@
       "severity": "P0",
       "title": "Gate G1 - incompletely sourced material constants",
       "detail": "beta_1, beta_3 and the pyroelectric coefficient p are ASSUMED for PZT-5H and BaTiO3. CdSe tau_q is an order-of-magnitude value. Any result depending quantitatively on the thermal or pyroelectric channel is unsupported.",
-      "blocks": ["any thermal-channel quantitative result", "CLM-MAT-02"],
+      "blocks": [
+        "any thermal-channel quantitative result",
+        "CLM-MAT-02"
+      ],
       "evidence": "literature/material_constants.csv status column",
       "promotion_blocked": true,
       "closed_by": null
@@ -58,7 +84,10 @@
       "severity": "P1",
       "title": "U-5 - factor-of-one-half bookkeeping between mechanical and thermal interface dissipation",
       "detail": "A bookkeeping convention, not a physics uncertainty: the mechanical form carries a 1/2 from the cycle average while the thermal form is written for the real temperature jump. The Phase-2 solver must pick one convention and apply it uniformly before any numerical balance is assembled. Doing it wrong produces a 50 percent error in the thermal channel alone.",
-      "blocks": ["E2 gate", "numerical energy balance"],
+      "blocks": [
+        "E2 gate",
+        "numerical energy balance"
+      ],
       "evidence": "theory/energy_flux_derivation.tex, remark on the half factor",
       "promotion_blocked": true,
       "closed_by": null
@@ -67,22 +96,29 @@
       "id": "BLK-LS-STORAGE",
       "severity": "P1",
       "title": "Open scientific question: vanishing cycle-averaged time derivative versus vanishing stored-energy term in Lord-Shulman theory",
-      "detail": "The cycle average of q.dq/dt is IDENTICALLY ZERO for a monochromatic field, because it is the average of a product of a quantity with its own time derivative over a period. Phase 1 treated tau_q q.dq/dt/kappa as a 'relaxation storage' term and then as a dissipation; both readings are unsupported for a monochromatic field, since the term is zero. It is therefore NEITHER storage NOR dissipation in the harmonic regime. Whether Lord-Shulman theory carries a genuine out-of-phase stored-energy contribution, and if so what its correct harmonic expression is, is NOT settled by the observation that this particular term vanishes. Resolving it requires a complete thermodynamic derivation of the LS internal energy, not a numerical test.",
-      "blocks": ["EQ-ENG-07", "a defensible statement of the LS energy identity in the harmonic regime"],
+      "detail": "MATHEMATICAL QUESTION RESOLVED in Phase 1D; PHYSICAL QUESTION REMAINS OPEN, so this blocker is NOT closed. The derivation in theory/energy_flux_derivation.tex sec:ls-closure proves Proposition prop:relax: for a monochromatic field <q.qdot> = 0 IDENTICALLY while <q.q> = |Q|^2/2 is NOT zero, so the vanishing of the first is not evidence about the second. The EIT stored-energy density tau_q q.q/(2 kappa T0) is therefore genuinely non-zero. What remains open is which functional an EXPERIMENT measures, and that requires a complete scattering solution. The original text below is retained unchanged. ORIGINAL: The cycle average of q.dq/dt is IDENTICALLY ZERO for a monochromatic field, because it is the average of a product of a quantity with its own time derivative over a period. Phase 1 treated tau_q q.dq/dt/kappa as a 'relaxation storage' term and then as a dissipation; both readings are unsupported for a monochromatic field, since the term is zero. It is therefore NEITHER storage NOR dissipation in the harmonic regime. Whether Lord-Shulman theory carries a genuine out-of-phase stored-energy contribution, and if so what its correct harmonic expression is, is NOT settled by the observation that this particular term vanishes. Resolving it requires a complete thermodynamic derivation of the LS internal energy, not a numerical test.",
+      "blocks": [
+        "EQ-ENG-07",
+        "a defensible statement of the LS energy identity in the harmonic regime"
+      ],
       "evidence": "numeric: 3.27e-6 against a 1e34 dissipation scale, i.e. zero to machine precision",
       "promotion_blocked": true,
       "preserve_as_question": true,
-      "closed_by": null
+      "closed_by": null,
+      "status": "MATHEMATICAL_PART_CLOSED_PHYSICAL_PART_OPEN"
     },
     {
       "id": "BLK-DOC-01",
       "severity": "P1",
       "title": "governing_equations.tex still states the withdrawn tau_q causality floor",
       "detail": "The code and reports were corrected in Phase 1B; the .tex section 'Causality floor on tau_q' was not. The document and the code currently disagree. This is recorded rather than silently fixed so the correction is traceable.",
-      "blocks": ["document consistency"],
+      "blocks": [
+        "document consistency"
+      ],
       "evidence": "evidence/phase_01_claim_audit.md U-11-4; CLM-H1-02 status INVALID",
       "promotion_blocked": false,
       "closed_by": null
     }
-  ]
+  ],
+  "phase_1d_note": "Register updated in Phase 1D. BLK-U3 is CLOSED with per-criterion evidence. BLK-LS-STORAGE is retained OPEN: only its mathematical half is resolved, and the question is deliberately preserved because the review forbids closing it on a vanishing harmonic average. BLK-G4 and BLK-G5 remain NOT PASSED -- no scattering solution exists and no special elastic limit may be used to promote them."
 }

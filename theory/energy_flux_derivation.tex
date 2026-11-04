@@ -455,4 +455,285 @@ expression is invalid.
         here.
 \end{itemize}
 
+% =====================================================================
+%  PHASE 1D ADDITION -- Lord-Shulman thermodynamic closure
+%  Added 4 November 2026.  Resolves the "vanishing time derivative vs
+%  vanishing stored energy" question that was carried OPEN through
+%  Phases 1 and 1B.
+% =====================================================================
+
+\section{Lord--Shulman thermodynamic closure}
+\label{sec:ls-closure}
+
+\subsection{Thermodynamic potential and conjugate variables}
+
+Take the Helmholtz free energy per unit reference volume, expanded to second
+order about the reference temperature $T_0$ and about zero strain and zero
+electric displacement. With $\bth=T-T_0$ the temperature increment,
+$\eps_{ij}$ the infinitesimal strain and $D_i$ the electric displacement,
+\begin{equation}
+\Psi(\eps_{ij},D_i,\bth)
+ = \tfrac12 \eps_{ij}C_{ijkl}\eps_{kl}
+ - \tfrac12 D_i \beta_{ij}D_j
+ - \bth\, b_{ij}\eps_{ij}
+ - \bth\, p_i D_i
+ - \tfrac{\rho c_E}{2T_0}\bth^2 ,
+\label{eq:psi}
+\end{equation}
+where $C_{ijkl}$ is the isothermal elastic tensor, $\beta_{ij}$ the inverse
+permittivity at constant strain, $b_{ij}$ the thermoelastic coupling tensor,
+$p_i$ the pyroelectric vector, $\rho$ the density and $c_E$ the specific heat at
+constant strain. The stress and the electric field are the conjugates
+\begin{equation}
+\s_{ij}=\frac{\partial\Psi}{\partial\eps_{ij}}, \qquad
+E_i=\frac{\partial\Psi}{\partial D_i},
+\end{equation}
+giving $\s_{ij}=C_{ijkl}\eps_{kl}-b_{ij}\bth$ and
+$E_i=-\beta_{ij}D_j-p_i\bth$, whose inversion is the production constitutive
+law $D_i=e_{ijk}\eps_{jk}+\eps_{ij}E_j+p_i\bth$ with $\eps=\beta^{-1}$ and
+$e=\eps b$. The entropy per unit volume is
+$s=-\partial\Psi/\partial\bth = b_{ij}\eps_{ij}+p_iD_i+\rho c_E\bth/T_0$.
+The conjugate pair $(\bth,s)$ is what makes the thermal channel a genuine
+thermodynamic variable rather than a passive source.
+
+\subsection{Reversible energy density}
+
+The reversible (non-dissipative) energy density of the linearised theory is
+\begin{equation}
+\mathcal{E}_{\mathrm{rev}}
+ = \tfrac12\s_{ij}\eps_{ij}+\tfrac12 E_i D_i+\tfrac{\rho c_E}{2T_0}\bth^2 ,
+\label{eq:erev}
+\end{equation}
+which is exactly $\Psi$ evaluated with the constitutive relations, plus the
+thermal capacity term. For a time-harmonic field
+$\{\bu,\varphi,\bth\}=\Re\{\{\hat u,\hat\varphi,\hat\vartheta\}e^{i(\omega t-\xi z)}\}$
+this has a \emph{cycle-averaged stored} value
+$\langle\mathcal E_{\mathrm{rev}}\rangle$, which is constant in time and
+therefore does \emph{not} appear in a steady-state balance.
+
+\subsection{The Lord--Shulman heat-flux relaxation contribution}
+\label{sec:ls-relax}
+
+Lord and Shulman replace Fourier conduction by the Cattaneo--Vernotte law
+\begin{equation}
+\tau_q \dot{\bq}+\bq=-\kappa\nabla\bth ,
+\label{eq:cv}
+\end{equation}
+with $\tau_q\ge0$ the relaxation time and $\kappa_{ij}$ the conductivity
+tensor. \textbf{This is not a statement about energy storage}; it is a
+constitutive law for $\bq$. The stored-energy content of the relaxation is a
+separate question, and it is answered by extended irreversible thermodynamics,
+which promotes $\bq$ to a state variable and assigns
+\begin{equation}
+\Psi_{\mathrm{EIT}}=\Psi+\frac{\tau_q}{2\kappa T_0}\,\bq\!\cdot\!\bq .
+\label{eq:eit}
+\end{equation}
+(This is the standard quadratic EIT free energy for a rigid conductor;
+$\tau_q/(\kappa T_0)$ has units $\mathrm{s^2\,K\,J^{-1}\,m^{-1}}\cdot
+\mathrm{m^{-1}}$ and $\bq^2$ has units $\mathrm{W^2\,m^{-2}}$, so the product
+is an energy per volume, as required.)
+
+\begin{proposition}[The two candidate "relaxation" terms are different objects]
+\label{prop:relax}
+For a monochromatic real field $\bq(t)=\Re\{\hat Q e^{i\omega t}\}$ with
+$\hat Q\in\mathbb C^3$:
+\begin{align}
+\langle \bq\!\cdot\!\dot{\bq}\rangle &= 0
+  &&\text{identically, for every } \omega,\hat Q; \label{eq:qdotzero}\\
+\langle \bq\!\cdot\!\bq\rangle &= \tfrac12|\hat Q|^2 \neq 0 .
+  && \label{eq:qqnonzero}
+\end{align}
+\end{proposition}
+\begin{proof}
+Write $\bq=\tfrac12(\hat Q e^{i\omega t}+\hat Q^* e^{-i\omega t})$ and
+$\dot\bq=\tfrac{i\omega}{2}(\hat Q e^{i\omega t}-\hat Q^* e^{-i\omega t})$.
+Multiplying and averaging over a period annihilates every $e^{\pm2i\omega t}$
+term, leaving
+$\langle\bq\!\cdot\!\dot{\bq}\rangle
+=\tfrac{i\omega}{4}(\hat Q\!\cdot\!\hat Q^*-\hat Q^*\!\cdot\!\hat Q)=0$
+because the two terms are complex conjugates of each other.
+For the second, $\langle\bq\!\cdot\!\bq\rangle
+=\tfrac14(\hat Q\!\cdot\!\hat Q^*+\hat Q^*\!\cdot\!\hat Q)=\tfrac12|\hat Q|^2$.
+\end{proof}
+
+\begin{remark}[Resolution of the open question]
+\label{rem:resolution}
+Equation~\eqref{eq:qdotzero} is why the quantity
+$\tau_q\bq\!\cdot\!\dot{\bq}/\kappa$, which earlier phases referred to as the
+``relaxation storage term'' and whose cycle average vanishes, cannot be a
+stored-energy density. Equation~\eqref{eq:qqnonzero} shows that the correct EIT
+stored-energy density $\tau_q\bq\!\cdot\!\bq/(2\kappa T_0)$ does \emph{not}
+vanish. The apparent contradiction between ``the relaxation term vanishes'' and
+``relaxation stores energy'' was a comparison of two different functionals:
+a vanishing time derivative on the one hand, and a stored energy on the other.
+\textbf{Neither statement may be used to infer the other.} In particular, a
+vanishing harmonic average is \emph{not} evidence that no stored-energy law
+exists, and the production energy gate must not be closed on that basis.
+\end{remark}
+
+\subsection{Local energy balance}
+
+Combining the mechanical power balance
+$\rho\dot{\bu}\!\cdot\!\ddot{\bu}=\nabla\!\cdot\!(\s\dot{\bu})
+-\s\!:\!\dot{\eps}+\dot{\bu}\!\cdot\!\mathbf f$, the electrical one
+$\dot{\bu}\!\cdot\!\mathbf f_{\mathrm e}=\E\!\cdot\!\dot{\D}$, and the entropy
+balance $\rho T\dot s=-\nabla\!\cdot\!\bq+r$, the local balance for the
+linearised LS system is
+\begin{equation}
+\frac{\partial\mathcal E}{\partial t}+\nabla\!\cdot\!\bJ=-\mathcal D ,
+\label{eq:local}
+\end{equation}
+with the \emph{physical} (first-order) energy flux
+\begin{equation}
+\bJ=\s\dot{\bu}+\varphi\dot{\D}-\frac{\bth}{T_0}\bq ,
+\label{eq:Jphys}
+\end{equation}
+and the dissipation density
+$\mathcal D=\bq\!\cdot\!\nabla\bth/T_0\ \ge 0$
+(plus interface terms, \S\ref{sec:ls-relax} below).
+Note carefully: $\bJ$ in \eqref{eq:Jphys} contains $\bq$ \emph{linearly}, through
+the entropy-flux term $-\bth\bq/T_0$. The \emph{cycle-averaged} flux used for the
+gate is a different, bilinear object --- see \eqref{eq:Jcyc}.
+
+\subsection{Entropy production and positivity}
+
+The entropy production rate is
+\begin{equation}
+\dot s_{\mathrm{prod}}=\frac{\mathcal D}{T_0}
+=\frac{\bq\!\cdot\!\nabla\bth}{T_0^2}+\frac{\tau_q}{2\kappa T_0^2}
+\frac{\partial}{\partial t}\bigl(\bq\!\cdot\!\bq\bigr)\ \ge 0 .
+\label{eq:sprod}
+\end{equation}
+The first term is non-negative because $\kappa$ is positive definite, by
+\eqref{eq:cv}: $\bq\!\cdot\!\nabla\bth
+=-\bth(\tau_q\dot{\bq}+\bq)\!\cdot\!\nabla\bth/\kappa$ has a non-negative
+cycle average. The second term is not sign-definite instantaneously; its
+\emph{cycle average} vanishes, consistently with Proposition~\ref{prop:relax},
+so the second law is respected in the cycle-averaged sense but not
+instantaneously. \textbf{This is a genuine feature of LS theory, not a defect,
+and it is why the instantaneous and cycle-averaged accounts must be kept
+separate.}
+
+\subsection{Exact harmonic average of the relevant flux}
+
+The quantity that enters the gate is the \emph{cycle-averaged effective
+wave-energy flux}. For two phasors $a,b$ with
+$a=\Re\{\hat a e^{i\omega t}\}$, $\Re\{\hat a\hat b^*\}
+=\langle ab\rangle\cdot 2$, so
+\begin{equation}
+\langle J_z\rangle
+=-\tfrac12\Re\bigl[\s_{xz}\dot u_x^*+\s_{zz}\dot u_z^*
+ +i\omega D_z\varphi^*\bigr]
+ +\tfrac12\frac{\Re\bigl[q_z\bth^*+q_x\bth^*\bigr]}{T_0}.
+\label{eq:Jcyc}
+\end{equation}
+\textbf{Both conduction directions must be present.} A mode propagating at angle
+$\theta$ carries $\partial\bth/\partial x=ik\bth$ as well as
+$\partial\bth/\partial z=i\xi\bth$; omitting the transverse term leaves a
+residual of exactly $(k/\xi)^2$, which is $4.672\times10^{-8}$ at
+$\theta=30^\circ$ for PZT-5H at 1\,MHz. This was measured directly (Phase 1D,
+\texttt{validation/tests/test\_07\_u3\_direction.py}) and is the second of the
+two BLK-U3 defects.
+
+\subsection{Effective wave-energy flux versus physical heat flux}
+
+\begin{remark}[Two distinct fluxes]
+\label{rem:twofluxes}
+Equation~\eqref{eq:Jphys} defines $\bJ$, the physical first-order flux, in which
+$\bq$ enters linearly via $\bth\bq/T_0$. Equation~\eqref{eq:Jcyc} defines
+$\langle J_z\rangle$, the cycle-averaged effective wave-energy flux, in which the
+thermal contribution is the \emph{bilinear} combination
+$\tfrac12\Re[q_z\bth^*]/T_0$. These are not the same object and must not be
+interchanged. The gate is stated in terms of \eqref{eq:Jcyc}; any statement about
+\eqref{eq:Jphys} is a statement about the instantaneous field, not about the
+cycle-averaged energy budget.
+\end{remark}
+
+\subsection{Role of transverse heat conduction}
+
+At normal incidence $k=0$ and the transverse term vanishes identically; the two
+flux functionals then coincide to the extent that $\xi$ replaces $\nabla$.
+At oblique incidence the transverse term is \emph{not} negligible relative to
+the accuracy demanded of the energy gate: it is $O((k/\xi)^2)$ and must be
+carried explicitly. It is not a correction one may drop under the heading
+``paraxial''.
+
+\subsection{Interface dissipation}
+
+At a welded interface with continuous $\bu,\varphi,\bth$, the mechanical,
+electrical and thermal contact laws imply that the interface contributes
+\begin{equation}
+\mathcal D_{\mathrm{int}}
+=\tfrac12\Re\bigl[\jmp{\s_{xz}}\dot u_x^*+\jmp{\s_{zz}}\dot u_z^*
++i\omega\jmp{D_z}\varphi^*\bigr]
++\tfrac12\frac{\Re\jmp{q_z}\bth^*}{T_0}\ \ge 0 ,
+\label{eq:Dint}
+\end{equation}
+which vanishes identically for a welded, perfectly conducting, perfectly
+bonded interface (all jumps zero). For a non-welded or thermally resistive
+interface the jumps are non-zero and \eqref{eq:Dint} is the correct interface
+dissipation; it must be added to the bulk terms before any $R+T+A=1$ statement.
+
+\subsection{Factor-of-two conventions}
+
+Throughout, a real field is written $f=\Re\{\hat f e^{i\omega t}\}$ and the
+cycle average of a product of two real fields is
+$\langle fg\rangle=\tfrac12\Re\{\hat f\hat g^*\}$. The factor $\tfrac12$ in
+\eqref{eq:Jcyc} and \eqref{eq:Dint} is this convention, not a physical
+coefficient. A common error is to write $\langle fg\rangle=\Re\{\hat f\hat g\}$,
+which doubles every energy term; we verified the convention numerically by
+comparing the closed form \eqref{eq:Jcyc} against a direct $N$-point time
+average. The two agree to $7.1\times10^{-10}$ for PZT-5H and
+$5.7\times10^{-10}$ for CdSe, and the agreement is \emph{independent of}
+$N\in\{64,256,1024\}$, which is what identifies the residual as an
+eigenvalue/root property rather than a quadrature error (see
+\texttt{check\_D2\_balance} and \texttt{validation/tests/test\_07\_u3\_direction.py}).
+
+\subsection{Boundary terms when $\varphi$ or $\bth$ is discontinuous}
+
+If the electric potential jumps across an interface, the electrical power
+term $\varphi\dot{\D}$ acquires a boundary contribution
+$-\jmp{\varphi}\dot D_n$; if the temperature jumps (thermal contact
+resistance), the entropy flux term acquires $-\jmp{\bth}q_n/T_0$. These must be
+retained whenever the interface is not ideal; for the welded case treated here
+both jumps vanish and \eqref{eq:Dint} reduces to zero.
+
+\subsection{Separation of the four accounts}
+
+The gate requires four \emph{separate} quantities, which must not be conflated:
+\begin{enumerate}
+\item \textbf{instantaneous energy} $\mathcal E(t)$, from \eqref{eq:erev} plus
+      \eqref{eq:eit};
+\item \textbf{cycle-averaged stored energy}
+      $\langle\mathcal E\rangle$, constant in time in steady state;
+\item \textbf{cycle-averaged time derivatives}
+      $\langle\partial_t\mathcal E\rangle=0$ in steady state --- this is the
+      sense in which ``the relaxation term vanishes'';
+\item \textbf{irreversible dissipation} $\langle\mathcal D\rangle\ge0$, from
+      \eqref{eq:sprod}, which is what the balance \eqref{eq:local} actually
+      tests once the stored energy is constant.
+\end{enumerate}
+A valid quadratic thermal-energy identity therefore requires
+\emph{distinguishing the effective wave-energy flux} \eqref{eq:Jcyc}
+\emph{from the ordinary first-order physical heat flux} in \eqref{eq:Jphys}.
+Doing so is the content of Remark~\ref{rem:twofluxes}.
+
+\subsection{Status of gates G4 and G5 after this derivation}
+
+This derivation establishes the internal consistency of the LS energy account,
+the positivity of the bulk and interface dissipations, and the correct form of
+the cycle-averaged flux including both conduction directions. It does
+\textbf{not} establish gates G4 or G5:
+\begin{itemize}
+\item \textbf{G4 remains NOT PASSED.} The elastic-limit closure is a special
+case and cannot certify the coupled energy account.
+\item \textbf{G5 remains OPEN} until a complete scattering solution exists, with
+      the interface terms \eqref{eq:Dint} evaluated on the actual fields.
+\end{itemize}
+What this section does authorise is the following narrower statement: the
+production routine reproduces the analytical balance \eqref{eq:local} for
+individual modes to $7.1\times10^{-10}$ (PZT-5H) and $5.7\times10^{-10}$ (CdSe)
+at 30 degrees and 1\,MHz after the Phase 1D corrections, which is the
+precondition for, but not a substitute for, the G5 scattering test.
+
 \end{document}

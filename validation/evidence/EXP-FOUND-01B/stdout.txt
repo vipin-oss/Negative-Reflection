@@ -142,41 +142,41 @@ Scope: consistency and closure only.  No R/T/A result is produced.
              | The Phase-1 form had '+1/2 Re[q_z]', a LINEAR functional of one
              | first-order phasor; it is not a cycle-averaged quadratic flux and it
              | overstated the thermal contribution by ~27 orders of magnitude.
-[UNRESOLVED] D2   local balance d<J_z>/dz = -<D> (thermal branch)  <n_exec=2, worst rel. residual 1.86e-05>   n_exec=2
+[PASS      ] D2   local balance d<J_z>/dz = -<D> (thermal branch)  <n_exec=2, worst rel. residual 3.45e-42>   n_exec=2
              | PZT-5H: thermal branch xi = (-2569367.7983 - 2569361.9449j)
-             |    -2 Im(xi)<J_z> = -1.005576063e+34
+             |    -2 Im(xi)<J_z> = -1.005594769e+34
              |    <D_z> = 1.005594722e+34   <D_x> = 4.698088439e+26
-             |    closed form vs cycle average = 1.86e-5
-             |    residual WITH D_x    = 1.86e-5
-             |    residual WITHOUT D_x = 1.86e-5
+             |    closed form vs cycle average = 2.9e-41
+             |    residual WITH D_x    = 2.4e-42
+             |    residual WITHOUT D_x = 4.67e-8
              |    sign of <D>: NON-NEGATIVE (2nd law respected)
              | CdSe: thermal branch xi = (-865944.960629 - 865944.771188j)
-             |    -2 Im(xi)<J_z> = -5.131519164e+32
+             |    -2 Im(xi)<J_z> = -5.131518739e+32
              |    <D_z> = 5.131516628e+32   <D_x> = 2.110644178e+26
-             |    closed form vs cycle average = 8.28e-8
-             |    residual WITH D_x    = 8.28e-8
-             |    residual WITHOUT D_x = 4.94e-7
+             |    closed form vs cycle average = 1.2e-41
+             |    residual WITH D_x    = 3.45e-42
+             |    residual WITHOUT D_x = 4.11e-7
              |    sign of <D>: NON-NEGATIVE (2nd law respected)
-             | closures below 1e-8: 0 of 2 materials.
+             | closures below 1e-8: 2 of 2 materials.
              | An independent dps=60 evaluation of the same identity closes to 7.1e-17,
              | so the identity is correct; the residual here is set by the accuracy of
              | the null-vector direction (cond M ~ 1e22), i.e. by open item U-3, not by
              | the energy identity.  Reported UNRESOLVED deliberately -- the tolerance is
              | NOT loosened to convert it into a PASS.
-[PASS      ] E1   flux conservation along z for each mode  <max z-drift 2.08e-41>   n_exec=10
+[PASS      ] E1   flux conservation along z for each mode  <max z-drift 2.54e-41>   n_exec=10
              | Al6061  : propagating roots (Im xi = 0): 2
              |    xi = -1.845394e+03+0.000000e+00j  <P_z>(0) = -1.81461404e+20; expected at 1 mm -1.81461404e+20; measured -1.81461404e+20; rel.dev 1.87e-41
              |    xi =  1.845394e+03+0.000000e+00j  <P_z>(0) =  1.81461404e+20; expected at 1 mm  1.81461404e+20; measured  1.81461404e+20; rel.dev 1.87e-41
              | CdSe    : propagating roots (Im xi = 0): 4
-             |    xi = -1.475146e+03-1.416230e-06j  <P_z>(0) = -4.57700304e+20; expected at 1 mm -4.57700305e+20; measured -4.57700305e+20; rel.dev 0.00e+00
-             |    xi =  1.475146e+03+1.416230e-06j  <P_z>(0) =  4.57700304e+20; expected at 1 mm  4.57700303e+20; measured  4.57700303e+20; rel.dev 1.48e-41
-             |    xi = -3.834481e+03-5.227160e-07j  <P_z>(0) = -1.63044782e+20; expected at 1 mm -1.63044782e+20; measured -1.63044782e+20; rel.dev 2.08e-41
-             |    xi =  3.834481e+03+5.227160e-07j  <P_z>(0) =  1.63044782e+20; expected at 1 mm  1.63044782e+20; measured  1.63044782e+20; rel.dev 0.00e+00
+             |    xi = -1.475146e+03-1.416230e-06j  <P_z>(0) = -4.57537251e+20; expected at 1 mm -4.57537252e+20; measured -4.57537252e+20; rel.dev 1.48e-41
+             |    xi =  1.475146e+03+1.416230e-06j  <P_z>(0) =  4.57537251e+20; expected at 1 mm  4.57537250e+20; measured  4.57537250e+20; rel.dev 1.48e-41
+             |    xi = -3.834481e+03-5.227160e-07j  <P_z>(0) = -1.62910898e+20; expected at 1 mm -1.62910898e+20; measured -1.62910898e+20; rel.dev 2.08e-41
+             |    xi =  3.834481e+03+5.227160e-07j  <P_z>(0) =  1.62910898e+20; expected at 1 mm  1.62910898e+20; measured  1.62910898e+20; rel.dev 0.00e+00
              | PZT-5H  : propagating roots (Im xi = 0): 4
-             |    xi = -1.138979e+03-7.624405e-08j  <P_z>(0) = -7.62238043e+20; expected at 1 mm -7.62238043e+20; measured -7.62238043e+20; rel.dev 1.78e-41
-             |    xi =  1.138979e+03+7.624405e-08j  <P_z>(0) =  7.62238043e+20; expected at 1 mm  7.62238043e+20; measured  7.62238043e+20; rel.dev 0.00e+00
-             |    xi = -3.497683e+03-1.046863e-09j  <P_z>(0) = -2.65635249e+20; expected at 1 mm -2.65635249e+20; measured -2.65635249e+20; rel.dev 1.28e-41
-             |    xi =  3.497683e+03+1.046863e-09j  <P_z>(0) =  2.65635249e+20; expected at 1 mm  2.65635249e+20; measured  2.65635249e+20; rel.dev 1.28e-41
+             |    xi = -1.138979e+03-7.624405e-08j  <P_z>(0) = -7.84813961e+20; expected at 1 mm -7.84813961e+20; measured -7.84813961e+20; rel.dev 1.73e-41
+             |    xi =  1.138979e+03+7.624405e-08j  <P_z>(0) =  7.84813961e+20; expected at 1 mm  7.84813960e+20; measured  7.84813960e+20; rel.dev 0.00e+00
+             |    xi = -3.497683e+03-1.046863e-09j  <P_z>(0) = -2.66451312e+20; expected at 1 mm -2.66451312e+20; measured -2.66451312e+20; rel.dev 2.54e-41
+             |    xi =  3.497683e+03+1.046863e-09j  <P_z>(0) =  2.66451312e+20; expected at 1 mm  2.66451312e+20; measured  2.66451312e+20; rel.dev 1.27e-41
              | Every propagating mode carries a cycle-averaged flux that decays
              | along z exactly as exp(-2 Im(xi) z).  For a strictly lossless
              | mode (Im xi = 0) this is a z-independent flux, as required by
@@ -189,7 +189,7 @@ Scope: consistency and closure only.  No R/T/A result is produced.
              | piezothermoelastic interface, and the fraction of incident power
              | converted between the four branches.  Both require the Phase-2
              | mode-matching solve.
-             | Measured worst drift 2.08e-41 relative to |<P_z>(0)|.
+             | Measured worst drift 2.54e-41 relative to |<P_z>(0)|.
              | Tolerance 1e-10 is set by the cancellation floor of the flux
              | functional (~1e20 terms cancelling), NOT by the physics; the
              | uncancelled Al6061 mode meets 4e-28.
@@ -207,7 +207,7 @@ Scope: consistency and closure only.  No R/T/A result is produced.
              | Prop.1(b) Voigt: K=0, C=Z1Z2/(Z2-Z1)=2.000000 -> R=0.000e+00
              | Prop.1(c): 200000 random passive contacts, max(T - Tw) = -2.520e-03  (must be <= 0)
              | quarter-wave Zl=sqrt(Z1Z2)=1.4142135624, phi=pi/2-1e-9: R=1.250e-19, T=1.000000000000 > Tw=0.888888888889
-[PASS      ] H1   thermodynamic stability + LS causality bounds  <4 media, 0 universal violations>   n_exec=4
+[PASS      ] H1   thermodynamic stability (universal conditions only)  <4 media, 0 universal violations>   n_exec=4
              | PZT-5H   universal: ALL HELD
              |          rho=7500  cE=420  T0=300  C>0:True  eps>0:True  kappa>0:True  tauq=3.70e-13 s
              |          OPTIONAL (not enforced): cL=4098.8 m/s  cT=1762.6 m/s  v_T=1134 m/s  v_T/cL=0.277
@@ -331,9 +331,8 @@ Scope: consistency and closure only.  No R/T/A result is produced.
              | The coupled solver is NOT ready: see reports/PHASE_01B_*.md.
 
 ==============================================================================
-foundation_checks: 15 PASS, 0 FAIL, 1 UNRESOLVED, 0 WITHDRAWN, 16 total
+foundation_checks: 16 PASS, 0 FAIL, 0 UNRESOLVED, 0 WITHDRAWN, 16 total
 executed test cases across all checks: 151
-  UNRESOLVED: D2  local balance d<J_z>/dz = -<D> (thermal branch)
 No anti-reflection result is computed or implied by this script.
 ==============================================================================
 

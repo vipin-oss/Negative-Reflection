@@ -325,19 +325,31 @@ state to be stable. In the decoupled limits this requires
 \textsc{Tested} (check A1 for $C$ and $\eps$, check H1 for the thermal set,
 for all four materials in \texttt{literature/material\_constants.csv}).
 
-\paragraph{Causality floor on $\tau_q$.} The Lord--Shulman theory admits a
-thermal wave of speed $v_T = \sqrt{\kappa/(\rho c_E\tau_q)}$. Requiring it not to
-exceed the elastic longitudinal speed $c_L$ gives
-\begin{equation}
-  \boxed{\ \tau_q \ \ge\ \tau_{q,\min} \;=\; \frac{\kappa}{\rho\,c_E\,c_L^{2}}\ }
-  \label{eq:tau-floor}
-\end{equation}
-\textsc{Derived}. Values: PZT-5H $2.83\times10^{-14}$ s, BaTiO$_3$
-$1.45\times10^{-14}$ s, Al6061 $1.73\times10^{-12}$ s, CdSe
-$4.67\times10^{-13}$ s. Every working value in the material table is chosen
-\emph{above} the floor and the ratio $\tau_q/\tau_{q,\min}$ is reported by check
-H1. This is a constraint on admissible parameter ranges, not a fit; no value was
-adjusted to produce a physical-looking result.
+\paragraph{The relaxation time $\tau_q$ (withdrawn causality floor).}
+\emph{This paragraph previously asserted a causality floor
+$\tau_q\ge\kappa/(\rho c_E c_L^2)$, obtained by requiring that the thermal wave
+speed $v_T=\sqrt{\kappa/(\rho c_ET\tau_q)}$ not exceed the elastic longitudinal
+speed $c_L$, and it boxed that inequality as \textsc{Derived}. THAT ASSERTION IS
+WITHDRAWN.} It is not supportable: Lord--Shulman theory contains no mechanism
+that bounds a constitutive relaxation front by an elastic signal speed, and no
+such ordering follows from the Second Law. The inequality had been used to
+reject a sourced CdSe value and to justify retuning it; both the rule and the
+retuning are withdrawn, and the retuning consequence is explicitly reverted.
+
+$\tau_q$ is now carried as an independent material property with its provenance
+recorded in \texttt{literature/material\_constants.csv} (status
+\texttt{STATED CHOICE} where no measurement is available). \textbf{No ordering
+between $v_T$ and any elastic speed is asserted anywhere in this document.}
+Check H1 no longer tests the withdrawn inequality; it tests only the genuinely
+universal conditions $\rho>0$, $c_E>0$, $T_0>0$, $C>0$, $\eps>0$, $\kappa>0$,
+$\tau_q\ge0$.
+
+For reference only, and explicitly \emph{not} as an admissibility constraint:
+the ratio $v_T/c_L$ evaluates to $0.53$ for the PZT-5H entry. This number has no
+theoretical standing and must never be used to select or reject a parameter.
+The full record of the withdrawal, including the original statement, is in
+\texttt{evidence/claim\_registry.csv} as \texttt{CLM-H1-02}, status
+\textsc{Invalid}, with the failure mode \texttt{UNSUPPORTED\_RULE}.
 
 \section{Dimensional audit}
 \label{sec:dims}
@@ -399,14 +411,93 @@ and the Lord--Shulman equation reproduce the blueprint's Eqs.~(2)--(5) exactly,
 including the placement of the relaxation operator.
 
 \paragraph{Not established.}
+The Phase 1D review requirement is that this section separate four categories
+that were previously conflated. Each item below is placed in exactly one.
+
+\medskip
+\textbf{(A) Active scientific assumptions} --- required by the present
+formulation, believed true, and used in every result. They must be stated
+whenever a result is quoted.
 \begin{itemize}
+  \item The quasi-static electric approximation (no electromagnetic retardation)
+        is \emph{assumed}, not re-derived. It is accurate while the acoustic
+        wavelength greatly exceeds the electromagnetic one, which holds at 1\,MHz
+        for every material in the set.
+  \item Small strain, small temperature increment, and linearisation about
+        $T_0$ with $\beta_{ij},p_i$ evaluated at $T_0$.
+  \item The full coupling set ($e_{ijk},\beta_{ij},p_i$) is retained; no term is
+        dropped as ``small''. This is deliberate: dropping $p_i$ or
+        $\beta_{ij}$ would remove the very cross-coupling the programme studies.
+\end{itemize}
+
+\medskip
+\textbf{(B) Withdrawn claims} --- previously asserted in this document and now
+retracted. Retained here so the retraction is auditable; the full record is in
+\texttt{evidence/claim\_registry.csv} (status \textsc{Invalid}).
+\begin{itemize}
+  \item \textbf{WITHDRAWN: the $\tau_q$ causality floor.} Earlier revisions of
+        this note stated that $\tau_q$ is ``a stated choice above a derived
+        causal floor'', i.e.\ that the Lord--Shulman relaxation time must be
+        large enough that the thermal propagation speed
+        $v_{\mathrm{th}}=\sqrt{\kappa/(\rho c_E\tau_q)}$ not exceed some
+        elastic speed. \textbf{That rule is withdrawn.} No such floor follows
+        from the theory: $\tau_q$ is an independent material property fixed by
+        the conductivity model, and $v_{\mathrm{th}}$ is not bounded by an
+        elastic wave speed. The rule had been used to reject a sourced CdSe
+        value and to justify retuning it; that retuning is itself withdrawn.
+        $\tau_q$ is now carried as a stated choice with provenance recorded in
+        \texttt{literature/material\_constants.csv}, and no ordering between
+        $v_{\mathrm{th}}$ and any elastic speed is asserted anywhere in this
+        theory. (For reference only, and \emph{not} as a constraint: for the
+        PZT-5H entry $v_{\mathrm{th}}\approx2.2\,\mathrm{km/s}$ against
+        $c_L\approx4.1\,\mathrm{km/s}$; this numerical coincidence carries no
+        theoretical weight and must not be used as a selection criterion.)
+  \item \textbf{WITHDRAWN: the thermal term as $\tfrac12\Re[q_z]$.} The Phase-1
+        flux used a linear functional of a single phasor. The correct
+        cycle-averaged term is the bilinear $\tfrac12\Re[q_z\vartheta^*]/T_0$;
+        see \texttt{energy\_flux\_derivation.tex}.
+\end{itemize}
+
+\medskip
+\textbf{(C) Optional modelling restrictions} --- permitted simplifications that
+are \emph{not} in force for the coupled results and must be flagged if used.
+\begin{itemize}
+  \item Setting $k=0$ (normal incidence), which removes all transverse
+        derivatives and makes the transverse conduction/parity terms vanish.
+        Valid as a limit, not as a substitute for the oblique case.
+  \item Dropping the thermoelectric coupling ($p=0$) or the thermoelastic one
+        ($\beta=0$) for decoupling studies. These are diagnostics only; a
+        reflection or transmission coefficient obtained under either is not a
+        piezothermoelastic result.
+  \item Axisymmetric or plane-strain reduction, which is a geometric restriction
+        and not a material approximation.
+\end{itemize}
+
+\medskip
+\textbf{(D) Unresolved physical questions} --- open, carried explicitly.
+\begin{itemize}
+  \item \textbf{Whether the Lord--Shulman relaxation carries stored energy.}
+        This was carried open through Phases 1 and 1B. Phase 1D resolves the
+        \emph{mathematical} question: $\langle\bq\!\cdot\!\dot\bq\rangle=0$
+        identically while $\langle\bq\!\cdot\!\bq\rangle=\tfrac12|\hat Q|^2\neq0$,
+        so the vanishing of the former is not evidence about the latter
+        (see \texttt{energy\_flux\_derivation.tex}, which states and
+        proves it as Proposition ``prop:relax'' with the resolution in Remark
+        ``rem:resolution''; the labels are not duplicated here because the
+        documents are typeset separately and a cross-document \texttt{\textbackslash ref}
+        would not resolve). What
+        remains genuinely open is the \emph{physical} question of which
+        functional the experiment measures; that requires a scattering
+        solution and is not settled here.
   \item The pyroelectric coefficient $p$ and the thermoelastic couplings
         $\beta_1,\beta_3$ are \textsc{Assumed} order-of-magnitude values for
         PZT-5H and BaTiO$_3$; only the CdSe set has tabulated $\beta$ and $p$.
-        No quantitative result may rest on their precise values.
-  \item $\tau_q$ is a stated choice above a derived causal floor, not a
-        measurement.
-  \item The quasi-static electric approximation is assumed, not re-derived.
+        \textbf{No quantitative result may rest on their precise values}, and
+        their absence for a material is a blocker rather than a licence to
+        invent them.
+  \item $\tau_q$ is a stated choice for every material in the set, not a
+        measurement. No quantitative claim is made that depends on its precise
+        value beyond the relaxation-operator placement, which is derived.
   \item No wave-propagation, reflection or transmission result appears in this
         note. Those are in \texttt{characteristic\_matrix.tex} and
         \texttt{energy\_flux\_derivation.tex}.

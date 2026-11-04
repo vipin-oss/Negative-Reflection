@@ -1,0 +1,35 @@
+{
+  "title": "Exhaustive parity-transformation search and the withdrawn flux form",
+  "date_utc": "2026-11-04T11:36:57+00:00",
+  "code_commit": "5bf01f10ba66c638a57f89cc73656c6538dd50eb",
+  "material_source_version": "d2736d7fce41a7a5d508a5af6023af929613a4e10aee02dc172a376494a2985c",
+  "dependency_versions": {
+    "python": "3.11.2",
+    "numpy": "2.4.6",
+    "sympy": "1.14.0",
+    "mpmath": "1.3.0",
+    "platform": "Linux-6.1.158+-x86_64-with-glibc2.36"
+  },
+  "seeds": {},
+  "precision": {
+    "symbolic": "exact"
+  },
+  "tolerances": {
+    "symbolic": "exact zero"
+  },
+  "input_config": {
+    "sign_patterns": 16
+  },
+  "command": "python3 validation/evidence/EXP-PARITY-FLUX/run.py",
+  "outputs": {
+    "validation/evidence/EXP-PARITY-FLUX/result.json": "e07be1bf7262da409e1b15c1075d6938835ceaae92b6648467831bb7cc2ea05b"
+  },
+  "convergence": {
+    "n_candidates": 16
+  },
+  "validation_status": "PASS",
+  "figures": [],
+  "supersedes": "the Phase-1 parity proof",
+  "notes": "Retained as a permanent negative result: diag(1,1,1,-1) is NOT a symmetry of M, and the Phase-1 document claimed it was verified.",
+  "experiment_id": "EXP-PARITY-FLUX"
+}

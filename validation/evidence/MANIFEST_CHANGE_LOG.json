@@ -1,0 +1,38 @@
+[
+  {
+    "experiment_id": "EXP-ELASTIC-REF",
+    "superseded_commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+    "at": "2026-11-04T11:36:55+00:00",
+    "archived_as": "validation/evidence/EXP-ELASTIC-REF/manifest.superseded.127eba77f397.json"
+  },
+  {
+    "experiment_id": "EXP-FOUND-01B",
+    "superseded_commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+    "at": "2026-11-04T11:36:55+00:00",
+    "archived_as": "validation/evidence/EXP-FOUND-01B/manifest.superseded.127eba77f397.json"
+  },
+  {
+    "experiment_id": "EXP-PARITY-FLUX",
+    "superseded_commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+    "at": "2026-11-04T11:36:55+00:00",
+    "archived_as": "validation/evidence/EXP-PARITY-FLUX/manifest.superseded.127eba77f397.json"
+  },
+  {
+    "experiment_id": "EXP-ELASTIC-REF",
+    "superseded_commit": "5bf01f10ba66c638a57f89cc73656c6538dd50eb",
+    "at": "2026-11-04T11:38:19+00:00",
+    "archived_as": "validation/evidence/EXP-ELASTIC-REF/manifest.superseded.5bf01f10ba66.json"
+  },
+  {
+    "experiment_id": "EXP-FOUND-01B",
+    "superseded_commit": "5bf01f10ba66c638a57f89cc73656c6538dd50eb",
+    "at": "2026-11-04T11:38:19+00:00",
+    "archived_as": "validation/evidence/EXP-FOUND-01B/manifest.superseded.5bf01f10ba66.json"
+  },
+  {
+    "experiment_id": "EXP-PARITY-FLUX",
+    "superseded_commit": "5bf01f10ba66c638a57f89cc73656c6538dd50eb",
+    "at": "2026-11-04T11:38:19+00:00",
+    "archived_as": "validation/evidence/EXP-PARITY-FLUX/manifest.superseded.5bf01f10ba66.json"
+  }
+]

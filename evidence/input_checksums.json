@@ -1,15 +1,15 @@
 {
   "schema_version": "1.0",
-  "generated_utc": "2026-11-04T10:55:56+00:00",
-  "commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+  "generated_utc": "2026-11-04T11:58:31+00:00",
+  "commit": "5bf01f10ba66c638a57f89cc73656c6538dd50eb",
   "policy": "Changing any of these files requires regenerating this register AND recording the reason in evidence/approved_baselines.json.",
   "files": {
     "literature/material_constants.csv": "d2736d7fce41a7a5d508a5af6023af929613a4e10aee02dc172a376494a2985c",
     "literature/verified_references.csv": "4d68005f28e021d467baa5fb381c6061ab1f44dc075849810d82bbfc7ced32c2",
     "code/det_coeffs.json": "5cb382b824d7e624fe25d369d471404ad1fa03f7e14db8b641ed4656de55b90b",
     "theory/characteristic_matrix.tex": "8769f10e59a34601abebc12400a5fe3a67b1005f3c01682b1c7935c50c293793",
-    "theory/energy_flux_derivation.tex": "86effb29c17356378095ee48d69a7fb53738a12008d5caf9057cd3dc901f1224",
-    "theory/governing_equations.tex": "34aa78a93a5b688c63d4b2d051c7aba915a60904fc8140d42642c9b84a344507",
+    "theory/energy_flux_derivation.tex": "93779f5fe3d3ffc24fd6cf8658f7fff5c96956a40a860a3f90c0534c34bb7a4d",
+    "theory/governing_equations.tex": "abb785031575df03a10ec0d887af14a8b95b0e9f03817af4c931472b0eae2d71",
     "theory/interface_conditions.tex": "727e6a08a9e5d907f5cd43a95e3d448aece00cea0c3a833829374abefcc47ffd",
     "validation/schemas/material_constants.schema.json": "d8b35865ad48c5ea7b1cde87603e9f1dad8b34bf261a2bcbef61f7da7ff59637"
   }

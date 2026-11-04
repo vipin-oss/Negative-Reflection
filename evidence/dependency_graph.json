@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_for_commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+  "generated_for_commit": "PENDING-commit",
   "description": "Research dependency graph for the piezothermoelastic anti-reflection project. Nodes are material sources, constants, equations, code modules, tests, claims, experiments and manuscript artefacts. Edges are directed dependencies: A -> B means 'B depends on A', so a change to A propagates to B.",
   "node_kinds": [
     "source",
@@ -139,7 +139,7 @@
       "kind": "equation",
       "label": "Characteristic matrix M",
       "file": "theory/characteristic_matrix.tex",
-      "status": "VERIFIED_WEAK"
+      "status": "VERIFIED_STRONG"
     },
     {
       "id": "EQ-CM-02",
@@ -174,7 +174,7 @@
       "kind": "equation",
       "label": "Thermal flux term (corrected)",
       "file": "theory/energy_flux_derivation.tex",
-      "status": "UNRESOLVED"
+      "status": "VERIFIED_STRONG"
     },
     {
       "id": "EQ-ENG-03",
@@ -195,7 +195,7 @@
       "kind": "equation",
       "label": "Total-field flux J_z",
       "file": "theory/energy_flux_derivation.tex",
-      "status": "UNRESOLVED"
+      "status": "VERIFIED_STRONG"
     },
     {
       "id": "EQ-ENG-07",
@@ -230,7 +230,7 @@
       "kind": "equation",
       "label": "Mechanical contact law",
       "file": "theory/interface_conditions.tex",
-      "status": "VERIFIED_WEAK"
+      "status": "PARTIAL"
     },
     {
       "id": "EQ-IFC-04",
@@ -251,7 +251,7 @@
       "kind": "equation",
       "label": "Mode-matching scattering system",
       "file": null,
-      "status": "NOT_IMPLEMENTED"
+      "status": "UNRESOLVED"
     },
     {
       "id": "EQ-SCT-02",
@@ -300,7 +300,7 @@
       "kind": "blocker",
       "label": "U-3 amplitude normalisation / null-vector direction",
       "file": "reports/PHASE_01C_OPEN_BLOCKERS.md",
-      "status": "OPEN"
+      "status": "CLOSED"
     },
     {
       "id": "BLK-G0",
@@ -342,14 +342,14 @@
       "kind": "blocker",
       "label": "LS stored-energy vs vanishing time-derivative (open scientific question)",
       "file": "reports/PHASE_01C_OPEN_BLOCKERS.md",
-      "status": "OPEN"
+      "status": "MATHEMATICAL_PART_CLOSED_PHYSICAL_PART_OPEN"
     },
     {
       "id": "EQ-EIG-01",
       "kind": "equation",
       "label": "Eigenvalue problem and root set",
       "file": "theory/characteristic_matrix.tex",
-      "status": "VERIFIED_WEAK"
+      "status": "VERIFIED_STRONG"
     }
   ],
   "edges": [
@@ -754,5 +754,6 @@
       "correction": "the source replaces the target; do not propagate"
     },
     "unrelated_changes_do_not_propagate": true
-  }
+  },
+  "phase_1d_sync": "Node statuses re-read from evidence/equation_registry.csv and reports/PHASE_01C_OPEN_BLOCKERS.json. BLK-U3 CLOSED; EQ-ENG-02, EQ-ENG-05, EQ-EIG-01 VERIFIED_STRONG; CLM-LS-01 added. The edge set is unchanged: no dependency was added or removed, only statuses were refreshed."
 }

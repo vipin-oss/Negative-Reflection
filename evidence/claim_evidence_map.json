@@ -341,6 +341,28 @@
         "CHOSEN"
       ],
       "file": "validation/tests/test_01_data_integrity.py"
+    },
+    {
+      "claim_id": "CLM-D2-01",
+      "check": "D2",
+      "fn": "check_D2_balance",
+      "asserted_quantity": "the local balance -2 Im(xi)<J_z> = <D> for the thermal branch",
+      "required_tokens": [
+        "_dissipation_terms_mp",
+        "flux_z_mp",
+        "check_D2_balance"
+      ]
+    },
+    {
+      "claim_id": "CLM-LS-01",
+      "check": "LS01",
+      "fn": "test_LS01_relaxation_storage",
+      "asserted_quantity": "<q.qdot> = 0 identically while <q.q> = |Q|^2/2 is non-zero, so the vanishing of one is not evidence about the other",
+      "required_tokens": [
+        "avg_qdot",
+        "avg_qq"
+      ],
+      "file": "validation/tests/test_09_ls_relaxation.py"
     }
   ],
   "negative_bindings": [

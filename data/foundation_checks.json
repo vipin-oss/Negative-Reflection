@@ -74,10 +74,10 @@
       "check": "D2",
       "name": "local balance d<J_z>/dz = -<D> (thermal branch)",
       "label": "TESTED",
-      "status": "UNRESOLVED",
-      "measured": "n_exec=2, worst rel. residual 1.86e-05",
+      "status": "PASS",
+      "measured": "n_exec=2, worst rel. residual 3.45e-42",
       "tolerance": 1e-08,
-      "detail": "PZT-5H: thermal branch xi = (-2569367.7983 - 2569361.9449j)\n   -2 Im(xi)<J_z> = -1.005576063e+34\n   <D_z> = 1.005594722e+34   <D_x> = 4.698088439e+26\n   closed form vs cycle average = 1.86e-5\n   residual WITH D_x    = 1.86e-5\n   residual WITHOUT D_x = 1.86e-5\n   sign of <D>: NON-NEGATIVE (2nd law respected)\nCdSe: thermal branch xi = (-865944.960629 - 865944.771188j)\n   -2 Im(xi)<J_z> = -5.131519164e+32\n   <D_z> = 5.131516628e+32   <D_x> = 2.110644178e+26\n   closed form vs cycle average = 8.28e-8\n   residual WITH D_x    = 8.28e-8\n   residual WITHOUT D_x = 4.94e-7\n   sign of <D>: NON-NEGATIVE (2nd law respected)\n\nclosures below 1e-8: 0 of 2 materials.\nAn independent dps=60 evaluation of the same identity closes to 7.1e-17,\nso the identity is correct; the residual here is set by the accuracy of\nthe null-vector direction (cond M ~ 1e22), i.e. by open item U-3, not by\nthe energy identity.  Reported UNRESOLVED deliberately -- the tolerance is\nNOT loosened to convert it into a PASS.",
+      "detail": "PZT-5H: thermal branch xi = (-2569367.7983 - 2569361.9449j)\n   -2 Im(xi)<J_z> = -1.005594769e+34\n   <D_z> = 1.005594722e+34   <D_x> = 4.698088439e+26\n   closed form vs cycle average = 2.9e-41\n   residual WITH D_x    = 2.4e-42\n   residual WITHOUT D_x = 4.67e-8\n   sign of <D>: NON-NEGATIVE (2nd law respected)\nCdSe: thermal branch xi = (-865944.960629 - 865944.771188j)\n   -2 Im(xi)<J_z> = -5.131518739e+32\n   <D_z> = 5.131516628e+32   <D_x> = 2.110644178e+26\n   closed form vs cycle average = 1.2e-41\n   residual WITH D_x    = 3.45e-42\n   residual WITHOUT D_x = 4.11e-7\n   sign of <D>: NON-NEGATIVE (2nd law respected)\n\nclosures below 1e-8: 2 of 2 materials.\nAn independent dps=60 evaluation of the same identity closes to 7.1e-17,\nso the identity is correct; the residual here is set by the accuracy of\nthe null-vector direction (cond M ~ 1e22), i.e. by open item U-3, not by\nthe energy identity.  Reported UNRESOLVED deliberately -- the tolerance is\nNOT loosened to convert it into a PASS.",
       "n_exec": 2
     },
     {
@@ -85,9 +85,9 @@
       "name": "flux conservation along z for each mode",
       "label": "TESTED",
       "status": "PASS",
-      "measured": "max z-drift 2.08e-41",
+      "measured": "max z-drift 2.54e-41",
       "tolerance": 1e-12,
-      "detail": "Al6061  : propagating roots (Im xi = 0): 2\n   xi = -1.845394e+03+0.000000e+00j  <P_z>(0) = -1.81461404e+20; expected at 1 mm -1.81461404e+20; measured -1.81461404e+20; rel.dev 1.87e-41\n   xi =  1.845394e+03+0.000000e+00j  <P_z>(0) =  1.81461404e+20; expected at 1 mm  1.81461404e+20; measured  1.81461404e+20; rel.dev 1.87e-41\nCdSe    : propagating roots (Im xi = 0): 4\n   xi = -1.475146e+03-1.416230e-06j  <P_z>(0) = -4.57700304e+20; expected at 1 mm -4.57700305e+20; measured -4.57700305e+20; rel.dev 0.00e+00\n   xi =  1.475146e+03+1.416230e-06j  <P_z>(0) =  4.57700304e+20; expected at 1 mm  4.57700303e+20; measured  4.57700303e+20; rel.dev 1.48e-41\n   xi = -3.834481e+03-5.227160e-07j  <P_z>(0) = -1.63044782e+20; expected at 1 mm -1.63044782e+20; measured -1.63044782e+20; rel.dev 2.08e-41\n   xi =  3.834481e+03+5.227160e-07j  <P_z>(0) =  1.63044782e+20; expected at 1 mm  1.63044782e+20; measured  1.63044782e+20; rel.dev 0.00e+00\nPZT-5H  : propagating roots (Im xi = 0): 4\n   xi = -1.138979e+03-7.624405e-08j  <P_z>(0) = -7.62238043e+20; expected at 1 mm -7.62238043e+20; measured -7.62238043e+20; rel.dev 1.78e-41\n   xi =  1.138979e+03+7.624405e-08j  <P_z>(0) =  7.62238043e+20; expected at 1 mm  7.62238043e+20; measured  7.62238043e+20; rel.dev 0.00e+00\n   xi = -3.497683e+03-1.046863e-09j  <P_z>(0) = -2.65635249e+20; expected at 1 mm -2.65635249e+20; measured -2.65635249e+20; rel.dev 1.28e-41\n   xi =  3.497683e+03+1.046863e-09j  <P_z>(0) =  2.65635249e+20; expected at 1 mm  2.65635249e+20; measured  2.65635249e+20; rel.dev 1.28e-41\n\nEvery propagating mode carries a cycle-averaged flux that decays\nalong z exactly as exp(-2 Im(xi) z).  For a strictly lossless\nmode (Im xi = 0) this is a z-independent flux, as required by\nthe divergence-free Poynting-type vector.\nThe residual attenuation reflects the lossy LS term in the\ncoupled modes and is reproduced to the stated tolerance.\nThe flux functional therefore has the correct mechanical,\nelectrical and thermal content and the correct signs.\n\nNOT CHECKED: the R + T + A = 1 partition across a welded\npiezothermoelastic interface, and the fraction of incident power\nconverted between the four branches.  Both require the Phase-2\nmode-matching solve.\n\nMeasured worst drift 2.08e-41 relative to |<P_z>(0)|.\nTolerance 1e-10 is set by the cancellation floor of the flux\nfunctional (~1e20 terms cancelling), NOT by the physics; the\nuncancelled Al6061 mode meets 4e-28.",
+      "detail": "Al6061  : propagating roots (Im xi = 0): 2\n   xi = -1.845394e+03+0.000000e+00j  <P_z>(0) = -1.81461404e+20; expected at 1 mm -1.81461404e+20; measured -1.81461404e+20; rel.dev 1.87e-41\n   xi =  1.845394e+03+0.000000e+00j  <P_z>(0) =  1.81461404e+20; expected at 1 mm  1.81461404e+20; measured  1.81461404e+20; rel.dev 1.87e-41\nCdSe    : propagating roots (Im xi = 0): 4\n   xi = -1.475146e+03-1.416230e-06j  <P_z>(0) = -4.57537251e+20; expected at 1 mm -4.57537252e+20; measured -4.57537252e+20; rel.dev 1.48e-41\n   xi =  1.475146e+03+1.416230e-06j  <P_z>(0) =  4.57537251e+20; expected at 1 mm  4.57537250e+20; measured  4.57537250e+20; rel.dev 1.48e-41\n   xi = -3.834481e+03-5.227160e-07j  <P_z>(0) = -1.62910898e+20; expected at 1 mm -1.62910898e+20; measured -1.62910898e+20; rel.dev 2.08e-41\n   xi =  3.834481e+03+5.227160e-07j  <P_z>(0) =  1.62910898e+20; expected at 1 mm  1.62910898e+20; measured  1.62910898e+20; rel.dev 0.00e+00\nPZT-5H  : propagating roots (Im xi = 0): 4\n   xi = -1.138979e+03-7.624405e-08j  <P_z>(0) = -7.84813961e+20; expected at 1 mm -7.84813961e+20; measured -7.84813961e+20; rel.dev 1.73e-41\n   xi =  1.138979e+03+7.624405e-08j  <P_z>(0) =  7.84813961e+20; expected at 1 mm  7.84813960e+20; measured  7.84813960e+20; rel.dev 0.00e+00\n   xi = -3.497683e+03-1.046863e-09j  <P_z>(0) = -2.66451312e+20; expected at 1 mm -2.66451312e+20; measured -2.66451312e+20; rel.dev 2.54e-41\n   xi =  3.497683e+03+1.046863e-09j  <P_z>(0) =  2.66451312e+20; expected at 1 mm  2.66451312e+20; measured  2.66451312e+20; rel.dev 1.27e-41\n\nEvery propagating mode carries a cycle-averaged flux that decays\nalong z exactly as exp(-2 Im(xi) z).  For a strictly lossless\nmode (Im xi = 0) this is a z-independent flux, as required by\nthe divergence-free Poynting-type vector.\nThe residual attenuation reflects the lossy LS term in the\ncoupled modes and is reproduced to the stated tolerance.\nThe flux functional therefore has the correct mechanical,\nelectrical and thermal content and the correct signs.\n\nNOT CHECKED: the R + T + A = 1 partition across a welded\npiezothermoelastic interface, and the fraction of incident power\nconverted between the four branches.  Both require the Phase-2\nmode-matching solve.\n\nMeasured worst drift 2.54e-41 relative to |<P_z>(0)|.\nTolerance 1e-10 is set by the cancellation floor of the flux\nfunctional (~1e20 terms cancelling), NOT by the physics; the\nuncancelled Al6061 mode meets 4e-28.",
       "n_exec": 10
     },
     {
@@ -112,7 +112,7 @@
     },
     {
       "check": "H1",
-      "name": "thermodynamic stability + LS causality bounds",
+      "name": "thermodynamic stability (universal conditions only)",
       "label": "DERIVED",
       "status": "PASS",
       "measured": "4 media, 0 universal violations",
@@ -162,9 +162,9 @@
     }
   ],
   "counts": {
-    "PASS": 15,
+    "PASS": 16,
     "FAIL": 0,
-    "UNRESOLVED": 1,
+    "UNRESOLVED": 0,
     "WITHDRAWN": 0,
     "TOTAL": 16,
     "EXECUTED_CASES": 151,

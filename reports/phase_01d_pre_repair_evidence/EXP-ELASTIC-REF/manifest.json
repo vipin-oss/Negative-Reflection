@@ -1,0 +1,62 @@
+{
+  "title": "Reduced elastic P-SV reflection at an Al6061 / steel-like interface",
+  "date_utc": "2026-11-04T10:44:03+00:00",
+  "code_commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+  "material_source_version": "8f43844a9f99fe2f1c236fd527b289f994ac9d91c88de2c73e9f1bd6cd2a40cb",
+  "dependency_versions": {
+    "python": "3.11.2",
+    "numpy": "2.4.6",
+    "sympy": "1.14.0",
+    "mpmath": "1.3.0",
+    "platform": "Linux-6.1.158+-x86_64-with-glibc2.36"
+  },
+  "seeds": {},
+  "precision": {
+    "linear_algebra": "numpy float64",
+    "postprocessing": "float64"
+  },
+  "tolerances": {
+    "solver": "numpy.linalg.solve default",
+    "energy_closure": 1e-12
+  },
+  "input_config": {
+    "frequency_Hz": 1000000.0,
+    "media": {
+      "A": {
+        "name": "Al6061",
+        "rho": 2700.0,
+        "C11": 107600000000.0,
+        "C44": 26500000000.0
+      },
+      "B": {
+        "name": "steel-like",
+        "rho": 7800.0,
+        "C11": 281000000000.0,
+        "C44": 82000000000.0
+      }
+    },
+    "angles_deg": [
+      0,
+      5,
+      15,
+      30,
+      45,
+      60,
+      75,
+      85
+    ]
+  },
+  "command": "python3 -c \"import sys;sys.path.insert(0,'code');import numpy as np,elastic_psv as ep,json;w=2*np.pi*1e6;A=ep.ElasticISO('Al6061',2700.0,107.6e9,26.5e9);B=ep.ElasticISO('steel',7800.0,281.0e9,82.0e9);rows=[{k:(float(v.real) if isinstance(v,complex) else float(v)) for k,v in ep.solve_psv(A,B,w,t).items() if not isinstance(v,complex) or abs(v.imag)<1e-30} for t in (0,5,15,30,45,60,75,85)];json.dump(rows,open(sys.argv[1],'w'),indent=2)\" validation/evidence/EXP-ELASTIC-REF/raw.json",
+  "outputs": {
+    "validation/evidence/EXP-ELASTIC-REF/raw.json": "9b221554a36f31a616dd0fc4862e5939b2211dbd182c9beb8b522756dfd6421c"
+  },
+  "convergence": {
+    "note": "closed-form comparison, not a discretisation; no mesh parameter exists",
+    "max_abs_R_plus_T_minus_1": 9.992007221626409e-16
+  },
+  "validation_status": "PASS",
+  "figures": [],
+  "supersedes": null,
+  "notes": "The only configuration whose energy closure is verified. This is the acceptance oracle any coupled solver must reproduce in the piezo-thermal-decoupled limit.",
+  "experiment_id": "EXP-ELASTIC-REF"
+}

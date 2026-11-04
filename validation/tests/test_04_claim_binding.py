@@ -64,6 +64,20 @@ def test_BIND01_every_verified_claim_is_bound():
                 # deliberately records it as VERIFIED_WEAK with a stated defect
                 problems.append((cid, "VERIFIED but NOT BOUND in claim_evidence_map"))
                 continue
+            # PHASE 1D GAP CLOSED. Until Phase 1D this check trusted the map
+            # entirely and never compared the map's `check` field against the
+            # registry's own `test_id`. Mutation M18 exploited exactly that:
+            # rewriting CLM-D2-01's test_id to a test that does not compute the
+            # balance was INVISIBLE, because the map still pointed at the real
+            # function. A registry row that names a different test from its
+            # binding is now a hard failure.
+            declared = (r.get("test_id") or "").strip()
+            bound_check = (b.get("check") or "").strip()
+            if declared and bound_check and declared != bound_check:
+                problems.append((cid,
+                                 f"TEST_ID_DESYNC registry says {declared!r} but the "
+                                 f"binding says {bound_check!r}"))
+                continue
             rel = b.get("file", "code/foundation_checks.py")
             if b.get("binding_kind") == "data_file":
                 # a claim verified by the CONTENT of a data file rather than by code

@@ -1,0 +1,9 @@
+[EXP-ELASTIC-REF] Reduced elastic P-SV reflection at an Al6061 / steel-like in
+   1/1 output hashes match after re-run
+[EXP-FOUND-01B] Phase 1B foundation check suite (16 checks, A1-J2)
+   1/2 output hashes match after re-run
+   HASH MISMATCH: the recorded output is not what the code produces now
+[EXP-PARITY-FLUX] Exhaustive parity-transformation search and the withdrawn fl
+   1/1 output hashes match after re-run
+
+2/3 manifests verified

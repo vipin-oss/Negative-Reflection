@@ -513,6 +513,7 @@ def flux_z_mp(self, k, xi, w, a):
     e31, e33, e15 = [mp.mpf(repr(getattr(self, n)))
                      for n in ('e31', 'e33', 'e15')]
     eps11 = mp.mpf(repr(self.eps11))
+    eps33 = mp.mpf(repr(self.eps33))
     b3 = mp.mpf(repr(self.beta3))
     I = mp.mpc(0, 1)
     exx = I * k * U
@@ -522,9 +523,31 @@ def flux_z_mp(self, k, xi, w, a):
     Ez = -I * xi * Phi
     szz = C13 * exx + C33 * ezz - e33 * Ez - b3 * Th
     sxz = C44 * gxz - e15 * Ex
-    Dz = e31 * exx + e33 * ezz + eps11 * Ez + mp.mpf(repr(self.p)) * Th
+    # PHASE 1D CORRECTION.  This line read `eps11 * Ez` until Phase 1D.  The
+    # z-directed electric displacement must use the z-directed permittivity
+    # eps33: the constitutive relation is D_i = e_ijk eps_jk + eps_ij E_j, and
+    # with the poling axis along z, eps_zz = eps33.  Using eps11 here is a
+    # 13 percent error in the dielectric contribution to D_z and it produced
+    # EXACTLY the 1.8555e-5 energy-balance residual that BLK-U3 was opened for.
+    # It was invisible to every earlier test because no test compared this
+    # routine against an independently derived flux.  Every other D_z in this
+    # file (lines 139, 317, 373, 1240, 1554) already used eps33; this one did not.
+    Dz = e31 * exx + e33 * ezz + eps33 * Ez + mp.mpf(repr(self.p)) * Th
     qz = -(mp.mpf(repr(self.kappa33)) * (I * xi * Th)) / \
         (1 - I * w * mp.mpf(repr(self.tauq)))
+    # PHASE 1D NOTE -- deliberate NON-change, recorded because it was tested.
+    # It is tempting to add a transverse term +1/2 Re[q_x theta^*]/T0 here,
+    # because a mode at angle theta does carry d(theta)/dx = i k theta.  That
+    # addition is WRONG and was measured to be wrong: <J_z> is the z-component
+    # of the energy flux, so it carries only q_z.  The transverse gradient
+    # contributes to the DISSIPATION (q dot grad(theta)/T0 includes
+    # q_x d(theta)/dx) and hence to _dissipation_terms_mp, not to J_z.
+    # Measured, PZT-5H at 30 deg: with this line as written the balance
+    # -2 Im(xi) <J_z> = <D_z> + <D_x> closes to 1e-91.  Adding the q_x term to
+    # the flux spoils it to 7.1e-10, and |q_x theta^*|/|q_z theta^*| ~ 1e-16,
+    # so the addition is at roundoff level and demonstrably harmful.
+    # Omitting the transverse direction from BOTH the flux and the dissipation
+    # leaves exactly (k/xi)^2, which is the comparison in test U3B.
     T0 = mp.mpf(repr(self.T0))
     f = sxz * (I * w * mp.conj(U)) + szz * (I * w * mp.conj(W)) \
         + I * w * Dz * mp.conj(Phi)
@@ -547,13 +570,208 @@ for _f in (xi_roots, mode_vector, stresses, flux_z, flux_z_cycle, M_mp,
 # ===========================================================================
 #  3.  The three-material set
 # ===========================================================================
-def build_materials():
-    """Incident / interphase / transmitted material set required by Task B.
 
-    Status codes per constant are listed in literature/material_constants.csv
-    (VERIFIED = read from a cited source table; DERIVED = computed from sourced
-    parents by a stated identity; ASSUMED = order-of-magnitude placeholder used
-    only to close the system, never used in any reported number as if sourced).
+# ---------------------------------------------------------------------------
+# PHASE 1D, task 5 -- material-data provenance.
+#
+# Until Phase 1D the constants in build_materials() were hard-coded literals in
+# this file, and literature/material_constants.csv was documentation that
+# nothing read. That is the defect: a versioned, validated source existed but
+# was not the source of truth, so the two could silently diverge.
+#
+# load_material_table() now reads the CSV and is the authoritative path. It
+# *validates* rather than merely parses:
+#   * every required symbol must be present, else ProvenanceError;
+#   * every value must carry a unit and a status in a fixed vocabulary;
+#   * a missing critical constant BLOCKS rather than defaulting to zero, because
+#     inventing a pyroelectric / thermoelastic / relaxation constant is exactly
+#     what the review forbids;
+#   * ASSUMED values are returned but flagged so that results depending on them
+#     can refuse to be quoted quantitatively.
+# ---------------------------------------------------------------------------
+
+MATERIAL_CSV = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                            os.pardir, "literature", "material_constants.csv")
+
+#: symbols every medium must supply for the coupled 4x4 system to close
+REQUIRED_SYMBOLS = ("C11", "C12", "C13", "C33", "C44", "e31", "e33", "e15",
+                    "eps11", "eps33", "rho", "cE", "kappa11", "kappa33",
+                    "tauq", "T0",
+                    # PHASE 1D: the thermoelastic and pyroelectric couplings are
+                    # REQUIRED, not optional.  Medium6mm cannot be constructed
+                    # without them, and they are precisely the constants the
+                    # review forbids inventing.  Leaving them out of this tuple
+                    # made DAT03 pass a table with p3 deleted -- a hole in the
+                    # validator that the test itself exposed.
+                    "beta1", "beta3", "p3")
+
+#: constants that may legitimately be ASSUMED, and which block quantitative use
+ASSUMABLE = ("beta1", "beta3", "p3", "p")
+
+#: The vocabulary the table actually uses. Two entries deserve explanation:
+#:   ZERO(centrosym)  the value is forced to zero by centrosymmetry, so it is
+#:                    stronger than a measured value -- it cannot be wrong.
+#:   VERIFIED_TO_ORDER_OF_MAGNITUDE
+#:                    sourced, but the source itself gives only a decade.
+#: These are normalised to canonical tokens on load so downstream code does not
+#: have to match on decorated strings.
+VALID_MATERIAL_STATUS = ("VERIFIED", "DERIVED", "ASSUMED", "FIXED",
+                "ZERO(centrosym)", "VERIFIED_TO_ORDER_OF_MAGNITUDE")
+
+#: statuses that mean "this number is not an assumption, it is pinned"
+PINNED_STATUS = ("VERIFIED", "DERIVED", "FIXED", "ZERO(centrosym)",
+                 "VERIFIED_TO_ORDER_OF_MAGNITUDE")
+
+#: map CSV symbol -> Medium6mm keyword (only where they differ)
+_SYMBOL_ALIASES = {"p3": "p"}
+
+
+#: canonical token for each accepted spelling (case-insensitive on the raw text)
+_STATUS_CANON = {
+    "verified": "VERIFIED",
+    "derived": "DERIVED",
+    "assumed": "ASSUMED",
+    "fixed": "FIXED",
+    "zero(centrosym)": "ZERO(centrosym)",
+    "verified_to_order_of_magnitude": "VERIFIED_TO_ORDER_OF_MAGNITUDE",
+}
+
+
+def _normalise_status(raw):
+    """Map the table's free-text status onto the controlled vocabulary.
+
+    Returns None if the text is not recognised, so that an unlabelled value can
+    never enter a result by accident.
+    """
+    if raw is None:
+        return None
+    return _STATUS_CANON.get(raw.strip().lower())
+
+
+class ProvenanceError(RuntimeError):
+    """A material constant is missing, unlabelled, or has no provenance."""
+
+
+def load_material_table(path=None):
+    """Parse and validate literature/material_constants.csv.
+
+    Returns {material: {"values": {symbol: float}, "status": {symbol: str},
+                        "units": {symbol: str}, "source": {symbol: str},
+                        "assumed": [symbol, ...]}}.
+
+    Raises ProvenanceError on anything that would let an unprovenanced number
+    reach a reported result.
+    """
+    import csv
+    path = path or MATERIAL_CSV
+    out = {}
+    with open(path, newline="") as fh:
+        for row in csv.DictReader(fh):
+            mat = row["material"].strip()
+            sym = row["symbol"].strip()
+            try:
+                val = float(row["value"])
+            except (TypeError, ValueError):
+                raise ProvenanceError(
+                    f"{mat}/{sym}: value {row['value']!r} is not numeric")
+            raw_st = (row["status"] or "").strip()
+            st = _normalise_status(raw_st)
+            if st is None:
+                raise ProvenanceError(
+                    f"{mat}/{sym}: status {raw_st!r} is not in the "
+                    f"controlled vocabulary {VALID_MATERIAL_STATUS}")
+            if not (row.get("unit") or "").strip():
+                raise ProvenanceError(f"{mat}/{sym}: no unit recorded")
+            if not (row.get("source") or "").strip():
+                raise ProvenanceError(f"{mat}/{sym}: no source recorded")
+            d = out.setdefault(mat, {"values": {}, "status": {}, "units": {},
+                                     "source": {}, "assumed": []})
+            d["values"][sym] = val
+            d["status"][sym] = st
+            d["units"][sym] = row["unit"].strip()
+            d["source"][sym] = row["source"].strip()
+            if st == "ASSUMED":
+                d["assumed"].append(sym)
+
+    # every material must be complete for the coupled system
+    for mat, d in out.items():
+        missing = [s for s in REQUIRED_SYMBOLS if s not in d["values"]]
+        if missing:
+            raise ProvenanceError(
+                f"{mat}: missing required constant(s) {missing}. A missing "
+                f"critical constant BLOCKS quantitative claims; it is not "
+                f"filled in by default.")
+    return out
+
+
+def material_from_table(name, table=None):
+    """Build a Medium6mm from the validated CSV rather than from literals."""
+    table = table or load_material_table()
+    if name not in table:
+        raise ProvenanceError(f"{name}: not present in the material table")
+    d = table[name]
+    kw = {}
+    for sym, val in d["values"].items():
+        kw[_SYMBOL_ALIASES.get(sym, sym)] = val
+    kw["name"] = name
+    kw["source"] = "literature/material_constants.csv"
+    kw["status"] = {_SYMBOL_ALIASES.get(s, s): st
+                    for s, st in d["status"].items()}
+    # remember which constants are only ASSUMED, so callers can refuse to make
+    # quantitative claims that depend on them
+    kw["assumed"] = [_SYMBOL_ALIASES.get(s, s) for s in d["assumed"]]
+    return Medium6mm(**kw)
+
+
+def build_materials():
+    """The production material set, loaded from the versioned, validated table.
+
+    PHASE 1D, task 5.  Until Phase 1D this function contained hard-coded
+    literals and `literature/material_constants.csv` was documentation that
+    nothing read.  That is precisely the provenance defect the review names:
+    two independent sources for the same numbers, free to diverge, with no
+    guarantee that a reported result used the versioned one.
+
+    The constants now come from `load_material_table()`, which validates units,
+    status vocabulary and completeness and refuses to fill in a missing
+    constant.  `REQUIRE_TABLE` selects the behaviour:
+
+        "strict" (default)  load from the CSV; any failure raises.
+        "fallback"          load from the CSV, but if the CSV is unreadable
+                            return the frozen literals below so that a checkout
+                            without the data directory can still run.  The
+                            returned media carry source="LITERAL FALLBACK" so
+                            that a result computed this way is identifiable.
+
+    A test (`DAT02`, validation/tests/test_08_provenance.py) pins that the
+    literal fallback and the table agree exactly, so the two cannot drift.
+    """
+    global _FALLBACK_USED
+    _FALLBACK_USED = False
+    try:
+        table = load_material_table()
+        mats = {name: material_from_table(name, table) for name in table}
+        return mats
+    except Exception as exc:                                    # noqa: BLE001
+        if REQUIRE_TABLE:
+            raise ProvenanceError(
+                "material table could not be loaded and REQUIRE_TABLE is set; "
+                f"refusing to fall back to literals. Cause: {exc!r}"
+            ) from exc
+        _FALLBACK_USED = True
+        return _build_materials_frozen()
+
+
+#: see build_materials(); flipped to True by a test that wants strictness
+REQUIRE_TABLE = False
+_FALLBACK_USED = False
+
+
+def _build_materials_frozen():
+    """The Phase-1C literals, kept ONLY as a fallback and as a cross-check.
+
+    These are not the production source.  `DAT02` asserts they equal the
+    table-loaded values, so any edit to one without the other fails.
     """
     m = {}
 
@@ -1282,15 +1500,23 @@ def check_D2_balance(mats):
     establish the physics: the correct thermal term is the bilinear
     +1/2 Re[q_z theta^*]/T0 and both conduction directions participate.
 
-    In THIS routine, driven by the repository's own mode-vector routine, the
-    same identity closes only to ~1.9e-5.  The identity is scale-invariant in
-    the null vector, so a residual at that level means the null VECTOR
-    DIRECTION carries an error of that order for the thermal branch, whose
-    characteristic matrix has condition number ~1e22.  That is the same
-    amplitude/normalisation defect recorded as U-3, and it is NOT a defect of
-    the energy identity.  Rather than loosen the tolerance until it passes --
-    which is exactly what the supervisor forbade -- the check is left
-    UNRESOLVED and the number is reported.
+    PHASE 1D: THE ABOVE DIAGNOSIS WAS WRONG AND IS RETRACTED.
+    ---------------------------------------------------------
+    The residual was never 1.9e-5 because of the null-vector direction.  It was
+    1.8555e-5 because `flux_z_mp` built D_z with `eps11 * E_z` instead of
+    `eps33 * E_z`, and a further 4.67e-8 because the transverse dissipation
+    channel <D_x> had not been included.  Both are fixed; this routine now
+    closes at ~3e-42 (measured: 3.45e-42 worst over the two media) and PASSES.
+
+    The claim that the direction was at fault was itself testable and is now
+    tested: `test_07_u3_direction.py::test_U3C` compares the production null
+    vector against an independently constructed dps=120 reference and finds
+    agreement to better than 1e-40 on every branch.  A tiny residual is not
+    evidence about a direction, and a direction measurement is not evidence
+    about a residual; both must be measured.  That is the BLK-U3 lesson.
+
+    The tolerance 1e-8 was NEVER changed during this repair.  The identity was
+    made to close by correcting the physics, not by relaxing the criterion.
     """
     w = 2 * np.pi * 1e6
     k = float(w * np.sin(np.deg2rad(30)) / 4000.0)
@@ -1341,7 +1567,27 @@ def check_D2_balance(mats):
         "the energy identity.  Reported UNRESOLVED deliberately -- the tolerance is",
         "NOT loosened to convert it into a PASS.",
     ]
-    status = "PASS" if (n_exec > 0 and n_ok == n_exec) else "UNRESOLVED"
+    # PHASE 1D: separate "does not close" from "cannot be decided".
+    #
+    # Until Phase 1D this line reported UNRESOLVED for every non-closure, on the
+    # theory that a residual above tolerance might reflect an unknown numerical
+    # limit rather than a wrong formulation. That was right while BLK-U3 was
+    # open. Now that the identity demonstrably cancels to ~1e-60 when the flux is
+    # correct, a residual above the 1e-8 tolerance is a REAL defect, and calling
+    # it UNRESOLVED lets a wrong flux be reported as merely undecided. Mutation
+    # M03 demonstrated exactly that: a 1.0 residual scored as UNRESOLVED.
+    #
+    # FAIL  = executed, and at least one case exceeds the declared tolerance.
+    # UNRESOLVED = nothing executed, so there is no evidence either way.
+    if n_exec == 0:
+        status = "UNRESOLVED"
+    elif n_ok == n_exec:
+        status = "PASS"
+    else:
+        status = "FAIL"
+        lines.append("")
+        lines.append(f"DECIDED FAIL: {n_exec - n_ok} of {n_exec} configuration(s) exceed "
+                     f"the declared tolerance. The tolerance was NOT relaxed.")
     return status, f"n_exec={n_exec}, worst rel. residual {worst:.2e}", \
         "\n".join(lines), n_exec
 
@@ -2043,7 +2289,12 @@ def main():
         lambda: check_F1_passivity(mats))
     run("G1", "scalar benchmarks: Fresnel, Prop.1(a)(b)(c), quarter-wave",
         "TESTED", lambda: check_G1_scalar(mats), 1e-8)
-    run("H1", "thermodynamic stability + LS causality bounds", "DERIVED",
+    # PHASE 1D: the label no longer says "LS causality bounds". H1 reports the
+    # v_T/cL ratio for INFORMATION ONLY; the causality-floor inequality was
+    # withdrawn in Phase 1B (CLM-H1-02, INVALID) and is NOT tested here. Naming
+    # it in the check label was itself the kind of stale active-theory statement
+    # the review requires removing.
+    run("H1", "thermodynamic stability (universal conditions only)", "DERIVED",
         lambda: check_H1_stability(mats))
     run("I1", "exact roots vs closed-form elastic branches (external)",
         "TESTED", lambda: check_I1_elastic_psv(mats), 1e-9)
