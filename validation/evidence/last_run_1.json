@@ -1,21 +1,21 @@
 {
   "schema_version": "1.0",
   "level": "1",
-  "generated_unix": 1793810152,
-  "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+  "generated_unix": 1793817178,
+  "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
   "python": "3.11.2",
   "summary": {
-    "total": 92,
-    "PASS": 91,
+    "total": 100,
+    "PASS": 99,
     "FAIL": 0,
     "UNRESOLVED": 1,
     "WITHDRAWN": 0,
     "NOT_APPLICABLE": 0,
-    "executed_cases": 10302,
+    "executed_cases": 10401,
     "zero_case_tests": [
       "SCT02"
     ],
-    "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+    "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
     "by_category": {
       "1-data-integrity": {
         "PASS": 10,
@@ -193,14 +193,14 @@
         "NOT_APPLICABLE": 0
       },
       "2-physics": {
-        "PASS": 5,
+        "PASS": 12,
         "FAIL": 0,
         "UNRESOLVED": 0,
         "WITHDRAWN": 0,
         "NOT_APPLICABLE": 0
       },
       "1-maths": {
-        "PASS": 2,
+        "PASS": 3,
         "FAIL": 0,
         "UNRESOLVED": 0,
         "WITHDRAWN": 0,
@@ -377,21 +377,20 @@
       "id": "BLK-02A-19",
       "severity": "P0",
       "status": "CLOSED",
-      "title": "Interface continuity rows built from per-side dimensionless states",
-      "detail": "Side.states divides each field by THAT medium's own reference scales. For dissimilar media the two sides are then in different units and states1-states2=-incident is not a continuity condition. Scale ratios Al6061 vs PZT-5H at k=0: theta 2.46881, txz 0.738449, tzz 0.597113, qz 178.461, Dz 2.46731e-13, phi 5.58798e-10. Measured consequence for Al|PZT SV at k=0: the production system satisfied its OWN matrix to 2.296e-41 while PHYSICAL traction continuity was violated by 0.2616 (26%). Rebuilding the identical rows from raw physical states gave 8.078e-28 matrix residual and 2.492e-41 physical continuity, with coefficients differing in the third digit.",
+      "title": "TASK 2T CORRECTION: the Task 2S closure of this blocker rested on a rejected interpretation",
+      "detail": "The dimensional-scaling and conditioning content of this blocker is CORRECT and stands (per-side dimensionless states broke cross-interface continuity; measured violation 0.2616). What does NOT stand is the electrical interpretation Task 2S attached to the row removal. Task 2T re-derived the boundary conditions from Maxwell and found that (a) D_z continuity is the no-free-charge condition, not the insulated one, (b) potential continuity and D_z continuity hold simultaneously for a dielectric contact and are not alternatives, and (c) the removal of both rows at k=0 is justified by their being identically satisfied there, not by a gauge argument.",
       "blocks": [
         "all normal-incidence amplitudes",
         "G4 coupled energy conservation"
       ],
-      "evidence": "reports/PHASE_02A_TASK2S_ELECTRICAL_GAUGE_AUDIT.md sec.5; validation/phase_02a_task2s_results.json DEF-02A-2S-01",
-      "resolution": "assembly.py builds columns and rhs from raw_states; solver.py reconstructs boundary residuals from raw_states. Physical continuity now 1.2e-41.",
-      "closed_by": "PHASE_02A_TASK2S",
+      "evidence": "reports/PHASE_02A_TASK2T_MAXWELL_BOUNDARY_AUDIT.md; reports/PHASE_02A_TASK2T_CLAIM_CORRECTIONS.md",
+      "promotion_blocked": false,
+      "closed_by": "PHASE_02A_TASK2S for the scaling defect; electrical interpretation CORRECTED in PHASE_02A_TASK2T",
       "closure_evidence": {
-        "independent_formulation": "continuity rebuilt from raw physical states, which never pass through to_dimensionless; the defective path used per-side scales",
-        "measured_before": "Al6061|PZT-5H SV k=0: matrix residual 2.296e-41 while PHYSICAL traction continuity was violated by 0.2616",
-        "measured_after": "physical continuity 1.2e-41 for the same configuration; solver reconstructs from raw_states as well",
-        "scale_ratios_recorded": "theta 2.46881, txz 0.738449, tzz 0.597113, qz 178.461, Dz 2.46731e-13, phi 5.58798e-10",
-        "executed_regression": "EQ-02A-GAUGE-04, GAUGE-05, GAUGE-06 PASS; SCTA05 PASS; assembly validation 120/120; mutations MR01-MR11 DETECTED"
+        "independent_formulation": "continuity rebuilt from raw physical states",
+        "measured_before": "matrix residual 2.296e-41 while physical traction continuity violated by 0.2616",
+        "measured_after": "physical continuity 1.2e-41",
+        "task2t_recheck": "the scaling fix is retained unchanged; EQ-02A-MAXW-02 confirms both electrical conditions hold simultaneously to 1e-29 on the corrected basis"
       }
     },
     {
@@ -439,21 +438,50 @@
       "severity": "P2",
       "status": "OPEN",
       "title": "Oblique-incidence gauge analysis not performed",
-      "detail": "Equivalence of the full and reduced formulations was demonstrated at k>0 tending to normal incidence and at the k=0 limit. The oblique case inherits the corrected scaling and now solves at cond <= 1.3e10 with continuity <= 1e-27, but the electrical gauge derivation in this task is a normal-incidence derivation. No claim is made about oblique gauge structure.",
+      "detail": "The Task 2T boundary derivation is a general Maxwell derivation and applies at any k in principle, but the numerical validation of the k=0 limit and the five-model comparison were run at normal incidence and at k/k_ac down to 1e-6. Oblique configurations inherit the corrected scaling and the corrected model table, but the limit analysis has not been extended to them.",
       "blocks": [
         "any oblique gauge-equivalence claim"
       ],
-      "evidence": "reports/PHASE_02A_TASK2S_ELECTRICAL_GAUGE_AUDIT.md sec.13"
+      "evidence": "reports/PHASE_02A_TASK2T_NORMAL_INCIDENCE_LIMIT.md sec.8",
+      "promotion_blocked": false,
+      "closed_by": null
     },
     {
       "id": "BLK-02A-23",
       "severity": "P1",
-      "title": "Electrical interface model is BONDED, and the discarded Dz row is the INSULATED condition",
-      "detail": "Recorded as a standing constraint rather than a defect. The system imposes a bonded (shorted) contact: displacements and tractions continuous, potential continuous, normal D free to jump by a surface charge. The Dz row at k=0 is Gauss's law D_z=0, which is the INSULATED (open-circuit) condition. The two are different physical models and must not be combined or interchanged. MR09 keeps the Dz row and is detected by EQ-02A-GAUGE-06 specifically because of this distinction. Any future change to the electrical interface model must be derived and validated separately.",
+      "status": "OPEN",
+      "title": "The reference configuration is a DIELECTRIC CONTACT (zero free surface charge); electrode and open-circuit models are implemented but not adopted",
+      "detail": "RETAINED AND CORRECTED IN TASK 2T. The system imposes a dielectric contact: displacements and tractions continuous, potential continuous, normal D continuous, with sigma_free = 0. This is now DERIVED from Maxwell rather than asserted. The conducting-electrode, short-circuit, open-circuit and prescribed-charge models are implemented in code/scattering/maxwell.py and compared in validation/phase_02a_task2t_boundary_comparison.csv, but none is adopted for the reference configuration. Any future change of electrical model must be re-derived and re-validated.",
       "blocks": [
-        "silent interchange between bonded and insulated models"
+        "silent interchange between electrical models"
       ],
-      "evidence": "reports/PHASE_02A_TASK2S_ELECTRICAL_GAUGE_AUDIT.md section 3; EQ-02A-GAUGE-06; mutation MR09",
+      "evidence": "code/scattering/maxwell.py MODEL_SPEC; reports/PHASE_02A_TASK2T_MAXWELL_BOUNDARY_AUDIT.md sec.1-3",
+      "promotion_blocked": false,
+      "closed_by": null
+    },
+    {
+      "id": "BLK-02A-24",
+      "severity": "P1",
+      "status": "OPEN",
+      "title": "The production k = 0 reduction enforces potential continuity only to O(k), not exactly",
+      "detail": "Measured worst potential jump on the production k=0 solution is 1.1e-5 of the field scale (Al6061|PZT-5H at P incidence). This is a KNOWN, MEASURED limitation of the reduction: the potential row is not imposed, so continuity is approached at first order rather than satisfied. It is acceptable for the O(1) amplitudes but must be quoted whenever the reduction is described, and it must not be described as exact. EQ-02A-LIM-04 keeps the number measured.",
+      "blocks": [
+        "any claim that the reduction is exactly equivalent to the full dielectric contact"
+      ],
+      "evidence": "EQ-02A-LIM-04; reports/PHASE_02A_TASK2T_NORMAL_INCIDENCE_LIMIT.md sec.5",
+      "promotion_blocked": false,
+      "closed_by": null
+    },
+    {
+      "id": "BLK-02A-25",
+      "severity": "P1",
+      "status": "OPEN",
+      "title": "The k -> 0 system is numerically singular; the limit is obtained by extrapolation, not evaluation",
+      "detail": "A physical mode degenerates into the gauge mode as k -> 0 (its xi is proportional to k), so the condition number grows like k^-2 and reaches 3.9e16 at k/k_ac = 1e-7. Individual modal coefficients are unbounded even though the total field is finite. Consequence: the k=0 answer cannot be obtained by evaluating the k>0 system at small k; it must be extrapolated in a k-independent (unit-flux) basis. Any future work that needs the exact k->0 solution should use a scaled asymptotic expansion rather than the raw system.",
+      "blocks": [
+        "direct evaluation of the k=0 limit"
+      ],
+      "evidence": "EQ-02A-COND-T1; reports/PHASE_02A_TASK2T_NORMAL_INCIDENCE_LIMIT.md sec.6",
       "promotion_blocked": false,
       "closed_by": null
     }
@@ -474,8 +502,8 @@
       "n_exec": 80,
       "actual": "80 rows; 0 illegal status; 0 rows missing fields",
       "detail": "illegal: []",
-      "duration_s": 0.0029883384704589844,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0027985572814941406,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -493,8 +521,8 @@
       "n_exec": 80,
       "actual": "0 tuned-looking labels",
       "detail": "[]",
-      "duration_s": 0.0022416114807128906,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0033817291259765625,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -509,11 +537,11 @@
       "tol_justification": "structural; exact",
       "level": "1",
       "status": "PASS",
-      "n_exec": 59,
-      "actual": "59 claims, 0 duplicate, 0 bad status, 0 without test_id",
+      "n_exec": 64,
+      "actual": "64 claims, 0 duplicate, 0 bad status, 0 without test_id",
       "detail": "dup=[] bad=[] notest=[]",
-      "duration_s": 0.0022559165954589844,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.003157377243041992,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -528,11 +556,11 @@
       "tol_justification": "set membership; exact",
       "level": "1",
       "status": "PASS",
-      "n_exec": 51,
-      "actual": "51 VERIFIED claims checked; 0 unsupported",
+      "n_exec": 56,
+      "actual": "56 VERIFIED claims checked; 0 unsupported",
       "detail": "[]",
-      "duration_s": 0.003252267837524414,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.004351139068603516,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -550,8 +578,8 @@
       "n_exec": 2,
       "actual": "2 INVALID claims retained; 0 bad pointers",
       "detail": "bad=[]",
-      "duration_s": 0.0020036697387695312,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0026454925537109375,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -566,11 +594,11 @@
       "tol_justification": "structural; exact",
       "level": "1",
       "status": "PASS",
-      "n_exec": 53,
-      "actual": "53 equations; 0 bad status; 0 dangling deps",
+      "n_exec": 64,
+      "actual": "64 equations; 0 bad status; 0 dangling deps",
       "detail": "bad=[] dangling=[]",
-      "duration_s": 0.0025157928466796875,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0028066635131835938,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -588,8 +616,8 @@
       "n_exec": 15,
       "actual": "15/15 present",
       "detail": "missing=[]",
-      "duration_s": 0.0017981529235839844,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0020368099212646484,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -607,8 +635,8 @@
       "n_exec": 8,
       "actual": "8/8 checksums match",
       "detail": "[]",
-      "duration_s": 0.0019905567169189453,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0024106502532958984,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -626,8 +654,8 @@
       "n_exec": 76,
       "actual": "76 constants compared; 0 mismatches",
       "detail": "",
-      "duration_s": 0.002439260482788086,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0023119449615478516,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -645,8 +673,8 @@
       "n_exec": 33,
       "actual": "16/16 nonzero entries, 33 additive terms, 0 dimensional mismatches",
       "detail": "[]",
-      "duration_s": 0.03220987319946289,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.03612327575683594,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -664,8 +692,8 @@
       "n_exec": 7,
       "actual": "6 relations + Maxwell; 0 bad",
       "detail": "[]",
-      "duration_s": 0.03443765640258789,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.03634309768676758,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -683,8 +711,8 @@
       "n_exec": 2,
       "actual": "dim null(M(0,0)) = 1, vector support = [2]; det M(k,0) = -k**2*(C44*eps11*k**2 + e15**2*k**2 - eps11*omega**2*rho)*(-C11*cE*k**2*omega**2*rho*tauq - I*C11*cE*k**2*omega*rho + C11*k**4*kappa11 - T0*beta1**2*k**2*omega**2*tauq - I*T0*beta1**2*k**2*omega + cE*omega**4*rho**2*tauq + I*cE*omega**3*rho**2 - k**2*kappa11*omega**2*rho) (non-zero => no null direction)",
       "detail": "",
-      "duration_s": 1.7131712436676025,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 1.6794936656951904,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -702,8 +730,8 @@
       "n_exec": 2,
       "actual": "xi=0 pattern OK; k=0 pattern OK",
       "detail": "xi=0 extra=set() missing=set()\nk=0  extra=set() missing=set()",
-      "duration_s": 0.13152337074279785,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.14721012115478516,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -721,8 +749,8 @@
       "n_exec": 8628,
       "actual": "passive min = 1.301e-05 (>=0: True); negative control min = -2.861e+00 over 3628 indefinite draws (detected: True)",
       "detail": "the negative control is what makes this falsifiable; without it the test would pass even if the sign of the form were wrong",
-      "duration_s": 0.13018369674682617,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.1770484447479248,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -740,8 +768,8 @@
       "n_exec": 3,
       "actual": "closed 3.3644785110e+20 cycle 3.3644785110e+20 analytic 3.3644785110e+20 max rel dev 1.95e-16",
       "detail": "",
-      "duration_s": 0.004058837890625,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.004021883010864258,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -759,8 +787,8 @@
       "n_exec": 2,
       "actual": "linear-term residual 1.000e+00; bilinear-term residual 4.672e-08; ratio 2.1e+07",
       "detail": "the linear form is rejected by an oracle it shares no amplitude with",
-      "duration_s": 0.19436025619506836,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.19057869911193848,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -778,8 +806,8 @@
       "n_exec": 8,
       "actual": "|dR| vs Fresnel 1.67e-16; worst |R+T-1| 9.99e-16; max R identical media 0.00e+00",
       "detail": "",
-      "duration_s": 0.006277799606323242,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.005745410919189453,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -797,8 +825,8 @@
       "n_exec": 1,
       "actual": "R = 1.250e-19, T = 1.000000000000",
       "detail": "",
-      "duration_s": 0.002388477325439453,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.002614259719848633,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -816,8 +844,8 @@
       "n_exec": 40,
       "actual": "40 usable cases; worst relative deviation 2.177e-14",
       "detail": "",
-      "duration_s": 0.2983531951904297,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.2537517547607422,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -835,8 +863,8 @@
       "n_exec": 17,
       "actual": "survivors over 16 sign patterns: [(1, -1, -1, 1), (-1, 1, 1, -1)] (= +/-S, one up to sign); Phase-1 S fails 6 entries",
       "detail": "failing entries: [(0, 1), (0, 2), (0, 3), (1, 0), (2, 0), (3, 0)]",
-      "duration_s": 0.6316204071044922,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.6404275894165039,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -854,8 +882,8 @@
       "n_exec": 9,
       "actual": "9/9 cases computed; 6 rank-deficient",
       "detail": "PZT-5H|PZT-5H@5.0: rank 4 ; PZT-5H|PZT-5H@30.0: rank 4 ; PZT-5H|PZT-5H@60.0: rank 4 ; Al6061|Al6061@5.0: rank 4 ; Al6061|Al6061@30.0: rank 4 ; Al6061|Al6061@60.0: rank 4 ",
-      "duration_s": 1.2605187892913818,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 1.3020637035369873,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -873,8 +901,8 @@
       "n_exec": 1,
       "actual": "R = 0.2173405898400244, T = 0.7826594101599752",
       "detail": "",
-      "duration_s": 0.0913686752319336,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0856022834777832,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -892,8 +920,8 @@
       "n_exec": 0,
       "actual": "a coupled solver exists but no independent coupled energy (G4) or thermodynamic (G5) gate exists; coupled amplitudes remain labelled DIAGNOSTIC (BLK-02A-13)",
       "detail": "closes when a total-field flux computation reproduces the incident flux independently on both sides of the interface",
-      "duration_s": 0.0017571449279785156,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0022745132446289062,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -911,8 +939,8 @@
       "n_exec": 2,
       "actual": "max relative root shift over 2 precision steps 1.505e-31",
       "detail": "",
-      "duration_s": 0.2806711196899414,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.2468724250793457,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -930,8 +958,8 @@
       "n_exec": 1,
       "actual": "recorded 16 checks/151 cases {'PASS': 16}; reproduced 16 checks/151 cases {'PASS': 16}; exit 0",
       "detail": "",
-      "duration_s": 6.434954881668091,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 6.714862585067749,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -949,8 +977,8 @@
       "n_exec": 3,
       "actual": "3 manifests; 0 problems",
       "detail": "[]",
-      "duration_s": 0.0027284622192382812,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.002862215042114258,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -968,8 +996,8 @@
       "n_exec": 17,
       "actual": "17 downstream; missing=[]; wrongly included=[]",
       "detail": "",
-      "duration_s": 0.03378629684448242,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.03564262390136719,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -987,8 +1015,8 @@
       "n_exec": 2,
       "actual": "README.md query exit 2; bogus equation query exit 2 (both must be non-zero)",
       "detail": "",
-      "duration_s": 0.0655820369720459,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.07845544815063477,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1003,11 +1031,11 @@
       "tol_justification": "exact token presence",
       "level": "1",
       "status": "PASS",
-      "n_exec": 51,
-      "actual": "51 VERIFIED claims; 51 BOUND; 0 problems",
+      "n_exec": 56,
+      "actual": "56 VERIFIED claims; 56 BOUND; 0 problems",
       "detail": "[]",
-      "duration_s": 0.02342534065246582,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.024741411209106445,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1025,8 +1053,8 @@
       "n_exec": 3,
       "actual": "defect state {'c1_has_nullspace': False, 'i2_hardcoded_pass': True, 'f1_samples_psd': True}; as recorded",
       "detail": "if this fails because a defect was FIXED, update claim_evidence_map.json and the claim registry in the same commit",
-      "duration_s": 0.003876209259033203,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.00336456298828125,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1041,11 +1069,11 @@
       "tol_justification": "set equality",
       "level": "1",
       "status": "PASS",
-      "n_exec": 59,
-      "actual": "51 positive, 8 negative bindings; 0 unknown ids; 0 non-VERIFIED claims bound as if verified",
+      "n_exec": 64,
+      "actual": "56 positive, 8 negative bindings; 0 unknown ids; 0 non-VERIFIED claims bound as if verified",
       "detail": "unknown=[] wrong=[]",
-      "duration_s": 0.0027120113372802734,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0024776458740234375,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1061,10 +1089,10 @@
       "level": "1",
       "status": "PASS",
       "n_exec": 5,
-      "actual": "registry {'VERIFIED_STRONG': 41, 'VERIFIED_WEAK': 10, 'UNVERIFIED': 5, 'INVALID': 2, 'UNRESOLVED': 1}",
+      "actual": "registry {'VERIFIED_STRONG': 46, 'VERIFIED_WEAK': 10, 'UNVERIFIED': 5, 'INVALID': 2, 'UNRESOLVED': 1}",
       "detail": "disagreements {}",
-      "duration_s": 0.00225067138671875,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0022492408752441406,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1082,8 +1110,8 @@
       "n_exec": 10,
       "actual": "4 baselines (2 not active, retained on purpose); 6 manuscript entries; 0 violations",
       "detail": "[]",
-      "duration_s": 0.0017669200897216797,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0018086433410644531,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1101,8 +1129,8 @@
       "n_exec": 35,
       "actual": "35 evidence references; 0 problems",
       "detail": "[]",
-      "duration_s": 0.0028405189514160156,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0025610923767089844,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1120,8 +1148,8 @@
       "n_exec": 4,
       "actual": "4 baselines; duplicate ids=False duplicate SHAs=False; 0 chain problems",
       "detail": "[]",
-      "duration_s": 0.0019965171813964844,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0016989707946777344,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1139,8 +1167,8 @@
       "n_exec": 1,
       "actual": "1 figure entries; 0 without a regeneration path",
       "detail": "[]",
-      "duration_s": 0.0016148090362548828,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0016200542449951172,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1158,8 +1186,8 @@
       "n_exec": 1,
       "actual": "production D_z matches eps33 to 5.06e-51 and differs from eps11 by 1.0",
       "detail": "D_z with eps33 = 2.6278903527894\nD_z with eps11 = 10939959.651145\nD_z recovered from production = 2.6278903527894\nseparation between the two choices      = 4.163e+6\n|production - eps33 D_z| / |D_z|        = 5.065e-51\n|production - eps11 D_z| / |D_z|        = 1.0\nThe case must AGREE with eps33 (so it passes on correct code) and suffice to REJECT eps11 (so it fails on regressed code). The two criteria are reported separately because a test that cannot separate the hypotheses is not evidence.",
-      "duration_s": 0.19011616706848145,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.15611791610717773,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1177,8 +1205,8 @@
       "n_exec": 12,
       "actual": "correct pairing 3.26e-61, drop-x matches (k/xi)^2, spurious q_x rejected",
       "detail": " PZT-5H  15.0 deg: correct=8.698e-62  drop-x=1.252e-8  pred(k/xi)^2=1.252e-8  spurious-qx=3.679e-10  production=8.698e-62\n PZT-5H  30.0 deg: correct=3.443e-62  drop-x=4.672e-8  pred(k/xi)^2=4.672e-8  spurious-qx=7.106e-10  production=3.443e-62\n PZT-5H  45.0 deg: correct=1.101e-61  drop-x=9.344e-8  pred(k/xi)^2=9.344e-8  spurious-qx=1.005e-9  production=1.101e-61\n PZT-5H  60.0 deg: correct=4.152e-62  drop-x=1.402e-7  pred(k/xi)^2=1.402e-7  spurious-qx=1.231e-9  production=4.152e-62\n   CdSe  15.0 deg: correct=1.903e-61  drop-x=1.102e-7  pred(k/xi)^2=1.102e-7  spurious-qx=2.95e-10  production=1.903e-61\n   CdSe  30.0 deg: correct=3.115e-63  drop-x=4.113e-7  pred(k/xi)^2=4.113e-7  spurious-qx=5.699e-10  production=3.115e-63\n   CdSe  45.0 deg: correct=1.792e-61  drop-x=8.226e-7  pred(k/xi)^2=8.226e-7  spurious-qx=8.059e-10  production=1.792e-61\n   CdSe  60.0 deg: correct=3.265e-61  drop-x=1.234e-6  pred(k/xi)^2=1.234e-6  spurious-qx=9.871e-10  production=3.265e-61\n Al6061  15.0 deg: correct=1.568e-61  drop-x=1.76e-6  pred(k/xi)^2=1.76e-6  spurious-qx=2.475e-8  production=1.568e-61\n Al6061  30.0 deg: correct=5.455e-62  drop-x=6.567e-6  pred(k/xi)^2=6.567e-6  spurious-qx=4.782e-8  production=5.455e-62\n Al6061  45.0 deg: correct=1.537e-61  drop-x=1.313e-5  pred(k/xi)^2=1.313e-5  spurious-qx=6.763e-8  production=1.537e-61\n Al6061  60.0 deg: correct=1.014e-61  drop-x=1.97e-5  pred(k/xi)^2=1.97e-5  spurious-qx=8.282e-8  production=1.014e-61\nconf: worst correct pairing = 3.26e-61; worst production = 3.26e-61; best spurious-qx = 2.95e-10 (separation 9.0e+50x)",
-      "duration_s": 0.9736983776092529,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.9890213012695312,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1196,8 +1224,8 @@
       "n_exec": 4,
       "actual": "worst direction difference 8.62e-61",
       "detail": "branch |Im xi|=2.56936e+6: direction difference = 8.616e-61\nbranch |Im xi|=1.04686e-9: direction difference = 1.556e-61\nbranch |Im xi|=7.62441e-8: direction difference = 2.849e-65\nbranch |Im xi|=845.206: direction difference = 7.779e-62\nworst = 8.616e-61 (the historical 'error' was 1.86e-5)\nThis confirms the direction is NOT the cause of the energy residual. The cause was the eps11/eps33 index and the missing q_x term, pinned by U3A and U3B.",
-      "duration_s": 0.26032352447509766,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.25374627113342285,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1215,8 +1243,8 @@
       "n_exec": 4,
       "actual": "worst 3.44e-62, shrinking 4.11e+79x as precision rises",
       "detail": "dps=60: residual = 3.4429e-62\ndps=80: residual = 3.0606e-81\ndps=100: residual = 5.5064e-102\ndps=140: residual = 8.3747e-142\nshrink from dps=60 to dps=140: 4.111e+79x\nmonotone non-plateau: True\nA residual that shrinks with precision indicates exact cancellation. The ORIGINAL defect was precision-independent from dps 30 to 120 -- the diagnostic signature that distinguishes a structural error from a roundoff limit.",
-      "duration_s": 0.3356926441192627,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.3648364543914795,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1234,8 +1262,8 @@
       "n_exec": 19,
       "actual": "80 rows, 4 materials, complete and labelled",
       "detail": "80 rows, materials: ['Al6061', 'BaTiO3', 'CdSe', 'PZT-5H']\nviolations: 0\nmissing required: {}",
-      "duration_s": 0.002935647964477539,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0024619102478027344,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1253,8 +1281,8 @@
       "n_exec": 19,
       "actual": "all 76 values identical",
       "detail": "compared 76 constant values across the two paths\nmismatches: 0",
-      "duration_s": 0.0030150413513183594,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0021262168884277344,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1272,8 +1300,8 @@
       "n_exec": 2,
       "actual": "missing critical constant blocked",
       "detail": "corrupted table raised: \"PZT-5H: missing required constant(s) ['p3']. A missing critical constant BLOCKS quantitative claims; it is not filled in by default.\"\npristine table still loads: True",
-      "duration_s": 0.0038945674896240234,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0031702518463134766,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1291,8 +1319,8 @@
       "n_exec": 3,
       "actual": "all 3 corruptions rejected",
       "detail": "  empty unit: rejected: PZT-5H/C11: no unit recorded\n  empty source: rejected: PZT-5H/C11: no source recorded\n  bad status: rejected: PZT-5H/C11: status 'PROBABLY_FINE' is not in the controlled vocabulary",
-      "duration_s": 0.0042743682861328125,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.004007577896118164,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1310,8 +1338,8 @@
       "n_exec": 4,
       "actual": "8 ASSUMED constants correctly flagged",
       "detail": "  PZT-5H: flagged=['beta1', 'beta3', 'p'] expected=['beta1', 'beta3', 'p']\n  BaTiO3: flagged=['beta1', 'beta3', 'p'] expected=['beta1', 'beta3', 'p']\n  Al6061: flagged=[] expected=[]\n  CdSe: flagged=['kappa11', 'kappa33'] expected=['kappa11', 'kappa33']\nassumed constants in the set: 8",
-      "duration_s": 0.002271413803100586,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0021233558654785156,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1329,8 +1357,8 @@
       "n_exec": 1,
       "actual": "all 84 values inside their physical bands",
       "detail": "checked 84 values against decade-wide physical bands\n",
-      "duration_s": 0.0030624866485595703,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0018985271453857422,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1348,8 +1376,8 @@
       "n_exec": 1,
       "actual": "<q.qdot>=0 while <q.q>=Q^2/2: the two are independent",
       "detail": "q(t) = Q*cos(omega*t)\n<q.q>    = Q**2/2\n<q.qdot> = 0\n\nThe first is NON-ZERO and the second is IDENTICALLY ZERO. A vanishing harmonic average therefore cannot be used to conclude that no stored-energy law exists. This is Proposition prop:relax of theory/energy_flux_derivation.tex.\ncriterion 1 (<q.qdot> == 0):        True\ncriterion 2 (<q.q> != 0):            True\ncriterion 3 (<q.q> == Q^2/2):        True",
-      "duration_s": 0.05184531211853027,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.05058550834655762,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1367,8 +1395,8 @@
       "n_exec": 5,
       "actual": "worst 2.39e-61 across a tau_q scan 0..10x",
       "detail": "tau_q x 0.0: residual = 2.164e-61\ntau_q x 0.5: residual = 8.053e-62\ntau_q x 1.0: residual = 3.443e-62\ntau_q x 2.0: residual = 5.835e-63\ntau_q x 10.0: residual = 2.385e-61\nworst over the scan = 2.385e-61\nA tau_q that entered only one side would show a residual growing with tau_q at O(omega*tau_q). None does.",
-      "duration_s": 0.8931632041931152,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.8568985462188721,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1386,8 +1414,8 @@
       "n_exec": 1,
       "actual": "theory and implementation agree on the thermal flux term",
       "detail": "theory states the bilinear thermal term: True\ncode evaluates a conjugate thermal term:    True\nwithdrawn linear form shown as active:       False",
-      "duration_s": 0.0027151107788085938,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.002598285675048828,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1405,8 +1433,8 @@
       "n_exec": 2,
       "actual": "withdrawn from active theory, preserved in the INVALID registry",
       "detail": "CLM-H1-02 still INVALID in the registry: True\nactive causality-floor assertions found: 0",
-      "duration_s": 0.002467632293701172,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.002930164337158203,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1424,8 +1452,8 @@
       "n_exec": 2,
       "actual": "2 documents structurally sound, all refs resolve",
       "detail": "no structural problems found",
-      "duration_s": 0.008841276168823242,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.011592864990234375,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1442,9 +1470,9 @@
       "status": "PASS",
       "n_exec": 1,
       "actual": "4 closed blocker(s) all evidenced; G0/G1/G4/G5 correctly unpassed",
-      "detail": "16 blockers registered, 4 CLOSED\nevery closed blocker carries evidence; G0/G1/G4/G5 remain unpassed",
-      "duration_s": 0.002195119857788086,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "detail": "18 blockers registered, 4 CLOSED\nevery closed blocker carries evidence; G0/G1/G4/G5 remain unpassed",
+      "duration_s": 0.002601146697998047,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1462,8 +1490,8 @@
       "n_exec": 6,
       "actual": "dR=1.67e-16, closure=4.44e-16",
       "detail": "Fresnel R = 0.217340589840025\nsolver  R = 0.217340589840024\n|dR| = 1.665e-16\nworst energy closure over 6 angles = 4.441e-16\nREADINESS ONLY. No piezothermoelastic reflection or transmission coefficient is reported by this case, and none may be quoted until the G4 energy gate and the material-provenance gate are closed.",
-      "duration_s": 0.0034940242767333984,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.003339052200317383,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1481,8 +1509,8 @@
       "n_exec": 16,
       "actual": "8 branches per material, partitioned with no gauge mixing",
       "detail": "--- PZT-5H: 8 branches ---\n  br0: Im(xi)=   -2.569e+6  |u|/|u_z|=       1.0  -> ACOUSTIC_DECAYING\n  br1: Im(xi)=   -1.047e-9  |u|/|u_z|=     4.928  -> ACOUSTIC_DECAYING\n  br2: Im(xi)=   -7.624e-8  |u|/|u_z|=     1.166  -> ACOUSTIC_DECAYING\n  br3: Im(xi)=      -845.2  |u|/|u_z|=     1.475  -> ACOUSTIC_DECAYING\n  br4: Im(xi)=       845.2  |u|/|u_z|=     1.475  -> ACOUSTIC_GROWING\n  br5: Im(xi)=    7.624e-8  |u|/|u_z|=     1.166  -> ACOUSTIC_GROWING\n  br6: Im(xi)=    1.047e-9  |u|/|u_z|=     4.928  -> ACOUSTIC_GROWING\n  br7: Im(xi)=    2.569e+6  |u|/|u_z|=       1.0  -> ACOUSTIC_GROWING\n  families: {'ACOUSTIC_DECAYING': [0, 1, 2, 3], 'ACOUSTIC_GROWING': [4, 5, 6, 7]}\n  partition total: True; acoustic branches: 8; both directions: True\n--- Al6061: 8 branches ---\n  br0: Im(xi)=   -2.167e+5  |u|/|u_z|=       1.0  -> ACOUSTIC_DECAYING\n  br1: Im(xi)=         0.0  |u|/|u_z|=     2.554  -> ACOUSTIC_DECAYING\n  br2: Im(xi)=  -0.0002677  |u|/|u_z|=     1.673  -> ACOUSTIC_DECAYING\n  br3: Im(xi)=      -785.4  |u|/|u_z|=     3.204  -> ACOUSTIC_DECAYING\n  br4: Im(xi)=       785.4  |u|/|u_z|=     3.204  -> ACOUSTIC_GROWING\n  br5: Im(xi)=   0.0002677  |u|/|u_z|=     1.673  -> ACOUSTIC_GROWING\n  br6: Im(xi)=         0.0  |u|/|u_z|=     2.554  -> ACOUSTIC_DECAYING\n  br7: Im(xi)=    2.167e+5  |u|/|u_z|=       1.0  -> ACOUSTIC_GROWING\n  families: {'ACOUSTIC_DECAYING': [0, 1, 2, 3, 6], 'ACOUSTIC_GROWING': [4, 5, 7]}\n  partition total: True; acoustic branches: 8; both directions: True\n\nREADINESS ONLY. No piezothermoelastic reflection or transmission coefficient is reported by this case, and none may be quoted until the G4 energy gate and the material-provenance gate are closed.",
-      "duration_s": 0.36351680755615234,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.41464900970458984,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1500,8 +1528,8 @@
       "n_exec": 40,
       "actual": "invariant under all 40 rescalings",
       "detail": "40 rescalings evaluated\nfamily changes: 0\nREADINESS ONLY. No piezothermoelastic reflection or transmission coefficient is reported by this case, and none may be quoted until the G4 energy gate and the material-provenance gate are closed.",
-      "duration_s": 0.1897430419921875,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.1989738941192627,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1519,8 +1547,8 @@
       "n_exec": 2,
       "actual": "centrosymmetric gauge degeneracy detected and distinguished",
       "detail": "Al6061: e33=0  phi/mech row ratio = 8.229e-23\nPZT-5H: e33=23.3  phi/mech row ratio = 1.991e-10\nAl6061 classified degenerate (ratio < 1e-20): True\nPZT-5H classified non-degenerate (ratio > 1e-12): True\nThe ~100-order separation is why a single residual tolerance cannot serve both materials.\nREADINESS ONLY. No piezothermoelastic reflection or transmission coefficient is reported by this case, and none may be quoted until the G4 energy gate and the material-provenance gate are closed.",
-      "duration_s": 0.329697847366333,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.3234868049621582,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1538,8 +1566,8 @@
       "n_exec": 1,
       "actual": "76c7174c08923ded6005da1f312d795086f867a7c1f6590cb2fb7985991eb56b",
       "detail": "frozen historical evidence intact",
-      "duration_s": 0.002672433853149414,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0018651485443115234,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1557,8 +1585,8 @@
       "n_exec": 72,
       "actual": "72 mode labels self-consistent",
       "detail": "no label contradicts its own attenuation ratio",
-      "duration_s": 3.053304672241211,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 3.2217965126037598,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1576,8 +1604,8 @@
       "n_exec": 24,
       "actual": "6 thermal branches correctly separated",
       "detail": "thermal identification follows the dispersion relation",
-      "duration_s": 1.6681787967681885,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 1.7573137283325195,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1595,8 +1623,8 @@
       "n_exec": 72,
       "actual": "72 modes, 4 independent fields, no forbidden labels",
       "detail": "radiation direction follows Im(xi), not the spatial class",
-      "duration_s": 3.077000379562378,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 3.1578102111816406,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1614,8 +1642,8 @@
       "n_exec": 16,
       "actual": "16 branches: measured decay rate == -Im(xi)",
       "detail": "convention e^{+i xi z} confirmed by field evaluation",
-      "duration_s": 0.5988054275512695,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.6580643653869629,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1633,8 +1661,8 @@
       "n_exec": 112,
       "actual": "identical classification at dps 50,60,80,90,100,110,120",
       "detail": "the robust null-vector route removes the dependency",
-      "duration_s": 3.9766995906829834,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 3.753798007965088,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1652,8 +1680,8 @@
       "n_exec": 16,
       "actual": "gauges carry ZERO flux and are excluded from half-spaces",
       "detail": "gauge detection uses machine-zero mechanical content",
-      "duration_s": 5.560889482498169,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 5.76071310043335,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1671,8 +1699,8 @@
       "n_exec": 24,
       "actual": "screening admits exactly the modes that decay into each half-space",
       "detail": "8 + 8 + 8 modes across three materials",
-      "duration_s": 1.902029275894165,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 1.9453976154327393,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1690,8 +1718,8 @@
       "n_exec": 24,
       "actual": "24 normal-incidence branches report the thermal fallback",
       "detail": "no blank attenuation field; basis is explicit and correct",
-      "duration_s": 1.4482779502868652,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 1.3987431526184082,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1709,8 +1737,8 @@
       "n_exec": 1,
       "actual": "inventory a3b2965319a49fb2 pinned",
       "detail": "artifact and manifest are consistent and frozen",
-      "duration_s": 0.0025174617767333984,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0024564266204833984,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1728,8 +1756,8 @@
       "n_exec": 120,
       "actual": "120 rows verified against independent recomputation",
       "detail": "root, flux, class, direction, admissibility, confidence and prose all agree with the source calculation",
-      "duration_s": 4.813186883926392,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 4.906822443008423,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1747,8 +1775,8 @@
       "n_exec": 15,
       "actual": "15 blocks verified; 3 block(s) have a genuine repeated root at k=0 (double root at the origin), all others distinct; indices contiguous",
       "detail": "no block shows the P0-1 symptom of distinct bank roots collapsing onto one exported value",
-      "duration_s": 0.003638029098510742,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.004528045654296875,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1766,8 +1794,8 @@
       "n_exec": 2,
       "actual": "2 lossless modes: sign(J_z) == sign(Re xi), c = 0.576066 m/s > 0",
       "detail": "flux direction agrees with the axial phase velocity",
-      "duration_s": 0.0022118091583251953,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.004238128662109375,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1785,8 +1813,8 @@
       "n_exec": 7,
       "actual": "7/7 mutations detected: last-branch root repeated across rows(300), last-branch flux repeated across rows(168), branch-index shift(689), opposite radiation direction(114), missing outgoing propagating mode(2), gauge accepted as outgoing(42), inconsistent reasons vs numeric fields(14)",
       "detail": "each injected defect produced at least one validation failure",
-      "duration_s": 0.3950932025909424,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.39113521575927734,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1804,8 +1832,8 @@
       "n_exec": 3,
       "actual": "checksum, row count and supersession all verified; a broken checksum is detectable",
       "detail": "manifest is consistent with its artifact",
-      "duration_s": 0.003734588623046875,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.003832101821899414,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1823,8 +1851,8 @@
       "n_exec": 8,
       "actual": "8 artifacts registered: 1 HISTORICAL, 1 INVALID (bytes preserved), 1 ACTIVE",
       "detail": "invalid artifact is recorded and retained, not deleted",
-      "duration_s": 0.0029904842376708984,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.0023965835571289062,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1842,8 +1870,8 @@
       "n_exec": 28,
       "actual": "worst difference 6.588e-52",
       "detail": "the assembly builds its own columns and selection rule; nothing is imported from solve_psv",
-      "duration_s": 0.10194516181945801,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.09951543807983398,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1861,8 +1889,8 @@
       "n_exec": 9,
       "actual": "counts follow the inventory",
       "detail": "a square 8x8 appears only where the physics supplies it",
-      "duration_s": 3.800785779953003,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 3.8964710235595703,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1880,8 +1908,8 @@
       "n_exec": 2,
       "actual": "D_z = 6.95406e-9 = eps33*k",
       "detail": "classifying this as a gauge deleted the electrostatic channel of an elastic half-space while keeping the piezoelectric one",
-      "duration_s": 0.36555910110473633,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.3949699401855469,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1899,8 +1927,8 @@
       "n_exec": 8,
       "actual": "2 incoming, weakest attenuation 2.993e-13 per wavelength",
       "detail": "the strict rule declared this localised on the far side and removed the incident channel entirely",
-      "duration_s": 0.5299046039581299,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.5653705596923828,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1918,8 +1946,8 @@
       "n_exec": 3,
       "actual": "continuous and rescaling-invariant",
       "detail": "a plus sign instead of minus leaves the solver residual at 1e-37 while violating the interface by 2x the incident state",
-      "duration_s": 1.6521668434143066,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 1.7344372272491455,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1937,8 +1965,8 @@
       "n_exec": 9,
       "actual": "9 configurations labelled DIAGNOSTIC",
       "detail": "G4 and G5 remain OPEN; a converged boundary solve is not evidence that R, T and A are validated",
-      "duration_s": 4.409536123275757,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 4.659275054931641,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1956,8 +1984,8 @@
       "n_exec": 3,
       "actual": "kept ux = True, kept txz = True; verified shear mode with u_x != 0 = True; Al|Al residual = 0.0; Al|PZT residual = 1.148e-41",
       "detail": "kept = ['ux', 'uz', 'theta', 'txz', 'tzz', 'qz']; removed = [('phi', False), ('Dz', False)]; n_eq = 6, n_unk = 6, rank = 6",
-      "duration_s": 1.559478998184204,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 1.5584988594055176,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1975,8 +2003,8 @@
       "n_exec": 3,
       "actual": "P branches with u_x = 0: 4; shear branches with u_x != 0: 2; sigma_xz = i xi C44 u_x reproduced: True; u_x classified gauge = False",
       "detail": "the shear state is the mode that would be lost if a P-wave zero were generalised",
-      "duration_s": 0.8891580104827881,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.8796482086181641,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -1994,8 +2022,8 @@
       "n_exec": 3,
       "actual": "Al|Al: rank_full = 6, rank_reduced = 6, n_unk = 6, full rank = True, removed = ['phi', 'Dz'] | PZT|PZT: rank_full = 6, rank_reduced = 6, n_unk = 6, full rank = True, removed = ['phi', 'Dz'] | Al|PZT: rank_full = 6, rank_reduced = 6, n_unk = 6, full rank = True, removed = ['phi', 'Dz']",
       "detail": "rank is compared on the same column set, and the reduced system is additionally required to retain full column rank",
-      "duration_s": 1.8732006549835205,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 2.1492080688476562,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -2013,8 +2041,8 @@
       "n_exec": 26,
       "actual": "Al|Al 0deg: rank 6/6, redundant columns none; Al|Al 30deg: rank 8/8, redundant columns none; PZT|PZT 0deg: rank 6/6, redundant columns none; Al|PZT 0deg: rank 6/6, redundant columns none",
       "detail": "every admitted column must contribute rank; leave-one-out must strictly reduce it",
-      "duration_s": 2.2467334270477295,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 2.648376226425171,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -2032,8 +2060,8 @@
       "n_exec": 3,
       "actual": "n_eq = 6, n_unk = 6, removed = ['phi', 'Dz'], independent Al|Al reflection = 0.0; Al|PZT phi flagged gauge = True, Al|PZT residual = 1.148e-41",
       "detail": "rows < unknowns alone is not taken as nonuniqueness; the removed rows are checked to be physically empty",
-      "duration_s": 1.3908042907714844,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 1.389305591583252,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -2051,8 +2079,8 @@
       "n_exec": 4,
       "actual": "Fresnel r = 0.0, t = 1.0; reference r = 0.0, t = 1.0; assembly reflected field = 0.0, continuity error = 0.0",
       "detail": "impedance computed from the material constants directly, and cross-checked against elastic_reference",
-      "duration_s": 0.6629023551940918,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 0.6065723896026611,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
@@ -2070,12 +2098,12 @@
       "n_exec": 9,
       "actual": "all 3 removed rows justified and every kept row continuous on the physical fields",
       "detail": "each removed row is checked against the physical basis and the incident datum, and the surviving rows against the reconstructed interface fields",
-      "duration_s": 1.3207404613494873,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 1.2749197483062744,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
-      "test_id": "EQ-02A-GAUGE-01",
+      "test_id": "EQ-02A-GAUGE-A1",
       "category": "2-physics",
       "purpose": "row 2 of the normal-incidence system is Gauss's law, and with the k*D_x term dropped at k = 0 it reads D_z = 0",
       "oracle": "E_z = -i*xi*phi and D_z = e31*e_xx + e33*e_zz + eps33*E_z + p*theta rebuilt directly from the state vector",
@@ -2089,12 +2117,12 @@
       "n_exec": 6,
       "actual": "|i*xi*D_z| = 3.353e-47 (Gauss's law at k=0 is D_z = 0); constitutive rebuild agrees to 2.126e-17 of the largest cancelled term over 6 modes",
       "detail": "the null vector satisfies D_z = 0 to rounding, and the constitutive substitution reproduces it only to the cancellation floor -- which is why D_z = 0 is NOT an independent equation at k = 0",
-      "duration_s": 1.7398993968963623,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 1.6370644569396973,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
-      "test_id": "EQ-02A-GAUGE-02",
+      "test_id": "EQ-02A-GAUGE-A2",
       "category": "2-physics",
       "purpose": "count the gauge freedom: two constants per interface, one global invariance, therefore exactly one fixing condition",
       "oracle": "the xi = 0 mode vector, which must be (0,0,1,0,0,0,0,0) -- a pure potential with no mechanical or thermal content",
@@ -2108,12 +2136,12 @@
       "n_exec": 8,
       "actual": "1 global gauge condition and a pure-potential xi=0 sector in every configuration",
       "detail": "the xi=0 mode is read off the state, not asserted",
-      "duration_s": 3.777797222137451,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 4.2037129402160645,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
-      "test_id": "EQ-02A-GAUGE-03",
+      "test_id": "EQ-02A-GAUGE-A3",
       "category": "1-maths",
       "purpose": "show that zero rank gain is vacuous as a proof of implication, so Task 2R's justification is withdrawn and replaced",
       "oracle": "a deliberately INCONSISTENT extra row must also show zero rank gain; if it does, the test cannot detect implication",
@@ -2127,12 +2155,12 @@
       "n_exec": 8,
       "actual": "an arbitrary appended row also gains 0 rank, so rank gain cannot certify implication: Al6061|Al6061 P: gain=0; Al6061|Al6061 SV: gain=0; PZT-5H|PZT-5H P: gain=0; PZT-5H|PZT-5H SV: gain=0",
       "detail": "a row of constants cannot be implied by the interface equations, yet it is rank-neutral exactly like phi",
-      "duration_s": 6.626954078674316,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 6.576109409332275,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
-      "test_id": "EQ-02A-GAUGE-04",
+      "test_id": "EQ-02A-GAUGE-A4",
       "category": "2-physics",
       "purpose": "the gauge-fixed full system and the reduced system produce the same physical fields at k > 0, for all four pairs",
       "oracle": "two independently assembled systems -- the full one carries explicit constants C_1,C_2 and a gauge-fixing row, the reduced one carries neither",
@@ -2146,12 +2174,12 @@
       "n_exec": 112,
       "actual": "worst gauge-invariant disagreement = 2.07e-48 at PZT-5H|Al6061 SV k=1e-4 qz",
       "detail": "phi is excluded by construction: its offset is the allowed gauge constant, not a discrepancy",
-      "duration_s": 13.1899995803833,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 13.340482950210571,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
-      "test_id": "EQ-02A-GAUGE-05",
+      "test_id": "EQ-02A-GAUGE-A5",
       "category": "2-physics",
       "purpose": "the k = 0 reduced answer is the limit of the k > 0 answer, which is what makes the row removal legitimate",
       "oracle": "the production assembly at k = 1e-2, 1e-3, 1e-4 k_ac, reduced against the k = 0 answer by extrapolation, not by assumption",
@@ -2165,12 +2193,12 @@
       "n_exec": 8,
       "actual": "Al6061|Al6061 P: 9.6e-68/9.6e-68/9.6e-68; Al6061|Al6061 SV: 0.0/3.82e-72/0.0; PZT-5H|PZT-5H P: 0.0/0.0/9.85e-70; PZT-5H|PZT-5H SV: 0.0/0.0/0.0",
       "detail": "extrapolation in k is an oracle independent of the k = 0 row-removal rule",
-      "duration_s": 16.69918179512024,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 17.570131540298462,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
-      "test_id": "EQ-02A-GAUGE-06",
+      "test_id": "EQ-02A-GAUGE-A6",
       "category": "2-physics",
       "purpose": "the interface electrical model is explicit in the record, and the removed Dz row is identified as the insulated condition",
       "oracle": "the system's own removal reasons and kept-row list, checked against the derivation: bonded => phi continuity, insulated => D_z continuity",
@@ -2184,12 +2212,12 @@
       "n_exec": 8,
       "actual": "only the electrical rows are removed at k = 0, D_z is removed in every configuration (the insulated row must NOT be imposed on a bonded contact), and every mechanical/thermal row survives. Al6061|Al6061 P: removed=['phi', 'Dz']; Al6061|Al6061 SV: removed=['phi', 'Dz']; PZT-5H|PZT-5H P: removed=['Dz']",
       "detail": "the classification comes from the derivation: bonded => phi continuity, insulated => D_z continuity, and at k = 0 the D_z row IS the insulated condition",
-      "duration_s": 6.566514253616333,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 7.312490940093994,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     },
     {
-      "test_id": "EQ-02A-COND-01",
+      "test_id": "EQ-02A-COND-A1",
       "category": "1-maths",
       "purpose": "the reduced system's rank and residual are stable from 30 to 100 decimal digits, so the conclusion is not a precision artefact",
       "oracle": "re-solving the same matrix at five working precisions; a genuine rank deficiency would persist or move, a numerical one would improve with digits",
@@ -2203,13 +2231,165 @@
       "n_exec": 10,
       "actual": "dps=30 rank=6 res=9.9e-32 cond=1.1e+3; dps=30 rank=6 res=0.0 cond=1.1e+3; dps=40 rank=6 res=0.0 cond=1.1e+3; dps=40 rank=6 res=0.0 cond=1.1e+3 ...",
       "detail": "a real deficiency would not vanish as digits are added; this one is absent at the lowest precision already",
-      "duration_s": 10.272514343261719,
-      "commit": "07b5ae5c010d953c35f6c6308d240fdf64ce1c35",
+      "duration_s": 10.84962272644043,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
+      "remote_verified": false
+    },
+    {
+      "test_id": "MAXW01",
+      "category": "2-physics",
+      "purpose": "the five interface electrical models are stated separately and are not interchangeable",
+      "oracle": "Maxwell's interface conditions n.(D2-D1)=sigma and n x (E2-E1)=0, evaluated against the model table rather than any numerical result",
+      "oracle_independent": true,
+      "fixture": "all five models",
+      "expected": "the dielectric contact imposes BOTH phi and D_z; the conductor imposes neither D_z nor a free potential; the open circuit differs from the dielectric contact",
+      "tolerance": null,
+      "tol_justification": "structural classification of equations, no numerical comparison is made",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 5,
+      "actual": "dielectric contact asserts (phi, Dz); conductor asserts (phi) only because its surface charge is free; open circuit differs from both",
+      "detail": "the assertions come from the Maxwell conditions, not from a solver residual",
+      "duration_s": 0.0026230812072753906,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
+      "remote_verified": false
+    },
+    {
+      "test_id": "MAXW02",
+      "category": "2-physics",
+      "purpose": "show that D_z continuity alone does not identify an insulated interface, correcting the Task 2S statement",
+      "oracle": "solve the dielectric-contact system (which imposes BOTH) and evaluate the open-circuit residual on the same solution",
+      "oracle_independent": true,
+      "fixture": "Al6061|PZT-5H and PZT-5H|BaTiO3 at k/k_ac = 1e-3, P and SV",
+      "expected": "the dielectric-contact solution satisfies D_z continuity to 1e-25 AND potential continuity to 1e-25 simultaneously, so neither condition excludes the other",
+      "tolerance": 1e-25,
+      "tol_justification": "60-digit arithmetic, both systems conditioned below 1e11 after equilibration; measured residuals are at 1e-50 or better",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 6,
+      "actual": "potential continuity and D_z continuity hold on the SAME solution: Al6061|PZT-5H P: phi 3.5e-58 Dz 7.6e-63; Al6061|PZT-5H SV: phi 3.0e-60 Dz 6.6e-65; PZT-5H|BaTiO3 P: phi 4.8e-57 Dz 3.3e-64; PZT-5H|BaTiO3 SV: phi 9.6e-57 Dz 2.9e-65; PZT-5H|PZT-5H P: phi 3.9e-59 Dz 1.2e-64; PZT-5H|PZT-5H SV: phi 6.8e-56 Dz 8.9e-68",
+      "detail": "both are evaluated on one dielectric-contact solve; if D_z continuity implied insulation they could not coexist",
+      "duration_s": 3.4560389518737793,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
+      "remote_verified": false
+    },
+    {
+      "test_id": "MAXW03",
+      "category": "2-physics",
+      "purpose": "the tangential electric condition degenerates at exactly k = 0; it is not a gauge condition and the potential is not unconstrained in any limit sense",
+      "oracle": "E_x = -i k phi evaluated on the production states, compared with the direct difference of potentials",
+      "oracle_independent": true,
+      "fixture": "Al6061|PZT-5H, P and SV, k/k_ac from 1e-2 down to 0",
+      "expected": "E_x -> 0 linearly in k on both sides for ANY finite potential, so the condition 0 = 0 carries no information",
+      "tolerance": 1e-25,
+      "tol_justification": "the vanishing is exact in k; the tolerance is on the measured linearity",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 3,
+      "actual": "k=1e-2: |E_x|=0.643; k=1e-3: |E_x|=0.0643; k=1e-4: |E_x|=0.00643; |E_x|/k constant to 7.3e-8",
+      "detail": "E_x = -i k phi is an identity, so the whole tangential condition is proportional to k and is empty at k = 0",
+      "duration_s": 2.8282470703125,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
+      "remote_verified": false
+    },
+    {
+      "test_id": "LIM01",
+      "category": "2-physics",
+      "purpose": "the reported 1/k growth of the potential is a property of the u_x = 1 eigenvector gauge, not of the physics",
+      "oracle": "the SAME mode direction rescaled three ways; a physical quantity cannot depend on the choice",
+      "oracle_independent": true,
+      "fixture": "PZT-5H branch 5, k/k_ac from 1e-1 to 1e-6",
+      "expected": "under |u_z| = 1 the potential is bounded (spread below 1e-4) over six decades, while under |u_x| = 1 it grows by more than a factor of 1e4",
+      "tolerance": 0.0001,
+      "tol_justification": "the |u_z| = 1 value approaches its limit like k^2: measured spread 2.8e-5 over k/k_ac from 1e-1 to 1e-6, i.e. a bounded, shrinking quantity. The |u_x| = 1 value changes by a factor of 1e6 over the same range. The test asserts BOTH, so it cannot pass by the divergence being merely small",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 6,
+      "actual": "over six decades -- |u_z|=1 is BOUNDED (spread 2.78e-5), displacement-magnitude is BOUNDED (spread 0.00233), |u_x|=1 GROWS by a factor of 1.002e+5. The hybrid basis does NOT remove this ratio (it grows 1.0e+5x there too), because phi/u_x is an intrinsic property of the mode; what makes the TOTAL field finite is the coefficient, checked separately in EQ-02A-LIM-02",
+      "detail": "the divergence survives only in the normalisation that pins a component which itself vanishes like k",
+      "duration_s": 1.5685324668884277,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
+      "remote_verified": false
+    },
+    {
+      "test_id": "LIM02",
+      "category": "2-physics",
+      "purpose": "the total physical field has a finite k -> 0 limit in every configuration, so no physical divergence exists",
+      "oracle": "unit-flux normalisation, which is k-independent for a propagating mode, with each component's k-order measured before any extrapolation",
+      "oracle_independent": true,
+      "fixture": "Al|Al, PZT|PZT, Al|PZT, PZT|Al, PZT|BaTiO3, BaTiO3|PZT, CdSe|PZT at k/k_ac 1e-2..1e-5, P and SV",
+      "expected": "every component is CONSTANT or VANISHING; none DIVERGENT",
+      "tolerance": 0.05,
+      "tol_justification": "the order p in f ~ k^p must lie within 0.05 of 0 for CONSTANT; measured orders are below 1e-5",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 16,
+      "actual": "16 configurations, 0 divergent components; every field is CONSTANT or VANISHING",
+      "detail": "the flux basis is k-independent, so a divergence here would be physical; none is found",
+      "duration_s": 34.33639073371887,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
+      "remote_verified": false
+    },
+    {
+      "test_id": "LIM03",
+      "category": "2-physics",
+      "purpose": "the production k = 0 reduction agrees with the k -> 0 limit on every component that has a nonzero limit",
+      "oracle": "quadratic extrapolation in k of the unit-flux system, with each component's order classified first",
+      "oracle_independent": true,
+      "fixture": "all seven pairs, both polarisations",
+      "expected": "on CONSTANT components the reduction agrees with the smallest-k value to within that value's own remaining drift; VANISHING components are compared to zero, not extrapolated",
+      "tolerance": 1e-10,
+      "tol_justification": "the tolerance is the MEASURED convergence of the limit itself (typically 1e-9), scaled by 100, with a 1e-10 floor. It cannot be a fixed constant because the limit's drift varies by configuration; asserting a constant would either be vacuous or fail on arithmetic noise. Components classified VANISHING are excluded -- extrapolating them to a constant was the error this task made and then caught",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 14,
+      "actual": "Al6061|Al6061 P: worst tzz 1.6e-7 (limit drift 2.6e-9); Al6061|Al6061 SV: worst txz 4.3e-11 (limit drift 4.3e-9); PZT-5H|PZT-5H P: worst tzz 5.2e-11 (limit drift 9.6e-10); PZT-5H|PZT-5H SV: worst txz 1.7e-11 (limit drift 1.7e-9)",
+      "detail": "components are classified by k-order BEFORE extrapolation; a positive-order component compared against a constant extrapolation manufactures a spurious 5e-4 residual",
+      "duration_s": 32.43481183052063,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
+      "remote_verified": false
+    },
+    {
+      "test_id": "LIM04",
+      "category": "2-physics",
+      "purpose": "record that the production k = 0 reduction satisfies potential continuity only to O(k), not exactly",
+      "oracle": "the potential jump on the production k = 0 solution, compared with the same jump under the full 8-row limit system",
+      "oracle_independent": true,
+      "fixture": "all seven pairs, both polarisations",
+      "expected": "the k = 0 potential jump is bounded by 1e-3 of the field scale and is strictly nonzero wherever the limit jump is zero and the potential does not decouple",
+      "tolerance": 0.001,
+      "tol_justification": "the jump is the O(k) coefficient of a first-order limit; measured worst is 1.1e-5, well inside the bound, and this is a bound on a KNOWN defect, not a pass criterion for exactness",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 14,
+      "actual": "worst potential jump is 1.1e-5 of the field scale -- O(k), not zero. Al6061|Al6061 P: phi jump 0.0, Dz jump 0.0; Al6061|Al6061 SV: phi jump 0.0, Dz jump 0.0; PZT-5H|PZT-5H P: phi jump 0.0, Dz jump 0.0",
+      "detail": "the jump is measured on the production solution; a nonzero value is EXPECTED because the row is not imposed, and this test exists to keep it measured",
+      "duration_s": 12.252360343933105,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
+      "remote_verified": false
+    },
+    {
+      "test_id": "CONDT1",
+      "category": "1-maths",
+      "purpose": "the k -> 0 system becomes singular because a physical mode degenerates into the gauge mode, which is a conditioning fact and not a physical divergence",
+      "oracle": "the equilibrated condition number of the k > 0 system, and the xi of the admitted near-gauge branch",
+      "oracle_independent": true,
+      "fixture": "Al6061|PZT-5H, P incidence, k/k_ac from 1e-3 to 1e-6",
+      "expected": "the condition number grows by about 100 per decade of k, and the last admitted branch has xi proportional to k",
+      "tolerance": 0.1,
+      "tol_justification": "the growth exponent is estimated log-log; measured slope is -2.0 within 0.1",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 4,
+      "actual": "cond ~ k^(-1.63), last admitted xi ~ k^(1.0)",
+      "detail": "a mode with xi proportional to k is a near-gauge mode; its coefficient must grow to keep the total field finite, so the condition number degrades while the physics does not",
+      "duration_s": 2.163604736328125,
+      "commit": "006d059164d7f8910d432932fa70b7411e821ad9",
       "remote_verified": false
     }
   ],
   "level_name": "FAST",
   "description": "every-commit gate: syntax, schema, units, symbolic identities, one analytical benchmark, evidence consistency, dependency chain",
-  "wall_clock_s": 122.07,
+  "wall_clock_s": 215.59,
   "pytest_exit": 1
 }

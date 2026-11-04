@@ -160,21 +160,20 @@
    "id": "BLK-02A-19",
    "severity": "P0",
    "status": "CLOSED",
-   "title": "Interface continuity rows built from per-side dimensionless states",
-   "detail": "Side.states divides each field by THAT medium's own reference scales. For dissimilar media the two sides are then in different units and states1-states2=-incident is not a continuity condition. Scale ratios Al6061 vs PZT-5H at k=0: theta 2.46881, txz 0.738449, tzz 0.597113, qz 178.461, Dz 2.46731e-13, phi 5.58798e-10. Measured consequence for Al|PZT SV at k=0: the production system satisfied its OWN matrix to 2.296e-41 while PHYSICAL traction continuity was violated by 0.2616 (26%). Rebuilding the identical rows from raw physical states gave 8.078e-28 matrix residual and 2.492e-41 physical continuity, with coefficients differing in the third digit.",
+   "title": "TASK 2T CORRECTION: the Task 2S closure of this blocker rested on a rejected interpretation",
+   "detail": "The dimensional-scaling and conditioning content of this blocker is CORRECT and stands (per-side dimensionless states broke cross-interface continuity; measured violation 0.2616). What does NOT stand is the electrical interpretation Task 2S attached to the row removal. Task 2T re-derived the boundary conditions from Maxwell and found that (a) D_z continuity is the no-free-charge condition, not the insulated one, (b) potential continuity and D_z continuity hold simultaneously for a dielectric contact and are not alternatives, and (c) the removal of both rows at k=0 is justified by their being identically satisfied there, not by a gauge argument.",
    "blocks": [
     "all normal-incidence amplitudes",
     "G4 coupled energy conservation"
    ],
-   "evidence": "reports/PHASE_02A_TASK2S_ELECTRICAL_GAUGE_AUDIT.md sec.5; validation/phase_02a_task2s_results.json DEF-02A-2S-01",
-   "resolution": "assembly.py builds columns and rhs from raw_states; solver.py reconstructs boundary residuals from raw_states. Physical continuity now 1.2e-41.",
-   "closed_by": "PHASE_02A_TASK2S",
+   "evidence": "reports/PHASE_02A_TASK2T_MAXWELL_BOUNDARY_AUDIT.md; reports/PHASE_02A_TASK2T_CLAIM_CORRECTIONS.md",
+   "promotion_blocked": false,
+   "closed_by": "PHASE_02A_TASK2S for the scaling defect; electrical interpretation CORRECTED in PHASE_02A_TASK2T",
    "closure_evidence": {
-    "independent_formulation": "continuity rebuilt from raw physical states, which never pass through to_dimensionless; the defective path used per-side scales",
-    "measured_before": "Al6061|PZT-5H SV k=0: matrix residual 2.296e-41 while PHYSICAL traction continuity was violated by 0.2616",
-    "measured_after": "physical continuity 1.2e-41 for the same configuration; solver reconstructs from raw_states as well",
-    "scale_ratios_recorded": "theta 2.46881, txz 0.738449, tzz 0.597113, qz 178.461, Dz 2.46731e-13, phi 5.58798e-10",
-    "executed_regression": "EQ-02A-GAUGE-04, GAUGE-05, GAUGE-06 PASS; SCTA05 PASS; assembly validation 120/120; mutations MR01-MR11 DETECTED"
+    "independent_formulation": "continuity rebuilt from raw physical states",
+    "measured_before": "matrix residual 2.296e-41 while physical traction continuity violated by 0.2616",
+    "measured_after": "physical continuity 1.2e-41",
+    "task2t_recheck": "the scaling fix is retained unchanged; EQ-02A-MAXW-02 confirms both electrical conditions hold simultaneously to 1e-29 on the corrected basis"
    }
   },
   {
@@ -222,21 +221,50 @@
    "severity": "P2",
    "status": "OPEN",
    "title": "Oblique-incidence gauge analysis not performed",
-   "detail": "Equivalence of the full and reduced formulations was demonstrated at k>0 tending to normal incidence and at the k=0 limit. The oblique case inherits the corrected scaling and now solves at cond <= 1.3e10 with continuity <= 1e-27, but the electrical gauge derivation in this task is a normal-incidence derivation. No claim is made about oblique gauge structure.",
+   "detail": "The Task 2T boundary derivation is a general Maxwell derivation and applies at any k in principle, but the numerical validation of the k=0 limit and the five-model comparison were run at normal incidence and at k/k_ac down to 1e-6. Oblique configurations inherit the corrected scaling and the corrected model table, but the limit analysis has not been extended to them.",
    "blocks": [
     "any oblique gauge-equivalence claim"
    ],
-   "evidence": "reports/PHASE_02A_TASK2S_ELECTRICAL_GAUGE_AUDIT.md sec.13"
+   "evidence": "reports/PHASE_02A_TASK2T_NORMAL_INCIDENCE_LIMIT.md sec.8",
+   "promotion_blocked": false,
+   "closed_by": null
   },
   {
    "id": "BLK-02A-23",
    "severity": "P1",
-   "title": "Electrical interface model is BONDED, and the discarded Dz row is the INSULATED condition",
-   "detail": "Recorded as a standing constraint rather than a defect. The system imposes a bonded (shorted) contact: displacements and tractions continuous, potential continuous, normal D free to jump by a surface charge. The Dz row at k=0 is Gauss's law D_z=0, which is the INSULATED (open-circuit) condition. The two are different physical models and must not be combined or interchanged. MR09 keeps the Dz row and is detected by EQ-02A-GAUGE-06 specifically because of this distinction. Any future change to the electrical interface model must be derived and validated separately.",
+   "status": "OPEN",
+   "title": "The reference configuration is a DIELECTRIC CONTACT (zero free surface charge); electrode and open-circuit models are implemented but not adopted",
+   "detail": "RETAINED AND CORRECTED IN TASK 2T. The system imposes a dielectric contact: displacements and tractions continuous, potential continuous, normal D continuous, with sigma_free = 0. This is now DERIVED from Maxwell rather than asserted. The conducting-electrode, short-circuit, open-circuit and prescribed-charge models are implemented in code/scattering/maxwell.py and compared in validation/phase_02a_task2t_boundary_comparison.csv, but none is adopted for the reference configuration. Any future change of electrical model must be re-derived and re-validated.",
    "blocks": [
-    "silent interchange between bonded and insulated models"
+    "silent interchange between electrical models"
    ],
-   "evidence": "reports/PHASE_02A_TASK2S_ELECTRICAL_GAUGE_AUDIT.md section 3; EQ-02A-GAUGE-06; mutation MR09",
+   "evidence": "code/scattering/maxwell.py MODEL_SPEC; reports/PHASE_02A_TASK2T_MAXWELL_BOUNDARY_AUDIT.md sec.1-3",
+   "promotion_blocked": false,
+   "closed_by": null
+  },
+  {
+   "id": "BLK-02A-24",
+   "severity": "P1",
+   "status": "OPEN",
+   "title": "The production k = 0 reduction enforces potential continuity only to O(k), not exactly",
+   "detail": "Measured worst potential jump on the production k=0 solution is 1.1e-5 of the field scale (Al6061|PZT-5H at P incidence). This is a KNOWN, MEASURED limitation of the reduction: the potential row is not imposed, so continuity is approached at first order rather than satisfied. It is acceptable for the O(1) amplitudes but must be quoted whenever the reduction is described, and it must not be described as exact. EQ-02A-LIM-04 keeps the number measured.",
+   "blocks": [
+    "any claim that the reduction is exactly equivalent to the full dielectric contact"
+   ],
+   "evidence": "EQ-02A-LIM-04; reports/PHASE_02A_TASK2T_NORMAL_INCIDENCE_LIMIT.md sec.5",
+   "promotion_blocked": false,
+   "closed_by": null
+  },
+  {
+   "id": "BLK-02A-25",
+   "severity": "P1",
+   "status": "OPEN",
+   "title": "The k -> 0 system is numerically singular; the limit is obtained by extrapolation, not evaluation",
+   "detail": "A physical mode degenerates into the gauge mode as k -> 0 (its xi is proportional to k), so the condition number grows like k^-2 and reaches 3.9e16 at k/k_ac = 1e-7. Individual modal coefficients are unbounded even though the total field is finite. Consequence: the k=0 answer cannot be obtained by evaluating the k>0 system at small k; it must be extrapolated in a k-independent (unit-flux) basis. Any future work that needs the exact k->0 solution should use a scaled asymptotic expansion rather than the raw system.",
+   "blocks": [
+    "direct evaluation of the k=0 limit"
+   ],
+   "evidence": "EQ-02A-COND-T1; reports/PHASE_02A_TASK2T_NORMAL_INCIDENCE_LIMIT.md sec.6",
    "promotion_blocked": false,
    "closed_by": null
   }

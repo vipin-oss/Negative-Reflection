@@ -414,25 +414,37 @@ def test_GAUGE05_k_zero_is_a_limit():
 
 # ===========================================================================
 def test_GAUGE06_electrical_boundary_model_is_stated():
-    """The three electrical models are named and kept apart.
+    """The electrical model is explicit, and D_z is removed for the RIGHT reason.
 
-    The brief forbids silently interchanging them, so the test asserts which
-    model each configuration uses AND that the discarded Dz row is the
-    insulated condition, not a duplicate of the bonded one.
+    HISTORICAL NOTE. The Task 2S version of this test asserted that the removed
+    D_z row "is the insulated condition and must not be imposed on a bonded
+    contact". That reasoning is WRONG and was withdrawn in Task 2T. Continuity
+    of D_z is the NO-FREE-CHARGE condition, not the insulated one; a bonded
+    dielectric contact imposes potential continuity AND D_z continuity
+    simultaneously, and both are measured to hold to 1e-38 (EQ-02A-MAXW-02).
+
+    The row is nevertheless correct to remove at k = 0, and MR09 must still be
+    caught, because at k = 0 the equation is VACUOUS: Gauss reduces to
+    D_z = 0 on both sides, so the jump is 0 - 0 = 0 for any field. An empty
+    equation does not belong in a solve. This test now checks that structural
+    fact and the recording discipline, not the withdrawn physics.
+
+    The physics lives in validation/tests/test_17_scattering_task2t.py.
     """
     c = make_case(
         test_id="EQ-02A-GAUGE-A6", category="2-physics",
         purpose="the interface electrical model is explicit in the record, and "
-                "the removed Dz row is identified as the insulated condition",
+                "every removed row is removed for a recorded reason",
         oracle="the system's own removal reasons and kept-row list, checked "
-               "against the derivation: bonded => phi continuity, insulated => "
-               "D_z continuity",
+               "against the Task 2T derivation: at k = 0 both electrical rows "
+               "are identically satisfied by Gauss's law and the tangential "
+               "condition",
         oracle_independent=True,
         fixture="all four pairs at k = 0, both polarisations",
-        expected="at k = 0 exactly the electrical rows are removed, D_z is "
-                 "among them (it is the insulated condition and must not be "
-                 "imposed on a bonded contact), and every mechanical and "
-                 "thermal row is kept",
+        expected="at k = 0 exactly the electrical rows are removed, each with a "
+                 "recorded reason; D_z is among them because the condition is "
+                 "vacuous there, not because continuity is the wrong model; and "
+                 "every mechanical and thermal row is kept",
         tolerance=1e-40,
         tol_justification="structural classification, no numerical comparison",
         level="1")
@@ -454,24 +466,25 @@ def test_GAUGE06_electrical_boundary_model_is_stated():
                 for f in removed:
                     if f not in ("phi", "Dz"):
                         bad.append(f"{name} {pol}: removed a MECHANICAL row {f}")
-                # (b) D_z MUST be removed: at k = 0 it is Gauss's law D_z = 0,
-                # which is the INSULATED condition. Imposing it on a bonded
-                # contact is a different physical model, so keeping it is a
-                # defect even though the system still solves.
+                # (b) D_z must be removed at k = 0, because the equation is
+                # EMPTY there -- D_z = 0 on both sides by Gauss, so the jump is
+                # zero whatever the field. (Task 2T correction: the reason is
+                # vacuity, NOT "insulation is the wrong model".)
                 #
-                # THIS ASSERTION IS WHY MR09 IS CAUGHT. Without it the test
-                # passed while production kept the D_z row, i.e. while the
-                # insulation model was silently in force.
+                # THIS ASSERTION IS WHY MR09 IS CAUGHT: without it the test
+                # passed while production kept the vacuous D_z row.
                 if "Dz" not in removed:
-                    bad.append(f"{name} {pol}: D_z row kept at k = 0, which "
-                               f"imposes the INSULATED model on a bonded joint")
-                # (c) phi removal is the k -> 0 limit of potential continuity,
-                # and is allowed; but it must be removed for a RECORDED reason,
-                # never dropped silently.
-                if "phi" in removed:
-                    why = next(e for e in R["rows_removed"] if e["row"] == "phi")
-                    if not why.get("reason"):
-                        bad.append(f"{name} {pol}: phi removed with no reason")
+                    bad.append(f"{name} {pol}: D_z row kept at k = 0, but the "
+                               f"condition is identically satisfied there "
+                               f"(Gauss gives D_z = 0 on both sides)")
+                # (c) every removal must carry a recorded reason, never a
+                # silent drop. This is the part that survives unchanged from
+                # Task 2S and is the real protection against quiet
+                # convenience-driven row removal.
+                for e in R["rows_removed"]:
+                    if not e.get("reason"):
+                        bad.append(f"{name} {pol}: {e['row']} removed with no "
+                                   f"recorded reason")
                 # (d) the kept count plus the removed count must be all eight
                 if len(R["rows_kept"]) + len(removed) != 8:
                     bad.append(f"{name} {pol}: rows unaccounted for")
@@ -480,12 +493,14 @@ def test_GAUGE06_electrical_boundary_model_is_stated():
             return (FAIL, n, f"{len(bad)} defects", " | ".join(bad[:3]))
         return (PASS, n,
                 "only the electrical rows are removed at k = 0, D_z is removed "
-                "in every configuration (the insulated row must NOT be imposed "
-                "on a bonded contact), and every mechanical/thermal row "
-                "survives. " + "; ".join(notes[:3]),
-                "the classification comes from the derivation: bonded => phi "
-                "continuity, insulated => D_z continuity, and at k = 0 the "
-                "D_z row IS the insulated condition")
+                "in every configuration because the condition is vacuous there, "
+                "every removal carries a recorded reason, and every "
+                "mechanical/thermal row survives. " + "; ".join(notes[:3]),
+                "the classification comes from the Task 2T derivation: at k = 0 "
+                "k*(phi2-phi1)=0 and i*xi*Dz=0 are both satisfied identically, "
+                "so imposing them adds no information. This is a vacuity "
+                "argument, not the withdrawn 'D_z is the insulated model' "
+                "argument")
 
     from harness import finish
     finish(c, body)

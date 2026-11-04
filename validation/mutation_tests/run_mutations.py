@@ -1422,6 +1422,162 @@ SUITE = [
              mr07_mutate, mr07_detect),
 ]
 
+
+# ===========================================================================
+# TASK 2T -- electrical boundary physics and the normal-incidence limit.
+# MR12..MR17. Each is a negative control the Task 2T brief names explicitly.
+# They execute the PRODUCTION modules via the Task 2T test file.
+# ===========================================================================
+
+def _run_sct2t(root: Path, expr: str, timeout=1500):
+    r = subprocess.run(
+        [sys.executable, "-m", "pytest", "tests/test_17_scattering_task2t.py",
+         "-q", "--no-header", "-p", "no:cacheprovider", "-k", expr],
+        cwd=root / "validation", capture_output=True, text=True, timeout=timeout)
+    tail = (r.stdout.strip().splitlines() or [""])[-1][:200]
+    return r.returncode != 0, tail
+
+
+def mr12_mutate(root: Path) -> None:
+    """Replace the dielectric contact with a conducting electrode.
+
+    A conductor carries a free surface charge, so D_z terminates on it and
+    continuity of D_z must NOT be imposed. Swapping one for the other while
+    keeping both conditions is the classic over-constrained error.
+    """
+    p = root / "code/scattering/maxwell.py"
+    s = p.read_text()
+    anchor = ('    DIELECTRIC_CONTACT: {\n'
+              '        "phi": "CONTINUOUS", "Dz": "CONTINUOUS", "sigma_free": "ZERO",\n'
+              '        "equations": ("phi", "Dz"),')
+    assert anchor in s, "MR12 anchor missing"
+    s = s.replace(anchor, '    DIELECTRIC_CONTACT: {\n'
+                          '        "phi": "EQUIPOTENTIAL", "Dz": "TERMINATES",\n'
+                          '        "sigma_free": "FREE",\n'
+                          '        "equations": ("phi",),', 1)
+    p.write_text(s)
+
+
+def mr12_detect(root: Path) -> tuple:
+    return _run_sct2t(root, "MAXW01 or MAXW02")
+
+
+def mr13_mutate(root: Path) -> None:
+    """Discard D_z continuity WITHOUT a derivation.
+
+    The legitimate reason to drop a row at k = 0 is that it is identically
+    satisfied there. Dropping it for convenience, at every k, is not.
+    """
+    p = root / "code/scattering/asymptotic.py"
+    s = p.read_text()
+    anchor = '    use = list(range(len(STATE_FIELDS))) if rows is None else list(rows)'
+    assert anchor in s, "MR13 anchor missing"
+    s = s.replace(anchor,
+                  '    use = list(range(len(STATE_FIELDS))) if rows is None else list(rows)\n'
+                  '    use = [i for i in use if STATE_FIELDS[i] != "Dz"]', 1)
+    p.write_text(s)
+
+
+def mr13_detect(root: Path) -> tuple:
+    return _run_sct2t(root, "MAXW02 or LIM03")
+
+
+def mr14_mutate(root: Path) -> None:
+    """Impose zero free charge when a nonzero one is prescribed.
+
+    PRESCRIBED_CHARGE requires the normal-D jump to equal sigma_given. Silently
+    setting sigma = 0 imposes a different physical interface.
+    """
+    p = root / "code/scattering/maxwell.py"
+    s = p.read_text()
+    anchor = '    sig = mp.mpf(0) if sigma_free is None else mp.mpf(sigma_free)'
+    assert anchor in s, "MR14 anchor missing"
+    s = s.replace(anchor, '    sig = mp.mpf(0)   # mutated: charge ignored', 1)
+    p.write_text(s)
+
+
+def mr14_detect(root: Path) -> tuple:
+    # the model table must still declare PRESCRIBED_CHARGE as jumping by sigma;
+    # a test that exercises the residual helper is what catches the silent zero
+    r = subprocess.run(
+        [sys.executable, "-c",
+         "import sys; sys.path.insert(0,'code')\n"
+         "import mpmath as mp; mp.mp.dps=40\n"
+         "from scattering import maxwell as mx\n"
+         "f1=[mp.mpc(0)]*8; f2=[mp.mpc(0)]*8\n"
+         "f1[6]=0; f2[6]=mp.mpf('5e-9')\n"
+         "r=mx.electrical_residuals(mx.PRESCRIBED_CHARGE,f1,f2,"
+         "sigma_free=mp.mpf('2e-9'),k=mp.mpf('1e-3'))\n"
+         "bad=abs(r['normal_D']-mp.mpf('3e-9'))>mp.mpf('1e-20')\n"
+         "sys.exit(1 if bad else 0)"],
+        cwd=root, capture_output=True, text=True)
+    return r.returncode != 0, (r.stdout + r.stderr).strip()[-160:]
+
+
+def mr15_mutate(root: Path) -> None:
+    """Confuse the global gauge with a relative potential jump.
+
+    A gauge shift adds the SAME constant everywhere. A jump adds different
+    constants on the two sides. Implementing the gauge as a jump makes a
+    physical surface dipole look unobservable.
+    """
+    p = root / "code/scattering/asymptotic.py"
+    s = p.read_text()
+    anchor = '        out["f1"] = [inc[i] + f1[i] for i in range(len(STATE_FIELDS))]'
+    assert anchor in s, "MR15 anchor missing"
+    s = s.replace(anchor,
+                  '        _g = f2[2] - f1[2]\n'
+                  '        out["f1"] = [inc[i] + f1[i] + (_g if i == 2 else 0)\n'
+                  '                      for i in range(len(STATE_FIELDS))]', 1)
+    p.write_text(s)
+
+
+def mr15_detect(root: Path) -> tuple:
+    return _run_sct2t(root, "MAXW02 or MAXW03")
+
+
+def mr16_mutate(root: Path) -> None:
+    """Treat eigenvector rescaling as physical divergence.
+
+    This is the Task 2S error itself. Restoring the |u_x| = 1 gauge as the basis
+    for the limit makes the potential look like it diverges.
+    """
+    p = root / "code/scattering/asymptotic.py"
+    s = p.read_text()
+    anchor = '            "displacement": unit_displacement_mode}[normalisation]'
+    assert anchor in s, "MR16 anchor missing"
+    s = s.replace(anchor,
+                  '            "displacement": unit_displacement_mode}[normalisation]\n'
+                  '    norm = unit_displacement_mode   # mutated: pin u_x = 1 everywhere', 1)
+    p.write_text(s)
+
+
+def mr16_detect(root: Path) -> tuple:
+    return _run_sct2t(root, "LIM01 or LIM02")
+
+
+def mr17_mutate(root: Path) -> None:
+    """Declare the k = 0 limit validated from a SINGLE finite-k sample.
+
+    One sample cannot distinguish a limit from a value. This mutation makes the
+    limit routine return the k = 1e-3 answer directly and claims success.
+    """
+    p = root / "code/scattering/asymptotic.py"
+    s = p.read_text()
+    anchor = '    usable = [(mp.mpf(kk), mp.mpf(abs(v)))'
+    assert anchor in s, "MR17 anchor missing"
+    s = s.replace(anchor,
+                  '    if len(list(values)) >= 1:\n'
+                  '        v = mp.mpf(abs(list(values)[0]))\n'
+                  '        return mp.mpf(0), v, "CONSTANT"\n'
+                  + anchor, 1)
+    p.write_text(s)
+
+
+def mr17_detect(root: Path) -> tuple:
+    return _run_sct2t(root, "LIM03 or LIM02")
+
+
 SUITE.extend([
     Mutation("MR08", "relative potential offset treated as free", 
              "code/scattering/assembly.py",
@@ -1449,6 +1605,43 @@ SUITE.extend([
              mr11_mutate, mr11_detect),
 ])
 
+
+SUITE.extend([
+    Mutation("MR12", "dielectric contact replaced by a conducting electrode",
+             "code/scattering/maxwell.py",
+             "EQ-02A-MAXW-01/02: a conductor terminates D_z, it does not "
+             "transmit it",
+             "Imposing both potential and D_z continuity on a conductor "
+             "over-constrains a model whose charge is free.",
+             mr12_mutate, mr12_detect),
+    Mutation("MR13", "D_z continuity discarded with no derivation",
+             "code/scattering/asymptotic.py",
+             "EQ-02A-MAXW-02: the row is dropped only where it is empty",
+             "Dropping a physical condition to make the system square is the "
+             "failure mode this task exists to prevent.",
+             mr13_mutate, mr13_detect),
+    Mutation("MR14", "zero free charge imposed when a charge is prescribed",
+             "code/scattering/maxwell.py",
+             "EQ-02A-MAXW-01: PRESCRIBED_CHARGE must carry sigma_given",
+             "Silently zeroing sigma imposes a different physical interface.",
+             mr14_mutate, mr14_detect),
+    Mutation("MR15", "global gauge confused with a relative potential jump",
+             "code/scattering/asymptotic.py",
+             "EQ-02A-MAXW-02/03: a jump is physical, a gauge shift is not",
+             "A gauge shift adds the same constant to both sides; a jump does "
+             "not.",
+             mr15_mutate, mr15_detect),
+    Mutation("MR16", "eigenvector rescaling treated as physical divergence",
+             "code/scattering/asymptotic.py",
+             "EQ-02A-LIM-01: the 1/k is a normalisation artefact",
+             "The original Task 2S error, re-injected.",
+             mr16_mutate, mr16_detect),
+    Mutation("MR17", "k=0 limit validated from a single finite-k sample",
+             "code/scattering/asymptotic.py",
+             "EQ-02A-LIM-02/03: a limit needs a sequence",
+             "One sample cannot distinguish a limit from a value.",
+             mr17_mutate, mr17_detect),
+])
 
 # ===========================================================================
 def main(argv=None) -> int:

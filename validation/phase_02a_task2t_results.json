@@ -1,0 +1,1314 @@
+{
+ "task": "PHASE_02A_TASK2T",
+ "branch": "arena/a3ede4fe-negative-reflection",
+ "starting_commit": "006d059164d7f8910d432932fa70b7411e821ad9",
+ "paper_model": "DIELECTRIC_CONTACT",
+ "working_precision_digits": 60,
+ "frequency_hz": "1e6",
+ "retained_from_task2s": [
+  "raw_states physical columns",
+  "per-field row scaling",
+  "per-field column equilibration",
+  "TRIVIAL_ROW_TOL",
+  "row_scale diagnostics"
+ ],
+ "withdrawn_from_task2s": [
+  "potential row is a gauge, not a boundary condition",
+  "potential continuity forces transmitted potential to zero and is unsolvable",
+  "a 1/k modal potential proves potential continuity cannot be imposed"
+ ],
+ "p0_model_table": {
+  "DIELECTRIC_CONTACT": {
+   "phi": "CONTINUOUS",
+   "Dz": "CONTINUOUS",
+   "sigma_free": "ZERO",
+   "equations": [
+    "phi",
+    "Dz"
+   ]
+  },
+  "CONDUCTING_ELECTRODE": {
+   "phi": "EQUIPOTENTIAL",
+   "Dz": "TERMINATES",
+   "sigma_free": "FREE",
+   "equations": [
+    "phi"
+   ]
+  },
+  "SHORT_CIRCUIT": {
+   "phi": "FIXED_ZERO",
+   "Dz": "TERMINATES",
+   "sigma_free": "FREE",
+   "equations": [
+    "phi"
+   ]
+  },
+  "OPEN_CIRCUIT": {
+   "phi": "FLOATS",
+   "Dz": "TOTAL_CHARGE_ZERO",
+   "sigma_free": "FREE_ZERO_MEAN",
+   "equations": [
+    "phi",
+    "Dz_mean"
+   ]
+  },
+  "PRESCRIBED_CHARGE": {
+   "phi": "CONTINUOUS",
+   "Dz": "JUMPS_BY_GIVEN",
+   "sigma_free": "GIVEN",
+   "equations": [
+    "phi",
+    "Dz_given"
+   ]
+  }
+ },
+ "p0_paper_model_justification": "two elastic solids bonded at a planar interface, no electrode, no external circuit; therefore no free charge, so by Maxwell both phi and Dz are continuous. Not chosen to square the matrix.",
+ "p0_assumptions": [
+  "no electrode at the interface",
+  "no trapped interfacial charge",
+  "electroquasistatic reduction valid at 1 MHz",
+  "interface is sharp, no interphase",
+  "no free carrier transport across the interface"
+ ],
+ "p1_both_rows_vacuous_at_k0": {
+  "tangential": "k*(phi2-phi1)=0 degenerates to 0=0 for any finite potential jump",
+  "normal": "Gauss reduces to i*xi*Dz=0 so Dz=0 on both sides and the jump is 0-0=0",
+  "legitimacy": "rows removed because identically satisfied, which the brief permits; they carry information at every k>0 and are kept there",
+  "relative_potential_offset": "a physical surface dipole layer, not a gauge freedom"
+ },
+ "p2_normalisations": {
+  "unit_uz": {
+   "values": [
+    "1789695896.0",
+    "1789745128.0",
+    "1789745578.0",
+    "1789745583.0",
+    "1789745583.0",
+    "1789745583.0"
+   ],
+   "spread": "2.77621e-5",
+   "growth": "1.00003"
+  },
+  "unit_ux": {
+   "values": [
+    "2.630433912e+10",
+    "2.634386384e+11",
+    "2.634425768e+12",
+    "2.634426162e+13",
+    "2.634426166e+14",
+    "2.634426166e+15"
+   ],
+   "spread": "0.99999",
+   "growth": "100152.0"
+  },
+  "displacement_magnitude": {
+   "values": [
+    "1785567814.0",
+    "1789703826.0",
+    "1789745165.0",
+    "1789745578.0",
+    "1789745583.0",
+    "1789745583.0"
+   ],
+   "spread": "0.00233428",
+   "growth": "1.00234"
+  },
+  "ux_over_uz_slope": [
+   "0.000683591",
+   "0.000682584",
+   "0.000682574",
+   "0.000682574",
+   "0.000682574",
+   "0.000682574"
+  ]
+ },
+ "p2_total_field_limits": {
+  "Al6061|Al6061|P": {
+   "ux": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "5.494874749e-16"
+   },
+   "uz": {
+    "order": "-3.3726e-6",
+    "class": "CONSTANT",
+    "limit": "5.409092941e-11"
+   },
+   "phi": {
+    "order": null,
+    "class": "UNRESOLVED",
+    "limit": "0.0"
+   },
+   "theta": {
+    "order": "3.3726e-6",
+    "class": "CONSTANT",
+    "limit": "3.461330048e-5"
+   },
+   "txz": {
+    "order": "0.999997",
+    "class": "VANISHING",
+    "limit": "0.02853355791"
+   },
+   "tzz": {
+    "order": "-3.06628e-6",
+    "class": "CONSTANT",
+    "limit": "5884.718374"
+   },
+   "Dz": {
+    "order": null,
+    "class": "UNRESOLVED",
+    "limit": "0.0"
+   },
+   "qz": {
+    "order": "-3.3726e-6",
+    "class": "CONSTANT",
+    "limit": "5.663458789"
+   }
+  },
+  "Al6061|Al6061|SV": {
+   "ux": {
+    "order": "-8.0485e-7",
+    "class": "CONSTANT",
+    "limit": "7.738962103e-11"
+   },
+   "uz": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "3.840603924e-16"
+   },
+   "phi": {
+    "order": null,
+    "class": "UNRESOLVED",
+    "limit": "0.0"
+   },
+   "theta": {
+    "order": null,
+    "class": "UNRESOLVED",
+    "limit": "5.679028285e-71"
+   },
+   "txz": {
+    "order": "-5.63403e-6",
+    "class": "CONSTANT",
+    "limit": "4113.082374"
+   },
+   "tzz": {
+    "order": "0.999999",
+    "class": "VANISHING",
+    "limit": "0.040823873"
+   },
+   "Dz": {
+    "order": null,
+    "class": "UNRESOLVED",
+    "limit": "0.0"
+   },
+   "qz": {
+    "order": null,
+    "class": "UNRESOLVED",
+    "limit": "1.902082353e-65"
+   }
+  },
+  "PZT-5H|PZT-5H|P": {
+   "ux": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "2.602927467e-16"
+   },
+   "uz": {
+    "order": "-1.33593e-6",
+    "class": "CONSTANT",
+    "limit": "3.831393855e-11"
+   },
+   "phi": {
+    "order": "-1.36911e-6",
+    "class": "CONSTANT",
+    "limit": "0.06857220227"
+   },
+   "theta": {
+    "order": "1.4972e-6",
+    "class": "CONSTANT",
+    "limit": "5.205491057e-6"
+   },
+   "txz": {
+    "order": "0.999998",
+    "class": "VANISHING",
+    "limit": "0.02876912638"
+   },
+   "tzz": {
+    "order": "-1.27397e-6",
+    "class": "CONSTANT",
+    "limit": "8307.93957"
+   },
+   "Dz": {
+    "order": "2.0",
+    "class": "VANISHING",
+    "limit": "1.652418121e-17"
+   },
+   "qz": {
+    "order": "-1.86422e-6",
+    "class": "CONSTANT",
+    "limit": "0.01066196944"
+   }
+  },
+  "PZT-5H|PZT-5H|SV": {
+   "ux": {
+    "order": "-2.58283e-7",
+    "class": "CONSTANT",
+    "limit": "6.190572774e-11"
+   },
+   "uz": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "1.610972145e-16"
+   },
+   "phi": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "1.489005886e-7"
+   },
+   "theta": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "2.72420763e-12"
+   },
+   "txz": {
+    "order": "-2.21721e-6",
+    "class": "CONSTANT",
+    "limit": "5141.848708"
+   },
+   "tzz": {
+    "order": "0.999999",
+    "class": "VANISHING",
+    "limit": "0.02773692269"
+   },
+   "Dz": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "1.047454989e-11"
+   },
+   "qz": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "1.456679484e-8"
+   }
+  },
+  "Al6061|PZT-5H|P": {
+   "ux": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "4.161904204e-16"
+   },
+   "uz": {
+    "order": "-3.05555e-6",
+    "class": "CONSTANT",
+    "limit": "3.614322525e-11"
+   },
+   "phi": {
+    "order": "8.00584e-8",
+    "class": "CONSTANT",
+    "limit": "0.03234359582"
+   },
+   "theta": {
+    "order": "5.57144e-7",
+    "class": "CONSTANT",
+    "limit": "4.218110194e-5"
+   },
+   "txz": {
+    "order": "0.999999",
+    "class": "VANISHING",
+    "limit": "0.03584021162"
+   },
+   "tzz": {
+    "order": "-3.45124e-6",
+    "class": "CONSTANT",
+    "limit": "7837.255545"
+   },
+   "Dz": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "4.503269162e-12"
+   },
+   "qz": {
+    "order": "5.14232e-7",
+    "class": "CONSTANT",
+    "limit": "203.1481317"
+   }
+  },
+  "Al6061|PZT-5H|SV": {
+   "ux": {
+    "order": "-3.25432e-6",
+    "class": "CONSTANT",
+    "limit": "6.039455342e-11"
+   },
+   "uz": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "2.478026928e-16"
+   },
+   "phi": {
+    "order": "-2.92539e-6",
+    "class": "CONSTANT",
+    "limit": "0.03669718154"
+   },
+   "theta": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "1.283077162e-10"
+   },
+   "txz": {
+    "order": "-4.34316e-6",
+    "class": "CONSTANT",
+    "limit": "5016.33157"
+   },
+   "tzz": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "0.05585826453"
+   },
+   "Dz": {
+    "order": "0.999998",
+    "class": "VANISHING",
+    "limit": "5.109428366e-12"
+   },
+   "qz": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "0.0006416158215"
+   }
+  },
+  "PZT-5H|Al6061|P": {
+   "ux": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "3.352780643e-16"
+   },
+   "uz": {
+    "order": "-1.5459e-6",
+    "class": "CONSTANT",
+    "limit": "5.102673981e-11"
+   },
+   "phi": {
+    "order": null,
+    "class": "UNRESOLVED",
+    "limit": "0.0"
+   },
+   "theta": {
+    "order": "2.90254e-6",
+    "class": "CONSTANT",
+    "limit": "2.977805978e-5"
+   },
+   "txz": {
+    "order": "0.999994",
+    "class": "VANISHING",
+    "limit": "0.01718696639"
+   },
+   "tzz": {
+    "order": "-1.29324e-6",
+    "class": "CONSTANT",
+    "limit": "5551.321274"
+   },
+   "Dz": {
+    "order": null,
+    "class": "UNRESOLVED",
+    "limit": "0.0"
+   },
+   "qz": {
+    "order": "2.7309e-6",
+    "class": "CONSTANT",
+    "limit": "143.3355584"
+   }
+  },
+  "PZT-5H|Al6061|SV": {
+   "ux": {
+    "order": "4.54389e-7",
+    "class": "CONSTANT",
+    "limit": "7.550047099e-11"
+   },
+   "uz": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "2.255814421e-16"
+   },
+   "phi": {
+    "order": null,
+    "class": "UNRESOLVED",
+    "limit": "0.0"
+   },
+   "theta": {
+    "order": "1.00001",
+    "class": "VANISHING",
+    "limit": "8.754782004e-11"
+   },
+   "txz": {
+    "order": "-4.43502e-6",
+    "class": "CONSTANT",
+    "limit": "4012.678345"
+   },
+   "tzz": {
+    "order": "0.999997",
+    "class": "VANISHING",
+    "limit": "0.02360597124"
+   },
+   "Dz": {
+    "order": null,
+    "class": "UNRESOLVED",
+    "limit": "0.0"
+   },
+   "qz": {
+    "order": "1.00001",
+    "class": "VANISHING",
+    "limit": "0.0003914943366"
+   }
+  },
+  "PZT-5H|BaTiO3|P": {
+   "ux": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "2.29902472e-16"
+   },
+   "uz": {
+    "order": "-9.41392e-7",
+    "class": "CONSTANT",
+    "limit": "3.984884666e-11"
+   },
+   "phi": {
+    "order": "2.67033e-7",
+    "class": "CONSTANT",
+    "limit": "0.05903760466"
+   },
+   "theta": {
+    "order": "1.57011e-6",
+    "class": "CONSTANT",
+    "limit": "5.808241424e-6"
+   },
+   "txz": {
+    "order": "0.999998",
+    "class": "VANISHING",
+    "limit": "0.02950165468"
+   },
+   "tzz": {
+    "order": "-1.44263e-6",
+    "class": "CONSTANT",
+    "limit": "7975.11252"
+   },
+   "Dz": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "1.710006722e-12"
+   },
+   "qz": {
+    "order": "5.02176e-6",
+    "class": "CONSTANT",
+    "limit": "4.414052592"
+   }
+  },
+  "PZT-5H|BaTiO3|SV": {
+   "ux": {
+    "order": "9.43568e-7",
+    "class": "CONSTANT",
+    "limit": "5.668234641e-11"
+   },
+   "uz": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "1.623349949e-16"
+   },
+   "phi": {
+    "order": "7.4251e-6",
+    "class": "CONSTANT",
+    "limit": "0.01225812732"
+   },
+   "theta": {
+    "order": "1.00001",
+    "class": "VANISHING",
+    "limit": "7.428989169e-12"
+   },
+   "txz": {
+    "order": "-3.0918e-6",
+    "class": "CONSTANT",
+    "limit": "5575.699298"
+   },
+   "tzz": {
+    "order": "0.999999",
+    "class": "VANISHING",
+    "limit": "0.03113022919"
+   },
+   "Dz": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "7.884019549e-12"
+   },
+   "qz": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "3.773265891e-5"
+   }
+  },
+  "BaTiO3|PZT-5H|P": {
+   "ux": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "3.740430835e-16"
+   },
+   "uz": {
+    "order": "-2.47317e-6",
+    "class": "CONSTANT",
+    "limit": "3.828317974e-11"
+   },
+   "phi": {
+    "order": "-8.30929e-7",
+    "class": "CONSTANT",
+    "limit": "0.05671800939"
+   },
+   "theta": {
+    "order": "2.26277e-6",
+    "class": "CONSTANT",
+    "limit": "6.045504779e-6"
+   },
+   "txz": {
+    "order": "0.999999",
+    "class": "VANISHING",
+    "limit": "0.03621497957"
+   },
+   "tzz": {
+    "order": "-2.29308e-6",
+    "class": "CONSTANT",
+    "limit": "8301.270109"
+   },
+   "Dz": {
+    "order": "1.00003",
+    "class": "VANISHING",
+    "limit": "1.642820298e-12"
+   },
+   "qz": {
+    "order": "7.87099e-6",
+    "class": "CONSTANT",
+    "limit": "4.608764261"
+   }
+  },
+  "BaTiO3|PZT-5H|SV": {
+   "ux": {
+    "order": "-1.51878e-6",
+    "class": "CONSTANT",
+    "limit": "6.168496911e-11"
+   },
+   "uz": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "2.327915663e-16"
+   },
+   "phi": {
+    "order": "1.82407e-5",
+    "class": "CONSTANT",
+    "limit": "0.01333999478"
+   },
+   "theta": {
+    "order": "1.00003",
+    "class": "VANISHING",
+    "limit": "1.203665729e-12"
+   },
+   "txz": {
+    "order": "-3.41832e-6",
+    "class": "CONSTANT",
+    "limit": "5123.512642"
+   },
+   "tzz": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "0.04663287536"
+   },
+   "Dz": {
+    "order": "0.999998",
+    "class": "VANISHING",
+    "limit": "8.579840694e-12"
+   },
+   "qz": {
+    "order": "0.999997",
+    "class": "VANISHING",
+    "limit": "3.400812647e-5"
+   }
+  },
+  "CdSe|PZT-5H|P": {
+   "ux": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "1.133572754e-16"
+   },
+   "uz": {
+    "order": "-5.05532e-7",
+    "class": "CONSTANT",
+    "limit": "3.729174644e-11"
+   },
+   "phi": {
+    "order": "-1.3745e-6",
+    "class": "CONSTANT",
+    "limit": "0.0672130933"
+   },
+   "theta": {
+    "order": "5.49993e-7",
+    "class": "CONSTANT",
+    "limit": "8.599367913e-6"
+   },
+   "txz": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "0.01645360437"
+   },
+   "tzz": {
+    "order": "-5.35252e-7",
+    "class": "CONSTANT",
+    "limit": "8086.289876"
+   },
+   "Dz": {
+    "order": "1.00003",
+    "class": "VANISHING",
+    "limit": "6.548834441e-14"
+   },
+   "qz": {
+    "order": "7.55126e-9",
+    "class": "CONSTANT",
+    "limit": "19.26244359"
+   }
+  },
+  "CdSe|PZT-5H|SV": {
+   "ux": {
+    "order": "-2.64179e-7",
+    "class": "CONSTANT",
+    "limit": "6.044486925e-11"
+   },
+   "uz": {
+    "order": "1.00001",
+    "class": "VANISHING",
+    "limit": "6.933345709e-17"
+   },
+   "phi": {
+    "order": "-2.0158e-6",
+    "class": "CONSTANT",
+    "limit": "0.07359770016"
+   },
+   "theta": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "1.051452545e-11"
+   },
+   "txz": {
+    "order": "-8.20787e-7",
+    "class": "CONSTANT",
+    "limit": "5020.510769"
+   },
+   "tzz": {
+    "order": "1.0",
+    "class": "VANISHING",
+    "limit": "0.02634861724"
+   },
+   "Dz": {
+    "order": "1.00009",
+    "class": "VANISHING",
+    "limit": "1.979754426e-14"
+   },
+   "qz": {
+    "order": "1.00001",
+    "class": "VANISHING",
+    "limit": "1.209233008e-5"
+   }
+  }
+ },
+ "p3_reduction_vs_limit": {
+  "Al6061|Al6061|P": {
+   "ux": {
+    "class": "VANISHING",
+    "diff_rel_field": "9.338e-20"
+   },
+   "uz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "1.502e-21"
+   },
+   "phi": {
+    "class": "UNRESOLVED",
+    "diff_rel_field": "0.0"
+   },
+   "theta": {
+    "class": "CONSTANT",
+    "diff_rel_field": "9.609e-16"
+   },
+   "txz": {
+    "class": "VANISHING",
+    "diff_rel_field": "4.849e-6"
+   },
+   "tzz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "1.634e-7"
+   },
+   "Dz": {
+    "class": "UNRESOLVED",
+    "diff_rel_field": "0.0"
+   },
+   "qz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "1.572e-10"
+   }
+  },
+  "Al6061|Al6061|SV": {
+   "ux": {
+    "class": "CONSTANT",
+    "diff_rel_field": "1.158e-25"
+   },
+   "uz": {
+    "class": "VANISHING",
+    "diff_rel_field": "9.338e-20"
+   },
+   "phi": {
+    "class": "UNRESOLVED",
+    "diff_rel_field": "0.0"
+   },
+   "theta": {
+    "class": "UNRESOLVED",
+    "diff_rel_field": "1.381e-74"
+   },
+   "txz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "4.31e-11"
+   },
+   "tzz": {
+    "class": "VANISHING",
+    "diff_rel_field": "9.925e-6"
+   },
+   "Dz": {
+    "class": "UNRESOLVED",
+    "diff_rel_field": "0.0"
+   },
+   "qz": {
+    "class": "UNRESOLVED",
+    "diff_rel_field": "4.624e-69"
+   }
+  },
+  "PZT-5H|PZT-5H|P": {
+   "ux": {
+    "class": "VANISHING",
+    "diff_rel_field": "3.133e-20"
+   },
+   "uz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "2.418e-25"
+   },
+   "phi": {
+    "class": "CONSTANT",
+    "diff_rel_field": "4.331e-16"
+   },
+   "theta": {
+    "class": "CONSTANT",
+    "diff_rel_field": "3.301e-20"
+   },
+   "txz": {
+    "class": "VANISHING",
+    "diff_rel_field": "3.463e-6"
+   },
+   "tzz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "5.233e-11"
+   },
+   "Dz": {
+    "class": "VANISHING",
+    "diff_rel_field": "1.989e-21"
+   },
+   "qz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "6.848e-17"
+   }
+  },
+  "PZT-5H|PZT-5H|SV": {
+   "ux": {
+    "class": "CONSTANT",
+    "diff_rel_field": "2.379e-26"
+   },
+   "uz": {
+    "class": "VANISHING",
+    "diff_rel_field": "3.133e-20"
+   },
+   "phi": {
+    "class": "VANISHING",
+    "diff_rel_field": "2.896e-11"
+   },
+   "theta": {
+    "class": "VANISHING",
+    "diff_rel_field": "5.298e-16"
+   },
+   "txz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "1.696e-11"
+   },
+   "tzz": {
+    "class": "VANISHING",
+    "diff_rel_field": "5.394e-6"
+   },
+   "Dz": {
+    "class": "VANISHING",
+    "diff_rel_field": "2.037e-15"
+   },
+   "qz": {
+    "class": "VANISHING",
+    "diff_rel_field": "2.833e-12"
+   }
+  },
+  "Al6061|PZT-5H|P": {
+   "ux": {
+    "class": "VANISHING",
+    "diff_rel_field": "5.31e-20"
+   },
+   "uz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "3.911e-21"
+   },
+   "phi": {
+    "class": "CONSTANT",
+    "diff_rel_field": "4.127e-6"
+   },
+   "theta": {
+    "class": "CONSTANT",
+    "diff_rel_field": "9.119e-16"
+   },
+   "txz": {
+    "class": "VANISHING",
+    "diff_rel_field": "4.573e-6"
+   },
+   "tzz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "1.802e-7"
+   },
+   "Dz": {
+    "class": "VANISHING",
+    "diff_rel_field": "5.746e-16"
+   },
+   "qz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "7.293e-9"
+   }
+  },
+  "Al6061|PZT-5H|SV": {
+   "ux": {
+    "class": "CONSTANT",
+    "diff_rel_field": "9.088e-21"
+   },
+   "uz": {
+    "class": "VANISHING",
+    "diff_rel_field": "4.94e-20"
+   },
+   "phi": {
+    "class": "CONSTANT",
+    "diff_rel_field": "7.316e-6"
+   },
+   "theta": {
+    "class": "VANISHING",
+    "diff_rel_field": "2.558e-14"
+   },
+   "txz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "4.83e-7"
+   },
+   "tzz": {
+    "class": "VANISHING",
+    "diff_rel_field": "1.114e-5"
+   },
+   "Dz": {
+    "class": "VANISHING",
+    "diff_rel_field": "1.019e-15"
+   },
+   "qz": {
+    "class": "VANISHING",
+    "diff_rel_field": "1.279e-7"
+   }
+  },
+  "PZT-5H|Al6061|P": {
+   "ux": {
+    "class": "VANISHING",
+    "diff_rel_field": "6.04e-20"
+   },
+   "uz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "6.295e-21"
+   },
+   "phi": {
+    "class": "UNRESOLVED",
+    "diff_rel_field": "0.0"
+   },
+   "theta": {
+    "class": "CONSTANT",
+    "diff_rel_field": "3.57e-15"
+   },
+   "txz": {
+    "class": "VANISHING",
+    "diff_rel_field": "3.096e-6"
+   },
+   "tzz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "6.849e-7"
+   },
+   "Dz": {
+    "class": "UNRESOLVED",
+    "diff_rel_field": "0.0"
+   },
+   "qz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "2.298e-8"
+   }
+  },
+  "PZT-5H|Al6061|SV": {
+   "ux": {
+    "class": "CONSTANT",
+    "diff_rel_field": "1.42e-20"
+   },
+   "uz": {
+    "class": "VANISHING",
+    "diff_rel_field": "5.622e-20"
+   },
+   "phi": {
+    "class": "UNRESOLVED",
+    "diff_rel_field": "0.0"
+   },
+   "theta": {
+    "class": "VANISHING",
+    "diff_rel_field": "2.182e-14"
+   },
+   "txz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "7.548e-7"
+   },
+   "tzz": {
+    "class": "VANISHING",
+    "diff_rel_field": "5.883e-6"
+   },
+   "Dz": {
+    "class": "UNRESOLVED",
+    "diff_rel_field": "0.0"
+   },
+   "qz": {
+    "class": "VANISHING",
+    "diff_rel_field": "9.756e-8"
+   }
+  },
+  "PZT-5H|BaTiO3|P": {
+   "ux": {
+    "class": "VANISHING",
+    "diff_rel_field": "2.883e-20"
+   },
+   "uz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "3.45e-22"
+   },
+   "phi": {
+    "class": "CONSTANT",
+    "diff_rel_field": "1.809e-6"
+   },
+   "theta": {
+    "class": "CONSTANT",
+    "diff_rel_field": "4.752e-17"
+   },
+   "txz": {
+    "class": "VANISHING",
+    "diff_rel_field": "3.699e-6"
+   },
+   "tzz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "3.091e-7"
+   },
+   "Dz": {
+    "class": "VANISHING",
+    "diff_rel_field": "2.144e-16"
+   },
+   "qz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "3.003e-10"
+   }
+  },
+  "PZT-5H|BaTiO3|SV": {
+   "ux": {
+    "class": "CONSTANT",
+    "diff_rel_field": "6.754e-22"
+   },
+   "uz": {
+    "class": "VANISHING",
+    "diff_rel_field": "2.911e-20"
+   },
+   "phi": {
+    "class": "CONSTANT",
+    "diff_rel_field": "2.198e-6"
+   },
+   "theta": {
+    "class": "VANISHING",
+    "diff_rel_field": "1.332e-15"
+   },
+   "txz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "3.159e-7"
+   },
+   "tzz": {
+    "class": "VANISHING",
+    "diff_rel_field": "5.583e-6"
+   },
+   "Dz": {
+    "class": "VANISHING",
+    "diff_rel_field": "1.414e-15"
+   },
+   "qz": {
+    "class": "VANISHING",
+    "diff_rel_field": "6.767e-9"
+   }
+  },
+  "BaTiO3|PZT-5H|P": {
+   "ux": {
+    "class": "VANISHING",
+    "diff_rel_field": "4.506e-20"
+   },
+   "uz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "3.184e-22"
+   },
+   "phi": {
+    "class": "CONSTANT",
+    "diff_rel_field": "1.421e-6"
+   },
+   "theta": {
+    "class": "CONSTANT",
+    "diff_rel_field": "4.378e-17"
+   },
+   "txz": {
+    "class": "VANISHING",
+    "diff_rel_field": "4.363e-6"
+   },
+   "tzz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "2.851e-7"
+   },
+   "Dz": {
+    "class": "VANISHING",
+    "diff_rel_field": "1.979e-16"
+   },
+   "qz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "2.771e-10"
+   }
+  },
+  "BaTiO3|PZT-5H|SV": {
+   "ux": {
+    "class": "CONSTANT",
+    "diff_rel_field": "7.999e-22"
+   },
+   "uz": {
+    "class": "VANISHING",
+    "diff_rel_field": "4.544e-20"
+   },
+   "phi": {
+    "class": "CONSTANT",
+    "diff_rel_field": "2.604e-6"
+   },
+   "theta": {
+    "class": "VANISHING",
+    "diff_rel_field": "2.349e-16"
+   },
+   "txz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "3.741e-7"
+   },
+   "tzz": {
+    "class": "VANISHING",
+    "diff_rel_field": "9.102e-6"
+   },
+   "Dz": {
+    "class": "VANISHING",
+    "diff_rel_field": "1.675e-15"
+   },
+   "qz": {
+    "class": "VANISHING",
+    "diff_rel_field": "6.638e-9"
+   }
+  },
+  "CdSe|PZT-5H|P": {
+   "ux": {
+    "class": "VANISHING",
+    "diff_rel_field": "1.402e-20"
+   },
+   "uz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "5.405e-23"
+   },
+   "phi": {
+    "class": "CONSTANT",
+    "diff_rel_field": "5.817e-8"
+   },
+   "theta": {
+    "class": "CONSTANT",
+    "diff_rel_field": "3.157e-17"
+   },
+   "txz": {
+    "class": "VANISHING",
+    "diff_rel_field": "2.035e-6"
+   },
+   "tzz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "2.622e-8"
+   },
+   "Dz": {
+    "class": "VANISHING",
+    "diff_rel_field": "8.099e-18"
+   },
+   "qz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "1.24e-10"
+   }
+  },
+  "CdSe|PZT-5H|SV": {
+   "ux": {
+    "class": "CONSTANT",
+    "diff_rel_field": "1.83e-20"
+   },
+   "uz": {
+    "class": "VANISHING",
+    "diff_rel_field": "1.381e-20"
+   },
+   "phi": {
+    "class": "CONSTANT",
+    "diff_rel_field": "1.466e-5"
+   },
+   "theta": {
+    "class": "VANISHING",
+    "diff_rel_field": "2.094e-15"
+   },
+   "txz": {
+    "class": "CONSTANT",
+    "diff_rel_field": "9.601e-7"
+   },
+   "tzz": {
+    "class": "VANISHING",
+    "diff_rel_field": "5.248e-6"
+   },
+   "Dz": {
+    "class": "VANISHING",
+    "diff_rel_field": "3.943e-18"
+   },
+   "qz": {
+    "class": "VANISHING",
+    "diff_rel_field": "2.409e-9"
+   }
+  }
+ },
+ "p3_full_system_both_conditions": {
+  "Al6061|Al6061|P": {
+   "phi_jump_rel_field": "0.0",
+   "Dz_jump_rel_field": "0.0",
+   "solve_residual": "0.0",
+   "cond": "1.024",
+   "columns": 8,
+   "rows": 8
+  },
+  "Al6061|Al6061|SV": {
+   "phi_jump_rel_field": "0.0",
+   "Dz_jump_rel_field": "0.0",
+   "solve_residual": "0.0",
+   "cond": "1.024",
+   "columns": 8,
+   "rows": 8
+  },
+  "PZT-5H|PZT-5H|P": {
+   "phi_jump_rel_field": "5.263e-60",
+   "Dz_jump_rel_field": "1.265e-64",
+   "solve_residual": "1.881e-51",
+   "cond": "8.21e+8",
+   "columns": 8,
+   "rows": 8
+  },
+  "PZT-5H|PZT-5H|SV": {
+   "phi_jump_rel_field": "1.7e-56",
+   "Dz_jump_rel_field": "2.93e-67",
+   "solve_residual": "1.479e-51",
+   "cond": "8.21e+8",
+   "columns": 8,
+   "rows": 8
+  },
+  "Al6061|PZT-5H|P": {
+   "phi_jump_rel_field": "2.315e-58",
+   "Dz_jump_rel_field": "5.092e-63",
+   "solve_residual": "7.463e-50",
+   "cond": "3.969e+9",
+   "columns": 8,
+   "rows": 8
+  },
+  "Al6061|PZT-5H|SV": {
+   "phi_jump_rel_field": "8.003e-59",
+   "Dz_jump_rel_field": "1.761e-63",
+   "solve_residual": "1.074e-50",
+   "cond": "3.969e+9",
+   "columns": 8,
+   "rows": 8
+  },
+  "PZT-5H|Al6061|P": {
+   "phi_jump_rel_field": "2.535e-58",
+   "Dz_jump_rel_field": "5.577e-63",
+   "solve_residual": "5.758e-50",
+   "cond": "3.969e+9",
+   "columns": 8,
+   "rows": 8
+  },
+  "PZT-5H|Al6061|SV": {
+   "phi_jump_rel_field": "5.673e-59",
+   "Dz_jump_rel_field": "1.248e-63",
+   "solve_residual": "6.089e-51",
+   "cond": "3.969e+9",
+   "columns": 8,
+   "rows": 8
+  },
+  "PZT-5H|BaTiO3|P": {
+   "phi_jump_rel_field": "6.584e-57",
+   "Dz_jump_rel_field": "3.726e-64",
+   "solve_residual": "7.115e-51",
+   "cond": "7.643e+8",
+   "columns": 8,
+   "rows": 8
+  },
+  "PZT-5H|BaTiO3|SV": {
+   "phi_jump_rel_field": "1.385e-56",
+   "Dz_jump_rel_field": "4.176e-65",
+   "solve_residual": "1.59e-51",
+   "cond": "7.643e+8",
+   "columns": 8,
+   "rows": 8
+  },
+  "BaTiO3|PZT-5H|P": {
+   "phi_jump_rel_field": "5.942e-57",
+   "Dz_jump_rel_field": "3.3e-64",
+   "solve_residual": "6.638e-51",
+   "cond": "7.643e+8",
+   "columns": 8,
+   "rows": 8
+  },
+  "BaTiO3|PZT-5H|SV": {
+   "phi_jump_rel_field": "4.516e-56",
+   "Dz_jump_rel_field": "1.361e-64",
+   "solve_residual": "4.762e-51",
+   "cond": "7.643e+8",
+   "columns": 8,
+   "rows": 8
+  },
+  "CdSe|PZT-5H|P": {
+   "phi_jump_rel_field": "1.937e-56",
+   "Dz_jump_rel_field": "3.131e-63",
+   "solve_residual": "5.148e-50",
+   "cond": "1.474e+9",
+   "columns": 8,
+   "rows": 8
+  },
+  "CdSe|PZT-5H|SV": {
+   "phi_jump_rel_field": "5.866e-58",
+   "Dz_jump_rel_field": "8.953e-64",
+   "solve_residual": "5.452e-51",
+   "cond": "1.474e+9",
+   "columns": 8,
+   "rows": 8
+  }
+ },
+ "p4_singularity": {
+  "cond_at_1e-3": "3.96885e+9",
+  "note": "cond proportional to k^-2; 3.949e16 at k/k_ac=1e-7",
+  "k0_rank": "6",
+  "kpos_rank": "8",
+  "vanishing_branch": "the xi=0 gauge vector, xi proportional to k"
+ }
+}
