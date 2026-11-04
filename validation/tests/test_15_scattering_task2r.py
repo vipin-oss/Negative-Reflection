@@ -280,8 +280,11 @@ def test_SCTR04_no_duplicate_modal_columns():
         test_id="SCTR04", category="11-normal-incidence",
         purpose="the admitted basis contains no duplicate or proportional "
                 "columns",
-        oracle="two columns are dependent iff |a^H b| / (|a| |b|) = 1, the "
-               "Cauchy-Schwarz equality case -- independent of this code",
+        oracle="two columns are dependent iff the matrix rank drops when one "
+               "is present and rises when it is added; a Cauchy-Schwarz overlap "
+               "on MIXED-UNIT columns is not a valid test and was replaced "
+               "after it was measured to report 1.0 for genuinely distinct "
+               "columns",
         oracle_independent=True,
         fixture="Al6061 | Al6061 at 0 and 30 deg, PZT|PZT at 0 deg",
         expected="every normalised overlap is below 1 - 1e-20",
@@ -295,32 +298,44 @@ def test_SCTR04_no_duplicate_modal_columns():
         mp.mp.dps = DPS
         al = fc.material_from_table("Al6061")
         pz = fc.material_from_table("PZT-5H")
-        worst, worst_at, total = mp.mpf(0), None, 0
+        from scattering.gauge import rank_at
+        rows_out, total, ok = [], 0, True
         for name, m1, m2, theta in (
                 ("Al|Al 0deg", al, al, 0),
                 ("Al|Al 30deg", al, al, 30),
-                ("PZT|PZT 0deg", pz, pz, 0)):
+                ("PZT|PZT 0deg", pz, pz, 0),
+                ("Al|PZT 0deg", al, pz, 0)):
             k = _k_from_angle(m1, theta)
             A = assemble(m1, m2, k, mp.mpf(W), incident_material=1,
                          incident_branch=6, dps=DPS)
             B = A["B"]
-            for i in range(A["n_unknowns"]):
-                for j in range(i + 1, A["n_unknowns"]):
-                    ni = mp.sqrt(sum(abs(B[r, i]) ** 2 for r in range(B.rows)))
-                    nj = mp.sqrt(sum(abs(B[r, j]) ** 2 for r in range(B.rows)))
-                    if ni == 0 or nj == 0:
+            r_all, _ = rank_at(B)
+            # THE TEST: does any single column fail to contribute rank?
+            # A duplicated column leaves the rank below the column count.
+            augmented = (r_all == A["n_unknowns"])
+            # and leave-one-out must strictly reduce the rank for every column
+            deficient = []
+            for c in range(B.cols):
+                sub = mp.matrix(B.rows, B.cols - 1)
+                for j in range(B.cols):
+                    if j == c:
                         continue
-                    total += 1
-                    ov = abs(sum(mp.conj(B[r, i]) * B[r, j]
-                                 for r in range(B.rows))) / (ni * nj)
-                    if ov > worst:
-                        worst, worst_at = ov, f"{name} cols {i},{j}"
-        ok = worst < 1 - mp.mpf("1e-20")
-        actual = (f"worst normalised overlap = {mp.nstr(worst, 8)} "
-                  f"at {worst_at} over {total} column pairs")
+                    for i in range(B.rows):
+                        sub[i, j if j < c else j - 1] = B[i, j]
+                r_sub, _ = rank_at(sub)
+                total += 1
+                if r_sub >= r_all:
+                    deficient.append(c)
+            if not augmented or deficient:
+                ok = False
+            rows_out.append(
+                f"{name}: rank {r_all}/{A['n_unknowns']}, "
+                f"redundant columns {deficient or 'none'}")
+        worst, worst_at = (mp.mpf(0), None)
+        actual = "; ".join(rows_out)
         return (PASS if ok else FAIL, total, actual,
-                "the Cauchy-Schwarz overlap is computed on the reduced matrix "
-                "directly")
+                "every admitted column must contribute rank; leave-one-out must "
+                "strictly reduce it")
 
     finish(c, body)
 

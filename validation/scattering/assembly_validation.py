@@ -269,12 +269,25 @@ def c4_coupled():
                 # while every kept equation is satisfied to 1.5e-39. The two
                 # numbers are reported separately and the split is named, rather
                 # than widening the tolerance until the larger one passes.
-                rec(tag, "interface residual on enforced rows", 0,
-                    mp.nstr(r["interface_residual_enforced_max"], 6), "1e-30",
+                # RELATIVE, because the fields are SI quantities up to 1e20.
+                # The absolute residual moved from 1e-41 to 1e-24 when the
+                # assembly's columns became raw physical states; the RELATIVE
+                # accuracy is unchanged (1e-47) and the difference is units, not
+                # quality. An absolute bound here would measure the magnitude of
+                # q_z.
+                _env = r["interface_residual_by_field"] or {}
+                _kept = set(r.get("interface_residual_enforced_rows") or [])
+                _fscale = max([abs(_env[f]) for f in _kept] or [mp.mpf(1)])
+                _inc = S["side1"].raw_states[S["incident_branch"]]
+                _iscale = max([abs(v) for v in _inc] or [mp.mpf(1)])
+                _scale = max(_fscale, _iscale, mp.mpf(1))
+                _rel = r["interface_residual_enforced_max"] / _scale
+                rec(tag, "relative interface residual on enforced rows", 0,
+                    mp.nstr(_rel, 6), "1e-30",
                     "rebuilt from the modal expansion, not read off the solver; "
-                    "restricted to the rows the system actually imposed; the "
-                    "1e-30 bound reflects normal-equation residual growth "
-                    "(cond^2), not a physical tolerance",
+                    "restricted to the rows the system actually imposed and "
+                    "divided by the largest interface field, because the fields "
+                    "are SI quantities spanning many orders of magnitude",
                     "weld contact on every kept row")
                 rec(tag, "interface residual on ALL rows (diagnostic)", 0,
                     mp.nstr(r["interface_residual_max"], 6), "1e30",

@@ -231,13 +231,13 @@ def _mode_fields(system, coeffs):
     a1 = system["admitted1"]
     fields = []
     for j in range(len(a1)):
-        fields.append([coeffs[j] * side.states[br][i] / scales[j]
+        fields.append([coeffs[j] * side.raw_states[br][i] / scales[j]
                        for br in [a1[j]] for i in range(len(STATE_FIELDS))])
     off = len(a1)
     s2 = system["side2"]
     a2 = system["admitted2"]
     for j in range(len(a2)):
-        fields.append([coeffs[off + j] * s2.states[br][i] / scales[off + j]
+        fields.append([coeffs[off + j] * s2.raw_states[br][i] / scales[off + j]
                        for br in [a2[j]] for i in range(len(STATE_FIELDS))])
     return fields
 
@@ -255,20 +255,30 @@ def boundary_residuals(system, coeffs):
     # contribution of mode j is coeff_j * state_j / ||state_j||. Forgetting the
     # divisor was a bug in the first version of this function and produced
     # interface residuals of 1e14 on a solve whose own residual was 1e-52.
+    #
+    # AND THE RECONSTRUCTION MUST USE PHYSICAL STATES.
+    #
+    # This routine used `s1.states` / `s2.states`, which are each divided by
+    # their OWN medium's reference scales. For two different media that makes
+    # the difference st1 - st2 a comparison of u_i/scale1_i with u_i/scale2_i
+    # -- not a continuity condition -- and the reported residual was measured at
+    # 1.1e9 for Al6061|PZT-5H at 30 degrees while the equations that WERE
+    # imposed were satisfied to 1.7e-37. The columns of the assembly are now
+    # raw physical states, so the reconstruction has to be as well.
     norms = system["column_norms"]
     st1 = [mp.mpc(0)] * len(STATE_FIELDS)
     for j, br in enumerate(a1):
         for i in range(len(STATE_FIELDS)):
-            st1[i] += coeffs[j] * s1.states[br][i] / norms[j]
+            st1[i] += coeffs[j] * s1.raw_states[br][i] / norms[j]
     st2 = [mp.mpc(0)] * len(STATE_FIELDS)
     off = len(a1)
     for j, br in enumerate(a2):
         for i in range(len(STATE_FIELDS)):
-            st2[i] += coeffs[off + j] * s2.states[br][i] / norms[off + j]
+            st2[i] += coeffs[off + j] * s2.raw_states[br][i] / norms[off + j]
     # add the incident wave to side 1 -- it is not an unknown
     if system["incident_branch"] is not None:
         inc = s1 if system["incident_side"] == 1 else s2
-        st_inc = inc.states[system["incident_branch"]]
+        st_inc = inc.raw_states[system["incident_branch"]]
         tgt = st1 if system["incident_side"] == 1 else st2
         for i in range(len(STATE_FIELDS)):
             tgt[i] += st_inc[i]

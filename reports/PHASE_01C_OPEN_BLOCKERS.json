@@ -1,161 +1,245 @@
 {
-  "schema_version": "1.0",
-  "as_of_commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
-  "note": "Mandatory scientific blockers. A blocker with promotion_blocked=true prevents promotion to an approved baseline no matter how many tests pass. Closing a blocker requires scientific work, never a test-suite change.",
-  "blockers": [
-    {
-      "id": "BLK-U3",
-      "severity": "P0",
-      "title": "[CLOSED in Phase 1D] Coupled scattering amplitude normalisation / null-vector direction accuracy",
-      "detail": "CLOSED. The recorded diagnosis was WRONG and is retracted. The null-vector DIRECTION was never the problem: measured against an independent two-sided-equilibrated dps=120 Gram-matrix eigenvector it agrees to better than 1e-40 on all four branches (regression test U3C). The 1.86e-5 energy residual came from two defects in flux_z_mp: (i) D_z built with eps11 instead of eps33, a 13 percent error in the dielectric term that produced 1.8555e-5 exactly; and (ii) the transverse dissipation channel <D_x> omitted, which leaves exactly (k/xi)^2 = 4.67e-8 at 30 degrees. Both are corrected.",
-      "blocks": [
-        "BLK-G4",
-        "BLK-G5",
-        "EQ-SCT-01",
-        "EQ-SCT-02"
-      ],
-      "evidence": "check D2: 1.86e-5 residual through the production null-vector path vs 7.1e-17 in an independent dps=60 evaluation",
-      "promotion_blocked": false,
-      "closed_by": "Phase 1D, commit on branch arena/a3ede4fe-negative-reflection",
-      "status": "CLOSED",
-      "original_diagnosis": "The null-vector DIRECTION for the 6mm characteristic matrix (cond ~1e22) is accurate only to ~1e-5. Because the energy balance identity is scale-invariant in the null vector, this residual cannot be a magnitude error. It is the root cause of every coupled R/T/A result being unavailable.",
-      "closure_evidence": {
-        "independent_formulation": "two genuinely different constructions: (a) production column-equilibrated Gaussian elimination; (b) eigenvector of the equilibrated Gram matrix C^H C at dps=120 with a dps=160 Newton-refined root",
-        "agreement": "production balance closes at 3.45e-42 (PZT-5H) and 3.12e-63 (CdSe) against a 1e-8 tolerance that was NEVER relaxed",
-        "precision_stability": "residual shrinks with precision: 3.4e-62, 3.1e-81, 5.5e-102, 8.4e-142 at dps 60/80/100/140 (test U3D)",
-        "physical_boundary_quantities": "the balance is stated in traction sxz, electric displacement Dz and heat flux qz, not in eigenvalues alone; the D1 two-route flux comparison agrees to 1.95e-16",
-        "degenerate_branches": "all four branches handled by their own null vector and each measured independently in U3C; branches 3/4 are an exact conjugate pair and 1<->6, 2<->5 are conjugate pairs, none are mixed",
-        "executed_regression": "U3A, U3B, U3C, U3D all PASS; mutations M12, M13, M14, M15 all DETECTED"
-      }
-    },
-    {
-      "id": "BLK-G4",
-      "severity": "P0",
-      "title": "Gate G4 - Lord-Shulman energy identity not passed",
-      "detail": "The corrected flux functional is derived and verified against the Second Law in an independent evaluation, but the identity does not close through the production code path. The gate asks for it to hold in the solver that will be used.",
-      "blocks": [
-        "any energy ratio claim"
-      ],
-      "evidence": "phase_01b_test_results.json: D2 UNRESOLVED",
-      "promotion_blocked": true,
-      "closed_by": null
-    },
-    {
-      "id": "BLK-G5",
-      "severity": "P0",
-      "title": "Gate G5 - interface dissipation and numerical energy balance not passed",
-      "detail": "Requires a working coupled scattering solver and a converged numerical balance on evaluation planes in the half-spaces. Neither exists. Blueprint 7.4 forbids reporting R, T or A until this closes.",
-      "blocks": [
-        "any R/T/A claim",
-        "all reflection-suppression figures"
-      ],
-      "evidence": "no coupled solve implemented",
-      "promotion_blocked": true,
-      "closed_by": null
-    },
-    {
-      "id": "BLK-G0",
-      "severity": "P0",
-      "title": "Gate G0 - full-text prior art not reviewed",
-      "detail": "All ten literature records are metadata-only. No compatibility check with any competitor is possible, so no novelty claim can be made and the six candidate gaps remain questions.",
-      "blocks": [
-        "any novelty claim",
-        "CLM-LIT-02"
-      ],
-      "evidence": "literature/verified_references.csv: every row read_status = metadata only",
-      "promotion_blocked": true,
-      "closed_by": null
-    },
-    {
-      "id": "BLK-G1",
-      "severity": "P0",
-      "title": "Gate G1 - incompletely sourced material constants",
-      "detail": "beta_1, beta_3 and the pyroelectric coefficient p are ASSUMED for PZT-5H and BaTiO3. CdSe tau_q is an order-of-magnitude value. Any result depending quantitatively on the thermal or pyroelectric channel is unsupported.",
-      "blocks": [
-        "any thermal-channel quantitative result",
-        "CLM-MAT-02"
-      ],
-      "evidence": "literature/material_constants.csv status column",
-      "promotion_blocked": true,
-      "closed_by": null
-    },
-    {
-      "id": "BLK-U5",
-      "severity": "P1",
-      "title": "U-5 - factor-of-one-half bookkeeping between mechanical and thermal interface dissipation",
-      "detail": "A bookkeeping convention, not a physics uncertainty: the mechanical form carries a 1/2 from the cycle average while the thermal form is written for the real temperature jump. The Phase-2 solver must pick one convention and apply it uniformly before any numerical balance is assembled. Doing it wrong produces a 50 percent error in the thermal channel alone.",
-      "blocks": [
-        "E2 gate",
-        "numerical energy balance"
-      ],
-      "evidence": "theory/energy_flux_derivation.tex, remark on the half factor",
-      "promotion_blocked": true,
-      "closed_by": null
-    },
-    {
-      "id": "BLK-LS-STORAGE",
-      "severity": "P1",
-      "title": "Open scientific question: vanishing cycle-averaged time derivative versus vanishing stored-energy term in Lord-Shulman theory",
-      "detail": "MATHEMATICAL QUESTION RESOLVED in Phase 1D; PHYSICAL QUESTION REMAINS OPEN, so this blocker is NOT closed. The derivation in theory/energy_flux_derivation.tex sec:ls-closure proves Proposition prop:relax: for a monochromatic field <q.qdot> = 0 IDENTICALLY while <q.q> = |Q|^2/2 is NOT zero, so the vanishing of the first is not evidence about the second. The EIT stored-energy density tau_q q.q/(2 kappa T0) is therefore genuinely non-zero. What remains open is which functional an EXPERIMENT measures, and that requires a complete scattering solution. The original text below is retained unchanged. ORIGINAL: The cycle average of q.dq/dt is IDENTICALLY ZERO for a monochromatic field, because it is the average of a product of a quantity with its own time derivative over a period. Phase 1 treated tau_q q.dq/dt/kappa as a 'relaxation storage' term and then as a dissipation; both readings are unsupported for a monochromatic field, since the term is zero. It is therefore NEITHER storage NOR dissipation in the harmonic regime. Whether Lord-Shulman theory carries a genuine out-of-phase stored-energy contribution, and if so what its correct harmonic expression is, is NOT settled by the observation that this particular term vanishes. Resolving it requires a complete thermodynamic derivation of the LS internal energy, not a numerical test.",
-      "blocks": [
-        "EQ-ENG-07",
-        "a defensible statement of the LS energy identity in the harmonic regime"
-      ],
-      "evidence": "numeric: 3.27e-6 against a 1e34 dissipation scale, i.e. zero to machine precision",
-      "promotion_blocked": true,
-      "preserve_as_question": true,
-      "closed_by": null,
-      "status": "MATHEMATICAL_PART_CLOSED_PHYSICAL_PART_OPEN"
-    },
-    {
-      "id": "BLK-DOC-01",
-      "severity": "P1",
-      "title": "governing_equations.tex still states the withdrawn tau_q causality floor",
-      "detail": "The code and reports were corrected in Phase 1B; the .tex section 'Causality floor on tau_q' was not. The document and the code currently disagree. This is recorded rather than silently fixed so the correction is traceable.",
-      "blocks": [
-        "document consistency"
-      ],
-      "evidence": "evidence/phase_01_claim_audit.md U-11-4; CLM-H1-02 status INVALID",
-      "promotion_blocked": false,
-      "closed_by": null
-    },
-    {
-      "id": "BLK-02A-16",
-      "severity": "P1",
-      "title": "nullspace.null_vector and _rel_residual use an unsound residual metric and are still imported",
-      "detail": "`nullspace._rel_residual` divides by the GLOBAL matrix max. The rows of M are equations in different units spanning 1e-5 to 1e19, so a candidate violating the quietest row by 3.6e-5 scores 1.8e-24 and passes. Measured: at Al6061 k=0 on the shear branch the routine returns (0,1,0,-2.16e6) instead of the true (1,0,0,0), at residual 3.0e-7 by its own metric and 4.95e-7 by the row-relative one. `_two_sided_equilibrate` compounds it by lifting a roundoff-level row to unit scale. assembly.py and modal.py now route through scattering/roots.py instead, but the old functions remain because other modules import them. Deleting them is the correct fix and is deferred rather than risked silently.",
-      "blocks": [
-        "a future caller reaching for the convenient-looking API"
-      ],
-      "evidence": "reports/PHASE_02A_TASK2R_RANK_AND_GAUGE_ANALYSIS.md section 4",
-      "promotion_blocked": false,
-      "closed_by": null
-    },
-    {
-      "id": "BLK-02A-17",
-      "severity": "P2",
-      "title": "The phi/Dz removal reason still says 'sagittal decoupling' where the cause is e31=e33=e15=0",
-      "detail": "Al6061 is non-piezoelectric, so no admitted mode carries a potential -- the phi and Dz rows are empty because of the MATERIAL, not because of normal incidence. The reduction reaches the right decision and records the wrong reason for part of the basis, and the same wording appears in the earlier normal-incidence write-up. Wording, not mathematics: the PZT cases keep the phi row correctly.",
-      "blocks": [
-        "the traceability of the reduction reason"
-      ],
-      "evidence": "reports/PHASE_02A_TASK2R_NORMAL_INCIDENCE_AUDIT.md sections 2 and 4",
-      "promotion_blocked": false,
-      "closed_by": null
-    },
-    {
-      "id": "BLK-02A-18",
-      "severity": "P1",
-      "title": "Transmission magnitudes above unity are unnormalised state amplitudes, not flux coefficients",
-      "detail": "The interface system is built from dimensionless STATE vectors of unit component norm, so the incident 'amplitude' is not a unit power flux. Measured transmitted field magnitudes reach 4.3e4 for Al6061|PZT-5H at 30 deg while the system is consistent at 1e-33. Reading these as reflection and transmission coefficients and forming 1-R-T would produce a large spurious negative absorption. No energy quantity may be computed until the incident data is normalised to unit flux and the flux is resolved on both sides. This is a prerequisite for G4, not part of task 2R.",
-      "blocks": [
-        "G4 coupled energy conservation",
-        "any R+T+A statement"
-      ],
-      "evidence": "validation/phase_02a_task2r_independent_comparison.csv; CLM-02A-14",
-      "promotion_blocked": true,
-      "closed_by": null
-    }
-  ],
-  "phase_1d_note": "Register updated in Phase 1D. BLK-U3 is CLOSED with per-criterion evidence. BLK-LS-STORAGE is retained OPEN: only its mathematical half is resolved, and the question is deliberately preserved because the review forbids closing it on a vanishing harmonic average. BLK-G4 and BLK-G5 remain NOT PASSED -- no scattering solution exists and no special elastic limit may be used to promote them."
+ "schema_version": "1.0",
+ "as_of_commit": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+ "note": "Mandatory scientific blockers. A blocker with promotion_blocked=true prevents promotion to an approved baseline no matter how many tests pass. Closing a blocker requires scientific work, never a test-suite change.",
+ "blockers": [
+  {
+   "id": "BLK-U3",
+   "severity": "P0",
+   "title": "[CLOSED in Phase 1D] Coupled scattering amplitude normalisation / null-vector direction accuracy",
+   "detail": "CLOSED. The recorded diagnosis was WRONG and is retracted. The null-vector DIRECTION was never the problem: measured against an independent two-sided-equilibrated dps=120 Gram-matrix eigenvector it agrees to better than 1e-40 on all four branches (regression test U3C). The 1.86e-5 energy residual came from two defects in flux_z_mp: (i) D_z built with eps11 instead of eps33, a 13 percent error in the dielectric term that produced 1.8555e-5 exactly; and (ii) the transverse dissipation channel <D_x> omitted, which leaves exactly (k/xi)^2 = 4.67e-8 at 30 degrees. Both are corrected.",
+   "blocks": [
+    "BLK-G4",
+    "BLK-G5",
+    "EQ-SCT-01",
+    "EQ-SCT-02"
+   ],
+   "evidence": "check D2: 1.86e-5 residual through the production null-vector path vs 7.1e-17 in an independent dps=60 evaluation",
+   "promotion_blocked": false,
+   "closed_by": "Phase 1D, commit on branch arena/a3ede4fe-negative-reflection",
+   "status": "CLOSED",
+   "original_diagnosis": "The null-vector DIRECTION for the 6mm characteristic matrix (cond ~1e22) is accurate only to ~1e-5. Because the energy balance identity is scale-invariant in the null vector, this residual cannot be a magnitude error. It is the root cause of every coupled R/T/A result being unavailable.",
+   "closure_evidence": {
+    "independent_formulation": "two genuinely different constructions: (a) production column-equilibrated Gaussian elimination; (b) eigenvector of the equilibrated Gram matrix C^H C at dps=120 with a dps=160 Newton-refined root",
+    "agreement": "production balance closes at 3.45e-42 (PZT-5H) and 3.12e-63 (CdSe) against a 1e-8 tolerance that was NEVER relaxed",
+    "precision_stability": "residual shrinks with precision: 3.4e-62, 3.1e-81, 5.5e-102, 8.4e-142 at dps 60/80/100/140 (test U3D)",
+    "physical_boundary_quantities": "the balance is stated in traction sxz, electric displacement Dz and heat flux qz, not in eigenvalues alone; the D1 two-route flux comparison agrees to 1.95e-16",
+    "degenerate_branches": "all four branches handled by their own null vector and each measured independently in U3C; branches 3/4 are an exact conjugate pair and 1<->6, 2<->5 are conjugate pairs, none are mixed",
+    "executed_regression": "U3A, U3B, U3C, U3D all PASS; mutations M12, M13, M14, M15 all DETECTED"
+   }
+  },
+  {
+   "id": "BLK-G4",
+   "severity": "P0",
+   "title": "Gate G4 - Lord-Shulman energy identity not passed",
+   "detail": "The corrected flux functional is derived and verified against the Second Law in an independent evaluation, but the identity does not close through the production code path. The gate asks for it to hold in the solver that will be used.",
+   "blocks": [
+    "any energy ratio claim"
+   ],
+   "evidence": "phase_01b_test_results.json: D2 UNRESOLVED",
+   "promotion_blocked": true,
+   "closed_by": null
+  },
+  {
+   "id": "BLK-G5",
+   "severity": "P0",
+   "title": "Gate G5 - interface dissipation and numerical energy balance not passed",
+   "detail": "Requires a working coupled scattering solver and a converged numerical balance on evaluation planes in the half-spaces. Neither exists. Blueprint 7.4 forbids reporting R, T or A until this closes.",
+   "blocks": [
+    "any R/T/A claim",
+    "all reflection-suppression figures"
+   ],
+   "evidence": "no coupled solve implemented",
+   "promotion_blocked": true,
+   "closed_by": null
+  },
+  {
+   "id": "BLK-G0",
+   "severity": "P0",
+   "title": "Gate G0 - full-text prior art not reviewed",
+   "detail": "All ten literature records are metadata-only. No compatibility check with any competitor is possible, so no novelty claim can be made and the six candidate gaps remain questions.",
+   "blocks": [
+    "any novelty claim",
+    "CLM-LIT-02"
+   ],
+   "evidence": "literature/verified_references.csv: every row read_status = metadata only",
+   "promotion_blocked": true,
+   "closed_by": null
+  },
+  {
+   "id": "BLK-G1",
+   "severity": "P0",
+   "title": "Gate G1 - incompletely sourced material constants",
+   "detail": "beta_1, beta_3 and the pyroelectric coefficient p are ASSUMED for PZT-5H and BaTiO3. CdSe tau_q is an order-of-magnitude value. Any result depending quantitatively on the thermal or pyroelectric channel is unsupported.",
+   "blocks": [
+    "any thermal-channel quantitative result",
+    "CLM-MAT-02"
+   ],
+   "evidence": "literature/material_constants.csv status column",
+   "promotion_blocked": true,
+   "closed_by": null
+  },
+  {
+   "id": "BLK-U5",
+   "severity": "P1",
+   "title": "U-5 - factor-of-one-half bookkeeping between mechanical and thermal interface dissipation",
+   "detail": "A bookkeeping convention, not a physics uncertainty: the mechanical form carries a 1/2 from the cycle average while the thermal form is written for the real temperature jump. The Phase-2 solver must pick one convention and apply it uniformly before any numerical balance is assembled. Doing it wrong produces a 50 percent error in the thermal channel alone.",
+   "blocks": [
+    "E2 gate",
+    "numerical energy balance"
+   ],
+   "evidence": "theory/energy_flux_derivation.tex, remark on the half factor",
+   "promotion_blocked": true,
+   "closed_by": null
+  },
+  {
+   "id": "BLK-LS-STORAGE",
+   "severity": "P1",
+   "title": "Open scientific question: vanishing cycle-averaged time derivative versus vanishing stored-energy term in Lord-Shulman theory",
+   "detail": "MATHEMATICAL QUESTION RESOLVED in Phase 1D; PHYSICAL QUESTION REMAINS OPEN, so this blocker is NOT closed. The derivation in theory/energy_flux_derivation.tex sec:ls-closure proves Proposition prop:relax: for a monochromatic field <q.qdot> = 0 IDENTICALLY while <q.q> = |Q|^2/2 is NOT zero, so the vanishing of the first is not evidence about the second. The EIT stored-energy density tau_q q.q/(2 kappa T0) is therefore genuinely non-zero. What remains open is which functional an EXPERIMENT measures, and that requires a complete scattering solution. The original text below is retained unchanged. ORIGINAL: The cycle average of q.dq/dt is IDENTICALLY ZERO for a monochromatic field, because it is the average of a product of a quantity with its own time derivative over a period. Phase 1 treated tau_q q.dq/dt/kappa as a 'relaxation storage' term and then as a dissipation; both readings are unsupported for a monochromatic field, since the term is zero. It is therefore NEITHER storage NOR dissipation in the harmonic regime. Whether Lord-Shulman theory carries a genuine out-of-phase stored-energy contribution, and if so what its correct harmonic expression is, is NOT settled by the observation that this particular term vanishes. Resolving it requires a complete thermodynamic derivation of the LS internal energy, not a numerical test.",
+   "blocks": [
+    "EQ-ENG-07",
+    "a defensible statement of the LS energy identity in the harmonic regime"
+   ],
+   "evidence": "numeric: 3.27e-6 against a 1e34 dissipation scale, i.e. zero to machine precision",
+   "promotion_blocked": true,
+   "preserve_as_question": true,
+   "closed_by": null,
+   "status": "MATHEMATICAL_PART_CLOSED_PHYSICAL_PART_OPEN"
+  },
+  {
+   "id": "BLK-DOC-01",
+   "severity": "P1",
+   "title": "governing_equations.tex still states the withdrawn tau_q causality floor",
+   "detail": "The code and reports were corrected in Phase 1B; the .tex section 'Causality floor on tau_q' was not. The document and the code currently disagree. This is recorded rather than silently fixed so the correction is traceable.",
+   "blocks": [
+    "document consistency"
+   ],
+   "evidence": "evidence/phase_01_claim_audit.md U-11-4; CLM-H1-02 status INVALID",
+   "promotion_blocked": false,
+   "closed_by": null
+  },
+  {
+   "id": "BLK-02A-16",
+   "severity": "P1",
+   "title": "nullspace.null_vector and _rel_residual use an unsound residual metric and are still imported",
+   "detail": "`nullspace._rel_residual` divides by the GLOBAL matrix max. The rows of M are equations in different units spanning 1e-5 to 1e19, so a candidate violating the quietest row by 3.6e-5 scores 1.8e-24 and passes. Measured: at Al6061 k=0 on the shear branch the routine returns (0,1,0,-2.16e6) instead of the true (1,0,0,0), at residual 3.0e-7 by its own metric and 4.95e-7 by the row-relative one. `_two_sided_equilibrate` compounds it by lifting a roundoff-level row to unit scale. assembly.py and modal.py now route through scattering/roots.py instead, but the old functions remain because other modules import them. Deleting them is the correct fix and is deferred rather than risked silently.",
+   "blocks": [
+    "a future caller reaching for the convenient-looking API"
+   ],
+   "evidence": "reports/PHASE_02A_TASK2R_RANK_AND_GAUGE_ANALYSIS.md section 4",
+   "promotion_blocked": false,
+   "closed_by": null
+  },
+  {
+   "id": "BLK-02A-17",
+   "severity": "P2",
+   "title": "The phi/Dz removal reason still says 'sagittal decoupling' where the cause is e31=e33=e15=0",
+   "detail": "Al6061 is non-piezoelectric, so no admitted mode carries a potential -- the phi and Dz rows are empty because of the MATERIAL, not because of normal incidence. The reduction reaches the right decision and records the wrong reason for part of the basis, and the same wording appears in the earlier normal-incidence write-up. Wording, not mathematics: the PZT cases keep the phi row correctly. TASK 2S UPDATE: the reason wording has been corrected in the Task 2S derivation. At k=0 the phi row is removed because the potential has no finite k=0 value (it diverges like 1/k), and the Dz row because it is the insulated condition; Al6061 additionally carries no potential at all, which remains a separate material fact.",
+   "blocks": [
+    "the traceability of the reduction reason"
+   ],
+   "evidence": "reports/PHASE_02A_TASK2R_NORMAL_INCIDENCE_AUDIT.md sections 2 and 4",
+   "promotion_blocked": false,
+   "closed_by": null
+  },
+  {
+   "id": "BLK-02A-18",
+   "severity": "P1",
+   "title": "Transmission magnitudes above unity are unnormalised state amplitudes, not flux coefficients",
+   "detail": "The interface system is built from dimensionless STATE vectors of unit component norm, so the incident 'amplitude' is not a unit power flux. Measured transmitted field magnitudes reach 4.3e4 for Al6061|PZT-5H at 30 deg while the system is consistent at 1e-33. Reading these as reflection and transmission coefficients and forming 1-R-T would produce a large spurious negative absorption. No energy quantity may be computed until the incident data is normalised to unit flux and the flux is resolved on both sides. This is a prerequisite for G4, not part of task 2R. TASK 2S UPDATE: the unit-normalisation half of this concern is addressed (per-field row scaling, BLK-02A-20). What remains is the incident-flux normalisation itself, which is still not done and still blocks G4.",
+   "blocks": [
+    "G4 coupled energy conservation",
+    "any R+T+A statement"
+   ],
+   "evidence": "validation/phase_02a_task2r_independent_comparison.csv; CLM-02A-14",
+   "promotion_blocked": true,
+   "closed_by": null
+  },
+  {
+   "id": "BLK-02A-19",
+   "severity": "P0",
+   "status": "CLOSED",
+   "title": "Interface continuity rows built from per-side dimensionless states",
+   "detail": "Side.states divides each field by THAT medium's own reference scales. For dissimilar media the two sides are then in different units and states1-states2=-incident is not a continuity condition. Scale ratios Al6061 vs PZT-5H at k=0: theta 2.46881, txz 0.738449, tzz 0.597113, qz 178.461, Dz 2.46731e-13, phi 5.58798e-10. Measured consequence for Al|PZT SV at k=0: the production system satisfied its OWN matrix to 2.296e-41 while PHYSICAL traction continuity was violated by 0.2616 (26%). Rebuilding the identical rows from raw physical states gave 8.078e-28 matrix residual and 2.492e-41 physical continuity, with coefficients differing in the third digit.",
+   "blocks": [
+    "all normal-incidence amplitudes",
+    "G4 coupled energy conservation"
+   ],
+   "evidence": "reports/PHASE_02A_TASK2S_ELECTRICAL_GAUGE_AUDIT.md sec.5; validation/phase_02a_task2s_results.json DEF-02A-2S-01",
+   "resolution": "assembly.py builds columns and rhs from raw_states; solver.py reconstructs boundary residuals from raw_states. Physical continuity now 1.2e-41.",
+   "closed_by": "PHASE_02A_TASK2S",
+   "closure_evidence": {
+    "independent_formulation": "continuity rebuilt from raw physical states, which never pass through to_dimensionless; the defective path used per-side scales",
+    "measured_before": "Al6061|PZT-5H SV k=0: matrix residual 2.296e-41 while PHYSICAL traction continuity was violated by 0.2616",
+    "measured_after": "physical continuity 1.2e-41 for the same configuration; solver reconstructs from raw_states as well",
+    "scale_ratios_recorded": "theta 2.46881, txz 0.738449, tzz 0.597113, qz 178.461, Dz 2.46731e-13, phi 5.58798e-10",
+    "executed_regression": "EQ-02A-GAUGE-04, GAUGE-05, GAUGE-06 PASS; SCTA05 PASS; assembly validation 120/120; mutations MR01-MR11 DETECTED"
+   }
+  },
+  {
+   "id": "BLK-02A-20",
+   "severity": "P0",
+   "status": "CLOSED",
+   "title": "Column normalisation by the Euclidean norm over mixed physical units",
+   "detail": "With physical columns restored the entries span 1e-37 (Dz) to 1e22 (qz) and the raw system reaches cond 1.6e62; mp.lu_solve raises 'matrix is numerically singular'. Dividing by the Euclidean column norm is not a fix: the norm is dominated by qz, so a column with ux=1 normalises to 1.9e-14 and two columns differing by the shear-modulus ratio 1.066 score a Cauchy-Schwarz overlap of 1.0 -- a false duplicate.",
+   "blocks": [
+    "any solve of the physical interface system"
+   ],
+   "evidence": "reports/PHASE_02A_TASK2S_ELECTRICAL_GAUGE_AUDIT.md sec.6; DEF-02A-2S-02",
+   "resolution": "Per-field row scaling plus per-mode column scaling, both diagonal and invertible so the solution set is unchanged. cond 1.6e62 -> 7.7e9 at 30 deg; rank full at 30/40/60/80/100 digits.",
+   "closed_by": "PHASE_02A_TASK2S",
+   "closure_evidence": {
+    "independent_formulation": "diagonal row scaling s_i = max_j |state_i| per field, then diagonal column scaling n_j = max_i |state_i/s_i| per mode; both are invertible so the solution set is unchanged",
+    "measured_before": "raw physical system cond 1.6e62 at 30 degrees; mp.lu_solve raised 'matrix is numerically singular' at 60 digits; Euclidean normalisation produced a false Cauchy-Schwarz overlap of 1.0 for columns differing by the shear-modulus ratio 1.066",
+    "measured_after": "cond 7.7e9 at 30 degrees, 1.05e3 at k=0; oblique relative continuity <= 1e-27; residuals at the arithmetic floor",
+    "precision_stability": "rank 6/6 at dps 30, 40, 60, 80 and 100 with the residual falling as 1.26e-35, 6.80e-46, 1.84e-66, 8.50e-86, 1.98e-106",
+    "executed_regression": "EQ-02A-COND-01 and GAUGE-04 PASS; SCTR04 rebuilt on leave-one-out rank and PASS; assembly validation 120/120; mutation MR11 DETECTED"
+   }
+  },
+  {
+   "id": "BLK-02A-21",
+   "severity": "P1",
+   "status": "CLOSED",
+   "title": "Rank-gain argument for the normal-incidence row removal is vacuous",
+   "detail": "Task 2R removed the phi row because adding it produced zero rank gain. Once rows>=columns and the columns are independent the rank equals the column count whatever the extra row says, so zero gain is guaranteed. Demonstrated by appending an arbitrary row of constants, which also gains zero rank (EQ-02A-GAUGE-03).",
+   "blocks": [
+    "confidence in the Task 2R reduction justification"
+   ],
+   "evidence": "reports/PHASE_02A_TASK2S_ELECTRICAL_GAUGE_AUDIT.md sec.4.1; EQ-02A-GAUGE-03",
+   "resolution": "Argument withdrawn. Replacement: k=0 is a LIMIT because the potential of a polynomial mode diverges like 1/k, and the Dz row at k=0 is the INSULATED interface condition, a different physical model from the bonded contact imposed elsewhere. Equivalence then verified directly at k>0 to 1.707e-48.",
+   "closed_by": "PHASE_02A_TASK2S",
+   "closure_evidence": {
+    "independent_formulation": "the limit argument is tested by extrapolation in k, an oracle that does not use the k=0 row-removal rule at all",
+    "measured_withdrawal": "an arbitrary appended row of constants also gains zero rank (EQ-02A-GAUGE-03), so zero rank gain cannot certify implication",
+    "replacement_result": "full and reduced agree to 1.707e-48 across 4 material pairs x {P,SV} x k/k_ac in {1e-2,1e-4} on all gauge-invariant components",
+    "limit_behaviour": "first-order approach to the k=0 answer (decade ratios 60 and 12 for Al|PZT P); identical media exact at every k",
+    "executed_regression": "EQ-02A-GAUGE-03, GAUGE-04, GAUGE-05 PASS; mutations MR08, MR09, MR10 DETECTED"
+   }
+  },
+  {
+   "id": "BLK-02A-22",
+   "severity": "P2",
+   "status": "OPEN",
+   "title": "Oblique-incidence gauge analysis not performed",
+   "detail": "Equivalence of the full and reduced formulations was demonstrated at k>0 tending to normal incidence and at the k=0 limit. The oblique case inherits the corrected scaling and now solves at cond <= 1.3e10 with continuity <= 1e-27, but the electrical gauge derivation in this task is a normal-incidence derivation. No claim is made about oblique gauge structure.",
+   "blocks": [
+    "any oblique gauge-equivalence claim"
+   ],
+   "evidence": "reports/PHASE_02A_TASK2S_ELECTRICAL_GAUGE_AUDIT.md sec.13"
+  },
+  {
+   "id": "BLK-02A-23",
+   "severity": "P1",
+   "title": "Electrical interface model is BONDED, and the discarded Dz row is the INSULATED condition",
+   "detail": "Recorded as a standing constraint rather than a defect. The system imposes a bonded (shorted) contact: displacements and tractions continuous, potential continuous, normal D free to jump by a surface charge. The Dz row at k=0 is Gauss's law D_z=0, which is the INSULATED (open-circuit) condition. The two are different physical models and must not be combined or interchanged. MR09 keeps the Dz row and is detected by EQ-02A-GAUGE-06 specifically because of this distinction. Any future change to the electrical interface model must be derived and validated separately.",
+   "blocks": [
+    "silent interchange between bonded and insulated models"
+   ],
+   "evidence": "reports/PHASE_02A_TASK2S_ELECTRICAL_GAUGE_AUDIT.md section 3; EQ-02A-GAUGE-06; mutation MR09",
+   "promotion_blocked": false,
+   "closed_by": null
+  }
+ ],
+ "phase_1d_note": "Register updated in Phase 1D. BLK-U3 is CLOSED with per-criterion evidence. BLK-LS-STORAGE is retained OPEN: only its mathematical half is resolved, and the question is deliberately preserved because the review forbids closing it on a vanishing harmonic average. BLK-G4 and BLK-G5 remain NOT PASSED -- no scattering solution exists and no special elastic limit may be used to promote them."
 }

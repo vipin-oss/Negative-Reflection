@@ -1111,6 +1111,143 @@ def mr07_detect(root: Path) -> tuple[bool, str]:
     return _run_sctr(root, "test_SCTR07_residuals_against_physical_fields")
 
 
+
+
+# ===========================================================================
+# TASK 2S -- electrical gauge treatment. MR08..MR11.
+#
+# These are the mutations the Task 2S brief asks for by name: each one injects a
+# DELIBERATELY INCORRECT GAUGE TREATMENT and must be caught by the Task 2S tests,
+# which run the PRODUCTION `assemble`, not a reimplementation of it.
+# ===========================================================================
+
+def mr08_mutate(root: Path) -> None:
+    """Treat the relative potential offset as free instead of fixed.
+
+    A relative offset between the two half-spaces is a PHYSICAL jump: it is what
+    an interface charge sheet looks like, and for a bonded contact it must be
+    zero. Allowing it is the classic wrong gauge treatment -- it keeps the system
+    solvable and physical-looking while letting the potential float.
+    """
+    p = root / "code/scattering/assembly.py"
+    s = p.read_text()
+    anchor = ('        if normal_incidence and STATE_FIELDS[i] in ("phi", "Dz"):')
+    assert anchor in s, "MR08 anchor missing"
+    # The first attempt at this mutation inserted a `pass` and changed nothing,
+    # so it was reported INCONCLUSIVE against a pristine tree. A mutation that
+    # does not degrade the system is not evidence of a test gap. This one
+    # actually removes the phi row at EVERY incidence angle, which makes the
+    # relative potential offset free where it is not.
+    s = s.replace(anchor,
+                  '        if STATE_FIELDS[i] in ("phi",):', 1)
+    p.write_text(s)
+
+
+def _run_sct(root: Path, expr: str, timeout=1200):
+    """Run a Task 2S selection inside a mutated copy, using PRODUCTION code."""
+    r = subprocess.run(
+        [sys.executable, "-m", "pytest",
+         f"tests/test_16_scattering_task2s.py", "-q", "--no-header",
+         "-p", "no:cacheprovider", "-k", expr],
+        cwd=root / "validation", capture_output=True, text=True, timeout=timeout)
+    tail = (r.stdout.strip().splitlines() or [""])[-1][:200]
+    return r.returncode != 0, tail
+
+
+def mr08_detect(root: Path) -> tuple[bool, str]:
+    return _run_sct(root, "GAUGE06 or GAUGE04")
+
+
+def mr09_mutate(root: Path) -> None:
+    """Enforce D_z continuity at k = 0 as if it were a free boundary condition.
+
+    At k = 0 Gauss's law reads D_z = 0; imposing it ACROSS the interface turns
+    the bonded contact into an insulated one. This mutation keeps the row that
+    the derivation says is the wrong model for a bonded joint.
+    """
+    p = root / "code/scattering/assembly.py"
+    s = p.read_text()
+    anchor = ('        if normal_incidence and STATE_FIELDS[i] in ("phi", "Dz"):')
+    assert anchor in s, "MR09 anchor missing"
+    s = s.replace(anchor,
+                  '        if normal_incidence and STATE_FIELDS[i] in ("phi",):',
+                  1)
+    p.write_text(s)
+
+
+def mr09_detect(root: Path) -> tuple[bool, str]:
+    return _run_sct(root, "GAUGE06")
+
+
+def mr10_mutate(root: Path) -> None:
+    """Drop the global gauge condition from the full formulation.
+
+    Two additive constants and no fixing row leaves a one-parameter family of
+    solutions. Anything that reports a unique answer is then reporting a choice
+    of gauge as if it were physics.
+    """
+    p = root / "code/scattering/gauge.py"
+    s = p.read_text()
+    anchor = '    gauge_row = len(STATE_FIELDS)'
+    assert anchor in s, "MR10 anchor missing"
+    s = s.replace(anchor,
+                  '    gauge_row = len(STATE_FIELDS)\n'
+                  '    if True:\n'
+                  '        return {"B": B[:len(STATE_FIELDS), :],\n'
+                  '                "rhs": rhs[:len(STATE_FIELDS)],\n'
+                  '                "columns": cols, "side1": s1, "side2": s2,\n'
+                  '                "a1": a1, "a2": a2, "gauge1": g1,\n'
+                  '                "gauge2": g2, "has_c1": has_c1,\n'
+                  '                "has_c2": has_c2,\n'
+                  '                "incident_branch": incident_branch,\n'
+                  '                "n_unknowns": n, "n_rows": len(STATE_FIELDS),\n'
+                  '                "n_gauge_variables": 1,\n'
+                  '                "n_global_gauge_conditions": 0}\n', 1)
+    p.write_text(s)
+
+
+def mr10_detect(root: Path) -> tuple[bool, str]:
+    return _run_sct(root, "GAUGE02")
+
+
+def mr11_mutate(root: Path) -> None:
+    """Remove the per-field unit normalisation (`row_scale` becomes all ones).
+
+    THIS REPLACES AN EARLIER, WRONG MUTATION. The first version restored the
+    Euclidean column norm, on the theory that it was the Task 2S defect. It is
+    not: with the per-field row scale already in place, a Euclidean norm is one
+    scalar per column, i.e. a legitimate diagonal right multiplication that
+    cannot change the rank or the solution set -- and the probe duly reported
+    the mutation as undetectable, which was correct. The real defect was the
+    ABSENCE of per-field normalisation, so that is what is injected here: the
+    raw columns span 1e-37 (D_z) to 1e22 (q_z), the condition number reaches
+    1.6e62 and the solve loses its digits.
+    """
+    p = root / "code/scattering/assembly.py"
+    s = p.read_text()
+    anchor = """    row_scale = []
+    for i in range(len(STATE_FIELDS)):
+        mx = mp.mpf(0)
+        for _sd, _br, col in cols:
+            if abs(col[i]) > mx:
+                mx = abs(col[i])
+        row_scale.append(mx if mx != 0 else mp.mpf(1))"""
+    assert anchor in s, "MR11 anchor missing"
+    s = s.replace(anchor, """    row_scale = [mp.mpf(1) for _ in range(len(STATE_FIELDS))]""", 1)
+    p.write_text(s)
+
+
+def mr11_detect(root: Path) -> tuple[bool, str]:
+    """The detector is the CONDITIONING gate, not the rank gate.
+
+    Removing unit normalisation cannot change the rank -- it is a diagonal
+    rescaling -- but it destroys the condition number, which is what the
+    assembly's own conditioning record reports.
+    """
+    return _run_sct(root, "GAUGE05 or COND01")
+
+
+
 SUITE = [
     Mutation("M01", "zero executed cases reported as PASS",
              "validation/harness.py",
@@ -1285,6 +1422,33 @@ SUITE = [
              mr07_mutate, mr07_detect),
 ]
 
+SUITE.extend([
+    Mutation("MR08", "relative potential offset treated as free", 
+             "code/scattering/assembly.py",
+             "EQ-02A-GAUGE-A6: the bonded model is not the insulated model",
+             "A free relative offset is an interface charge sheet; a bonded "
+             "contact has none. Keeping the phi row solvable hides it.",
+             mr08_mutate, mr08_detect),
+    Mutation("MR09", "D_z continuity imposed at k = 0 as bonded",
+             "code/scattering/assembly.py",
+             "EQ-02A-GAUGE-A6: the discarded row is the insulated condition",
+             "Imposing D_z across the interface silently converts a bonded "
+             "joint into an insulated one.",
+             mr09_mutate, mr09_detect),
+    Mutation("MR10", "global gauge condition removed from the full system",
+             "code/scattering/gauge.py",
+             "EQ-02A-GAUGE-A2: exactly one gauge condition is required",
+             "Two constants with no fixing row leave a one-parameter family; "
+             "reporting a unique answer then reports a gauge choice.",
+             mr10_mutate, mr10_detect),
+    Mutation("MR11", "unit normalisation removed, raw SI columns span 1e59",
+             "code/scattering/assembly.py",
+             "SCTR04: no two admitted columns may be proportional",
+             "The measured Task 2S production defect: q_z ~ 1e19 dominates, "
+             "u_x is annihilated at 1e-14 and distinct columns look identical.",
+             mr11_mutate, mr11_detect),
+])
+
 
 # ===========================================================================
 def main(argv=None) -> int:
@@ -1400,3 +1564,4 @@ def main(argv=None) -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+

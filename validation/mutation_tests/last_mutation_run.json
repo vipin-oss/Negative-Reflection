@@ -1,10 +1,10 @@
 {
   "schema_version": "1.0",
-  "generated_utc": "2026-11-04T14:47:11+00:00",
+  "generated_utc": "2026-11-04T16:53:30+00:00",
   "origin_repo": "/home/user/Negative-Reflection",
   "origin_untouched": true,
-  "total": 30,
-  "detected": 30,
+  "total": 34,
+  "detected": 34,
   "detection_rate_percent": 100.0,
   "survivors": [],
   "invalid_detectors": [],
@@ -160,9 +160,9 @@
       "detector": "the root count must remain 8",
       "rationale": "Dropping the gauge branch loses a genuine mode and corrupts the incoming/outgoing selection.",
       "result": "DETECTED",
-      "evidence": "1 failed in 2.07s",
+      "evidence": "1 failed in 2.22s",
       "control_fired": false,
-      "control_evidence": "1 passed in 2.02s"
+      "control_evidence": "1 passed in 2.12s"
     },
     {
       "id": "M15",
@@ -226,9 +226,9 @@
       "detector": "SCTA03: D_z = -eps33*k makes the mode physical and admissible",
       "rationale": "Found for real: this deleted the electrostatic channel of an elastic half-space while keeping the piezoelectric one.",
       "result": "DETECTED",
-      "evidence": "1 failed in 0.79s",
+      "evidence": "1 failed in 0.86s",
       "control_fired": false,
-      "control_evidence": "1 passed in 0.78s"
+      "control_evidence": "1 passed in 0.80s"
     },
     {
       "id": "M21",
@@ -237,7 +237,7 @@
       "detector": "SCTA04: PZT-5H must retain an incident channel at theta > 0",
       "rationale": "Found for real: no PZT-5H mode was INCOMING at theta > 0, so the coupled problem had no incident wave.",
       "result": "DETECTED",
-      "evidence": "1 failed in 0.99s",
+      "evidence": "1 failed in 1.00s",
       "control_fired": false,
       "control_evidence": "1 passed in 1.01s"
     },
@@ -248,9 +248,9 @@
       "detector": "SCTA05: the reconstructed interface field must be continuous",
       "rationale": "Found for real: the solve residual stayed at 1e-37 while the interface was violated by 2x the incident state.",
       "result": "DETECTED",
-      "evidence": "1 failed in 2.08s",
+      "evidence": "1 failed in 2.14s",
       "control_fired": false,
-      "control_evidence": "1 passed in 2.02s"
+      "control_evidence": "1 passed in 2.11s"
     },
     {
       "id": "M23",
@@ -259,9 +259,9 @@
       "detector": "SCTA02: no gauge may enter the basis",
       "rationale": "A null channel must never be counted as a physical amplitude.",
       "result": "DETECTED",
-      "evidence": "1 failed in 4.30s",
+      "evidence": "1 failed in 4.48s",
       "control_fired": false,
-      "control_evidence": "1 passed in 4.20s"
+      "control_evidence": "1 passed in 4.31s"
     },
     {
       "id": "MR01",
@@ -270,9 +270,9 @@
       "detector": "SCTR01: the u_x and txz rows carry the shear mode",
       "rationale": "The original Task 2 defect. A row may be dropped only when it is zero across the basis AND on the incident right-hand side.",
       "result": "DETECTED",
-      "evidence": "1 failed in 1.91s",
+      "evidence": "1 failed in 2.00s",
       "control_fired": false,
-      "control_evidence": "1 passed in 1.88s"
+      "control_evidence": "1 passed in 1.97s"
     },
     {
       "id": "MR02",
@@ -281,9 +281,9 @@
       "detector": "SCTR02: a component zero on one wave is not zero on all",
       "rationale": "The single inference that produced the whole normal-incidence error.",
       "result": "DETECTED",
-      "evidence": "1 failed in 1.35s",
+      "evidence": "1 failed in 1.32s",
       "control_fired": false,
-      "control_evidence": "1 passed in 1.28s"
+      "control_evidence": "1 passed in 1.30s"
     },
     {
       "id": "MR03",
@@ -292,9 +292,9 @@
       "detector": "SCTR03: removal must not change the rank",
       "rationale": "A row that is merely SMALL is not a row that is ZERO. Removing it leaves fewer equations than unknowns.",
       "result": "DETECTED",
-      "evidence": "1 failed in 2.35s",
+      "evidence": "1 failed in 1.08s",
       "control_fired": false,
-      "control_evidence": "1 passed in 2.46s"
+      "control_evidence": "1 passed in 2.23s"
     },
     {
       "id": "MR04",
@@ -305,7 +305,7 @@
       "result": "DETECTED",
       "evidence": "1 failed in 1.09s",
       "control_fired": false,
-      "control_evidence": "1 passed in 2.04s"
+      "control_evidence": "1 passed in 2.71s"
     },
     {
       "id": "MR05",
@@ -314,9 +314,9 @@
       "detector": "SCTR05: a gauge is not a physical non-uniqueness",
       "rationale": "phi1 = phi2 with one side carrying no potential forces the transmitted field to zero.",
       "result": "DETECTED",
-      "evidence": "1 failed in 1.76s",
+      "evidence": "1 failed in 1.88s",
       "control_fired": false,
-      "control_evidence": "1 passed in 1.74s"
+      "control_evidence": "1 passed in 1.81s"
     },
     {
       "id": "MR06",
@@ -327,7 +327,7 @@
       "result": "DETECTED",
       "evidence": "1 failed in 1.07s",
       "control_fired": false,
-      "control_evidence": "1 passed in 1.03s"
+      "control_evidence": "1 passed in 1.06s"
     },
     {
       "id": "MR07",
@@ -336,9 +336,53 @@
       "detector": "SCTR07: the physical basis and the incident datum are both checked",
       "rationale": "A converged solve is not a correct solve.",
       "result": "DETECTED",
-      "evidence": "1 failed in 1.72s",
+      "evidence": "1 failed in 1.79s",
       "control_fired": false,
-      "control_evidence": "1 passed in 1.67s"
+      "control_evidence": "1 passed in 1.79s"
+    },
+    {
+      "id": "MR08",
+      "title": "relative potential offset treated as free",
+      "target": "code/scattering/assembly.py",
+      "detector": "EQ-02A-GAUGE-A6: the bonded model is not the insulated model",
+      "rationale": "A free relative offset is an interface charge sheet; a bonded contact has none. Keeping the phi row solvable hides it.",
+      "result": "DETECTED",
+      "evidence": "2 failed, 5 deselected in 7.73s",
+      "control_fired": false,
+      "control_evidence": "2 passed, 5 deselected in 20.20s"
+    },
+    {
+      "id": "MR09",
+      "title": "D_z continuity imposed at k = 0 as bonded",
+      "target": "code/scattering/assembly.py",
+      "detector": "EQ-02A-GAUGE-A6: the discarded row is the insulated condition",
+      "rationale": "Imposing D_z across the interface silently converts a bonded joint into an insulated one.",
+      "result": "DETECTED",
+      "evidence": "1 failed, 6 deselected in 6.94s",
+      "control_fired": false,
+      "control_evidence": "1 passed, 6 deselected in 7.01s"
+    },
+    {
+      "id": "MR10",
+      "title": "global gauge condition removed from the full system",
+      "target": "code/scattering/gauge.py",
+      "detector": "EQ-02A-GAUGE-A2: exactly one gauge condition is required",
+      "rationale": "Two constants with no fixing row leave a one-parameter family; reporting a unique answer then reports a gauge choice.",
+      "result": "DETECTED",
+      "evidence": "1 failed, 6 deselected in 4.23s",
+      "control_fired": false,
+      "control_evidence": "1 passed, 6 deselected in 4.19s"
+    },
+    {
+      "id": "MR11",
+      "title": "unit normalisation removed, raw SI columns span 1e59",
+      "target": "code/scattering/assembly.py",
+      "detector": "SCTR04: no two admitted columns may be proportional",
+      "rationale": "The measured Task 2S production defect: q_z ~ 1e19 dominates, u_x is annihilated at 1e-14 and distinct columns look identical.",
+      "result": "DETECTED",
+      "evidence": "1 failed, 1 passed, 5 deselected in 27.62s",
+      "control_fired": false,
+      "control_evidence": "2 passed, 5 deselected in 27.04s"
     }
   ]
 }

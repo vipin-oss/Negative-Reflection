@@ -221,15 +221,88 @@ def assemble(m1, m2, k, w, incident_material=1, incident_branch=None,
 
     n_unk = len(a1) + len(a2)
     cols = []
+    # ---- THE COLUMNS MUST BE PHYSICAL, NOT DIMENSIONLESS ---------------
+    #
+    # THIS WAS WRONG AND IT IS THE DEEPER DEFECT OF TASK 2S.
+    #
+    # `s1.states` and `s2.states` are each divided by THEIR OWN medium's
+    # reference scales (`to_dimensionless`). For two identical media the scales
+    # agree and subtracting the two sides is a real continuity condition. For
+    # two DIFFERENT media they do not, and the row
+    #
+    #     states1_i - states2_i = -incident_i
+    #
+    # then compares u_i/scale1_i with u_i/scale2_i -- a condition on a
+    # mismatched pair of unknowns that no physical field can satisfy.
+    #
+    # Measured for Al6061|PZT-5H at k = 0, the scale ratios are
+    #   theta 2.469,  txz 0.738,  tzz 0.597,  qz 178.5,  Dz 2.5e-13
+    # so the mismatch is not a rounding matter. The consequence: with every row
+    # that would have detected it removed as "gauge" or "trivial", the reduced
+    # system solved to 2.3e-41 IN ITS OWN MATRIX and left the PHYSICAL traction
+    # discontinuous by 0.2616. Rebuilding the identical rows and columns from
+    # raw physical states solves to 8.1e-28 and leaves physical continuity at
+    # 2.5e-41 -- with coefficients that differ in the third digit.
+    #
+    # Continuity is a statement about the physical field, so the columns must be
+    # the physical states. The conditioning that `to_dimensionless` was there to
+    # provide is restored where it belongs: by normalising each column, and by
+    # row-equilibrating at the solve. See `scattering.gauge.solve_path`.
     for br in a1:
-        cols.append(("1", br, [s1.states[br][i] for i in range(len(STATE_FIELDS))]))
+        cols.append(("1", br, [s1.raw_states[br][i]
+                               for i in range(len(STATE_FIELDS))]))
     for br in a2:
-        cols.append(("2", br, [s2.states[br][i] for i in range(len(STATE_FIELDS))]))
+        cols.append(("2", br, [s2.raw_states[br][i]
+                               for i in range(len(STATE_FIELDS))]))
+    # ---- ROW-THEN-COLUMN EQUILIBRATION, PHYSICS-PRESERVING ---------------
+    #
+    # The columns are physical states in SI units; their eight entries span
+    # 1e-37 (D_z) to 1e22 (q_z) across fields, and up to 1e62 in condition
+    # number for a mixed pair at 30 degrees. Nothing can be solved in that form,
+    # and dividing by the Euclidean norm -- the obvious fix -- is not one: it is
+    # dominated by the loudest entry and deletes every other component.
+    #
+    # Measured, Al6061|PZT-5H at k = 0 with SV incidence: the Al shear mode has
+    # (u_x, t_xz) = (1, 5.315e13j) and the PZT shear mode (1, 8.306e13j). They
+    # differ in the shear modulus, which IS the physical distinction. After
+    # Euclidean normalisation both become (1.9e-14, -1j) and (-1.2e-14, -1j):
+    # the u_x = 1 information is gone at the 1e-14 level and the two columns
+    # score a Cauchy-Schwarz overlap of 1.0 -- a false "duplicate column".
+    #
+    # (Normalising by the mechanical amplitude instead was tried and is ALSO
+    # insufficient: it leaves every entry relative to q_z, so the `t_xz` row
+    # still dominates and `u_x` still vanishes at 1e-14. Column-only fixes
+    # cannot work here because the problem is the per-field spread WITHIN each
+    # column, not the scale of one column against another.)
+    #
+    # The scaling that works is DIAGONAL, applied per field:
+    #
+    #   row scale   s_i = largest |state_i| over all admitted modes, per field
+    #   column scale n_j = largest |state_i / s_i| over the fields of mode j
+    #
+    # Both are invertible diagonal maps, so the solution set of B a = rhs is
+    # unchanged -- unlike a column-only normalisation that silently reweights
+    # the components against each other. Every entry of the scaled matrix is
+    # then at most 1, and PHYSICAL CONTINUITY REMAINS EXACT.
+    #
+    # The amplitudes are recovered as a_j = x_j / n_j, and the row scale is a
+    # left multiplication that cancels, so `norms` is the only thing a caller
+    # needs to undo.
+    row_scale = []
+    for i in range(len(STATE_FIELDS)):
+        mx = mp.mpf(0)
+        for _sd, _br, col in cols:
+            if abs(col[i]) > mx:
+                mx = abs(col[i])
+        row_scale.append(mx if mx != 0 else mp.mpf(1))
 
-    # ---- column normalisation (exact) ---------------------------------
     norms = []
     for _sd, _br, col in cols:
-        nn = mp.sqrt(sum(abs(c) ** 2 for c in col))
+        nn = mp.mpf(0)
+        for i in range(len(STATE_FIELDS)):
+            v = abs(col[i]) / row_scale[i]
+            if v > nn:
+                nn = v
         norms.append(nn if nn != 0 else mp.mpf(1))
     # SIGN CONVENTION: side 1 and side 2 enter with OPPOSITE signs.
     # The continuity condition is
@@ -247,13 +320,13 @@ def assemble(m1, m2, k, w, incident_material=1, incident_branch=None,
     for j, (sd, _br, col) in enumerate(cols):
         sgn = mp.mpf(1) if sd == "1" else mp.mpf(-1)
         for i in range(len(STATE_FIELDS)):
-            B[i, j] = sgn * col[i] / norms[j]
+            B[i, j] = sgn * (col[i] / row_scale[i]) / norms[j]
 
     rhs_full = mp.matrix(len(STATE_FIELDS), 1)
     if inc is not None:
-        st = inc_side.states[inc]
+        st = inc_side.raw_states[inc]     # physical, for the same reason as above
         for i in range(len(STATE_FIELDS)):
-            rhs_full[i] = -st[i]
+            rhs_full[i] = -st[i] / row_scale[i]
 
     # ---- trivial-row reduction ---------------------------------------
     #
@@ -279,19 +352,36 @@ def assemble(m1, m2, k, w, incident_material=1, incident_branch=None,
     kept, removed = [], []
     _rowmax_all = [max([abs(B[i, j]) for j in range(n_unk)] or [mp.mpf(0)])
                    for i in range(len(STATE_FIELDS))]
-    _scale = max([mp.mpf(v) for v in _rowmax_all] or [mp.mpf(0)])
-    _tol = TRIVIAL_ROW_TOL * (_scale if _scale > 0 else mp.mpf(1))
+    # ---- THE TRIVIALITY TEST IS PER ROW, NOT PER MATRIX -----------------
+    #
+    # A row reads 0 = 0 for the whole system when ITS OWN entries are zero.
+    # Comparing each row against the largest row in the matrix is wrong here and
+    # was measured to be catastrophic: with raw physical states the rows range
+    # from 1e-37 (D_z) to 1e19 (q_z), so a global scale of 1e19 makes the
+    # threshold 1e-6 and classifies every row except q_z as empty. Measured
+    # after switching the columns to physical states: the reduction collapsed
+    # to 2 rows out of 8 and the system had rank 0.
+    #
+    # Per-row, the entry magnitudes are not compared to anything external. That
+    # is what `0 = 0` means. It also makes the test unit-safe, which the global
+    # form was not: `raw_states` are in SI and their spread across fields is
+    # physical, not numerical.
+    _row_scale = [v if v > 0 else mp.mpf(1) for v in _rowmax_all]
+    _tol_of = [TRIVIAL_ROW_TOL * v for v in _row_scale]
 
     i1 = len(a1)                       # columns [0, i1) are medium 1
     for i in range(len(STATE_FIELDS)):
         rowmax = _rowmax_all[i]
         rhs_val = rhs_full[i]
+        _tol = _tol_of[i]
         row_zero = rowmax <= _tol
         rhs_zero = abs(rhs_val) <= _tol
 
         # content of this row in each half-space's own basis
         m1_max = max([abs(B[i, j]) for j in range(i1)] or [mp.mpf(0)])
         m2_max = max([abs(B[i, j]) for j in range(i1, n_unk)] or [mp.mpf(0)])
+        # A half-space is "empty" in this row when IT contributes nothing
+        # relative to this row's own scale. Measured on the row, not the matrix.
         m1_empty = m1_max <= _tol
         m2_empty = m2_max <= _tol
 
@@ -400,6 +490,7 @@ def assemble(m1, m2, k, w, incident_material=1, incident_branch=None,
         "n_unknowns": n_unk,
         "n_roots_total": len(s1.roots) + len(s2.roots),
         "column_norms": norms,
+        "row_scale": row_scale,
         "rank": rank,
         "square": n_unk == len(kept),
         "overdetermined": n_unk < len(kept),
