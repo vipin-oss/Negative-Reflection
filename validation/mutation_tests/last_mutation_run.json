@@ -1,10 +1,10 @@
 {
   "schema_version": "1.0",
-  "generated_utc": "2026-11-04T12:58:53+00:00",
+  "generated_utc": "2026-11-04T13:53:43+00:00",
   "origin_repo": "/home/user/Negative-Reflection",
   "origin_untouched": true,
-  "total": 19,
-  "detected": 19,
+  "total": 23,
+  "detected": 23,
   "detection_rate_percent": 100.0,
   "survivors": [],
   "invalid_detectors": [],
@@ -160,9 +160,9 @@
       "detector": "the root count must remain 8",
       "rationale": "Dropping the gauge branch loses a genuine mode and corrupts the incoming/outgoing selection.",
       "result": "DETECTED",
-      "evidence": "root counts under the mutation: [4, 4] (must be [8, 8])",
+      "evidence": "1 failed in 1.90s",
       "control_fired": false,
-      "control_evidence": "root counts under the mutation: [8, 8] (must be [8, 8])"
+      "control_evidence": "1 passed in 1.85s"
     },
     {
       "id": "M15",
@@ -218,6 +218,50 @@
       "evidence": "THY02 exit 1;                       f\"active causality-floor assertions found: {len(active_hits)}\")",
       "control_fired": false,
       "control_evidence": "THY02 exit 0; no diagnosis"
+    },
+    {
+      "id": "M20",
+      "title": "decoupled electrostatic mode mislabelled as a gauge",
+      "target": "code/scattering/modal.py",
+      "detector": "SCTA03: D_z = -eps33*k makes the mode physical and admissible",
+      "rationale": "Found for real: this deleted the electrostatic channel of an elastic half-space while keeping the piezoelectric one.",
+      "result": "DETECTED",
+      "evidence": "1 failed in 0.78s",
+      "control_fired": false,
+      "control_evidence": "1 passed in 0.74s"
+    },
+    {
+      "id": "M21",
+      "title": "strict Im(xi) != 0 radiation test",
+      "target": "code/scattering/radiation.py",
+      "detector": "SCTA04: PZT-5H must retain an incident channel at theta > 0",
+      "rationale": "Found for real: no PZT-5H mode was INCOMING at theta > 0, so the coupled problem had no incident wave.",
+      "result": "DETECTED",
+      "evidence": "1 failed in 0.88s",
+      "control_fired": false,
+      "control_evidence": "1 passed in 0.84s"
+    },
+    {
+      "id": "M22",
+      "title": "same-sign continuity in the assembly",
+      "target": "code/scattering/assembly.py",
+      "detector": "SCTA05: the reconstructed interface field must be continuous",
+      "rationale": "Found for real: the solve residual stayed at 1e-37 while the interface was violated by 2x the incident state.",
+      "result": "DETECTED",
+      "evidence": "1 failed in 1.89s",
+      "control_fired": false,
+      "control_evidence": "1 passed in 1.90s"
+    },
+    {
+      "id": "M23",
+      "title": "pure gauge admitted as a physical channel",
+      "target": "code/scattering/assembly.py",
+      "detector": "SCTA02: no gauge may enter the basis",
+      "rationale": "A null channel must never be counted as a physical amplitude.",
+      "result": "DETECTED",
+      "evidence": "1 failed in 3.95s",
+      "control_fired": false,
+      "control_evidence": "1 passed in 3.88s"
     }
   ]
 }

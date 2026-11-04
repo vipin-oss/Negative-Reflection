@@ -1,0 +1,593 @@
+{
+ "artifact": "phase_02a_task2_convention_divergence",
+ "inventory": "validation/phase_02a_modal_inventory_v2.csv",
+ "inventory_unchanged": true,
+ "note": "the published Task 1R inventory was NOT regenerated; the two legacy rules remain reachable via legacy_gauge / strict_legacy so the artifact stays reproducible",
+ "n_rows": 120,
+ "n_spatial_class_changed": 4,
+ "n_role_changed": 50,
+ "n_rows_in_propagation_band": 42,
+ "attenuation_propagating_threshold": 0.0001,
+ "spatial_class_changes": [
+  {
+   "row": "Al6061@15 br3",
+   "old": "GAUGE",
+   "new": "ELECTROSTATIC",
+   "legacy_csv": "GAUGE"
+  },
+  {
+   "row": "Al6061@15 br4",
+   "old": "GAUGE",
+   "new": "ELECTROSTATIC",
+   "legacy_csv": "GAUGE"
+  },
+  {
+   "row": "Al6061@30 br3",
+   "old": "GAUGE",
+   "new": "ELECTROSTATIC",
+   "legacy_csv": "GAUGE"
+  },
+  {
+   "row": "Al6061@30 br4",
+   "old": "GAUGE",
+   "new": "ELECTROSTATIC",
+   "legacy_csv": "GAUGE"
+  }
+ ],
+ "role_changes": [
+  {
+   "row": "PZT-5H@0 br2",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "PZT-5H@0 br5",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "PZT-5H@15 br1",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "PZT-5H@15 br2",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "PZT-5H@15 br5",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "PZT-5H@15 br6",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "PZT-5H@30 br1",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "PZT-5H@30 br2",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "PZT-5H@30 br5",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "PZT-5H@30 br6",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "PZT-5H@45 br1",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "PZT-5H@45 br2",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "PZT-5H@45 br5",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "PZT-5H@45 br6",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "PZT-5H@60 br1",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "PZT-5H@60 br2",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "PZT-5H@60 br5",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "PZT-5H@60 br6",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "Al6061@0 br2",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "Al6061@0 br5",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "Al6061@15 br2",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "Al6061@15 br3",
+   "side": "z>0",
+   "old": "GAUGE_EXCLUDED",
+   "new": "EVANESCENT_NO_TRANSPORT"
+  },
+  {
+   "row": "Al6061@15 br3",
+   "side": "z<0",
+   "old": "GAUGE_EXCLUDED",
+   "new": "OUTGOING"
+  },
+  {
+   "row": "Al6061@15 br4",
+   "side": "z>0",
+   "old": "GAUGE_EXCLUDED",
+   "new": "OUTGOING"
+  },
+  {
+   "row": "Al6061@15 br4",
+   "side": "z<0",
+   "old": "GAUGE_EXCLUDED",
+   "new": "EVANESCENT_NO_TRANSPORT"
+  },
+  {
+   "row": "Al6061@15 br5",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "Al6061@30 br2",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "Al6061@30 br3",
+   "side": "z>0",
+   "old": "GAUGE_EXCLUDED",
+   "new": "EVANESCENT_NO_TRANSPORT"
+  },
+  {
+   "row": "Al6061@30 br3",
+   "side": "z<0",
+   "old": "GAUGE_EXCLUDED",
+   "new": "OUTGOING"
+  },
+  {
+   "row": "Al6061@30 br4",
+   "side": "z>0",
+   "old": "GAUGE_EXCLUDED",
+   "new": "OUTGOING"
+  },
+  {
+   "row": "Al6061@30 br4",
+   "side": "z<0",
+   "old": "GAUGE_EXCLUDED",
+   "new": "EVANESCENT_NO_TRANSPORT"
+  },
+  {
+   "row": "Al6061@30 br5",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "CdSe@0 br2",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "CdSe@0 br5",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "CdSe@15 br1",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "CdSe@15 br2",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "CdSe@15 br5",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "CdSe@15 br6",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "CdSe@30 br1",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "CdSe@30 br2",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "CdSe@30 br5",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "CdSe@30 br6",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "CdSe@45 br1",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "CdSe@45 br2",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "CdSe@45 br5",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "CdSe@45 br6",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "CdSe@60 br1",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "CdSe@60 br2",
+   "side": "z>0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "CdSe@60 br5",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  },
+  {
+   "row": "CdSe@60 br6",
+   "side": "z<0",
+   "old": "EVANESCENT_NO_TRANSPORT",
+   "new": "INCOMING"
+  }
+ ],
+ "propagation_band": [
+  {
+   "row": "PZT-5H@0 br2",
+   "attenuation_per_wavelength": "4.625e-11",
+   "decay_length_m": "1.583e+7",
+   "wavelength_m": "0.004601"
+  },
+  {
+   "row": "PZT-5H@0 br5",
+   "attenuation_per_wavelength": "4.625e-11",
+   "decay_length_m": "1.583e+7",
+   "wavelength_m": "0.004601"
+  },
+  {
+   "row": "PZT-5H@15 br1",
+   "attenuation_per_wavelength": "6.142e-14",
+   "decay_length_m": "4.589e+9",
+   "wavelength_m": "0.001771"
+  },
+  {
+   "row": "PZT-5H@15 br2",
+   "attenuation_per_wavelength": "5.049e-11",
+   "decay_length_m": "1.516e+7",
+   "wavelength_m": "0.004809"
+  },
+  {
+   "row": "PZT-5H@15 br5",
+   "attenuation_per_wavelength": "5.049e-11",
+   "decay_length_m": "1.516e+7",
+   "wavelength_m": "0.004809"
+  },
+  {
+   "row": "PZT-5H@15 br6",
+   "attenuation_per_wavelength": "6.142e-14",
+   "decay_length_m": "4.589e+9",
+   "wavelength_m": "0.001771"
+  },
+  {
+   "row": "PZT-5H@30 br1",
+   "attenuation_per_wavelength": "2.993e-13",
+   "decay_length_m": "9.552e+8",
+   "wavelength_m": "0.001796"
+  },
+  {
+   "row": "PZT-5H@30 br2",
+   "attenuation_per_wavelength": "6.694e-11",
+   "decay_length_m": "1.312e+7",
+   "wavelength_m": "0.005517"
+  },
+  {
+   "row": "PZT-5H@30 br5",
+   "attenuation_per_wavelength": "6.694e-11",
+   "decay_length_m": "1.312e+7",
+   "wavelength_m": "0.005517"
+  },
+  {
+   "row": "PZT-5H@30 br6",
+   "attenuation_per_wavelength": "2.993e-13",
+   "decay_length_m": "9.552e+8",
+   "wavelength_m": "0.001796"
+  },
+  {
+   "row": "PZT-5H@45 br1",
+   "attenuation_per_wavelength": "8.238e-13",
+   "decay_length_m": "3.548e+8",
+   "wavelength_m": "0.001836"
+  },
+  {
+   "row": "PZT-5H@45 br2",
+   "attenuation_per_wavelength": "1.139e-10",
+   "decay_length_m": "9.898e+6",
+   "wavelength_m": "0.007085"
+  },
+  {
+   "row": "PZT-5H@45 br5",
+   "attenuation_per_wavelength": "1.139e-10",
+   "decay_length_m": "9.898e+6",
+   "wavelength_m": "0.007085"
+  },
+  {
+   "row": "PZT-5H@45 br6",
+   "attenuation_per_wavelength": "8.238e-13",
+   "decay_length_m": "3.548e+8",
+   "wavelength_m": "0.001836"
+  },
+  {
+   "row": "PZT-5H@60 br1",
+   "attenuation_per_wavelength": "1.644e-12",
+   "decay_length_m": "1.824e+8",
+   "wavelength_m": "0.001884"
+  },
+  {
+   "row": "PZT-5H@60 br2",
+   "attenuation_per_wavelength": "2.857e-10",
+   "decay_length_m": "6.097e+6",
+   "wavelength_m": "0.01094"
+  },
+  {
+   "row": "PZT-5H@60 br5",
+   "attenuation_per_wavelength": "2.857e-10",
+   "decay_length_m": "6.097e+6",
+   "wavelength_m": "0.01094"
+  },
+  {
+   "row": "PZT-5H@60 br6",
+   "attenuation_per_wavelength": "1.644e-12",
+   "decay_length_m": "1.824e+8",
+   "wavelength_m": "0.001884"
+  },
+  {
+   "row": "Al6061@0 br2",
+   "attenuation_per_wavelength": "1.634e-7",
+   "decay_length_m": "6248.0",
+   "wavelength_m": "0.006413"
+  },
+  {
+   "row": "Al6061@0 br5",
+   "attenuation_per_wavelength": "1.634e-7",
+   "decay_length_m": "6248.0",
+   "wavelength_m": "0.006413"
+  },
+  {
+   "row": "Al6061@15 br2",
+   "attenuation_per_wavelength": "1.973e-7",
+   "decay_length_m": "5685.0",
+   "wavelength_m": "0.007048"
+  },
+  {
+   "row": "Al6061@15 br5",
+   "attenuation_per_wavelength": "1.973e-7",
+   "decay_length_m": "5685.0",
+   "wavelength_m": "0.007048"
+  },
+  {
+   "row": "Al6061@30 br2",
+   "attenuation_per_wavelength": "4.571e-7",
+   "decay_length_m": "3735.0",
+   "wavelength_m": "0.01073"
+  },
+  {
+   "row": "Al6061@30 br5",
+   "attenuation_per_wavelength": "4.571e-7",
+   "decay_length_m": "3735.0",
+   "wavelength_m": "0.01073"
+  },
+  {
+   "row": "CdSe@0 br2",
+   "attenuation_per_wavelength": "6.651e-10",
+   "decay_length_m": "9.403e+5",
+   "wavelength_m": "0.00393"
+  },
+  {
+   "row": "CdSe@0 br5",
+   "attenuation_per_wavelength": "6.651e-10",
+   "decay_length_m": "9.403e+5",
+   "wavelength_m": "0.00393"
+  },
+  {
+   "row": "CdSe@15 br1",
+   "attenuation_per_wavelength": "3.773e-11",
+   "decay_length_m": "6.63e+6",
+   "wavelength_m": "0.001572"
+  },
+  {
+   "row": "CdSe@15 br2",
+   "attenuation_per_wavelength": "7.306e-10",
+   "decay_length_m": "8.725e+5",
+   "wavelength_m": "0.004005"
+  },
+  {
+   "row": "CdSe@15 br5",
+   "attenuation_per_wavelength": "7.306e-10",
+   "decay_length_m": "8.725e+5",
+   "wavelength_m": "0.004005"
+  },
+  {
+   "row": "CdSe@15 br6",
+   "attenuation_per_wavelength": "3.773e-11",
+   "decay_length_m": "6.63e+6",
+   "wavelength_m": "0.001572"
+  },
+  {
+   "row": "CdSe@30 br1",
+   "attenuation_per_wavelength": "1.363e-10",
+   "decay_length_m": "1.913e+6",
+   "wavelength_m": "0.001639"
+  },
+  {
+   "row": "CdSe@30 br2",
+   "attenuation_per_wavelength": "9.601e-10",
+   "decay_length_m": "7.061e+5",
+   "wavelength_m": "0.004259"
+  },
+  {
+   "row": "CdSe@30 br5",
+   "attenuation_per_wavelength": "9.601e-10",
+   "decay_length_m": "7.061e+5",
+   "wavelength_m": "0.004259"
+  },
+  {
+   "row": "CdSe@30 br6",
+   "attenuation_per_wavelength": "1.363e-10",
+   "decay_length_m": "1.913e+6",
+   "wavelength_m": "0.001639"
+  },
+  {
+   "row": "CdSe@45 br1",
+   "attenuation_per_wavelength": "2.562e-10",
+   "decay_length_m": "1.082e+6",
+   "wavelength_m": "0.001741"
+  },
+  {
+   "row": "CdSe@45 br2",
+   "attenuation_per_wavelength": "1.478e-9",
+   "decay_length_m": "5.157e+5",
+   "wavelength_m": "0.004789"
+  },
+  {
+   "row": "CdSe@45 br5",
+   "attenuation_per_wavelength": "1.478e-9",
+   "decay_length_m": "5.157e+5",
+   "wavelength_m": "0.004789"
+  },
+  {
+   "row": "CdSe@45 br6",
+   "attenuation_per_wavelength": "2.562e-10",
+   "decay_length_m": "1.082e+6",
+   "wavelength_m": "0.001741"
+  },
+  {
+   "row": "CdSe@60 br1",
+   "attenuation_per_wavelength": "3.505e-10",
+   "decay_length_m": "8.432e+5",
+   "wavelength_m": "0.001857"
+  },
+  {
+   "row": "CdSe@60 br2",
+   "attenuation_per_wavelength": "2.583e-9",
+   "decay_length_m": "3.564e+5",
+   "wavelength_m": "0.005785"
+  },
+  {
+   "row": "CdSe@60 br5",
+   "attenuation_per_wavelength": "2.583e-9",
+   "decay_length_m": "3.564e+5",
+   "wavelength_m": "0.005785"
+  },
+  {
+   "row": "CdSe@60 br6",
+   "attenuation_per_wavelength": "3.505e-10",
+   "decay_length_m": "8.432e+5",
+   "wavelength_m": "0.001857"
+  }
+ ]
+}

@@ -828,6 +828,112 @@ def m19_detect(root):
     return r.returncode != 0, ("THY02 exit %d; %s" % (r.returncode, hit[0] if hit else "no diagnosis"))
 
 
+
+# ===========================================================================
+# M12-M15 -- task 2 defects, each one found for real during the work
+# ===========================================================================
+def _run_scta(root: Path, test: str, timeout=900):
+    """Run one task-2 check inside a mutated copy and report its verdict."""
+    r = subprocess.run(
+        [sys.executable, "-m", "pytest", f"tests/test_14_scattering_task2.py::{test}",
+         "-q", "--no-header", "-p", "no:cacheprovider"],
+        cwd=root / "validation", capture_output=True, text=True, timeout=timeout)
+    return r.returncode != 0, (r.stdout.strip().splitlines() or [""])[-1][:200]
+
+
+def m20_mutate(root: Path) -> None:
+    """Re-introduce the GAUGE/ELECTROSTATIC conflation.
+
+    The real defect: every mechanically decoupled mode was called GAUGE, so the
+    xi = -/+ i k Laplace pair -- which carries D_z = -eps33*k != 0 and must
+    satisfy D_z continuity -- was silently dropped from an elastic half-space's
+    basis.
+    """
+    f = root / "code" / "scattering" / "modal.py"
+    s = f.read_text()
+    s = s.replace("        elif dz_rel <= mp.mpf(\"1e-20\"):",
+                  "        elif True:   # MUTATION: every decoupled mode is a gauge", 1)
+    f.write_text(s)
+
+
+def m20_detect(root: Path) -> tuple[bool, str]:
+    return _run_scta(root, "test_SCTA03_gauge_vs_electrostatic")
+
+
+def m21_mutate(root: Path) -> None:
+    """Re-introduce the strict Im(xi) != 0 radiation test.
+
+    The real defect: every thermomechanically coupled mode sits just off
+    Im(xi) = 0, so the strict test discarded PZT-5H's incident channel entirely
+    and the medium could not be excited at theta > 0.
+    """
+    f = root / "code" / "scattering" / "radiation.py"
+    s = f.read_text()
+    s = s.replace("ATTENUATION_PROPAGATING = mp.mpf(\"1e-4\")",
+                  "ATTENUATION_PROPAGATING = mp.mpf(\"0\")   # MUTATION: strict", 1)
+    f.write_text(s)
+
+
+def m21_detect(root: Path) -> tuple[bool, str]:
+    return _run_scta(root, "test_SCTA04_weak_attenuation_propagates")
+
+
+def m22_mutate(root: Path) -> None:
+    """Re-introduce the continuity sign error.
+
+    The real defect: the assembly built [B1 +B2] instead of [B1 -B2], so the
+    solve satisfied s1 + s2 = -s_inc. The linear-algebra residual stayed at
+    1e-37, so the solve LOOKED converged while the interface was violated by
+    twice the incident state.
+    """
+    f = root / "code" / "scattering" / "assembly.py"
+    s = f.read_text()
+    s = s.replace('        sgn = mp.mpf(1) if sd == "1" else mp.mpf(-1)',
+                  '        sgn = mp.mpf(1)   # MUTATION: no minus on side 2', 1)
+    f.write_text(s)
+
+
+def m22_detect(root: Path) -> tuple[bool, str]:
+    return _run_scta(root, "test_SCTA05_interface_continuity_and_rescaling")
+
+
+def m23_mutate(root: Path) -> None:
+    """Admit a genuine gauge into the basis.
+
+    A pure potential gauge is a null channel; admitting it inflates the rank of
+    the interface operator with a column no incident wave can reach.
+
+    NOTE ON SCOPE. Gauge exclusion is deliberately DEFENCE IN DEPTH: the
+    assembly rejects a gauge by its `spatial_class` in `Side.admissible` AND
+    `classify_role` independently returns GAUGE_EXCLUDED, which is not in
+    BASIS_ROLES. A first version of this mutation disabled only the
+    spatial_class gate and SURVIVED -- correctly, because the role gate caught
+    it. That is a real property of the code, not a gap in the test, so the
+    mutation now removes BOTH gates, which is what a developer who had never
+    read the rule would actually write.
+    """
+    fa = root / "code" / "scattering" / "assembly.py"
+    s = fa.read_text()
+    s = s.replace('            if md["spatial_class"] == "GAUGE":\n'
+                  '                excluded.append((br, "GAUGE",',
+                  '            if False:   # MUTATION: admit gauges\n'
+                  '                excluded.append((br, "GAUGE",', 1)
+    fa.write_text(s)
+    fr = root / "code" / "scattering" / "radiation.py"
+    s = fr.read_text()
+    s = s.replace('        return (GAUGE_EXCLUDED,\n'
+                  '                "pure electric gauge: bounded, but carries no mechanical "\n'
+                  '                "motion, so it is not a physical scattering channel")',
+                  '        return (OUTGOING,   # MUTATION: gauge treated as a channel\n'
+                  '                "pure electric gauge: bounded, but carries no mechanical "\n'
+                  '                "motion, so it is not a physical scattering channel")', 1)
+    fr.write_text(s)
+
+
+def m23_detect(root: Path) -> tuple[bool, str]:
+    return _run_scta(root, "test_SCTA02_dof_counted_not_assumed")
+
+
 SUITE = [
     Mutation("M01", "zero executed cases reported as PASS",
              "validation/harness.py",
@@ -906,7 +1012,7 @@ SUITE = [
              "the root count must remain 8",
              "Dropping the gauge branch loses a genuine mode and corrupts the "
              "incoming/outgoing selection.",
-             m14_mutate, m14_detect),
+             m22_mutate, m22_detect),
     Mutation("M15", "missing Lord-Shulman relaxation operator in the heat flux",
              "code/foundation_checks.py",
              "the energy balance must fail when (1 - i w tau_q) is dropped",
@@ -936,6 +1042,29 @@ SUITE = [
              "BLK-DOC-01 was still live in Phase 1D: the boxed floor survived as a "
              "\textsc{Derived} result long after the claim was marked INVALID.",
              m19_mutate, m19_detect),
+    Mutation("M20", "decoupled electrostatic mode mislabelled as a gauge",
+             "code/scattering/modal.py",
+             "SCTA03: D_z = -eps33*k makes the mode physical and admissible",
+             "Found for real: this deleted the electrostatic channel of an "
+             "elastic half-space while keeping the piezoelectric one.",
+             m20_mutate, m20_detect),
+    Mutation("M21", "strict Im(xi) != 0 radiation test",
+             "code/scattering/radiation.py",
+             "SCTA04: PZT-5H must retain an incident channel at theta > 0",
+             "Found for real: no PZT-5H mode was INCOMING at theta > 0, so the "
+             "coupled problem had no incident wave.",
+             m21_mutate, m21_detect),
+    Mutation("M22", "same-sign continuity in the assembly",
+             "code/scattering/assembly.py",
+             "SCTA05: the reconstructed interface field must be continuous",
+             "Found for real: the solve residual stayed at 1e-37 while the "
+             "interface was violated by 2x the incident state.",
+             m22_mutate, m22_detect),
+    Mutation("M23", "pure gauge admitted as a physical channel",
+             "code/scattering/assembly.py",
+             "SCTA02: no gauge may enter the basis",
+             "A null channel must never be counted as a physical amplitude.",
+             m23_mutate, m23_detect),
 ]
 
 

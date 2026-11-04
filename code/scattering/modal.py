@@ -124,7 +124,8 @@ GAUGE_MECHANICAL = 1.0e-40
 #: *damping* label at all: calling it WEAKLY_DAMPED with a damping of exactly
 #: zero is a vocabulary contradiction of the same kind as PHYSICAL_GROWING.
 SPATIAL_CLASSES = ("PROPAGATING_NON_DECAYING", "EVANESCENT", "WEAKLY_DAMPED",
-                   "THERMAL_DIFFUSIVE", "GAUGE", "UNCLASSIFIED")
+                   "THERMAL_DIFFUSIVE", "ELECTROSTATIC", "GAUGE",
+                   "UNCLASSIFIED")
 #: Radiation direction. For a decaying mode this is fixed by the sign of Im(xi).
 #: For a mode with Im(xi) = 0 the direction is carried by the real part of the
 #: axial Poynting component, i.e. ENERGY FLOW, because a lossless mode is not
@@ -187,7 +188,8 @@ def verify_convention(m, k, xi, w, a, z_probe=None):
 
 
 # ---------------------------------------------------------------------------
-def classify_mode(m, k, xi, w, a, jz=None, jz_scale=None, z_ref=None):
+def classify_mode(m, k, xi, w, a, jz=None, jz_scale=None, z_ref=None,
+                  legacy_gauge=False):
     """Classify one branch. Returns a dict of INDEPENDENT fields.
 
     Parameters
@@ -199,6 +201,14 @@ def classify_mode(m, k, xi, w, a, jz=None, jz_scale=None, z_ref=None):
     a : the null vector (4 components).
     jz : optional precomputed cycle-averaged energy flux <J_z>.
     jz_scale : optional reference scale to decide whether jz is numerically zero.
+
+    legacy_gauge : reproduce the pre-task-2 rule exactly, in which every
+        mechanically decoupled mode is called GAUGE. Used only to re-derive a
+        published artifact under the convention it was generated with. The
+        DECOUPLED LAPLACE ELECTROSTATIC case (mechanical content zero but
+        D_z != 0) is a genuine physical channel and is classified
+        ELECTROSTATIC by default; calling it a gauge silently deletes the
+        electrostatic channel of an elastic half-space.
 
     The function never raises on a numerically awkward branch: it returns a
     classification with LOW confidence and an explicit reason instead. A
@@ -268,10 +278,51 @@ def classify_mode(m, k, xi, w, a, jz=None, jz_scale=None, z_ref=None):
         reasons.append("null vector is identically zero")
         confidence = "LOW"
     elif mech <= GAUGE_MECHANICAL * max(comp_max, mp.mpf("1e-300")):
-        spatial = "GAUGE"
-        reasons.append(f"mechanical content is zero to working precision "
-                       f"({mp.nstr(mech / max(comp_max, mp.mpf('1e-300')), 3)} of the "
-                       f"largest component): electric-potential gauge")
+        # MECHANICALLY DECOUPLED. There are two very different things here and
+        # an earlier version of this function conflated them:
+        #
+        #  (a) a true electric-potential GAUGE at xi = 0, for which
+        #      D_z = -eps33 * xi * phi = 0. It is a constant-potential null
+        #      direction: carry it and the interface operator gains a zero
+        #      column.
+        #  (b) a DECOUPLED LAPLACE ELECTROSTATIC mode at xi = +/- i k, for
+        #      which D_z = -eps33 * xi * phi = -/+ i eps33 k phi is NOT zero.
+        #      This is an ordinary physical electrostatic wave in the
+        #      sagittal plane. In the norm the state uses, it satisfies the
+        #      D_z continuity equation exactly like any other mode.
+        #
+        # Labelling (b) as GAUGE let the assembly drop the electrostatic
+        # channel of an elastic half-space while keeping the equivalent
+        # channel of a piezoelectric one -- an exclusion of a physical
+        # channel, which is exactly what Task 2 forbids. Omega and k are the
+        # only inputs needed to tell them apart, so test on those and not on
+        # a normalisation-dependent component comparison.
+        # The two labels are decided ONLY here, so neither can be overwritten
+        # downstream by an unrelated arm.
+        dz = abs(m.eps33 * xi * Phi)
+        dz_rel = dz / max(abs(m.eps33) * max(abs(xi), mp.mpf("1e-300"))
+                          * max(elec, mp.mpf("1e-300")), mp.mpf("1e-300"))
+        if legacy_gauge:
+            # Reproduce the pre-task-2 convention exactly: mechanically
+            # decoupled means GAUGE, D_z notwithstanding.
+            spatial = "GAUGE"
+            reasons.append(
+                "LEGACY RULE (legacy_gauge=True): mechanically decoupled, so "
+                "labelled a gauge regardless of D_z. This reproduces the "
+                "convention published Task 1R's inventory was generated with")
+        elif dz_rel <= mp.mpf("1e-20"):
+            spatial = "GAUGE"
+            reasons.append(
+                f"mechanical content is zero and D_z = -eps33*xi*phi is also "
+                f"zero to working precision (xi = {mp.nstr(xi, 4)}): genuine "
+                f"electric-potential gauge, a null channel")
+        else:
+            spatial = "ELECTROSTATIC"
+            reasons.append(
+                f"mechanical content is zero but D_z = -eps33*xi*phi = "
+                f"{mp.nstr(dz, 4)} is NOT zero, so this is a decoupled Laplace "
+                f"electrostatic mode, not a gauge. It carries a real D_z "
+                f"continuity constraint and must be admissible")
     elif thermal_ratio is not None and abs(thermal_ratio - 1) < THERMAL_DISPERSION_TOL:
         spatial = "THERMAL_DIFFUSIVE"
         reasons.append(f"follows the thermal diffusion relation: "

@@ -1,21 +1,21 @@
 {
   "schema_version": "1.0",
   "level": "1",
-  "generated_unix": 1793797113,
-  "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+  "generated_unix": 1793800384,
+  "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
   "python": "3.11.2",
   "summary": {
-    "total": 72,
-    "PASS": 71,
+    "total": 78,
+    "PASS": 77,
     "FAIL": 0,
     "UNRESOLVED": 1,
     "WITHDRAWN": 0,
     "NOT_APPLICABLE": 0,
-    "executed_cases": 9979,
+    "executed_cases": 10068,
     "zero_case_tests": [
       "SCT02"
     ],
-    "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+    "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
     "by_category": {
       "1-data-integrity": {
         "PASS": 10,
@@ -60,14 +60,14 @@
         "NOT_APPLICABLE": 0
       },
       "7-energy-passivity": {
-        "PASS": 1,
+        "PASS": 2,
         "FAIL": 0,
         "UNRESOLVED": 0,
         "WITHDRAWN": 0,
         "NOT_APPLICABLE": 0
       },
       "7-energy": {
-        "PASS": 2,
+        "PASS": 3,
         "FAIL": 0,
         "UNRESOLVED": 0,
         "WITHDRAWN": 0,
@@ -166,6 +166,20 @@
       },
       "mutation": {
         "PASS": 1,
+        "FAIL": 0,
+        "UNRESOLVED": 0,
+        "WITHDRAWN": 0,
+        "NOT_APPLICABLE": 0
+      },
+      "10-classical-elastic": {
+        "PASS": 1,
+        "FAIL": 0,
+        "UNRESOLVED": 0,
+        "WITHDRAWN": 0,
+        "NOT_APPLICABLE": 0
+      },
+      "6-interface-conditions": {
+        "PASS": 3,
         "FAIL": 0,
         "UNRESOLVED": 0,
         "WITHDRAWN": 0,
@@ -317,8 +331,8 @@
       "n_exec": 80,
       "actual": "80 rows; 0 illegal status; 0 rows missing fields",
       "detail": "illegal: []",
-      "duration_s": 0.0035660266876220703,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.0034637451171875,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -336,8 +350,8 @@
       "n_exec": 80,
       "actual": "0 tuned-looking labels",
       "detail": "[]",
-      "duration_s": 0.003469228744506836,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.003297090530395508,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -352,11 +366,11 @@
       "tol_justification": "structural; exact",
       "level": "1",
       "status": "PASS",
-      "n_exec": 49,
-      "actual": "49 claims, 0 duplicate, 0 bad status, 0 without test_id",
+      "n_exec": 55,
+      "actual": "55 claims, 0 duplicate, 0 bad status, 0 without test_id",
       "detail": "dup=[] bad=[] notest=[]",
-      "duration_s": 0.0031669139862060547,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.0031511783599853516,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -371,11 +385,11 @@
       "tol_justification": "set membership; exact",
       "level": "1",
       "status": "PASS",
-      "n_exec": 42,
-      "actual": "42 VERIFIED claims checked; 0 unsupported",
+      "n_exec": 48,
+      "actual": "48 VERIFIED claims checked; 0 unsupported",
       "detail": "[]",
-      "duration_s": 0.004082918167114258,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.004126071929931641,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -393,8 +407,8 @@
       "n_exec": 2,
       "actual": "2 INVALID claims retained; 0 bad pointers",
       "detail": "bad=[]",
-      "duration_s": 0.0030715465545654297,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.0030355453491210938,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -409,11 +423,11 @@
       "tol_justification": "structural; exact",
       "level": "1",
       "status": "PASS",
-      "n_exec": 43,
-      "actual": "43 equations; 0 bad status; 0 dangling deps",
+      "n_exec": 49,
+      "actual": "49 equations; 0 bad status; 0 dangling deps",
       "detail": "bad=[] dangling=[]",
-      "duration_s": 0.003429889678955078,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.003305673599243164,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -431,8 +445,8 @@
       "n_exec": 15,
       "actual": "15/15 present",
       "detail": "missing=[]",
-      "duration_s": 0.0030851364135742188,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.002988100051879883,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -450,8 +464,8 @@
       "n_exec": 8,
       "actual": "8/8 checksums match",
       "detail": "[]",
-      "duration_s": 0.0032846927642822266,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.0032410621643066406,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -469,8 +483,8 @@
       "n_exec": 76,
       "actual": "76 constants compared; 0 mismatches",
       "detail": "",
-      "duration_s": 0.0035681724548339844,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.004156827926635742,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -488,8 +502,8 @@
       "n_exec": 33,
       "actual": "16/16 nonzero entries, 33 additive terms, 0 dimensional mismatches",
       "detail": "[]",
-      "duration_s": 0.03457450866699219,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.03307795524597168,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -507,8 +521,8 @@
       "n_exec": 7,
       "actual": "6 relations + Maxwell; 0 bad",
       "detail": "[]",
-      "duration_s": 0.038082122802734375,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.03434610366821289,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -526,8 +540,8 @@
       "n_exec": 2,
       "actual": "dim null(M(0,0)) = 1, vector support = [2]; det M(k,0) = -k**2*(C44*eps11*k**2 + e15**2*k**2 - eps11*omega**2*rho)*(-C11*cE*k**2*omega**2*rho*tauq - I*C11*cE*k**2*omega*rho + C11*k**4*kappa11 - T0*beta1**2*k**2*omega**2*tauq - I*T0*beta1**2*k**2*omega + cE*omega**4*rho**2*tauq + I*cE*omega**3*rho**2 - k**2*kappa11*omega**2*rho) (non-zero => no null direction)",
       "detail": "",
-      "duration_s": 1.562662124633789,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 1.5447289943695068,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -545,8 +559,8 @@
       "n_exec": 2,
       "actual": "xi=0 pattern OK; k=0 pattern OK",
       "detail": "xi=0 extra=set() missing=set()\nk=0  extra=set() missing=set()",
-      "duration_s": 0.1326158046722412,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.15822696685791016,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -564,8 +578,8 @@
       "n_exec": 8628,
       "actual": "passive min = 1.301e-05 (>=0: True); negative control min = -2.861e+00 over 3628 indefinite draws (detected: True)",
       "detail": "the negative control is what makes this falsifiable; without it the test would pass even if the sign of the form were wrong",
-      "duration_s": 0.14224815368652344,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.13891172409057617,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -583,8 +597,8 @@
       "n_exec": 3,
       "actual": "closed 3.3644785110e+20 cycle 3.3644785110e+20 analytic 3.3644785110e+20 max rel dev 1.95e-16",
       "detail": "",
-      "duration_s": 0.0051915645599365234,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.005137443542480469,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -602,8 +616,8 @@
       "n_exec": 2,
       "actual": "linear-term residual 1.000e+00; bilinear-term residual 4.672e-08; ratio 2.1e+07",
       "detail": "the linear form is rejected by an oracle it shares no amplitude with",
-      "duration_s": 0.2111196517944336,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.18338608741760254,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -621,8 +635,8 @@
       "n_exec": 8,
       "actual": "|dR| vs Fresnel 1.67e-16; worst |R+T-1| 9.99e-16; max R identical media 0.00e+00",
       "detail": "",
-      "duration_s": 0.006152153015136719,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.006022930145263672,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -640,8 +654,8 @@
       "n_exec": 1,
       "actual": "R = 1.250e-19, T = 1.000000000000",
       "detail": "",
-      "duration_s": 0.0030541419982910156,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.002895832061767578,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -659,8 +673,8 @@
       "n_exec": 40,
       "actual": "40 usable cases; worst relative deviation 2.177e-14",
       "detail": "",
-      "duration_s": 0.24884581565856934,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.2503664493560791,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -678,8 +692,8 @@
       "n_exec": 17,
       "actual": "survivors over 16 sign patterns: [(1, -1, -1, 1), (-1, 1, 1, -1)] (= +/-S, one up to sign); Phase-1 S fails 6 entries",
       "detail": "failing entries: [(0, 1), (0, 2), (0, 3), (1, 0), (2, 0), (3, 0)]",
-      "duration_s": 0.6208696365356445,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.6195261478424072,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -697,8 +711,8 @@
       "n_exec": 9,
       "actual": "9/9 cases computed; 6 rank-deficient",
       "detail": "PZT-5H|PZT-5H@5.0: rank 4 ; PZT-5H|PZT-5H@30.0: rank 4 ; PZT-5H|PZT-5H@60.0: rank 4 ; Al6061|Al6061@5.0: rank 4 ; Al6061|Al6061@30.0: rank 4 ; Al6061|Al6061@60.0: rank 4 ",
-      "duration_s": 1.2238268852233887,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 1.248488426208496,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -716,8 +730,8 @@
       "n_exec": 1,
       "actual": "R = 0.2173405898400244, T = 0.7826594101599752",
       "detail": "",
-      "duration_s": 0.09910178184509277,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.08519196510314941,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -735,8 +749,8 @@
       "n_exec": 0,
       "actual": "no coupled solver: BLK-G5 and BLK-U3 remain open. Forced to UNRESOLVED by the harness.",
       "detail": "FORCED UNRESOLVED: 0 cases executed, so a PASS or NOT_APPLICABLE would be unevidenced.\n",
-      "duration_s": 0.003793954849243164,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.002962350845336914,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -754,8 +768,8 @@
       "n_exec": 2,
       "actual": "max relative root shift over 2 precision steps 1.505e-31",
       "detail": "",
-      "duration_s": 0.24782657623291016,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.24939537048339844,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -773,8 +787,8 @@
       "n_exec": 1,
       "actual": "recorded 16 checks/151 cases {'PASS': 16}; reproduced 16 checks/151 cases {'PASS': 16}; exit 0",
       "detail": "",
-      "duration_s": 5.942400693893433,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 6.273305654525757,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -792,8 +806,8 @@
       "n_exec": 3,
       "actual": "3 manifests; 0 problems",
       "detail": "[]",
-      "duration_s": 0.0037126541137695312,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.0037832260131835938,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -811,8 +825,8 @@
       "n_exec": 17,
       "actual": "17 downstream; missing=[]; wrongly included=[]",
       "detail": "",
-      "duration_s": 0.03364682197570801,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.035210609436035156,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -830,8 +844,8 @@
       "n_exec": 2,
       "actual": "README.md query exit 2; bogus equation query exit 2 (both must be non-zero)",
       "detail": "",
-      "duration_s": 0.062415361404418945,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.06399369239807129,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -846,11 +860,11 @@
       "tol_justification": "exact token presence",
       "level": "1",
       "status": "PASS",
-      "n_exec": 42,
-      "actual": "42 VERIFIED claims; 42 BOUND; 0 problems",
+      "n_exec": 48,
+      "actual": "48 VERIFIED claims; 48 BOUND; 0 problems",
       "detail": "[]",
-      "duration_s": 0.021787643432617188,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.025785207748413086,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -868,8 +882,8 @@
       "n_exec": 3,
       "actual": "defect state {'c1_has_nullspace': False, 'i2_hardcoded_pass': True, 'f1_samples_psd': True}; as recorded",
       "detail": "if this fails because a defect was FIXED, update claim_evidence_map.json and the claim registry in the same commit",
-      "duration_s": 0.004450798034667969,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.004631757736206055,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -884,11 +898,11 @@
       "tol_justification": "set equality",
       "level": "1",
       "status": "PASS",
-      "n_exec": 50,
-      "actual": "42 positive, 8 negative bindings; 0 unknown ids; 0 non-VERIFIED claims bound as if verified",
+      "n_exec": 56,
+      "actual": "48 positive, 8 negative bindings; 0 unknown ids; 0 non-VERIFIED claims bound as if verified",
       "detail": "unknown=[] wrong=[]",
-      "duration_s": 0.003320455551147461,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.0036339759826660156,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -904,10 +918,10 @@
       "level": "1",
       "status": "PASS",
       "n_exec": 4,
-      "actual": "registry {'VERIFIED_STRONG': 32, 'VERIFIED_WEAK': 10, 'UNVERIFIED': 5, 'INVALID': 2}",
+      "actual": "registry {'VERIFIED_STRONG': 38, 'VERIFIED_WEAK': 10, 'UNVERIFIED': 5, 'INVALID': 2}",
       "detail": "disagreements {}",
-      "duration_s": 0.0032417774200439453,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.003461122512817383,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -925,8 +939,8 @@
       "n_exec": 10,
       "actual": "4 baselines (2 not active, retained on purpose); 6 manuscript entries; 0 violations",
       "detail": "[]",
-      "duration_s": 0.0028200149536132812,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.0030498504638671875,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -944,8 +958,8 @@
       "n_exec": 35,
       "actual": "35 evidence references; 0 problems",
       "detail": "[]",
-      "duration_s": 0.0034322738647460938,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.003497600555419922,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -963,8 +977,8 @@
       "n_exec": 4,
       "actual": "4 baselines; duplicate ids=False duplicate SHAs=False; 0 chain problems",
       "detail": "[]",
-      "duration_s": 0.0028200149536132812,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.002992391586303711,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -982,8 +996,8 @@
       "n_exec": 1,
       "actual": "1 figure entries; 0 without a regeneration path",
       "detail": "[]",
-      "duration_s": 0.0028400421142578125,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.002814054489135742,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1001,8 +1015,8 @@
       "n_exec": 1,
       "actual": "production D_z matches eps33 to 5.06e-51 and differs from eps11 by 1.0",
       "detail": "D_z with eps33 = 2.6278903527894\nD_z with eps11 = 10939959.651145\nD_z recovered from production = 2.6278903527894\nseparation between the two choices      = 4.163e+6\n|production - eps33 D_z| / |D_z|        = 5.065e-51\n|production - eps11 D_z| / |D_z|        = 1.0\nThe case must AGREE with eps33 (so it passes on correct code) and suffice to REJECT eps11 (so it fails on regressed code). The two criteria are reported separately because a test that cannot separate the hypotheses is not evidence.",
-      "duration_s": 0.15999650955200195,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.18779540061950684,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1020,8 +1034,8 @@
       "n_exec": 12,
       "actual": "correct pairing 3.26e-61, drop-x matches (k/xi)^2, spurious q_x rejected",
       "detail": " PZT-5H  15.0 deg: correct=8.698e-62  drop-x=1.252e-8  pred(k/xi)^2=1.252e-8  spurious-qx=3.679e-10  production=8.698e-62\n PZT-5H  30.0 deg: correct=3.443e-62  drop-x=4.672e-8  pred(k/xi)^2=4.672e-8  spurious-qx=7.106e-10  production=3.443e-62\n PZT-5H  45.0 deg: correct=1.101e-61  drop-x=9.344e-8  pred(k/xi)^2=9.344e-8  spurious-qx=1.005e-9  production=1.101e-61\n PZT-5H  60.0 deg: correct=4.152e-62  drop-x=1.402e-7  pred(k/xi)^2=1.402e-7  spurious-qx=1.231e-9  production=4.152e-62\n   CdSe  15.0 deg: correct=1.903e-61  drop-x=1.102e-7  pred(k/xi)^2=1.102e-7  spurious-qx=2.95e-10  production=1.903e-61\n   CdSe  30.0 deg: correct=3.115e-63  drop-x=4.113e-7  pred(k/xi)^2=4.113e-7  spurious-qx=5.699e-10  production=3.115e-63\n   CdSe  45.0 deg: correct=1.792e-61  drop-x=8.226e-7  pred(k/xi)^2=8.226e-7  spurious-qx=8.059e-10  production=1.792e-61\n   CdSe  60.0 deg: correct=3.265e-61  drop-x=1.234e-6  pred(k/xi)^2=1.234e-6  spurious-qx=9.871e-10  production=3.265e-61\n Al6061  15.0 deg: correct=1.568e-61  drop-x=1.76e-6  pred(k/xi)^2=1.76e-6  spurious-qx=2.475e-8  production=1.568e-61\n Al6061  30.0 deg: correct=5.455e-62  drop-x=6.567e-6  pred(k/xi)^2=6.567e-6  spurious-qx=4.782e-8  production=5.455e-62\n Al6061  45.0 deg: correct=1.537e-61  drop-x=1.313e-5  pred(k/xi)^2=1.313e-5  spurious-qx=6.763e-8  production=1.537e-61\n Al6061  60.0 deg: correct=1.014e-61  drop-x=1.97e-5  pred(k/xi)^2=1.97e-5  spurious-qx=8.282e-8  production=1.014e-61\nconf: worst correct pairing = 3.26e-61; worst production = 3.26e-61; best spurious-qx = 2.95e-10 (separation 9.0e+50x)",
-      "duration_s": 0.9539697170257568,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 1.0214886665344238,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1039,8 +1053,8 @@
       "n_exec": 4,
       "actual": "worst direction difference 8.62e-61",
       "detail": "branch |Im xi|=2.56936e+6: direction difference = 8.616e-61\nbranch |Im xi|=1.04686e-9: direction difference = 1.556e-61\nbranch |Im xi|=7.62441e-8: direction difference = 2.849e-65\nbranch |Im xi|=845.206: direction difference = 7.779e-62\nworst = 8.616e-61 (the historical 'error' was 1.86e-5)\nThis confirms the direction is NOT the cause of the energy residual. The cause was the eps11/eps33 index and the missing q_x term, pinned by U3A and U3B.",
-      "duration_s": 0.22481751441955566,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.24115657806396484,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1058,8 +1072,8 @@
       "n_exec": 4,
       "actual": "worst 3.44e-62, shrinking 4.11e+79x as precision rises",
       "detail": "dps=60: residual = 3.4429e-62\ndps=80: residual = 3.0606e-81\ndps=100: residual = 5.5064e-102\ndps=140: residual = 8.3747e-142\nshrink from dps=60 to dps=140: 4.111e+79x\nmonotone non-plateau: True\nA residual that shrinks with precision indicates exact cancellation. The ORIGINAL defect was precision-independent from dps 30 to 120 -- the diagnostic signature that distinguishes a structural error from a roundoff limit.",
-      "duration_s": 0.3199748992919922,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.3408493995666504,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1077,8 +1091,8 @@
       "n_exec": 19,
       "actual": "80 rows, 4 materials, complete and labelled",
       "detail": "80 rows, materials: ['Al6061', 'BaTiO3', 'CdSe', 'PZT-5H']\nviolations: 0\nmissing required: {}",
-      "duration_s": 0.003583669662475586,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.003506183624267578,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1096,8 +1110,8 @@
       "n_exec": 19,
       "actual": "all 76 values identical",
       "detail": "compared 76 constant values across the two paths\nmismatches: 0",
-      "duration_s": 0.0033190250396728516,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.003376483917236328,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1115,8 +1129,8 @@
       "n_exec": 2,
       "actual": "missing critical constant blocked",
       "detail": "corrupted table raised: \"PZT-5H: missing required constant(s) ['p3']. A missing critical constant BLOCKS quantitative claims; it is not filled in by default.\"\npristine table still loads: True",
-      "duration_s": 0.004339694976806641,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.004595518112182617,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1134,8 +1148,8 @@
       "n_exec": 3,
       "actual": "all 3 corruptions rejected",
       "detail": "  empty unit: rejected: PZT-5H/C11: no unit recorded\n  empty source: rejected: PZT-5H/C11: no source recorded\n  bad status: rejected: PZT-5H/C11: status 'PROBABLY_FINE' is not in the controlled vocabulary",
-      "duration_s": 0.004851341247558594,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.0051326751708984375,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1153,8 +1167,8 @@
       "n_exec": 4,
       "actual": "8 ASSUMED constants correctly flagged",
       "detail": "  PZT-5H: flagged=['beta1', 'beta3', 'p'] expected=['beta1', 'beta3', 'p']\n  BaTiO3: flagged=['beta1', 'beta3', 'p'] expected=['beta1', 'beta3', 'p']\n  Al6061: flagged=[] expected=[]\n  CdSe: flagged=['kappa11', 'kappa33'] expected=['kappa11', 'kappa33']\nassumed constants in the set: 8",
-      "duration_s": 0.003176450729370117,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.003139495849609375,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1172,8 +1186,8 @@
       "n_exec": 1,
       "actual": "all 84 values inside their physical bands",
       "detail": "checked 84 values against decade-wide physical bands\n",
-      "duration_s": 0.0031404495239257812,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.0033273696899414062,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1191,8 +1205,8 @@
       "n_exec": 1,
       "actual": "<q.qdot>=0 while <q.q>=Q^2/2: the two are independent",
       "detail": "q(t) = Q*cos(omega*t)\n<q.q>    = Q**2/2\n<q.qdot> = 0\n\nThe first is NON-ZERO and the second is IDENTICALLY ZERO. A vanishing harmonic average therefore cannot be used to conclude that no stored-energy law exists. This is Proposition prop:relax of theory/energy_flux_derivation.tex.\ncriterion 1 (<q.qdot> == 0):        True\ncriterion 2 (<q.q> != 0):            True\ncriterion 3 (<q.q> == Q^2/2):        True",
-      "duration_s": 0.044977664947509766,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.05251502990722656,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1210,8 +1224,8 @@
       "n_exec": 5,
       "actual": "worst 2.39e-61 across a tau_q scan 0..10x",
       "detail": "tau_q x 0.0: residual = 2.164e-61\ntau_q x 0.5: residual = 8.053e-62\ntau_q x 1.0: residual = 3.443e-62\ntau_q x 2.0: residual = 5.835e-63\ntau_q x 10.0: residual = 2.385e-61\nworst over the scan = 2.385e-61\nA tau_q that entered only one side would show a residual growing with tau_q at O(omega*tau_q). None does.",
-      "duration_s": 0.784421443939209,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.8238723278045654,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1229,8 +1243,8 @@
       "n_exec": 1,
       "actual": "theory and implementation agree on the thermal flux term",
       "detail": "theory states the bilinear thermal term: True\ncode evaluates a conjugate thermal term:    True\nwithdrawn linear form shown as active:       False",
-      "duration_s": 0.0034835338592529297,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.003802776336669922,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1248,8 +1262,8 @@
       "n_exec": 2,
       "actual": "withdrawn from active theory, preserved in the INVALID registry",
       "detail": "CLM-H1-02 still INVALID in the registry: True\nactive causality-floor assertions found: 0",
-      "duration_s": 0.0034275054931640625,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.003725290298461914,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1267,8 +1281,8 @@
       "n_exec": 2,
       "actual": "2 documents structurally sound, all refs resolve",
       "detail": "no structural problems found",
-      "duration_s": 0.00867319107055664,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.008968591690063477,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1286,8 +1300,8 @@
       "n_exec": 1,
       "actual": "1 closed blocker(s) all evidenced; G0/G1/G4/G5 correctly unpassed",
       "detail": "8 blockers registered, 1 CLOSED\nevery closed blocker carries evidence; G0/G1/G4/G5 remain unpassed",
-      "duration_s": 0.003124713897705078,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.0030634403228759766,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1305,8 +1319,8 @@
       "n_exec": 6,
       "actual": "dR=1.67e-16, closure=4.44e-16",
       "detail": "Fresnel R = 0.217340589840025\nsolver  R = 0.217340589840024\n|dR| = 1.665e-16\nworst energy closure over 6 angles = 4.441e-16\nREADINESS ONLY. No piezothermoelastic reflection or transmission coefficient is reported by this case, and none may be quoted until the G4 energy gate and the material-provenance gate are closed.",
-      "duration_s": 0.004381656646728516,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.004637241363525391,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1324,8 +1338,8 @@
       "n_exec": 16,
       "actual": "8 branches per material, partitioned with no gauge mixing",
       "detail": "--- PZT-5H: 8 branches ---\n  br0: Im(xi)=   -2.569e+6  |u|/|u_z|=       1.0  -> ACOUSTIC_DECAYING\n  br1: Im(xi)=   -1.047e-9  |u|/|u_z|=     4.928  -> ACOUSTIC_DECAYING\n  br2: Im(xi)=   -7.624e-8  |u|/|u_z|=     1.166  -> ACOUSTIC_DECAYING\n  br3: Im(xi)=      -845.2  |u|/|u_z|=     1.475  -> ACOUSTIC_DECAYING\n  br4: Im(xi)=       845.2  |u|/|u_z|=     1.475  -> ACOUSTIC_GROWING\n  br5: Im(xi)=    7.624e-8  |u|/|u_z|=     1.166  -> ACOUSTIC_GROWING\n  br6: Im(xi)=    1.047e-9  |u|/|u_z|=     4.928  -> ACOUSTIC_GROWING\n  br7: Im(xi)=    2.569e+6  |u|/|u_z|=       1.0  -> ACOUSTIC_GROWING\n  families: {'ACOUSTIC_DECAYING': [0, 1, 2, 3], 'ACOUSTIC_GROWING': [4, 5, 6, 7]}\n  partition total: True; acoustic branches: 8; both directions: True\n--- Al6061: 8 branches ---\n  br0: Im(xi)=   -2.167e+5  |u|/|u_z|=       1.0  -> ACOUSTIC_DECAYING\n  br1: Im(xi)=         0.0  |u|/|u_z|=     2.554  -> ACOUSTIC_DECAYING\n  br2: Im(xi)=  -0.0002677  |u|/|u_z|=     1.673  -> ACOUSTIC_DECAYING\n  br3: Im(xi)=      -785.4  |u|/|u_z|=     3.204  -> ACOUSTIC_DECAYING\n  br4: Im(xi)=       785.4  |u|/|u_z|=     3.204  -> ACOUSTIC_GROWING\n  br5: Im(xi)=   0.0002677  |u|/|u_z|=     1.673  -> ACOUSTIC_GROWING\n  br6: Im(xi)=         0.0  |u|/|u_z|=     2.554  -> ACOUSTIC_DECAYING\n  br7: Im(xi)=    2.167e+5  |u|/|u_z|=       1.0  -> ACOUSTIC_GROWING\n  families: {'ACOUSTIC_DECAYING': [0, 1, 2, 3, 6], 'ACOUSTIC_GROWING': [4, 5, 7]}\n  partition total: True; acoustic branches: 8; both directions: True\n\nREADINESS ONLY. No piezothermoelastic reflection or transmission coefficient is reported by this case, and none may be quoted until the G4 energy gate and the material-provenance gate are closed.",
-      "duration_s": 0.3343021869659424,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.35208940505981445,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1343,8 +1357,8 @@
       "n_exec": 40,
       "actual": "invariant under all 40 rescalings",
       "detail": "40 rescalings evaluated\nfamily changes: 0\nREADINESS ONLY. No piezothermoelastic reflection or transmission coefficient is reported by this case, and none may be quoted until the G4 energy gate and the material-provenance gate are closed.",
-      "duration_s": 0.18805193901062012,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.18874859809875488,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1362,8 +1376,8 @@
       "n_exec": 2,
       "actual": "centrosymmetric gauge degeneracy detected and distinguished",
       "detail": "Al6061: e33=0  phi/mech row ratio = 8.229e-23\nPZT-5H: e33=23.3  phi/mech row ratio = 1.991e-10\nAl6061 classified degenerate (ratio < 1e-20): True\nPZT-5H classified non-degenerate (ratio > 1e-12): True\nThe ~100-order separation is why a single residual tolerance cannot serve both materials.\nREADINESS ONLY. No piezothermoelastic reflection or transmission coefficient is reported by this case, and none may be quoted until the G4 energy gate and the material-provenance gate are closed.",
-      "duration_s": 0.33498716354370117,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.31932663917541504,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1381,8 +1395,8 @@
       "n_exec": 1,
       "actual": "76c7174c08923ded6005da1f312d795086f867a7c1f6590cb2fb7985991eb56b",
       "detail": "frozen historical evidence intact",
-      "duration_s": 0.0031414031982421875,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.0030994415283203125,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1400,8 +1414,8 @@
       "n_exec": 72,
       "actual": "72 mode labels self-consistent",
       "detail": "no label contradicts its own attenuation ratio",
-      "duration_s": 3.0584819316864014,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 3.1665754318237305,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1419,8 +1433,8 @@
       "n_exec": 24,
       "actual": "6 thermal branches correctly separated",
       "detail": "thermal identification follows the dispersion relation",
-      "duration_s": 1.6009540557861328,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 1.7596492767333984,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1438,8 +1452,8 @@
       "n_exec": 72,
       "actual": "72 modes, 4 independent fields, no forbidden labels",
       "detail": "radiation direction follows Im(xi), not the spatial class",
-      "duration_s": 3.1177332401275635,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 3.018965721130371,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1457,8 +1471,8 @@
       "n_exec": 16,
       "actual": "16 branches: measured decay rate == -Im(xi)",
       "detail": "convention e^{+i xi z} confirmed by field evaluation",
-      "duration_s": 0.5170423984527588,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.5055217742919922,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1476,8 +1490,8 @@
       "n_exec": 112,
       "actual": "identical classification at dps 50,60,80,90,100,110,120",
       "detail": "the robust null-vector route removes the dependency",
-      "duration_s": 3.7714858055114746,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 3.7637176513671875,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1495,8 +1509,8 @@
       "n_exec": 16,
       "actual": "gauges carry ZERO flux and are excluded from half-spaces",
       "detail": "gauge detection uses machine-zero mechanical content",
-      "duration_s": 5.340016603469849,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 5.421437501907349,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1514,8 +1528,8 @@
       "n_exec": 24,
       "actual": "screening admits exactly the modes that decay into each half-space",
       "detail": "8 + 8 + 8 modes across three materials",
-      "duration_s": 2.0454230308532715,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 1.9097208976745605,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1533,8 +1547,8 @@
       "n_exec": 24,
       "actual": "24 normal-incidence branches report the thermal fallback",
       "detail": "no blank attenuation field; basis is explicit and correct",
-      "duration_s": 1.4727773666381836,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 1.4097483158111572,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1552,8 +1566,8 @@
       "n_exec": 1,
       "actual": "inventory a3b2965319a49fb2 pinned",
       "detail": "artifact and manifest are consistent and frozen",
-      "duration_s": 0.004302978515625,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.003498077392578125,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1571,8 +1585,8 @@
       "n_exec": 120,
       "actual": "120 rows verified against independent recomputation",
       "detail": "root, flux, class, direction, admissibility, confidence and prose all agree with the source calculation",
-      "duration_s": 4.926142692565918,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 4.680469274520874,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1590,8 +1604,8 @@
       "n_exec": 15,
       "actual": "15 blocks verified; 3 block(s) have a genuine repeated root at k=0 (double root at the origin), all others distinct; indices contiguous",
       "detail": "no block shows the P0-1 symptom of distinct bank roots collapsing onto one exported value",
-      "duration_s": 0.0044689178466796875,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.004408597946166992,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1609,8 +1623,8 @@
       "n_exec": 2,
       "actual": "2 lossless modes: sign(J_z) == sign(Re xi), c = 0.576066 m/s > 0",
       "detail": "flux direction agrees with the axial phase velocity",
-      "duration_s": 0.0030541419982910156,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.003032207489013672,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1628,8 +1642,8 @@
       "n_exec": 7,
       "actual": "7/7 mutations detected: last-branch root repeated across rows(300), last-branch flux repeated across rows(168), branch-index shift(689), opposite radiation direction(114), missing outgoing propagating mode(2), gauge accepted as outgoing(42), inconsistent reasons vs numeric fields(14)",
       "detail": "each injected defect produced at least one validation failure",
-      "duration_s": 0.38030505180358887,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.3846282958984375,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1647,8 +1661,8 @@
       "n_exec": 3,
       "actual": "checksum, row count and supersession all verified; a broken checksum is detectable",
       "detail": "manifest is consistent with its artifact",
-      "duration_s": 0.0044956207275390625,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.00439453125,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     },
     {
@@ -1666,13 +1680,127 @@
       "n_exec": 3,
       "actual": "3 artifacts registered: 1 HISTORICAL, 1 INVALID (bytes preserved), 1 ACTIVE",
       "detail": "invalid artifact is recorded and retained, not deleted",
-      "duration_s": 0.0033965110778808594,
-      "commit": "3cee0741d32f99d83f38d4076aa147aeccee54c7",
+      "duration_s": 0.0035467147827148438,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
+      "remote_verified": false
+    },
+    {
+      "test_id": "SCTA01",
+      "category": "10-classical-elastic",
+      "purpose": "the assembly's modal machinery reproduces the independently derived isotropic P-SV reference",
+      "oracle": "elastic_reference.solve_psv, itself validated against closed-form Fresnel, Snell, acoustic and grazing limits",
+      "oracle_independent": true,
+      "fixture": "Al6061 -> steel-like, 0/10/20/30/45/60/75 deg, omega = 2*pi*1e6 rad/s",
+      "expected": "all four complex amplitudes agree to < 1e-40",
+      "tolerance": 1e-40,
+      "tol_justification": "both sides use 50-digit arithmetic, so agreement is at rounding; the measured worst case is 5e-42",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 28,
+      "actual": "worst difference 6.588e-52",
+      "detail": "the assembly builds its own columns and selection rule; nothing is imported from solve_psv",
+      "duration_s": 0.10133051872253418,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
+      "remote_verified": false
+    },
+    {
+      "test_id": "SCTA02",
+      "category": "6-interface-conditions",
+      "purpose": "unknowns equal the admitted-mode count and gauges are excluded",
+      "oracle": "the assembly's own modal inventory, recomputed from the roots",
+      "oracle_independent": true,
+      "fixture": "Al6061, PZT-5H and Al6061|PZT-5H at 0/30/60 deg",
+      "expected": "n_unknowns == admitted side1 + admitted side2; no gauge admitted",
+      "tolerance": 0.0,
+      "tol_justification": "exact integer comparison",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 9,
+      "actual": "counts follow the inventory",
+      "detail": "a square 8x8 appears only where the physics supplies it",
+      "duration_s": 3.5560004711151123,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
+      "remote_verified": false
+    },
+    {
+      "test_id": "SCTA03",
+      "category": "6-interface-conditions",
+      "purpose": "a mechanically decoupled mode with D_z != 0 is ELECTROSTATIC and admissible, not a GAUGE",
+      "oracle": "D_z = -eps33*xi*phi evaluated from the medium constants and the root, independent of any component-norm comparison",
+      "oracle_independent": true,
+      "fixture": "Al6061 at 30 deg (eps33 = eps0, no piezoelectric coupling)",
+      "expected": "D_z = -eps33*k = -6.954e-9, mode admitted",
+      "tolerance": 1e-20,
+      "tol_justification": "D_z is computed two ways from the same exact inputs; agreement is at rounding",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 2,
+      "actual": "D_z = 6.95406e-9 = eps33*k",
+      "detail": "classifying this as a gauge deleted the electrostatic channel of an elastic half-space while keeping the piezoelectric one",
+      "duration_s": 0.3414018154144287,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
+      "remote_verified": false
+    },
+    {
+      "test_id": "SCTA04",
+      "category": "7-energy",
+      "purpose": "a mode whose attenuation is 3e-13 per wavelength is propagating, so PZT-5H has an incident channel at theta > 0",
+      "oracle": "attenuation |Im xi|/|Re xi| computed from the root alone",
+      "oracle_independent": true,
+      "fixture": "PZT-5H, 30 deg, omega = 2*pi*1e6 rad/s",
+      "expected": "at least one INCOMING mode exists; attenuation of the incident mode is below 1e-4 per wavelength",
+      "tolerance": 0.0001,
+      "tol_justification": "the affected case is 3e-13 per wavelength (decay length 9.6e8 m for a 1.8 mm wave) and the weakest genuinely damped mode is 6.7e-11, so 1e-4 sits ten orders above one and four below the other",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 8,
+      "actual": "2 incoming, weakest attenuation 2.993e-13 per wavelength",
+      "detail": "the strict rule declared this localised on the far side and removed the incident channel entirely",
+      "duration_s": 0.4759054183959961,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
+      "remote_verified": false
+    },
+    {
+      "test_id": "SCTA05",
+      "category": "6-interface-conditions",
+      "purpose": "the reconstructed interface field is continuous and does not move under a consistent mode rescaling",
+      "oracle": "the interface state rebuilt from the modal expansion, not the linear-algebra residual",
+      "oracle_independent": true,
+      "fixture": "Al6061|PZT-5H at 30 and 60 deg; PZT-5H|PZT-5H at 30 deg",
+      "expected": "interface residual < 1e-40 and INVARIANT rescaling",
+      "tolerance": 1e-40,
+      "tol_justification": "square, well-conditioned (cond <= 3.2e4) systems solve at rounding in 50-digit arithmetic; the measured residual is 2.7e-51",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 3,
+      "actual": "continuous and rescaling-invariant",
+      "detail": "a plus sign instead of minus leaves the solver residual at 1e-37 while violating the interface by 2x the incident state",
+      "duration_s": 1.5443835258483887,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
+      "remote_verified": false
+    },
+    {
+      "test_id": "SCTA06",
+      "category": "7-energy-passivity",
+      "purpose": "coupled amplitudes carry the DIAGNOSTIC label and no coupled energy or thermodynamic gate is claimed",
+      "oracle": "the record's own label field, checked on every configuration",
+      "oracle_independent": true,
+      "fixture": "three material pairs at 0/30/60 deg",
+      "expected": "label == DIAGNOSTIC for every analysed configuration",
+      "tolerance": 0.0,
+      "tol_justification": "exact string comparison",
+      "level": "1",
+      "status": "PASS",
+      "n_exec": 9,
+      "actual": "9 configurations labelled DIAGNOSTIC",
+      "detail": "G4 and G5 remain OPEN; a converged boundary solve is not evidence that R, T and A are validated",
+      "duration_s": 4.096299886703491,
+      "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
       "remote_verified": false
     }
   ],
   "level_name": "FAST",
   "description": "every-commit gate: syntax, schema, units, symbolic identities, one analytical benchmark, evidence consistency, dependency chain",
-  "wall_clock_s": 41.11,
+  "wall_clock_s": 51.46,
   "pytest_exit": 1
 }

@@ -93,7 +93,14 @@ def _bank(material, theta):
             jzs.append(None)
             continue
         jz = fc.flux_z_mp(m, k, xi, w, a)
-        modes.append(classify_mode(m, k, xi, w, a, jz=jz))
+        # DERIVED UNDER THE CSV'S OWN CONVENTION.
+        # The fixture is a frozen Task 1R artifact whose spatial_class column
+        # was produced before task 2 separated GAUGE from the decoupled Laplace
+        # ELECTROSTATIC mode. Regenerating it to match new code would be the
+        # silent replacement the brief forbids, so this independent
+        # recomputation uses legacy_gauge=True and the divergence is measured
+        # and published separately (validation/scattering/convention_divergence.py).
+        modes.append(classify_mode(m, k, xi, w, a, jz=jz, legacy_gauge=True))
         jzs.append(jz)
     _BANK[key] = dict(m=m, k=k, w=w, roots=roots, coeffs=coeffs,
                       modes=modes, jzs=jzs)
@@ -224,6 +231,21 @@ def validate_inventory(rows, check_checksum=False):
                     f"{tag}: zero-flux mode accepted as an outgoing channel")
 
         # --- 8b. outgoing_status against the radiation condition -----------
+        # SCOPE NOTE (Phase 2A task 2). The frozen CSV in this fixture was
+        # generated with the STRICT rule: any Im(xi) != 0 means "localised",
+        # and only an exactly lossless mode may transport. That rule discards
+        # thermomechanically coupled waves whose attenuation is 1e-11 per
+        # wavelength -- a decay length of 1e9 m -- which is propagation on any
+        # laboratory scale, so task 2 introduced `ATTENUATION_PROPAGATING`.
+        #
+        # Rewriting a published artifact to match new code would be exactly the
+        # silent replacement the brief forbids, so the CSV is NOT regenerated
+        # here. Instead the comparison is made against the convention the CSV
+        # actually implements, via `strict_legacy=True`. The divergence is
+        # measured and published separately (validation/scattering/
+        # convention_divergence.py); this test's job is to catch rows carrying
+        # a NEIGHBOUR's root or flux, which is the P0-1 defect it was written
+        # for.
         # Check 8 only rejects a gauge or zero-flux mode being called OUTGOING.
         # It does not notice the OPPOSITE failure -- an outgoing channel being
         # declared non-transporting -- which silently removes a physical mode
@@ -235,7 +257,8 @@ def validate_inventory(rows, check_checksum=False):
                     f"{tag}: outgoing_status does not state the {side_name} role")
                 continue
             seg = r["outgoing_status"].split(side_tag, 1)[1].split(";")[0]
-            role_true, _why = classify_role(md, side_name, jz_true)
+            role_true, _why = classify_role(md, side_name, jz_true,
+                                            strict_legacy=True)
             if seg != role_true:
                 problems.append(
                     f"{tag}: {side_name} role reported as {seg} but the root "

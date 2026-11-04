@@ -1,0 +1,360 @@
+{
+ "schema_version": "1.0",
+ "phase": "2A-task2",
+ "title": "Two-half-space scattering assembly and classical validation",
+ "generated_utc": "2026-11-04T13:58:11+00:00",
+ "branch": "arena/a3ede4fe-negative-reflection",
+ "start_commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
+ "reproduce": {
+  "state": "cd code && python3 -m scattering.state",
+  "elastic_reference": "cd code && python3 -m scattering.elastic_reference",
+  "assembly": "cd code && python3 -m scattering.assembly",
+  "solver": "cd code && python3 -m scattering.solver",
+  "lossless_oracle": "python3 validation/scattering/lossless_oracle.py",
+  "classical_benchmarks": "python3 validation/scattering/classical_benchmarks.py",
+  "assembly_validation": "python3 validation/scattering/assembly_validation.py",
+  "convention_divergence": "python3 validation/scattering/convention_divergence.py",
+  "level1": "cd validation && python3 run_fast.py",
+  "level2": "cd validation && python3 run_standard.py",
+  "level3": "cd validation && python3 run_full.py"
+ },
+ "artifacts": {
+  "code/scattering/state.py": {
+   "sha256": "1072f5fa7027f6d29dc28120c2ccbcec21e9b86a40d0713c19bdfc4046836058"
+  },
+  "code/scattering/elastic_reference.py": {
+   "sha256": "a427353a0675945fd6a2eb5b8779d8c7883542ddd083803797ce806c2a34826b"
+  },
+  "code/scattering/assembly.py": {
+   "sha256": "9e80e138fb78ee8dad4049a93d846dd377ab470b9fa8e0b2d8eecf1bd0210c08"
+  },
+  "code/scattering/solver.py": {
+   "sha256": "c7628ca251554b46294ce7711decb36422f743c7bb42d4dab6a96787f1aa7128"
+  },
+  "code/scattering/radiation.py": {
+   "sha256": "56e417215dd6bb6ef43e2922fb96e8d42989e7fe0476a5f886ce543ab17ab818"
+  },
+  "code/scattering/modal.py": {
+   "sha256": "4091b18000373ef1095584a76988e831893051421a8ea6946e6d34e330ea5cf0"
+  },
+  "validation/phase_02a_task2_lossless_oracle.json": {
+   "sha256": "91f38cec79a0a76e7b1fe1190ea46ba6e7bc0328cc75d6fb4be4df9dceeeb773"
+  },
+  "validation/phase_02a_task2_benchmark_comparison.csv": {
+   "sha256": "e8118541388475e8102e18ac148e67b0518a2b7c235e2347f075e4827a666d2a"
+  },
+  "validation/phase_02a_task2_assembly_validation.csv": {
+   "sha256": "8087c866f91da40da5a6617cf10a651886c60b967e107b406577c0808b2efa37"
+  },
+  "validation/phase_02a_task2_convention_divergence.json": {
+   "sha256": "5ed615e2ab88cf6a70291c58e097e204523f9154ea479f355e9bf09fa6b48d5c"
+  },
+  "validation/phase_02a_modal_inventory_v2.csv": {
+   "sha256": "a3b2965319a49fb21bd0d045840cd8810ee2562b15100767a1fef7d4cefd5f46",
+   "unchanged": true
+  }
+ },
+ "prerequisite_blk_02a_04": {
+  "status": "CLOSED",
+  "evidence": "validation/phase_02a_task2_lossless_oracle.json",
+  "branches_checked": 14,
+  "failures": {
+   "lossless_ok": 0,
+   "flux_nonzero": 0,
+   "role_ok": 0,
+   "class_ok": 0
+  },
+  "note": "14/14 lossless branches confirmed against the independently derived elastic oracle; role independence from sign(Im xi) confirmed"
+ },
+ "classical_benchmarks": {
+  "checks": 88,
+  "pass": 88,
+  "fail": 0,
+  "cases": [
+   "B1 identical normal",
+   "B2 identical oblique",
+   "B3 dissimilar normal amplitudes",
+   "B4 oblique P-SV mode conversion",
+   "B5 acoustic limit",
+   "B6 grazing limit",
+   "B7 critical angles",
+   "B8 scaling invariance",
+   "B9 reciprocity",
+   "B9b scalar reciprocity control",
+   "B10 legacy defect pin"
+  ]
+ },
+ "assembly_validation": {
+  "checks": 108,
+  "pass": 108,
+  "fail": 0
+ },
+ "coupled_scattering": {
+  "evidence_label": "DIAGNOSTIC",
+  "gates": {
+   "G4": "OPEN",
+   "G5": "OPEN"
+  },
+  "status": "UNRESOLVED as a validated physical result",
+  "what_holds": [
+   "mode selection on outgoing_status only",
+   "degrees of freedom counted, not assumed",
+   "interface residuals 1e-51 in square well-conditioned cases",
+   "rescale invariance INVARIANT in 8 of 9 configurations"
+  ],
+  "what_does_not": [
+   "no coupled energy-conservation gate passed (G4)",
+   "no coupled thermodynamic consistency gate passed (G5)",
+   "Al6061|Al6061 at normal incidence is under-determined: 4 independent equations for 6 unknowns (cond 1.1e21)"
+  ]
+ },
+ "classification_convention_changes": {
+  "inventory_unchanged": true,
+  "spatial_class_changed": 4,
+  "role_changed": 50,
+  "rows_in_propagation_band": 42,
+  "evidence": "validation/phase_02a_task2_convention_divergence.json",
+  "legacy_rule_reachable": [
+   "classify_mode(..., legacy_gauge=True)",
+   "classify_role(..., strict_legacy=True)"
+  ]
+ },
+ "regression": {
+  "level1_summary": {
+   "total": 78,
+   "PASS": 77,
+   "FAIL": 0,
+   "UNRESOLVED": 1,
+   "WITHDRAWN": 0,
+   "NOT_APPLICABLE": 0,
+   "executed_cases": 10068,
+   "zero_case_tests": [
+    "SCT02"
+   ],
+   "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
+   "by_category": {
+    "1-data-integrity": {
+     "PASS": 10,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "12-claim-traceability": {
+     "PASS": 14,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "11-reproducibility": {
+     "PASS": 6,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "2-dimensional": {
+     "PASS": 1,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "3-thermodynamics": {
+     "PASS": 4,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "5-eigen": {
+     "PASS": 2,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "7-energy-passivity": {
+     "PASS": 2,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "7-energy": {
+     "PASS": 3,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "8-analytical-limits": {
+     "PASS": 2,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "4-matrix-identities": {
+     "PASS": 2,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "6-interface": {
+     "PASS": 1,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "9-scattering": {
+     "PASS": 5,
+     "FAIL": 0,
+     "UNRESOLVED": 1,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "10-convergence": {
+     "PASS": 1,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "5-energy": {
+     "PASS": 4,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "provenance": {
+     "PASS": 4,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "classification": {
+     "PASS": 5,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "convention": {
+     "PASS": 1,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "numerics": {
+     "PASS": 1,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "selection": {
+     "PASS": 1,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "data-integrity": {
+     "PASS": 2,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "physics": {
+     "PASS": 1,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "mutation": {
+     "PASS": 1,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "10-classical-elastic": {
+     "PASS": 1,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    },
+    "6-interface-conditions": {
+     "PASS": 3,
+     "FAIL": 0,
+     "UNRESOLVED": 0,
+     "WITHDRAWN": 0,
+     "NOT_APPLICABLE": 0
+    }
+   }
+  },
+  "level1_executed": 10068,
+  "promotion_allowed": false,
+  "ci_gate": "GATE SATISFIED - no contradictions, every unknown registered and owned",
+  "mutation_suite": {
+   "total": 23,
+   "detected": 23,
+   "detection_rate_percent": 100.0,
+   "survivors": [],
+   "new_in_task2": [
+    "M20",
+    "M21",
+    "M22",
+    "M23"
+   ]
+  },
+  "blockers_open": [
+   "BLK-02A-01",
+   "BLK-02A-02",
+   "BLK-02A-03",
+   "BLK-02A-05",
+   "BLK-02A-13",
+   "BLK-02A-14",
+   "BLK-02A-15",
+   "BLK-G0",
+   "BLK-G1",
+   "BLK-G4",
+   "BLK-G5",
+   "BLK-U5",
+   "BLK-LS-STORAGE"
+  ],
+  "blockers_closed": [
+   "BLK-02A-04",
+   "BLK-02A-10",
+   "BLK-02A-11",
+   "BLK-02A-12"
+  ]
+ },
+ "commit": "34df97733bcaad4e554a69b94d34ea51597663c6",
+ "counts": {
+  "equations": 49,
+  "claims": 55,
+  "claim_status": {
+   "VERIFIED_STRONG": 38,
+   "VERIFIED_WEAK": 10,
+   "UNVERIFIED": 5,
+   "INVALID": 2
+  },
+  "level1_cases": 78,
+  "level1": {
+   "PASS": 77,
+   "FAIL": 0,
+   "UNRESOLVED": 1
+  }
+ }
+}

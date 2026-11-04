@@ -1,0 +1,89 @@
+case,assumptions,quantity,expected,actual,abs_error,tolerance,pass,note
+B1,identical welded half-spaces; P incident; theta = 0,rP,0,0.0,0.0,1e-40,True,no reflected P may exist between identical media
+B1,same,|rS|,0,0.0,0.0,1e-40,True,no mode conversion at normal incidence
+B1,same,R + T,1,1.0,0.0,1e-40,True,
+B2,identical welded half-spaces; P incident; theta = 10.0,|rP| at 10.0,0,0.0,0.0,1e-40,True,identical media cannot reflect at any angle
+B2,theta = 10.0,|rS| at 10.0,0,0.0,0.0,1e-40,True,
+B2,theta = 10.0,R+T at 10.0,1,1.0,0.0,1e-40,True,
+B2,identical welded half-spaces; P incident; theta = 20.0,|rP| at 20.0,0,0.0,0.0,1e-40,True,identical media cannot reflect at any angle
+B2,theta = 20.0,|rS| at 20.0,0,0.0,0.0,1e-40,True,
+B2,theta = 20.0,R+T at 20.0,1,1.0,0.0,1e-40,True,
+B2,identical welded half-spaces; P incident; theta = 30.0,|rP| at 30.0,0,0.0,0.0,1e-40,True,identical media cannot reflect at any angle
+B2,theta = 30.0,|rS| at 30.0,0,0.0,0.0,1e-40,True,
+B2,theta = 30.0,R+T at 30.0,1,1.0,0.0,1e-40,True,
+B2,identical welded half-spaces; P incident; theta = 45.0,|rP| at 45.0,0,0.0,0.0,1e-40,True,identical media cannot reflect at any angle
+B2,theta = 45.0,|rS| at 45.0,0,0.0,0.0,1e-40,True,
+B2,theta = 45.0,R+T at 45.0,1,1.0,0.0,1e-40,True,
+B2,identical welded half-spaces; P incident; theta = 60.0,|rP| at 60.0,0,0.0,0.0,1e-40,True,identical media cannot reflect at any angle
+B2,theta = 60.0,|rS| at 60.0,0,0.0,0.0,1e-40,True,
+B2,theta = 60.0,R+T at 60.0,1,1.0,0.0,1e-40,True,
+B3,dissimilar isotropic welded media; P incident; theta = 0; displacement convention,rP amplitude,0.46619801569721911155780680647318560653722216394241,0.46619801569721911155780680647318560653722216394241,3.99349e-52,1e-48,True,Rayleigh: r = (Z2-Z1)/(Z2+Z1)
+B3,same,tP amplitude,0.53380198430278088844219319352681439346277783605759,0.53380198430278088844219319352681439346277783605759,3.99349e-52,1e-48,True,Rayleigh: t = 2 Z1/(Z1+Z2); this is the quantity the Phase 1B solver gets the sign of wrong
+B3,same,boundary residual ux,0,0.0,0.0,1e-48,True,"physical-form residual, not the matrix form"
+B3,same,boundary residual uz,0,2.5035170238109881479395586326209670405595233056014e-51,2.50352e-51,1e-48,True,"physical-form residual, not the matrix form"
+B3,same,boundary residual txz,0,0.0,0.0,1e-48,True,"physical-form residual, not the matrix form"
+B3,same,boundary residual tzz,0,0.0,0.0,1e-48,True,"physical-form residual, not the matrix form"
+B3,same,R,0.21734058984002455714274067138403401373756345409148,0.21734058984002455714274067138403401373756345409148,6.68191e-52,1e-48,True,
+B3,same,T,0.78265941015997544285725932861596598626243654590852,0.78265941015997544285725932861596598626243654590851,1.33638e-51,1e-48,True,
+B4,dissimilar welded; P incident; theta=10.0,Snell sin(theta1) at 10.0,0.17364817766693034885171662676931479600037567718407,0.17364817766693034885171662676931479600037567718407,0.0,1e-45,True,k must equal (w/cL1) sin(theta1) exactly
+B4,theta=10.0,R+T at 10.0,1,1.0,2.67276e-51,1e-40,True,
+B4,theta=10.0,mode conversion present at 10.0,true,true,n/a,n/a,True,an oblique P wave must generate SV
+B4,dissimilar welded; P incident; theta=20.0,Snell sin(theta1) at 20.0,0.34202014332566873304409961468225958076308336751416,0.34202014332566873304409961468225958076308336751416,0.0,1e-45,True,k must equal (w/cL1) sin(theta1) exactly
+B4,theta=20.0,R+T at 20.0,1,1.0,2.67276e-51,1e-40,True,
+B4,theta=20.0,mode conversion present at 20.0,true,true,n/a,n/a,True,an oblique P wave must generate SV
+B4,dissimilar welded; P incident; theta=30.0,Snell sin(theta1) at 30.0,0.5,0.5,0.0,1e-45,True,k must equal (w/cL1) sin(theta1) exactly
+B4,theta=30.0,R+T at 30.0,1,1.0,2.67276e-51,1e-40,True,
+B4,theta=30.0,mode conversion present at 30.0,true,true,n/a,n/a,True,an oblique P wave must generate SV
+B4,dissimilar welded; P incident; theta=40.0,Snell sin(theta1) at 40.0,0.64278760968653932632264340990726343290755988420568,0.64278760968653932632264340990726343290755988420568,0.0,1e-45,True,k must equal (w/cL1) sin(theta1) exactly
+B4,theta=40.0,R+T at 40.0,1,1.0,1.33638e-51,1e-40,True,
+B4,theta=40.0,mode conversion present at 40.0,true,true,n/a,n/a,True,an oblique P wave must generate SV
+B5,acoustic limit C44=1e-6 Pa; fluid media; theta=0.0,rP at 0.0,0.46619801569721911155780680647318560653722216394241,0.46619801569721911155780680647318560653722216394241,3.99349e-52,1e-8,True,scalar Fresnel r=(Z2cos1-Z1cos2)/(Z2cos1+Z1cos2)
+B5,theta=0.0,S energy share negligible at 0.0,true,true,n/a,n/a,True,"|rS| does NOT converge here; its energy share -> 0 like C44, so it must not be quoted as a coefficient"
+B5,acoustic limit C44=1e-6 Pa; fluid media; theta=15.0,rP at 15.0,0.46485279676420899532610822802650916221512092442882,0.46485279670315615175055548809675575934315508477634,6.10528e-11,1e-8,True,scalar Fresnel r=(Z2cos1-Z1cos2)/(Z2cos1+Z1cos2)
+B5,theta=15.0,S energy share negligible at 15.0,true,true,n/a,n/a,True,"|rS| does NOT converge here; its energy share -> 0 like C44, so it must not be quoted as a coefficient"
+B5,acoustic limit C44=1e-6 Pa; fluid media; theta=30.0,rP at 30.0,0.46001156084468488218857420102485259120929179285521,0.46001156059222567712266831020710429428356019032778,2.52459e-10,1e-8,True,scalar Fresnel r=(Z2cos1-Z1cos2)/(Z2cos1+Z1cos2)
+B5,theta=30.0,S energy share negligible at 30.0,true,true,n/a,n/a,True,"|rS| does NOT converge here; its energy share -> 0 like C44, so it must not be quoted as a coefficient"
+B5,acoustic limit C44=1e-6 Pa; fluid media; theta=45.0,rP at 45.0,0.44806950124035549404292608445225724880759684852352,0.44806950063203414339205443807044721663723132430754,6.08321e-10,1e-8,True,scalar Fresnel r=(Z2cos1-Z1cos2)/(Z2cos1+Z1cos2)
+B5,theta=45.0,S energy share negligible at 45.0,true,true,n/a,n/a,True,"|rS| does NOT converge here; its energy share -> 0 like C44, so it must not be quoted as a coefficient"
+B5,acoustic limit C44=1e-6 Pa; fluid media; theta=60.0,rP at 60.0,0.41523674020298001880808280309466946921787969329783,0.41523673897038987153047325887558097276578087799687,1.23259e-9,1e-8,True,scalar Fresnel r=(Z2cos1-Z1cos2)/(Z2cos1+Z1cos2)
+B5,theta=60.0,S energy share negligible at 60.0,true,true,n/a,n/a,True,"|rS| does NOT converge here; its energy share -> 0 like C44, so it must not be quoted as a coefficient"
+B6,"theta=89.0, grazing limit",rP at 89.0,-1,-0.91436920843896326224475605192361673541859926467448,0.0856308,0.1,True,|1 + r_P| shrinks with (90 - theta); the bound is stated per angle rather than chosen to fit
+B6,"theta=89.9, grazing limit",rP at 89.9,-1,-0.99108588760120617200034338213263796646526566782988,0.00891411,0.015,True,|1 + r_P| shrinks with (90 - theta); the bound is stated per angle rather than chosen to fit
+B6,"theta=89.99, grazing limit",rP at 89.99,-1,-0.99910499067411990340809204612213626724856621935858,0.000895009,0.0015,True,|1 + r_P| shrinks with (90 - theta); the bound is stated per angle rather than chosen to fit
+B7,"soft solid into steel; P-critical 19.464 deg, SV-critical 38.0855 deg; theta=10.000 (below both critical angles)",transmitted P status at 10.000,propagating,propagating,n/a,categorical,True,beyond its critical angle the transmitted branch is evanescent and must carry no energy
+B7,theta=10.000,transmitted SV status at 10.000,propagating,propagating,n/a,categorical,True,
+B7,theta=10.000,R+T at 10.000,1,1.0,0.0,1e-40,True,closure is independent of which channels propagate
+B7,theta=10.000 (below both critical angles),total transmitted energy share at 10.000,&lt;= 1,0.18663646,n/a,n/a,True,transmitted share can never exceed the incident flux
+B7,"soft solid into steel; P-critical 19.464 deg, SV-critical 38.0855 deg; theta=18.964 (just below the P-critical angle)",transmitted P status at 18.964,propagating,propagating,n/a,categorical,True,beyond its critical angle the transmitted branch is evanescent and must carry no energy
+B7,theta=18.964,transmitted SV status at 18.964,propagating,propagating,n/a,categorical,True,
+B7,theta=18.964,R+T at 18.964,1,1.0,1.33638e-51,1e-40,True,closure is independent of which channels propagate
+B7,theta=18.964 (just below the P-critical angle),total transmitted energy share at 18.964,&lt;= 1,0.14669554,n/a,n/a,True,transmitted share can never exceed the incident flux
+B7,"soft solid into steel; P-critical 19.464 deg, SV-critical 38.0855 deg; theta=19.964 (just above the P-critical angle)",transmitted P status at 19.964,evanescent,evanescent,n/a,categorical,True,beyond its critical angle the transmitted branch is evanescent and must carry no energy
+B7,theta=19.964,transmitted SV status at 19.964,propagating,propagating,n/a,categorical,True,
+B7,theta=19.964,R+T at 19.964,1,1.0,1.33638e-51,1e-40,True,closure is independent of which channels propagate
+B7,theta=19.964 (just above the P-critical angle),total transmitted energy share at 19.964,&lt;= 1,0.10538608,n/a,n/a,True,transmitted share can never exceed the incident flux
+B7,"soft solid into steel; P-critical 19.464 deg, SV-critical 38.0855 deg; theta=37.586 (just below the SV-critical angle)",transmitted P status at 37.586,evanescent,evanescent,n/a,categorical,True,beyond its critical angle the transmitted branch is evanescent and must carry no energy
+B7,theta=37.586,transmitted SV status at 37.586,propagating,propagating,n/a,categorical,True,
+B7,theta=37.586,R+T at 37.586,1,1.0,0.0,1e-40,True,closure is independent of which channels propagate
+B7,theta=37.586 (just below the SV-critical angle),total transmitted energy share at 37.586,&lt;= 1,0.10649819,n/a,n/a,True,transmitted share can never exceed the incident flux
+B7,"soft solid into steel; P-critical 19.464 deg, SV-critical 38.0855 deg; theta=38.586 (above both critical angles)",transmitted P status at 38.586,evanescent,evanescent,n/a,categorical,True,beyond its critical angle the transmitted branch is evanescent and must carry no energy
+B7,theta=38.586,transmitted SV status at 38.586,evanescent,evanescent,n/a,categorical,True,
+B7,theta=38.586,R+T at 38.586,1,1.0,0.0,1e-40,True,closure is independent of which channels propagate
+B7,theta=38.586 (above both critical angles),total transmitted energy share at 38.586,&lt;= 1,0.0,n/a,n/a,True,transmitted share can never exceed the incident flux
+B8,"linearity: the boundary system is linear in the amplitudes, so coefficients are scale-free",coefficients invariant under modal scale (1000000.0 + 0.0j),true,true,n/a,n/a,True,checked exactly; a non-zero difference would mean the solver depends on an arbitrary mode normalisation
+B8,"linearity: the boundary system is linear in the amplitudes, so coefficients are scale-free",coefficients invariant under modal scale (0.0 + 0.000000001000000000000000062281591457779856418897068692786j),true,true,n/a,n/a,True,checked exactly; a non-zero difference would mean the solver depends on an arbitrary mode normalisation
+B8,"linearity: the boundary system is linear in the amplitudes, so coefficients are scale-free",coefficients invariant under modal scale (3.0 + 4.0j),true,true,n/a,n/a,True,checked exactly; a non-zero difference would mean the solver depends on an arbitrary mode normalisation
+B9,non-dissipative interface; theta1=10.0,R+T (1->2) at 10.0,1,1.0,2.67276e-51,1e-40,True,closure is mandatory in BOTH directions
+B9,theta2=9.503148881,R+T (2->1) at 10.0,1,1.0,2.67276e-51,1e-40,True,
+B9,"theta1=10.0, theta2=9.503148881",energy reciprocity is NOT expected for P-SV,|R12 - R21| non-zero but bounded,5.20509e-5,n/a,0 < diff < 1e-2,True,"recorded as a REFUTED expectation rather than deleted: the asymmetry is a property of two-branch P-SV conversion, confirmed against a scalar control"
+B9,non-dissipative interface; theta1=30.0,R+T (1->2) at 30.0,1,1.0,2.67276e-51,1e-40,True,closure is mandatory in BOTH directions
+B9,theta2=28.38485766,R+T (2->1) at 30.0,1,1.0,2.67276e-51,1e-40,True,
+B9,"theta1=30.0, theta2=28.38485766",energy reciprocity is NOT expected for P-SV,|R12 - R21| non-zero but bounded,0.000361173,n/a,0 < diff < 1e-2,True,"recorded as a REFUTED expectation rather than deleted: the asymmetry is a property of two-branch P-SV conversion, confirmed against a scalar control"
+B9,non-dissipative interface; theta1=45.0,R+T (1->2) at 45.0,1,1.0,0.0,1e-40,True,closure is mandatory in BOTH directions
+B9,theta2=42.24524792,R+T (2->1) at 45.0,1,1.0,0.0,1e-40,True,
+B9,"theta1=45.0, theta2=42.24524792",energy reciprocity is NOT expected for P-SV,|R12 - R21| non-zero but bounded,0.000303169,n/a,0 < diff < 1e-2,True,"recorded as a REFUTED expectation rather than deleted: the asymmetry is a property of two-branch P-SV conversion, confirmed against a scalar control"
+B9b,"acoustic control, theta1=10.0",R12 - R21 at 10.0,0,-0.0000000000076017299963716258741489453233008773745833726820352,7.60173e-12,1e-9,True,with ONE reflected branch the interface is reciprocal; this isolates the P-SV asymmetry in B9 as physics rather than a solver defect
+B9b,"acoustic control, theta1=30.0",R12 - R21 at 30.0,0,-0.000000000069457540352480581086951764730975605963638484865847,6.94575e-11,1e-9,True,with ONE reflected branch the interface is reciprocal; this isolates the P-SV asymmetry in B9 as physics rather than a solver defect
+B9b,"acoustic control, theta1=45.0",R12 - R21 at 45.0,0,-0.00000000015871041132868599759539073956096924902756797961864,1.5871e-10,1e-9,True,with ONE reflected branch the interface is reciprocal; this isolates the P-SV asymmetry in B9 as physics rather than a solver defect
+B10,"legacy Phase 1B solver, normal incidence",legacy rP vs closed form,0.46619801569721911155780680647318560653722216394241,0.46619801569721914,2.53635e-17,1e-6,True,the reflected amplitude IS correct in the legacy solver
+B10,"legacy Phase 1B solver, normal incidence",legacy tP has the WRONG SIGN,opposite sign to the closed form,"wrong sign, as expected",8.09e-17,1e-6,True,|t| is correct while its sign is inverted; energy tests are blind to this because R and T depend on |amplitude|^2

@@ -1,284 +1,284 @@
 {
-  "schema_version": "1.0",
-  "generated_utc": "2026-11-04T11:09:54+00:00",
-  "phase": "1C",
-  "base_commit_verified": "127eba77f397be6baaf7b24fc5b8607a903d402b",
-  "claims": {
-    "total": 49,
-    "status_counts": {
-      "VERIFIED_STRONG": 32,
-      "VERIFIED_WEAK": 10,
-      "UNVERIFIED": 5,
-      "INVALID": 2
-    },
-    "bound_to_code": 38,
-    "negative_bindings": 8,
-    "audit": "evidence/phase_01_claim_audit.md",
-    "findings": {
-      "U-11-1": {
-        "severity": "HIGH",
-        "summary": "C1 claimed a symbolic null space it no longer computes",
-        "closure": "claim stays UNVERIFIED; real computation added as test EIG03/EIG04"
-      },
-      "U-11-2": {
-        "severity": "HIGH",
-        "summary": "passivity test could not fail; reported 0.0 was the initialiser",
-        "closure": "VERIFIED_WEAK; falsifiable test with a negative control added as IFC01"
-      },
-      "U-11-3": {
-        "severity": "MEDIUM",
-        "summary": "A2 scope overstated (26 of 33 additive terms)",
-        "closure": "restated VERIFIED_WEAK; full dimensional coverage added as DIM01"
-      },
-      "U-11-4": {
-        "severity": "MEDIUM",
-        "summary": "withdrawn tau_q causality floor still printed in governing_equations.tex",
-        "closure": "OPEN as BLK-DOC-01"
-      },
-      "U-11-5": {
-        "severity": "MEDIUM",
-        "summary": "beta/p ASSUMED; figures not regenerable",
-        "closure": "OPEN as BLK-G1"
-      },
-      "U-11-6": {
-        "severity": "INFO",
-        "summary": "antisymmetry identity passed while the flux was wrong",
-        "closure": "recorded; the balance oracle is the real test"
-      }
-    },
-    "phase_1d_note": "Tallies re-derived from evidence/claim_registry.csv in Phase 1D. Four changes: CLM-D2-01 moved UNRESOLVED -> VERIFIED_STRONG after the flux correction (tolerance unchanged); CLM-LS-01 ADDED as VERIFIED_STRONG to record the resolved Lord-Shulman stored-energy question; EQ-ENG-02, EQ-ENG-05 and EQ-EIG-01 moved to VERIFIED_STRONG with explicit RETRACTIONS of the earlier \"null-vector direction is accurate only to 1e-5\" diagnosis. No claim was promoted without an executed test and a code binding.",
-    "phase_2a_note": "Phase 2A task 1R added 4 claims (CLM-02A-01..04): 3 VERIFIED_STRONG, 1 VERIFIED_WEAK. CLM-02A-03 is WEAK because the lossless-mode roles are not yet confirmed against an independent elastic solver (BLK-02A-04, Task 3 deliverable)."
+ "schema_version": "1.0",
+ "generated_utc": "2026-11-04T11:09:54+00:00",
+ "phase": "1C",
+ "base_commit_verified": "127eba77f397be6baaf7b24fc5b8607a903d402b",
+ "claims": {
+  "total": 55,
+  "status_counts": {
+   "VERIFIED_STRONG": 38,
+   "VERIFIED_WEAK": 10,
+   "UNVERIFIED": 5,
+   "INVALID": 2
   },
-  "equations": {
-    "total": 41,
-    "status_counts": {
-      "DEFINED_NOT_TESTED": 3,
-      "VERIFIED_STRONG": 17,
-      "INVALID": 3,
-      "VERIFIED_WEAK": 7,
-      "UNRESOLVED": 9,
-      "PARTIAL": 2
-    },
-    "invalid_retained": [
-      "EQ-GOV-12",
-      "EQ-CM-06",
-      "EQ-ENG-09"
-    ]
+  "bound_to_code": 38,
+  "negative_bindings": 8,
+  "audit": "evidence/phase_01_claim_audit.md",
+  "findings": {
+   "U-11-1": {
+    "severity": "HIGH",
+    "summary": "C1 claimed a symbolic null space it no longer computes",
+    "closure": "claim stays UNVERIFIED; real computation added as test EIG03/EIG04"
+   },
+   "U-11-2": {
+    "severity": "HIGH",
+    "summary": "passivity test could not fail; reported 0.0 was the initialiser",
+    "closure": "VERIFIED_WEAK; falsifiable test with a negative control added as IFC01"
+   },
+   "U-11-3": {
+    "severity": "MEDIUM",
+    "summary": "A2 scope overstated (26 of 33 additive terms)",
+    "closure": "restated VERIFIED_WEAK; full dimensional coverage added as DIM01"
+   },
+   "U-11-4": {
+    "severity": "MEDIUM",
+    "summary": "withdrawn tau_q causality floor still printed in governing_equations.tex",
+    "closure": "OPEN as BLK-DOC-01"
+   },
+   "U-11-5": {
+    "severity": "MEDIUM",
+    "summary": "beta/p ASSUMED; figures not regenerable",
+    "closure": "OPEN as BLK-G1"
+   },
+   "U-11-6": {
+    "severity": "INFO",
+    "summary": "antisymmetry identity passed while the flux was wrong",
+    "closure": "recorded; the balance oracle is the real test"
+   }
   },
-  "dependency_graph": {
-    "nodes": 48,
-    "edges": 63,
-    "kinds": {
-      "source": 3,
-      "constant": 4,
-      "equation": 31,
-      "module": 3,
-      "blocker": 7
-    },
-    "integrity": "0 fatal, 0 warnings",
-    "tool": "evidence/impact_analysis.py"
+  "phase_1d_note": "Tallies re-derived from evidence/claim_registry.csv in Phase 1D. Four changes: CLM-D2-01 moved UNRESOLVED -> VERIFIED_STRONG after the flux correction (tolerance unchanged); CLM-LS-01 ADDED as VERIFIED_STRONG to record the resolved Lord-Shulman stored-energy question; EQ-ENG-02, EQ-ENG-05 and EQ-EIG-01 moved to VERIFIED_STRONG with explicit RETRACTIONS of the earlier \"null-vector direction is accurate only to 1e-5\" diagnosis. No claim was promoted without an executed test and a code binding.",
+  "phase_2a_note": "Phase 2A task 1R added 4 claims (CLM-02A-01..04): 3 VERIFIED_STRONG, 1 VERIFIED_WEAK. CLM-02A-03 is WEAK because the lossless-mode roles are not yet confirmed against an independent elastic solver (BLK-02A-04, Task 3 deliverable)."
+ },
+ "equations": {
+  "total": 41,
+  "status_counts": {
+   "DEFINED_NOT_TESTED": 3,
+   "VERIFIED_STRONG": 17,
+   "INVALID": 3,
+   "VERIFIED_WEAK": 7,
+   "UNRESOLVED": 9,
+   "PARTIAL": 2
   },
-  "tests": {
-    "level": "1 (fast)",
-    "total": 36,
-    "PASS": 35,
+  "invalid_retained": [
+   "EQ-GOV-12",
+   "EQ-CM-06",
+   "EQ-ENG-09"
+  ]
+ },
+ "dependency_graph": {
+  "nodes": 48,
+  "edges": 63,
+  "kinds": {
+   "source": 3,
+   "constant": 4,
+   "equation": 31,
+   "module": 3,
+   "blocker": 7
+  },
+  "integrity": "0 fatal, 0 warnings",
+  "tool": "evidence/impact_analysis.py"
+ },
+ "tests": {
+  "level": "1 (fast)",
+  "total": 36,
+  "PASS": 35,
+  "FAIL": 0,
+  "UNRESOLVED": 1,
+  "WITHDRAWN": 0,
+  "NOT_APPLICABLE": 0,
+  "executed_cases": 9292,
+  "zero_case_tests": [
+   "SCT02"
+  ],
+  "by_category": {
+   "1-data-integrity": {
+    "PASS": 3,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "12-claim-traceability": {
+    "PASS": 13,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "11-reproducibility": {
+    "PASS": 5,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "2-dimensional": {
+    "PASS": 1,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "3-thermodynamics": {
+    "PASS": 1,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "5-eigen": {
+    "PASS": 2,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "7-energy-passivity": {
+    "PASS": 1,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "7-energy": {
+    "PASS": 2,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "8-analytical-limits": {
+    "PASS": 2,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "4-matrix-identities": {
+    "PASS": 2,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "6-interface": {
+    "PASS": 1,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "9-scattering": {
+    "PASS": 1,
     "FAIL": 0,
     "UNRESOLVED": 1,
     "WITHDRAWN": 0,
-    "NOT_APPLICABLE": 0,
-    "executed_cases": 9292,
-    "zero_case_tests": [
-      "SCT02"
-    ],
-    "by_category": {
-      "1-data-integrity": {
-        "PASS": 3,
-        "FAIL": 0,
-        "UNRESOLVED": 0,
-        "WITHDRAWN": 0,
-        "NOT_APPLICABLE": 0
-      },
-      "12-claim-traceability": {
-        "PASS": 13,
-        "FAIL": 0,
-        "UNRESOLVED": 0,
-        "WITHDRAWN": 0,
-        "NOT_APPLICABLE": 0
-      },
-      "11-reproducibility": {
-        "PASS": 5,
-        "FAIL": 0,
-        "UNRESOLVED": 0,
-        "WITHDRAWN": 0,
-        "NOT_APPLICABLE": 0
-      },
-      "2-dimensional": {
-        "PASS": 1,
-        "FAIL": 0,
-        "UNRESOLVED": 0,
-        "WITHDRAWN": 0,
-        "NOT_APPLICABLE": 0
-      },
-      "3-thermodynamics": {
-        "PASS": 1,
-        "FAIL": 0,
-        "UNRESOLVED": 0,
-        "WITHDRAWN": 0,
-        "NOT_APPLICABLE": 0
-      },
-      "5-eigen": {
-        "PASS": 2,
-        "FAIL": 0,
-        "UNRESOLVED": 0,
-        "WITHDRAWN": 0,
-        "NOT_APPLICABLE": 0
-      },
-      "7-energy-passivity": {
-        "PASS": 1,
-        "FAIL": 0,
-        "UNRESOLVED": 0,
-        "WITHDRAWN": 0,
-        "NOT_APPLICABLE": 0
-      },
-      "7-energy": {
-        "PASS": 2,
-        "FAIL": 0,
-        "UNRESOLVED": 0,
-        "WITHDRAWN": 0,
-        "NOT_APPLICABLE": 0
-      },
-      "8-analytical-limits": {
-        "PASS": 2,
-        "FAIL": 0,
-        "UNRESOLVED": 0,
-        "WITHDRAWN": 0,
-        "NOT_APPLICABLE": 0
-      },
-      "4-matrix-identities": {
-        "PASS": 2,
-        "FAIL": 0,
-        "UNRESOLVED": 0,
-        "WITHDRAWN": 0,
-        "NOT_APPLICABLE": 0
-      },
-      "6-interface": {
-        "PASS": 1,
-        "FAIL": 0,
-        "UNRESOLVED": 0,
-        "WITHDRAWN": 0,
-        "NOT_APPLICABLE": 0
-      },
-      "9-scattering": {
-        "PASS": 1,
-        "FAIL": 0,
-        "UNRESOLVED": 1,
-        "WITHDRAWN": 0,
-        "NOT_APPLICABLE": 0
-      },
-      "10-convergence": {
-        "PASS": 1,
-        "FAIL": 0,
-        "UNRESOLVED": 0,
-        "WITHDRAWN": 0,
-        "NOT_APPLICABLE": 0
-      }
-    },
-    "report": "validation/evidence/last_run_1.json"
+    "NOT_APPLICABLE": 0
+   },
+   "10-convergence": {
+    "PASS": 1,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   }
   },
-  "foundation_checks_1b": {
-    "integrated": true,
-    "checks": 16,
-    "PASS": 15,
-    "UNRESOLVED": 1,
-    "executed_cases": 151,
-    "process_exit": 1,
-    "note": "REP01 re-runs the whole suite and compares counts"
-  },
-  "mutations": {
-    "total": 11,
-    "detected": 11,
-    "detection_rate_percent": 100.0,
-    "survivors": [],
-    "invalid_detectors": [],
-    "inconclusive": [],
-    "origin_untouched": true,
-    "control_run": "every detector re-run on an unmutated copy; a detector that fires there is rejected",
-    "report": "validation/mutation_tests/last_mutation_run.json"
-  },
-  "manifests": {
-    "count": 3,
-    "reproducible": 3,
-    "experiments": [
-      "EXP-ELASTIC-REF",
-      "EXP-PARITY-FLUX",
-      "EXP-FOUND-01B"
-    ]
-  },
-  "baselines": {
-    "active": "BASELINE-01C-1",
-    "active_level": "CANDIDATE",
-    "retained_rejected": [
-      "BASELINE-01B-1",
-      "BASELINE-01B-2"
-    ],
-    "promotion_allowed": false,
-    "file": "evidence/approved_baselines.json"
-  },
-  "blockers_open": [
-    "BLK-U3",
-    "BLK-G4",
-    "BLK-G5",
-    "BLK-G0",
-    "BLK-G1",
-    "BLK-U5",
-    "BLK-LS-STORAGE",
-    "BLK-DOC-01"
+  "report": "validation/evidence/last_run_1.json"
+ },
+ "foundation_checks_1b": {
+  "integrated": true,
+  "checks": 16,
+  "PASS": 15,
+  "UNRESOLVED": 1,
+  "executed_cases": 151,
+  "process_exit": 1,
+  "note": "REP01 re-runs the whole suite and compares counts"
+ },
+ "mutations": {
+  "total": 11,
+  "detected": 11,
+  "detection_rate_percent": 100.0,
+  "survivors": [],
+  "invalid_detectors": [],
+  "inconclusive": [],
+  "origin_untouched": true,
+  "control_run": "every detector re-run on an unmutated copy; a detector that fires there is rejected",
+  "report": "validation/mutation_tests/last_mutation_run.json"
+ },
+ "manifests": {
+  "count": 3,
+  "reproducible": 3,
+  "experiments": [
+   "EXP-ELASTIC-REF",
+   "EXP-PARITY-FLUX",
+   "EXP-FOUND-01B"
+  ]
+ },
+ "baselines": {
+  "active": "BASELINE-01C-1",
+  "active_level": "CANDIDATE",
+  "retained_rejected": [
+   "BASELINE-01B-1",
+   "BASELINE-01B-2"
   ],
-  "new_defects_found_by_infrastructure": [
-    "build_materials() hard-codes all constants and never read literature/material_constants.csv: an ASSUMED label and a 1000x unit slip were both invisible to every test (now DAT01)",
-    "Al6061 beta differed between code and table by 2.3e-4 (corrected)",
-    "three tauq rows were still sourced to the withdrawn causality floor (provenance corrected, values unchanged)"
+  "promotion_allowed": false,
+  "file": "evidence/approved_baselines.json"
+ },
+ "blockers_open": [
+  "BLK-U3",
+  "BLK-G4",
+  "BLK-G5",
+  "BLK-G0",
+  "BLK-G1",
+  "BLK-U5",
+  "BLK-LS-STORAGE",
+  "BLK-DOC-01"
+ ],
+ "new_defects_found_by_infrastructure": [
+  "build_materials() hard-codes all constants and never read literature/material_constants.csv: an ASSUMED label and a 1000x unit slip were both invisible to every test (now DAT01)",
+  "Al6061 beta differed between code and table by 2.3e-4 (corrected)",
+  "three tauq rows were still sourced to the withdrawn causality floor (provenance corrected, values unchanged)"
+ ],
+ "ci": {
+  "workflow": ".github/workflows/research-validation.yml",
+  "status": "VERIFIED_GREEN",
+  "run_id": 41818854579,
+  "job_id": 126536555964,
+  "head_sha": "9066ec4",
+  "duration_s": 53,
+  "observed": "all 15 steps succeeded, including 'Gate -- contradictions fail, unregistered unknowns fail'",
+  "inference": "the gate step can only pass with zero FAIL and every UNRESOLVED case registered in validation/known_open.json; therefore the remote run had 0 FAIL and exactly one registered unknown (SCT02)",
+  "history": [
+   {
+    "run": 41818228896,
+    "result": "failure",
+    "cause": "actions/setup-python: 'cache: pip' found no requirements.txt/pyproject.toml; fixed with explicit cache-dependency-path"
+   },
+   {
+    "run": 41818366238,
+    "result": "failure",
+    "cause": "Level 1 step exits 2 on unknowns, which CI reads as failure; fixed with validation/ci_gate.py + known_open.json rather than by suppressing the exit code"
+   },
+   {
+    "run": 41818854579,
+    "result": "success",
+    "cause": null
+   }
   ],
-  "ci": {
-    "workflow": ".github/workflows/research-validation.yml",
-    "status": "VERIFIED_GREEN",
-    "run_id": 41818854579,
-    "job_id": 126536555964,
-    "head_sha": "9066ec4",
-    "duration_s": 53,
-    "observed": "all 15 steps succeeded, including 'Gate -- contradictions fail, unregistered unknowns fail'",
-    "inference": "the gate step can only pass with zero FAIL and every UNRESOLVED case registered in validation/known_open.json; therefore the remote run had 0 FAIL and exactly one registered unknown (SCT02)",
-    "history": [
-      {
-        "run": 41818228896,
-        "result": "failure",
-        "cause": "actions/setup-python: 'cache: pip' found no requirements.txt/pyproject.toml; fixed with explicit cache-dependency-path"
-      },
-      {
-        "run": 41818366238,
-        "result": "failure",
-        "cause": "Level 1 step exits 2 on unknowns, which CI reads as failure; fixed with validation/ci_gate.py + known_open.json rather than by suppressing the exit code"
-      },
-      {
-        "run": 41818854579,
-        "result": "success",
-        "cause": null
-      }
-    ],
-    "caveat": "the uploaded artifact could not be downloaded in this sandbox (egress restriction), so the remote tallies are inferred from the gate contract rather than read from the artifact; the job and every step are confirmed from the run view",
-    "promotion_gate_in_ci": "REFUSED, as designed and as expected while blockers are open"
-  },
-  "demonstrations": {
-    "total": 9,
-    "satisfied": 9,
-    "unresolved": [],
-    "report": "validation/evidence/demonstration.json"
-  },
-  "mutation_subset_in_ci": {
-    "mutations": [
-      "M01",
-      "M10"
-    ],
-    "result": "both detected"
-  }
+  "caveat": "the uploaded artifact could not be downloaded in this sandbox (egress restriction), so the remote tallies are inferred from the gate contract rather than read from the artifact; the job and every step are confirmed from the run view",
+  "promotion_gate_in_ci": "REFUSED, as designed and as expected while blockers are open"
+ },
+ "demonstrations": {
+  "total": 9,
+  "satisfied": 9,
+  "unresolved": [],
+  "report": "validation/evidence/demonstration.json"
+ },
+ "mutation_subset_in_ci": {
+  "mutations": [
+   "M01",
+   "M10"
+  ],
+  "result": "both detected"
+ }
 }

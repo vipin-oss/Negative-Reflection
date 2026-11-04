@@ -210,11 +210,14 @@ def test_SCT01_elastic_reference_reproducible():
 def test_SCT02_coupled_solver_absent():
     """The coupled scattering solver does not exist: not a PASS."""
     c = make_case(test_id="SCT02", category="9-scattering",
-                  purpose="Record honestly that coupled R/T/A cannot be evaluated yet",
-                  oracle="none available - no implementation exists",
+                  purpose="Record honestly that coupled R/T/A is NOT yet a validated "
+                          "physical result",
+                  oracle="none available - no independent coupled energy or "
+                         "thermodynamic gate exists",
                   oracle_independent="ABSENT",
-                  fixture="n/a",
-                  expected="the absence is recorded, and the harness refuses to count a "
+                  fixture="n/a - the blocker is a missing independent check, not "
+                          "missing code",
+                  expected="the gap is recorded, and the harness refuses to count a "
                            "zero-execution result as a pass",
                   tolerance=None,
                   tol_justification="no computation is possible, so no tolerance exists. "
@@ -223,6 +226,26 @@ def test_SCT02_coupled_solver_absent():
                   level="1")
 
     def body():
+        # PHASE 2A TASK 2 UPDATE. A coupled solver now exists
+        # (code/scattering/solver.py) and it closes the interface to 2.7e-51.
+        # That does NOT make this a pass: what is still absent is an
+        # INDEPENDENT coupled energy-conservation gate (G4) and an independent
+        # thermodynamic-consistency gate (G5). A converged boundary solve is not
+        # evidence that R, T and A are validated piezothermoelastic quantities,
+        # so the blocker is restated rather than removed. See BLK-02A-13 in
+        # reports/PHASE_02A_TASK2_OPEN_BLOCKERS.md.
+        try:
+            from scattering.solver import EVIDENCE_LABEL  # noqa: F401
+            coupled_exists = True
+        except Exception:                                       # noqa: BLE001
+            coupled_exists = False
+        if coupled_exists:
+            return (UNRESOLVED, 0,
+                    "a coupled solver exists but no independent coupled energy "
+                    "(G4) or thermodynamic (G5) gate exists; coupled amplitudes "
+                    "remain labelled DIAGNOSTIC (BLK-02A-13)",
+                    "closes when a total-field flux computation reproduces the "
+                    "incident flux independently on both sides of the interface")
         has = any(hasattr(fc, n) for n in
                   ("solve_coupled", "scattering_matrix", "mode_match"))
         if has:

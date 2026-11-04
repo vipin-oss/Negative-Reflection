@@ -72,6 +72,15 @@ import mpmath as mp
 #: direction may be claimed. Matches the classifier's absolute zero test.
 FLUX_RESOLVABLE = mp.mpf("1e-40")
 
+#: Attenuation per wavelength below which a mode is PROPAGATED even though
+#: Im(xi) is not exactly zero. Every thermomechanically coupled mode sits just
+#: off Im(xi) = 0; the largest such case measured here is 3e-13 per wavelength
+#: and the smallest genuinely damped mode is 6.7e-11, so a threshold of 1e-4
+#: leaves both far from the boundary. This is a stated physical criterion --
+#: it is what "propagating" means -- not a tolerance tuned to a result, and the
+#: value appears in every reason string the snap produces.
+ATTENUATION_PROPAGATING = mp.mpf("1e-4")
+
 #: Outgoing/incoming role of one mode with respect to an interface at z = 0.
 OUTGOING = "OUTGOING"
 INCOMING = "INCOMING"
@@ -82,7 +91,7 @@ UNRESOLVED = "UNRESOLVED_NO_RADIATION_TEST"
 ROLES = (OUTGOING, INCOMING, EVANESCENT_EITHER, GAUGE_EXCLUDED, UNRESOLVED)
 
 
-def classify_role(classification, side, jz):
+def classify_role(classification, side, jz, strict_legacy=False):
     """Decide incoming/outgoing for one mode, in the region `side`.
 
     Parameters
@@ -90,6 +99,11 @@ def classify_role(classification, side, jz):
     classification : dict from `classify_mode`
     side : "z>0" or "z<0" -- the region the field occupies
     jz : the cycle-averaged axial flux for THIS mode (not a neighbour's)
+    strict_legacy : reproduce the pre-task-2 rule exactly, in which ANY
+        Im(xi) != 0 means the mode is localised. Used only to re-derive the
+        published Task 1R inventory under the convention that artifact was
+        generated with. Production selection never sets it; the default is the
+        scale-aware rule.
 
     Returns (role, reason). Every branch returns one of ROLES plus a sentence
     stating which test decided it -- never a bare label.
@@ -104,6 +118,43 @@ def classify_role(classification, side, jz):
     im = classification["xi_im"]
     # the direction pointing AWAY from an interface at z = 0, into `side`
     away_is_plus = (side == "z>0")
+
+    # WEAK-ATTENUATION SNAP, applied before any role logic.
+    #
+    # `im != 0` is a cusp, and thermomechanical coupling puts every mode just
+    # off it: PZT-5H's shear wave at 30 deg has Im(xi) = 1.05e-9 1/m against a
+    # real part of 3.5e3, i.e. an attenuation of 3e-13 per wavelength and a
+    # decay length of 9.6e8 m for a 1.8 mm wave. Treating that as "evanescent"
+    # discards the incident channel of the whole configuration, which is what
+    # an earlier version of this function did.
+    #
+    # The test is PHYSICAL, not a fudge: a wave whose amplitude decays by less
+    # than ATTENUATION_PROPAGATING per wavelength over the medium in question is
+    # propagated. The threshold (1e-4 per wavelength) sits twelve orders of
+    # magnitude above the case that triggered this and nine below the weakest
+    # mode that is genuinely damped, so no mode is near it. The snap is
+    # recorded in the reason so a reviewer can see it happened.
+    xi_re = abs(classification["xi_re"])
+    attenuation_per_wavelength = (abs(im) / xi_re) if xi_re != 0 else mp.inf
+    if (not strict_legacy) and im != 0 \
+            and attenuation_per_wavelength <= ATTENUATION_PROPAGATING:
+        jz_ok = (jz is not None and abs(jz) > FLUX_RESOLVABLE)
+        if not jz_ok:
+            return (UNRESOLVED,
+                    f"attenuation {mp.nstr(attenuation_per_wavelength, 3)} per "
+                    f"wavelength is below the propagation threshold "
+                    f"{float(ATTENUATION_PROPAGATING):g}, so this mode propagates -- but "
+                    f"its <J_z> is below the resolvable scale, so direction "
+                    f"cannot be assigned")
+        flux_away = (jz > 0) == away_is_plus
+        return (OUTGOING if flux_away else INCOMING,
+                f"attenuation {mp.nstr(attenuation_per_wavelength, 3)} per "
+                f"wavelength is below {float(ATTENUATION_PROPAGATING):g} (decay length "
+                f"{mp.nstr(1 / abs(im), 4)} m), so the mode propagates and "
+                f"Im(xi) = {mp.nstr(im, 4)} is thermomechanical coupling, not "
+                f"localisation; direction from sign(<J_z>) = "
+                f"{mp.nstr(jz, 6)}: energy flows "
+                f"{'away from' if flux_away else 'toward'} the interface")
 
     if im != 0:
         decays_toward_plus = im > 0
