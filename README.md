@@ -1,1 +1,92 @@
-# Negative-Reflection
+# Negative Reflection of Elastic and Coupled Waves — Research Discovery Dossier
+
+> **STATUS: AWAITING INDEPENDENT RESEARCH REVIEW — NOT APPROVED**
+>
+> This is a research-discovery exercise, not a manuscript. Nothing here has been approved, funded or
+> started, and no experimental work is claimed.
+
+Prepared for **Dr. Vipin Gupta**, Department of Mathematics, Gurugram University, Gurugram, India
+(ORCID [0000-0002-5238-1963](https://orcid.org/0000-0002-5238-1963)) · compiled 2026-11-04.
+
+---
+
+## The ten deliverables
+
+| # | Document | Phase | What it establishes |
+|---|----------|-------|---------------------|
+| 01 | [`01_Researcher_Profile.md`](reports/01_Researcher_Profile.md) | 1 | Verified 42-work record, homonym disambiguation, and an explicit map of what is *established* versus *absent* (no guided-wave edge scattering, no ZGV, no experiments). |
+| 02 | [`02_Verified_Literature.xlsx`](reports/02_Verified_Literature.xlsx) | 2 | 60 DOI-verified records in 6 classes, each with a relevance note; plus an excluded-records sheet and the search-method statement. |
+| 03 | [`03_Negative_Reflection_Taxonomy.md`](reports/03_Negative_Reflection_Taxonomy.md) | 2 | Ten phenomena separated by operational tests; four distinct NR mechanisms (M1–M4). Core thesis: *a negative reflection coefficient is neither necessary nor sufficient for negative reflection.* |
+| 04 | [`04_Research_Gap_Evidence.md`](reports/04_Research_Gap_Evidence.md) | 2 | Four graded gaps (GAP-1…4) plus one lemma gap, each with what is established, what is not, how it was searched, and its strength. |
+| 05 | [`05_Physical_Feasibility_Foundation.md`](reports/05_Physical_Feasibility_Foundation.md) | 3 | The mechanism, the flux identity (verified to 5.3 × 10⁻⁷), and three computed premise results in a coupled plate. |
+| 06 | [`06_Candidate_Gap_Matrix.md`](reports/06_Candidate_Gap_Matrix.md) | 4 | Candidates A–J plus four new ones (K–N) scored on nine questions and labelled VERIFIED / PLAUSIBLE / UNVERIFIED / ALREADY INVESTIGATED. |
+| 07 | [`07_Five_Research_Problems.md`](reports/07_Five_Research_Problems.md) | 5 | Five mechanism-distinct problems, P1–P5, each against all 18 required elements. |
+| 08 | [`08_Mathematical_Feasibility_Audit.md`](reports/08_Mathematical_Feasibility_Audit.md) | 6 | 15 checks × 5 problems. No outright rejections; two problems carry a standing auto-reject gate. |
+| 09 | [`09_Comparative_Research_Ranking.md`](reports/09_Comparative_Research_Ranking.md) | 7 | Weighted 0–10 ranking with published arithmetic, a weight-sensitivity test, and the three named awards. |
+| 10 | [`10_RESEARCH_PROPOSAL_FOR_APPROVAL.md`](reports/10_RESEARCH_PROPOSAL_FOR_APPROVAL.md) | 8 | Full design of P1 + P4, P3 as escalation path, and the decision requested from the reviewer. |
+
+## Headline outcome
+
+| Problem | Score | Rank | Recommendation |
+|---|---|---|---|
+| **P1** Bias-tuned NR in a polarized piezoelectric plate | **7.80** | 1 | **Primary — execute** |
+| **P4** NR at a spring-type joint | 7.68 | 2 | **Companion — execute** |
+| P2 Grading as mode-shape control | 7.38 | 3 | Fallback if bias data fail |
+| P3 Higher-order BCs in a strain-gradient plate | 7.30 | 4 | Escalation path, not now |
+| P5 Anisotropic NR criterion in LiNbO₃ | 6.88 | 5 | Not recommended now |
+
+**Awards:** BEST OVERALL **P1** · BEST HIGH-RISK/HIGH-REWARD **P3** · BEST MATHEMATICALLY TRACTABLE **P2** (P4 tied).
+
+## Three computed results that shape everything else
+
+These were obtained in this project, not assumed, and each one closed or opened a research direction:
+
+1. **A forward/backward fold exists in a coupled plate** at f = 1.12975 MHz, k = 809.0 m⁻¹
+   (PZT-5H, 1.5 mm) — the premise of the whole programme, quantified.
+2. **Piezoelectric coupling shifts it by −35.4 %, identically at 0.05, 0.5 and 1.5 mm.** Since
+   Π₁ = e₃₁²/(ε₃₃c₁₁) contains no length, "size-dependent piezoelectric negative reflection" is
+   dimensionally inadmissible. That framing was removed.
+3. **The electrical open/short switch shifts this fold by −0.0006 %** — so "switch the electrode to
+   tune the reflection" is a dead end, killed before a paper was written about it. This is why P1 is
+   built on **DC bias** (a stiffness control) instead.
+
+A fourth result — that the mode's potential is *antisymmetric* through the thickness
+(`reports/figures/fig3b`) — replaced an earlier, wrong explanation ("the potential is nearly uniform")
+that had been written into the working notes. The corrected statement is the one carried forward.
+
+## Reproducing the numbers
+
+```bash
+cd Negative-Reflection
+python3 code/gen_references.py            # -> data/references.csv, data/excluded_records.csv
+python3 code/check_01_elastic_validation.py   # -> data/check_01_elastic_validation.json
+python3 code/check_02_flux_and_zgv.py     # -> data/check_02_flux_and_zgv.json  (~50 s)
+python3 code/make_figures.py              # -> reports/figures/fig1..fig3 (.pdf/.png)
+```
+
+Validation tolerances achieved: 6.3 × 10⁻⁷ (cutoffs vs exact), 5.3 × 10⁻⁷ (dispersion vs exact
+Rayleigh–Lamb), 9.1 × 10⁻⁷ (ZGV vs independent tracker), 8.0 × 10⁻⁹ (mesh convergence),
+5.3 × 10⁻⁷ median (flux identity v_e = P/(2⟨T⟩) = dω/dk). Three real bugs found by these checks are
+recorded in `05` §7.
+
+## Figures
+
+| Figure | Content |
+|---|---|
+| `reports/figures/fig1_dispersion_ve.*` | The S₁/S₂ᵦ fold with the sign of the energy flux; the flux changes sign exactly at the ZGV. No branch tracking used. |
+| `reports/figures/fig2_validation_premise.*` | (a) solver validation against exact theory; (b) f_ZGV ∝ 1/h across four configurations. |
+| `reports/figures/fig3_premise_limits.*` | (a) per-branch electrical sensitivity — most branches are strongly active, this one is not; (b) the mode's antisymmetric potential. |
+
+## Integrity notes
+
+- No paper, title, author, DOI or journal in this dossier was invented. Every DOI was resolved, and
+  one secondary-source attribution was found wrong and **excluded rather than silently corrected**
+  (`data/excluded_records.csv`: `10.1121/1.2932071`).
+- Nothing is claimed to be "unexplored" in an absolute sense. Scopus and Web of Science were not
+  reachable from this environment, so every gap is graded as a *degree of evidence*. The investigator
+  must repeat the search on the subscription indexes before committing.
+- No Q-rank, impact factor or acceptance probability is claimed anywhere.
+- Negative reflection is **not** claimed to exist in any coupled material. Its existence in isotropic
+  plates is established in the literature; the existence of the *fold* in a coupled plate is computed
+  here; whether that fold yields usable negative reflection is the open question the proposal is
+  designed to answer, starting with a cheap go/no-go gate.
