@@ -72,7 +72,7 @@ from scattering.modal import classify_mode
 from scattering.radiation import classify_role
 from scattering.elastic_reference import flux_z, mode_vector, traction
 from scattering.state import (
-    STATE_FIELDS, reference_scales, state_vector, to_dimensionless,
+    STATE_FIELDS, material_mp, reference_scales, state_vector, to_dimensionless,
 )
 
 #: roles admitted into the basis. OUTGOING is decided from `outgoing_status`,
@@ -403,43 +403,73 @@ def assemble(m1, m2, k, w, incident_material=1, incident_branch=None,
                                 "row_max": rowmax, "INCONSISTENT": True})
             continue
 
-        # ---- case 2: gauge-capable rows, tested before the RHS ----------
+        # ---- case 2 (Task 2U repair): the potential row at exact k = 0 ----
         #
-        # THE ORDER OF THESE TWO TESTS MATTERS AND THE FIRST VERSION HAD IT
-        # BACKWARDS. Testing "is the RHS zero?" first and returning early made
-        # the gauge test unreachable whenever the incident wave DID carry the
-        # quantity -- which is the case that needs it most. Measured:
-        # PZT-5H|Al6061 at k = 0 under P incidence kept a phi row whose
-        # right-hand side was -1.0 while the receiving half-space had no
-        # potential in any admitted mode, and the resulting 7x6 system was
-        # inconsistent at 55.25.
+        # THE OLD RULE DELETED THIS ROW WHENEVER ONE SIDE'S BASIS OR THE
+        # INCIDENT WAVE HAD NO POTENTIAL CONTENT (BLK-02A-26). That is the
+        # defect: Al6061 has e = 0, so an incident wave in it has phi = 0
+        # exactly, and the rule then fired for EVERY metal|piezo pair and
+        # returned a transmitted potential that missed the k -> 0 limit by
+        # O(1) (ACPT02 measured |phi|/FS = 0 against limits of 1.5e-5..2.3e-5).
         #
-        # THE RULE. A potential is fixed only through its gradient, so an
-        # overall constant is gauge. A half-space whose admitted basis has no
-        # content in this row has no datum to transmit across the interface.
-        # The interface condition "phi1 = phi2" then imposes the other side's
-        # value -- which is zero only because it is undefined there -- as if it
-        # were a physical boundary datum.
+        # THE CORRECT ROUTE (conditional normal-incidence lemma, Task 2U-V):
+        # at k = 0 Gauss reads i xi D_z = 0, so D_z = 0 identically on shell
+        # and the Dz row is a trivial 0 = 0 (handled by case 1 above). The
+        # potential is then slaved to the mechanical/thermal fields plus ONE
+        # additive constant per half-space, so "phi1 = phi2" is NOT a seventh
+        # independent scattering equation -- it fixes only the RELATIVE
+        # offset C2 - C1 of those constants, leaving exactly one global gauge.
+        # The production route is therefore: solve the 6x6 mechanical/thermal
+        # subsystem for the six outgoing amplitudes, then RECONSTRUCT the
+        # potential with [[phi]] = 0 (see gauge.reconstruct_potential).
         #
-        # SCOPED TO ELECTRIC ROWS ON PURPOSE. Applied to a mechanical row it
-        # deletes exactly the physics this audit exists to protect: the incident
-        # P wave has u_x = 0, so an unscoped test removes u_x and txz -- the
-        # shear rows -- and reproduces the original Task 2 defect in a new
-        # place. Measured: unscoped, Al6061|Al6061 under P incidence reduced to
-        # 4x6 and dropped ux and txz. Displacement has no gauge freedom; u_x = 0
-        # is a physical statement about that wave.
-        #
-        # AND IT IS GATED ON k = 0. The degeneracy that makes this necessary is
-        # exact only at normal incidence: there, the electric governing equation
-        # reduces to e33 u_z - eps33 phi = 0, which forces D_z = i xi (e33 u_z -
-        # eps33 phi) = 0 identically, leaving phi non-unique by a constant.
-        # For any k != 0 the eps11 k^2 term breaks that cancellation and D_z is
-        # nonzero and meaningful. Measured: applied ungated at 30 degrees this
-        # rule removed both phi and Dz from Al6061|PZT-5H, leaving a 6x8 system
-        # and breaking SCTA05. `k` here is the caller's exact mpf, so k == 0 is
-        # an exact test, not a tolerance.
+        # The row is routed to the gauge handler whenever it carries content,
+        # REGARDLESS of which side or of the incident wave supplies it. The
+        # emptiness of a side or of the incident datum is recorded for the
+        # audit trail but is never the reason for the removal. For any k != 0
+        # nothing is removed here: [phi] = [Dz] = 0 are physical ideal
+        # dielectric-contact conditions and all eight rows are kept.
         normal_incidence = (k == 0)
-        if normal_incidence and STATE_FIELDS[i] in ("phi", "Dz"):
+        if normal_incidence and STATE_FIELDS[i] == "Dz" and not row_zero:
+            # Gauss at k = 0 reads i xi D_z = 0, so D_z = 0 for every xi != 0
+            # mode: the row is an IDENTITY on shell, not a boundary condition.
+            # It is removed only after VERIFYING that identity per column,
+            # against each column's own constitutive scale
+            # |e33 xi u_z| + |eps33 xi phi| + |p theta| -- never against the
+            # row's own max, which would make any nonzero noise "physical".
+            worst = mp.mpf(0)
+            for _sd, br, col in cols:
+                side = s1 if _sd == "1" else s2
+                c = material_mp(side.material)
+                xi = side.roots[br]
+                scale = (abs(c["e33"] * xi * col[1])
+                         + abs(c["eps33"] * xi * col[2])
+                         + abs(c["p"] * col[3]))
+                rel = abs(col[6]) / scale if scale > 0 else mp.mpf(0)
+                if rel > worst:
+                    worst = rel
+            if worst <= TRIVIAL_ROW_TOL:
+                _inc_dz = mp.mpf(0)
+                if inc is not None:
+                    _st = inc_side.raw_states[inc]
+                    _mem = mp.sqrt(sum(abs(v) ** 2 for v in _st))
+                    _inc_dz = abs(_st[6]) / _mem if _mem > 0 else mp.mpf(0)
+                removed.append({"row": "Dz",
+                                "reason": "D_z = 0 IDENTICALLY ON SHELL at k=0 "
+                                          "(Gauss i xi D_z = 0 for xi != 0); "
+                                          "verified per column against the "
+                                          "constitutive scale, worst relative "
+                                          f"residual {mp.nstr(worst, 3)}",
+                                "rhs": rhs_val, "rhs_is_zero": rhs_zero,
+                                "row_max": rowmax,
+                                "basis_empty_side1": bool(m1_empty),
+                                "basis_empty_side2": bool(m2_empty),
+                                "incident_empty": bool(_inc_dz <= _tol),
+                                "on_shell_worst_rel": worst,
+                                "GAUGE_ONLY": True})
+                continue
+            # else fall through: the row carries real content, keep it
+        if normal_incidence and STATE_FIELDS[i] == "phi" and not row_zero:
             inc_empty = False
             if inc is not None:
                 _st = inc_side.states[inc]
@@ -447,25 +477,24 @@ def assemble(m1, m2, k, w, incident_material=1, incident_branch=None,
                                    for k2 in range(len(STATE_FIELDS))))
                 inc_empty = (abs(_st[i]) / _mem if _mem > 0
                              else mp.mpf(0)) <= _tol
-            if (m1_empty != m2_empty) or inc_empty:
-                if m1_empty != m2_empty:
-                    carried = "medium 2" if m1_empty else "medium 1"
-                    datside = "medium 1" if m1_empty else "medium 2"
-                else:
-                    carried, datside = "both media", "the incident wave"
-                removed.append({"row": STATE_FIELDS[i],
-                                "reason": f"GAUGE, NOT A BOUNDARY CONDITION: "
-                                          f"{carried} carry no content in this "
-                                          f"row and {datside} supplies no "
-                                          f"physical datum, so the row would "
-                                          f"impose zero as if it were one",
-                                "rhs": rhs_val, "rhs_is_zero": rhs_zero,
-                                "row_max": rowmax,
-                                "basis_empty_side1": bool(m1_empty),
-                                "basis_empty_side2": bool(m2_empty),
-                                "incident_empty": bool(inc_empty),
-                                "GAUGE_ONLY": True})
-                continue
+            removed.append({"row": STATE_FIELDS[i],
+                            "reason": "POTENTIAL GAUGE AT k=0, NOT A SCATTERING "
+                                      "EQUATION: at exact normal incidence D_z = 0 "
+                                      "identically and phi is slaved to "
+                                      "(u_z, theta) plus one additive constant "
+                                      "per half-space; [[phi]]=0 fixes only the "
+                                      "relative constant C2-C1 (one global gauge "
+                                      "remains) and is imposed by "
+                                      "gauge.reconstruct_potential after the 6x6 "
+                                      "mechanical/thermal solve. Removal does NOT "
+                                      "depend on basis or incident emptiness",
+                            "rhs": rhs_val, "rhs_is_zero": rhs_zero,
+                            "row_max": rowmax,
+                            "basis_empty_side1": bool(m1_empty),
+                            "basis_empty_side2": bool(m2_empty),
+                            "incident_empty": bool(inc_empty),
+                            "GAUGE_ONLY": True})
+            continue
 
         kept.append(i)
 
@@ -478,6 +507,7 @@ def assemble(m1, m2, k, w, incident_material=1, incident_branch=None,
 
     rank = matrix_rank(B_red) if n_unk else 0
     return {
+        "k": k,
         "B": B_red, "rhs": rhs_red, "B_full": B, "rhs_full": rhs_full,
         "rows_kept": [STATE_FIELDS[i] for i in kept],
         "rows_removed": removed,
@@ -485,6 +515,9 @@ def assemble(m1, m2, k, w, incident_material=1, incident_branch=None,
                               if r.get("INCONSISTENT")],
         "rows_gauge_only": [r["row"] for r in removed
                             if r.get("GAUGE_ONLY")],
+        "potential_rows": [r["row"] for r in removed
+                           if r.get("GAUGE_ONLY") and r["row"] == "phi"
+                           and k == 0],
         "n_equations": len(kept),
         "n_equations_full": len(STATE_FIELDS),
         "n_unknowns": n_unk,

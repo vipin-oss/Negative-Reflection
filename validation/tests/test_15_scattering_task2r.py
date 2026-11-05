@@ -558,11 +558,22 @@ def test_SCTR07_residuals_against_physical_fields():
                 rmx = max(abs(Bm[ii, j]) for j in range(Bm.cols))
                 rr = abs(Am["rhs_full"][ii])
                 if entry.get("GAUGE_ONLY"):
-                    # legitimate only when a side genuinely has no content in
-                    # this row, or the incident datum supplies none
+                    # Legitimate in exactly two routes:
+                    #  (old) a side genuinely has no content in this row, or
+                    #        the incident datum supplies none; OR
+                    #  (Task 2U repair) at exact k = 0 the electric rows are
+                    #        routed to the potential-gauge handler
+                    #        ([[phi]]=0 by relative-constant reconstruction;
+                    #        D_z = 0 on shell), which must NOT depend on
+                    #        basis or incident emptiness -- that was
+                    #        BLK-02A-26. The removal is legitimate there only
+                    #        when the assembly recorded it as a potential row.
+                    task2u = (Am.get("k") == 0
+                              and entry["row"] in Am.get("potential_rows", []))
                     if not (entry.get("basis_empty_side1")
                             or entry.get("basis_empty_side2")
-                            or entry.get("incident_empty")):
+                            or entry.get("incident_empty")
+                            or task2u):
                         ok = False
                         parts.append(f"{lbl} {entry['row']}: gauge removal with "
                                      f"no empty basis and no empty datum")

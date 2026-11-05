@@ -1,29 +1,21 @@
 {
-  "schema_version": "1.0",
-  "purpose": "The enumerated set of cases that are allowed to be non-passing in CI, with a reason and the blocker that owns each one. This exists so that an HONEST unknown does not make CI permanently red, without ever converting an unknown into a pass.",
-  "rules": [
-    "An entry here does NOT make its test pass. The test still reports UNRESOLVED in every report.",
-    "The CI gate passes only if every non-passing case is listed here. Any NEW unresolved or withdrawn case fails the build.",
-    "Any FAIL anywhere always fails the build, listed here or not: a contradiction is never acceptable.",
-    "Adding an entry requires a blocker id in reports/PHASE_01C_OPEN_BLOCKERS.json. An entry whose blocker is closed must be removed, and the gate fails if it is not.",
-    "This file is the only place an unknown may be tolerated. It is not a suppression list and it prints every entry in the job summary."
-  ],
-  "entries": [
-    {
-      "test_id": "SCT02",
-      "status": "UNRESOLVED",
-      "reason": "No coupled piezothermoelastic scattering solver exists, so R/T/A cannot be evaluated. The case exists to say so explicitly rather than to be omitted.",
-      "blocker": "BLK-G5",
-      "since": "2026-11-04",
-      "closes_when": "a coupled solver reproduces the elastic reference (test SCT01) and a numerical energy balance closes"
-    },
-    {
-      "test_id": "ACPT02",
-      "status": "UNRESOLVED",
-      "reason": "The production k=0 reduction returns a transmitted potential that misses the k->0 limit for every metal|piezo pair: 6.3e-4 relative for Al6061|PZT-5H P, and |phi|/FS = 0 against limits of 1.5e-5 to 2.3e-5 for the other three. Cause identified: assembly.py removes the phi row when the INCIDENT wave carries no potential, and Al6061 has e=0 so an incident wave in it has phi=0 exactly. No claim about normal-incidence amplitudes across a metal|piezo interface is asserted while this is open.",
-      "blocker": "BLK-02A-26",
-      "since": "2026-11-05",
-      "closes_when": "the k=0 mode count for a metal|piezo contact is re-derived (BLK-02A-27), [[phi]]=0 is imposed by a route that does not depend on the incident amplitude, and this test's measured disagreement falls below 1e-6 of the field scale"
-    }
-  ]
+ "schema_version": "1.0",
+ "purpose": "The enumerated set of cases that are allowed to be non-passing in CI, with a reason and the blocker that owns each one. This exists so that an HONEST unknown does not make CI permanently red, without ever converting an unknown into a pass.",
+ "rules": [
+  "An entry here does NOT make its test pass. The test still reports UNRESOLVED in every report.",
+  "The CI gate passes only if every non-passing case is listed here. Any NEW unresolved or withdrawn case fails the build.",
+  "Any FAIL anywhere always fails the build, listed here or not: a contradiction is never acceptable.",
+  "Adding an entry requires a blocker id in reports/PHASE_01C_OPEN_BLOCKERS.json. An entry whose blocker is closed must be removed, and the gate fails if it is not.",
+  "This file is the only place an unknown may be tolerated. It is not a suppression list and it prints every entry in the job summary."
+ ],
+ "entries": [
+  {
+   "test_id": "SCT02",
+   "status": "UNRESOLVED",
+   "reason": "No coupled piezothermoelastic scattering solver exists, so R/T/A cannot be evaluated. The case exists to say so explicitly rather than to be omitted.",
+   "blocker": "BLK-G5",
+   "since": "2026-11-04",
+   "closes_when": "a coupled solver reproduces the elastic reference (test SCT01) and a numerical energy balance closes"
+  }
+ ]
 }

@@ -61,8 +61,10 @@ class Mutation:
     rationale: str
     mutate: object = None       # callable(Path root) -> None
     detect: object = None       # callable(Path root) -> (bool detected, str evidence)
-    result: str = ""            # DETECTED / SURVIVOR / INCONCLUSIVE / NOT_RUN
+    result: str = ""            # DETECTED / SURVIVOR / INCONCLUSIVE / NOT_RUN / SUPERSEDED
     evidence: str = ""
+    superseded: str = ""        # non-empty: code the mutation targeted was removed
+                                # by the Task 2U repair; names the covering mutation
 
 
 def copy_repo(dst: Path) -> None:
@@ -1385,13 +1387,13 @@ SUITE = [
              "SCTR01: the u_x and txz rows carry the shear mode",
              "The original Task 2 defect. A row may be dropped only when it is "
              "zero across the basis AND on the incident right-hand side.",
-             mr01_mutate, mr01_detect),
+             mr01_mutate, mr01_detect, superseded="the basis-only row deletion it targeted was removed by the Task 2U repair; the equivalent shear-row defect is MR24"),
     Mutation("MR02", "P-wave u_x = 0 generalised to every mode",
              "code/scattering/assembly.py",
              "SCTR02: a component zero on one wave is not zero on all",
              "The single inference that produced the whole normal-incidence "
              "error.",
-             mr02_mutate, mr02_detect),
+             mr02_mutate, mr02_detect, superseded="the unscoped gauge rule it targeted was removed by the Task 2U repair; the equivalent ux/txz loss is MR24"),
     Mutation("MR03", "quiet rows discarded as if they were empty",
              "code/scattering/roots.py",
              "SCTR03: removal must not change the rank",
@@ -1409,7 +1411,7 @@ SUITE = [
              "SCTR05: a gauge is not a physical non-uniqueness",
              "phi1 = phi2 with one side carrying no potential forces the "
              "transmitted field to zero.",
-             mr05_mutate, mr05_detect),
+             mr05_mutate, mr05_detect, superseded="the old phi-as-boundary-condition rule was removed by the Task 2U repair; the equivalent defect is MR22 (no [[phi]] reconstruction)"),
     Mutation("MR06", "same-sign continuity across the interface",
              "code/scattering/assembly.py",
              "SCTR06: matched media must not reflect",
@@ -1419,7 +1421,7 @@ SUITE = [
              "code/scattering/assembly.py",
              "SCTR07: the physical basis and the incident datum are both checked",
              "A converged solve is not a correct solve.",
-             mr07_mutate, mr07_detect),
+             mr07_mutate, mr07_detect, superseded="the drop-without-checking rule was removed by the Task 2U repair; equivalent defects are MR22/MR23"),
 ]
 
 
@@ -1583,10 +1585,10 @@ def mr17_detect(root: Path) -> tuple:
 # TASK 2T FINAL ACCEPTANCE -- MR18..MR21
 # ===========================================================================
 
-def _run_accept(root: Path, expr: str, timeout=1500):
+def _run_accept(root: Path, expr: str, timeout=1500,
+                test_file="tests/test_18_scattering_task2t_accept.py"):
     r = subprocess.run(
-        [sys.executable, "-m", "pytest",
-         "tests/test_18_scattering_task2t_accept.py", "-q", "--no-header",
+        [sys.executable, "-m", "pytest", test_file, "-q", "--no-header",
          "-p", "no:cacheprovider", "-k", expr],
         cwd=root / "validation", capture_output=True, text=True, timeout=timeout)
     tail = (r.stdout.strip().splitlines() or [""])[-1][:200]
@@ -1669,28 +1671,29 @@ def mr20_detect(root: Path) -> tuple:
 
 
 def mr21_mutate(root: Path) -> None:
-    """Keep the phi row when the incident wave carries no potential.
+    """Re-introduce the incident-amplitude-dependent phi removal (superseded).
 
-    This is the REPAIR, injected as a mutation, to prove the acceptance tests
-    are sensitive to the actual defect: if removing the incident-amplitude test
-    did not change ACPT02, that test would not be measuring the defect.
+    The pre-repair code deleted the phi row when the incident wave carried no
+    potential; that anchor was removed by the Task 2U repair, so this probe
+    now re-injects an incident-dependent condition into the new gauge branch.
+    It is the inverse of MR22 and must be DETECTED (ACPT02 fails), proving the
+    repaired acceptance test still senses the original defect.
     """
     p = root / "code/scattering/assembly.py"
     s = p.read_text()
-    anchor = '            if (m1_empty != m2_empty) or inc_empty:'
+    anchor = '        if normal_incidence and STATE_FIELDS[i] == "phi" and not row_zero:'
     assert anchor in s, "MR21 anchor missing"
     s = s.replace(anchor,
-                  '            if (m1_empty != m2_empty) or (inc_empty and STATE_FIELDS[i] != "phi"):',
+                  '        if normal_incidence and STATE_FIELDS[i] == "phi" and not row_zero \\\n'
+                  '                and (inc is not None and abs(inc_side.states[inc][2]) == 0):',
                   1)
     p.write_text(s)
 
 
 def mr21_detect(root: Path) -> tuple:
-    # the repair should make ACPT02 PASS. A detector that fires when the
-    # mutation makes things BETTER is inverted, so this one is reported
-    # explicitly: it must NOT be detected as a defect.
-    failed, tail = _run_accept(root, "ACPT02")
-    return False, f"repair probe (must not 'fail'): {tail}"
+    # the re-injected incident-dependent removal is a DEFECT now: ACPT02 must
+    # fail on the mutated tree and pass on the pristine control.
+    return _run_accept(root, "ACPT02")
 
 
 SUITE.extend([
@@ -1699,13 +1702,13 @@ SUITE.extend([
              "EQ-02A-GAUGE-A6: the bonded model is not the insulated model",
              "A free relative offset is an interface charge sheet; a bonded "
              "contact has none. Keeping the phi row solvable hides it.",
-             mr08_mutate, mr08_detect),
+             mr08_mutate, mr08_detect, superseded="the old emptiness-conditioned phi rule was removed by the Task 2U repair; the relative-offset defect is MR22"),
     Mutation("MR09", "D_z continuity imposed at k = 0 as bonded",
              "code/scattering/assembly.py",
              "EQ-02A-GAUGE-A6: the discarded row is the insulated condition",
              "Imposing D_z across the interface silently converts a bonded "
              "joint into an insulated one.",
-             mr09_mutate, mr09_detect),
+             mr09_mutate, mr09_detect, superseded="the old emptiness-conditioned Dz rule was removed by the Task 2U repair; the kept-identity-row defect is MR23"),
     Mutation("MR10", "global gauge condition removed from the full system",
              "code/scattering/gauge.py",
              "EQ-02A-GAUGE-A2: exactly one gauge condition is required",
@@ -1780,14 +1783,222 @@ SUITE.extend([
              mr20_mutate, mr20_detect),
 ])
 
-# MR21 is a REPAIR PROBE, not a defect: it removes the incident-amplitude test
-# for phi and must make ACPT02 PASS. It is listed so the mutation report records
-# that the acceptance test is sensitive to the actual defect.
-SUITE_PROBES = [
-    ("MR21", "repair probe: phi row kept regardless of the incident datum",
-     "code/scattering/assembly.py", "ACPT02 must PASS after this repair",
-     mr21_mutate, mr21_detect),
-]
+# MR21 re-injects the incident-amplitude-dependent phi removal that BLK-02A-26
+# recorded (its old anchor was removed by the Task 2U repair). It must be
+# DETECTED: the repaired ACPT02 still senses the original defect.
+SUITE.extend([
+    Mutation("MR21", "incident-amplitude-dependent phi removal re-injected "
+             "(BLK-02A-26 defect)",
+             "code/scattering/assembly.py",
+             "ACPT02 must FAIL on the mutated tree",
+             "The pre-repair rule deleted the phi row when the incident wave "
+             "carried no potential; the repair removed that dependence, and "
+             "this mutation proves the test still catches it.",
+             mr21_mutate, mr21_detect),
+])
+
+
+# ---------------------------------------------------------------------------
+# Task 2U production-path mutations. Each edits the ACTIVE production code
+# path (assembly / radiation / foundation_checks), re-solves through the real
+# production solve, and is detected by a physical observable.
+# ---------------------------------------------------------------------------
+def mr22_mutate(root: Path) -> None:
+    """BLK-02A-26 re-injected: phi routed away but never reconstructed.
+
+    The row is removed at k = 0 exactly as the repaired code does, but the
+    potential_rows bookkeeping is emptied, so gauge.reconstruct_potential is
+    never invoked and [[phi]] = 0 is silently not imposed.
+    """
+    p = root / "code/scattering/assembly.py"
+    s = p.read_text()
+    anchor = ('        "potential_rows": [r["row"] for r in removed\n'
+              '                           if r.get("GAUGE_ONLY") and r["row"] == "phi"\n'
+              '                           and k == 0],')
+    assert anchor in s, "MR22 anchor missing"
+    s = s.replace(anchor, '        "potential_rows": [],', 1)
+    p.write_text(s)
+
+
+def mr22_detect(root: Path) -> tuple:
+    return _run_accept(root, "ACPT02", test_file="tests/test_18_scattering_task2t_accept.py")
+
+
+def mr23_mutate(root: Path) -> None:
+    """The on-shell D_z identity row is kept at k = 0 after all.
+
+    Disables the verified D_z = 0 removal, leaving a 7x6 system at k = 0.
+    """
+    p = root / "code/scattering/assembly.py"
+    s = p.read_text()
+    anchor = '        if normal_incidence and STATE_FIELDS[i] == "Dz" and not row_zero:'
+    assert anchor in s, "MR23 anchor missing"
+    s = s.replace(anchor,
+                  '        if False and normal_incidence and STATE_FIELDS[i] == "Dz" and not row_zero:',
+                  1)
+    p.write_text(s)
+
+
+def mr23_detect(root: Path) -> tuple:
+    return _run_accept(root, "ACPT02 or ACPT07",
+                       test_file="tests/test_18_scattering_task2t_accept.py")
+
+
+def mr24_mutate(root: Path) -> None:
+    """The shear traction row is dropped from every kept system.
+
+    The original Task 2 defect in a new place: txz is never imposed, so the
+    shear channel is unconstrained.
+    """
+    p = root / "code/scattering/assembly.py"
+    s = p.read_text()
+    anchor = """            continue
+
+        kept.append(i)
+
+    B_red = mp.matrix(len(kept), n_unk)"""
+    assert anchor in s, "MR24 anchor missing"
+    s = s.replace(anchor, """            continue
+
+        if STATE_FIELDS[i] != "txz":
+            kept.append(i)
+
+    B_red = mp.matrix(len(kept), n_unk)""", 1)
+    p.write_text(s)
+
+
+def mr24_detect(root: Path) -> tuple:
+    return _run_accept(root, "ACPT07 or ACPT08",
+                       test_file="tests/test_19_scattering_task2u.py")
+
+
+def mr25_mutate(root: Path) -> None:
+    """Incident right-hand side sign flipped.
+
+    Solves s1_out - s2_out = +s_inc instead of -s_inc: a converged but wrong
+    solve, the failure mode the recomputed residuals exist to catch.
+    """
+    p = root / "code/scattering/assembly.py"
+    s = p.read_text()
+    anchor = "            rhs_full[i] = -st[i] / row_scale[i]"
+    assert anchor in s, "MR25 anchor missing"
+    s = s.replace(anchor, "            rhs_full[i] = st[i] / row_scale[i]", 1)
+    p.write_text(s)
+
+
+def mr25_detect(root: Path) -> tuple:
+    return _run_accept(root, "ACPT07 or ACPT08",
+                       test_file="tests/test_19_scattering_task2u.py")
+
+
+def mr26_mutate(root: Path) -> None:
+    """Outgoing and incoming swapped in the flux-based branch of the classifier."""
+    p = root / "code/scattering/radiation.py"
+    s = p.read_text()
+    anchor = "    return (OUTGOING if flux_away else INCOMING,"
+    assert anchor in s, "MR26 anchor missing"
+    s = s.replace(anchor, "    return (INCOMING if flux_away else OUTGOING,", 1)
+    p.write_text(s)
+
+
+def mr26_detect(root: Path) -> tuple:
+    return _run_accept(root, "ACPT07 or ACPT08",
+                       test_file="tests/test_19_scattering_task2u.py")
+
+
+def mr27_mutate(root: Path) -> None:
+    """Lord-Shulman g misplaced: qz = -kappa (i xi Th) * g instead of / g."""
+    p = root / "code/foundation_checks.py"
+    s = p.read_text()
+    anchor = "    qz = -(self.kappa33 * (1j * xi * Th)) / (1.0 - 1j * w * self.tauq)"
+    assert anchor in s, "MR27 anchor missing"
+    s = s.replace(anchor,
+                  "    qz = -(self.kappa33 * (1j * xi * Th)) * (1.0 - 1j * w * self.tauq)",
+                  1)
+    p.write_text(s)
+
+
+_MR27_PROBE = r"""
+import sys
+sys.path.insert(0, "code")
+import mpmath as mp
+import foundation_checks as fc
+mp.mp.dps = 50
+# synthetic omega*tau ~ 2: an algorithmic stress test of the g placement, not a
+# measured relaxation time (tau enlarged 1e6x on purpose)
+m = fc.material_from_table("PZT-5H")
+m.tauq = float(m.tauq) * 1e6
+w = 2 * mp.pi * mp.mpf(10) ** 6
+k = mp.mpf(0)
+worst = mp.mpf(0)
+for xi in m.xi_roots(k, w):
+    if xi == 0:
+        continue
+    from scattering.roots import null_vector_verified
+    r = null_vector_verified(fc.M_mp(m, k, xi, w), 50)
+    if r["vector"] is None or not r.get("ok"):
+        continue
+    a = r["vector"]
+    st = m.stresses(k, xi, w, a)
+    lhs = (1 - 1j * w * m.tauq) * st["qz"]
+    rhs = -m.kappa33 * (1j * xi * a[3])
+    sc = max(abs(rhs), mp.mpf("1e-300"))
+    worst = max(worst, abs(lhs - rhs) / sc)
+print("LS_IDENTITY_WORST", mp.nstr(worst, 6))
+sys.exit(1 if worst > mp.mpf("1e-9") else 0)
+"""
+
+
+def mr27_detect(root: Path) -> tuple:
+    r = subprocess.run([sys.executable, "-c", _MR27_PROBE],
+                       cwd=root, capture_output=True, text=True, timeout=600)
+    tail = (r.stdout.strip().splitlines() or [""])[-1][:200]
+    return r.returncode != 0, tail
+
+
+SUITE.extend([
+    Mutation("MR22", "phi row removed at k=0 but [[phi]]=0 never reconstructed "
+             "(BLK-02A-26 re-injected)",
+             "code/scattering/assembly.py",
+             "ACPT02: the [[phi]] contact residual must be machine zero",
+             "Removing the row without the relative-gauge reconstruction is "
+             "exactly the defect the Task 2U repair removed.",
+             mr22_mutate, mr22_detect),
+    Mutation("MR23", "verified on-shell D_z row kept at k=0 (7x6 system)",
+             "code/scattering/assembly.py",
+             "ACPT02/ACPT07: the k=0 system must be the square 6x6",
+             "Keeping an identity row makes the system overdetermined; solving "
+             "it anyway returns a number that satisfies nothing physical.",
+             mr23_mutate, mr23_detect),
+    Mutation("MR24", "shear traction row dropped from the production assembly",
+             "code/scattering/assembly.py",
+             "ACPT07/ACPT08: shear residuals must be machine zero",
+             "Dropping a physical row to make the system square is the "
+             "forbidden move; the SV channel must be constrained.",
+             mr24_mutate, mr24_detect),
+    Mutation("MR25", "incident RHS sign flipped in the production assembly",
+             "code/scattering/assembly.py",
+             "ACPT07/ACPT08: fields must match the k->0 limit",
+             "A sign-flipped RHS solves to machine residual and is wrong by "
+             "exactly 2x the incident field -- only recomputed physical "
+             "residuals catch it.",
+             mr25_mutate, mr25_detect),
+    Mutation("MR26", "outgoing/incoming swapped in the production radiation "
+             "classifier",
+             "code/scattering/radiation.py",
+             "ACPT07/ACPT08: the selected modes must reproduce the limit",
+             "The incident channel must not be admitted as outgoing; swapping "
+             "the labels changes which wave is driven.",
+             mr26_mutate, mr26_detect),
+    Mutation("MR27", "Lord-Shulman g misplaced (q ~ kappa*g instead of "
+             "kappa/g), probed at synthetic omega*tau ~ 2",
+             "code/foundation_checks.py",
+             "the LS identity (1-i w tau) q = -kappa grad theta must hold",
+             "At the physical omega*tau ~ 1e-6 the misplacement is below every "
+             "tolerance; only a synthetic-tau probe exercises it. Synthetic "
+             "tau is an algorithmic stress test, never a measured property.",
+             mr27_mutate, mr27_detect),
+])
 # ===========================================================================
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
@@ -1812,6 +2023,13 @@ def main(argv=None) -> int:
     try:
         for i, m in enumerate(suite, 1):
             print(f"[{i}/{len(suite)}] {m.mid} {m.title}")
+            if m.superseded:
+                m.result = "SUPERSEDED"
+                m.evidence = m.superseded
+                m.control_fired = False
+                m.control_evidence = "not run: superseded"
+                print(f"         -> SUPERSEDED: {m.superseded[:130]}")
+                continue
             dst = tmp_root / m.mid
             ctl = tmp_root / f"{m.mid}_control"
             try:
@@ -1886,6 +2104,7 @@ def main(argv=None) -> int:
         survivors=[m.mid for m in survivors],
         invalid_detectors=[m.mid for m in inval],
         inconclusive=[m.mid for m in incc],
+        superseded=[m.mid for m in suite if m.result == "SUPERSEDED"],
         mutations=[dict(id=m.mid, title=m.title, target=m.target,
                         detector=m.detector, rationale=m.rationale,
                         result=m.result, evidence=m.evidence,

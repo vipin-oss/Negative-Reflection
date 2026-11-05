@@ -281,6 +281,10 @@ def physical_fields_reduced(sol, system):
     The columns are unit-normalised, so the physical contribution of column j is
     coeff_j / ||col_j||. Getting that divisor wrong understates the field by the
     column norm -- a mistake made once already in `solver.boundary_residuals`.
+
+    At exact k = 0 the potential row is not a scattering equation (see
+    assembly.assemble case 2): the potential is reconstructed here with the
+    relative gauge fixed by [[phi]] = 0, leaving one recorded global gauge.
     """
     s1, s2 = system["side1"], system["side2"]
     a1, a2 = system["admitted1"], system["admitted2"]
@@ -295,7 +299,43 @@ def physical_fields_reduced(sol, system):
         c = sol[len(a1) + j] / norms[len(a1) + j]
         for i in range(8):
             f2[i] += c * s2.raw_states[br][i]
+    if system.get("k") == 0 and "phi" in system.get("potential_rows", []):
+        # [[phi]] = 0 is a statement about the TOTAL fields, and on the
+        # incident side the total includes the incident wave's potential.
+        inc_phi = mp.mpc(0)
+        if system.get("incident_side", 1) == 1 and system.get("incident_branch") is not None:
+            inc_phi = s1.raw_states[system["incident_branch"]][2]
+        f1t = list(f1)
+        f1t[2] = f1[2] + inc_phi
+        f1, f2, c1, c2 = reconstruct_potential(f1t, f2)
+        f1[2] = f1[2] - inc_phi          # report the scattered part, as before
+        system["gauge_constants"] = (c1, c2)
+        system["incident_phi"] = inc_phi
     return f1, f2
+
+
+def reconstruct_potential(f1, f2, global_gauge="side1_zero"):
+    """Impose [[phi]] = 0 on the k = 0 modal fields, modulo one global gauge.
+
+    At k = 0 each half-space's potential is phi_i = phi_i^modes + C_i. The
+    bonded-contact condition phi_1(0) = phi_2(0) fixes only the RELATIVE
+    offset C_2 - C_1 = phi_1^modes - phi_2^modes; adding the same constant to
+    both leaves every physical field invariant, so exactly one global gauge
+    freedom survives. Here it is fixed by C_1 = 0 (`global_gauge="side1_zero"`),
+    and the choice is returned, not hidden.
+
+    Returns (f1, f2, C1, C2) with the constants added to the potential entry.
+    """
+    phi = STATE_FIELDS.index("phi")
+    c1 = mp.mpc(0) if global_gauge == "side1_zero" else None
+    if c1 is None:
+        raise ValueError(f"unknown global gauge fixing {global_gauge!r}")
+    c2 = f1[phi] - f2[phi]
+    f1 = list(f1)
+    f2 = list(f2)
+    f1[phi] = f1[phi] + c1
+    f2[phi] = f2[phi] + c2
+    return f1, f2, c1, c2
 
 
 # ---------------------------------------------------------------------------

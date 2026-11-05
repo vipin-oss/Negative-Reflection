@@ -287,17 +287,27 @@
   {
    "id": "BLK-02A-26",
    "severity": "P0",
-   "status": "OPEN",
-   "title": "The k=0 reduction drops the potential row by an incident-amplitude test and returns a wrong transmitted potential for metal|piezo pairs",
-   "detail": "In assembly.py the row-removal rule fires when inc_empty (the incident wave carries no content in that row) as well as when the basis is empty. Al6061 has e=0, so an incident P or SV wave in it has phi=0 EXACTLY, and the rule then deletes the phi row for every metal|piezoelectric configuration. Measured against the k->0 limit of the full eight-row system, in a basis retaining every admitted mode: Al6061|PZT-5H P is off by 6.3e-4 relative, and Al6061|PZT-5H SV, PZT-5H|Al6061 P and PZT-5H|Al6061 SV are wrong by O(1) (production returns |phi|/FS = 0 where the limit is 1.5e-5 to 2.3e-5). The empty-rhs and empty-basis tests are defensible; the incident-amplitude test is not, because it deletes a row whose right-hand side is zero but whose COLUMNS are not. A single-line repair (keep phi when inc_empty) was applied and measured: it does NOT fix the defect, because the phi row is also removed by the basis_empty test, whose tolerance is an absolute 1e-25 applied to states whose potential component ranges from 0 to 1e15. The correct treatment is to impose [[phi]]=0 explicitly at k=0, which over-determines the 6-mode set (measured 7x6, residual 0.47) and therefore requires re-deriving the k=0 mode count. That derivation is not done. NO claim about normal-incidence amplitudes across a metal|piezo interface may be made until this closes.",
+   "status": "CLOSED",
+   "title": "[CLOSED in Task 2U] The k=0 reduction drops the potential row by an incident-amplitude test and returns a wrong transmitted potential for metal|piezo pairs",
+   "detail": "CLOSED by the Task 2U production repair. The incident/basis-emptiness rule that deleted the phi row at k=0 was removed from assembly.py. At exact k=0 the production route now solves the 6x6 mechanical/thermal subsystem and reconstructs the potential with [[phi]]=0 fixing the relative constant C2-C1 (one recorded global gauge, C1=0); the D_z row is removed only after verifying the on-shell identity D_z=0 per column against each column's constitutive scale. For k != 0 all eight ideal dielectric contact rows are kept. Evidence: ACPT02 now PASSes ([[phi]] residual at machine precision, gauge-aligned potential and all mechanical/thermal fields agree with the k->0 limit to <1e-6, measured phi k-slope ~2) for all four Al6061/PZT-5H pairings plus PZT-5H|BaTiO3, P and SV; ACPT07 measures finite-k 8x8 vs k=0 6x6 convergence per component; ACPT08 reports per-field contact residuals; mutations MR21-MR24 detect the re-injected defect. See reports/PHASE_02A_TASK2U_PRODUCTION_REPAIR.md.",
    "blocks": [
     "normal-incidence amplitudes across metal|piezo",
     "G4 coupled energy conservation",
     "any R/T/A claim"
    ],
    "evidence": "reports/PHASE_02A_TASK2T_FINAL_ACCEPTANCE.md sec.2.3-2.5; validation/tests/test_18_scattering_task2t_accept.py ACPT02 (fails by design, recording the defect)",
-   "promotion_blocked": true,
-   "closed_by": null
+   "promotion_blocked": false,
+   "closed_by": "reports/PHASE_02A_TASK2U_PRODUCTION_REPAIR.md; validation/tests/test_18_scattering_task2t_accept.py ACPT02 (PASS); validation/tests/test_19_scattering_task2u.py ACPT07/ACPT08 (PASS)",
+   "closure_evidence": {
+    "repair": "code/scattering/assembly.py case 2 rewritten: at k=0 the phi row is routed to the potential-gauge handler independent of basis/incident emptiness; D_z row removed only after per-column on-shell verification (worst rel 1e-62); k!=0 keeps all eight dielectric-contact rows. code/scattering/gauge.py reconstruct_potential imposes [[phi]]=0 on total fields, C1=0 global gauge recorded.",
+    "tests": [
+     "ACPT02 PASS (validation/tests/test_18_scattering_task2t_accept.py): [[phi]] residual machine zero, gauge-aligned phi and mech/thermal fields agree with k->0 limit <1e-6, phi k-slope 1.76..2.00",
+     "ACPT07/ACPT08 PASS (validation/tests/test_19_scattering_task2u.py): finite-k 8x8 vs k=0 6x6 per-component convergence; per-field contact residuals",
+     "mutations MR21-MR27 7/7 DETECTED with pristine controls (validation/mutation_tests/last_mutation_run.json)"
+    ],
+    "report": "reports/PHASE_02A_TASK2U_PRODUCTION_REPAIR.md",
+    "residuals": "k=0 solve residuals 0..7.8e-62 at DPS=60; [[phi]]/FS 0..2.1e-70; ACPT02 agreement <1e-6 on all 10 pair/polarisation cases"
+   }
   },
   {
    "id": "BLK-02A-27",
