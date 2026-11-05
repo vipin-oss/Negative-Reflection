@@ -1,0 +1,384 @@
+{
+ "audit": "TASK 2U-V final production acceptance audit (evidence-only)",
+ "commit": "8b3bb9d87da6cb18aa3a2b479a47aec81ad080fb",
+ "branch": "arena/1aa803b8-negative-reflection",
+ "remote_head_verified": "8b3bb9d87da6cb18aa3a2b479a47aec81ad080fb == origin/arena/1aa803b8-negative-reflection == local HEAD; working tree clean",
+ "main_untouched": "origin/main = 07b5ae5c010d953c35f6c6308d240fdf64ce1c35, ancestor of HEAD",
+ "ci_run": {
+  "id": 41994618431,
+  "url": "https://github.com/vipin-oss/Negative-Reflection/actions/runs/41994618431",
+  "conclusion": "success",
+  "steps_verified": [
+   "Level 1 test suite",
+   "Gate -- contradictions fail, unregistered unknowns fail",
+   "Verify evidence manifests",
+   "Mutation suite M01/M10",
+   "Graph integrity"
+  ]
+ },
+ "handoff_incorporated": "handoff/task2uv-20261105 @ 1183d34 merged into branch; handoff evidence re-executed: oracle 10/10+8/8 at 40&70 digits, finite-k mutations 4/4 at both, root certificate 27/27",
+ "files_changed_by_milestone": {
+  "production": [
+   "code/scattering/assembly.py",
+   "code/scattering/gauge.py"
+  ],
+  "tests": [
+   "validation/tests/test_15_scattering_task2r.py",
+   "validation/tests/test_18_scattering_task2t_accept.py",
+   "validation/tests/test_19_scattering_task2u.py",
+   "validation/mutation_tests/run_mutations.py"
+  ],
+  "registries": [
+   "reports/PHASE_01C_OPEN_BLOCKERS.json",
+   "validation/known_open.json"
+  ],
+  "evidence": [
+   "validation/evidence/last_run_1.json",
+   "validation/mutation_tests/last_mutation_run.json",
+   "reports/PHASE_02A_TASK2U_PRODUCTION_REPAIR.md"
+  ]
+ },
+ "k0_audit": {
+  "six_mech_rows_kept": "assembly.py:472-508 route only 'phi'; rows ux,uz,theta,txz,tzz,qz kept (verified per pair: rows_kept=['ux','uz','theta','txz','tzz','qz'])",
+  "matrix_dims_rank": "6x6, rank 6, square=True at k=0 for all 5 pairs x P/SV (dps 40 and 60)",
+  "incident_sign": "assembly.py:329 rhs_full[i] = -st[i]/row_scale[i]; side-2 columns negated assembly.py:321",
+  "outgoing_basis": "assembly.py:80 BASIS_ROLES=('OUTGOING',); radiation.classify_role flux/decay based",
+  "relative_constant": "gauge.py:317-334 reconstruct_potential: c2 = f1[phi]-f2[phi] on TOTAL fields (incident included gauge.py:305-311), c1=0 recorded",
+  "phi_jump_from_fields": "test_18 ACPT02 recomputes |f1tot[phi]-f2[phi]|/FS from production fields; test_19 ACPT08 same; measured 0.0..2.1e-70",
+  "one_global_gauge": "gauge_constants recorded (C1=0, C2-C1 fixed); only the sum C1+C2 free",
+  "Dz_exclusion": "assembly.py:433-470: D_z row removed at k=0 only after per-column on-shell check |Dz|<=1e-25*(|e33 xi uz|+|eps33 xi phi|+|p theta|), measured worst 1e-62",
+  "electrostatic_channel": "at k>0 all 8 rows kept incl. electrostatic (verified k=1e-2,1e-3,1e-4: eq=8, gauge_only=[]); at k=0 the electrostatic sector is the gauge constant itself",
+  "rescale_invariance": "solver.rescale_invariance ok=True worst 2.7e-51 (code/scattering/solver.py:150); manual mech check 0.0, phi differs exactly by C2",
+  "per_field_residuals_dps60_Al|PZT_P": {
+   "ux": "0.0",
+   "uz": "7.78e-62",
+   "phi": "0.0",
+   "theta": "2.58e-56",
+   "txz": "0.0",
+   "tzz": "0.0",
+   "Dz": "1.0",
+   "qz": "8.28e-56"
+  },
+  "solve_residuals": "0 .. 7.8e-62 across 10 cases at dps=60; 0 .. 1.1e-41 at dps=40",
+  "gauge_aligned_phi_vs_limit": "rel 1.09e-61 (dps60), 1.6e-41 (dps40) at k/k_ac=1e-7",
+  "mech_vs_limit_rel": {
+   "theta": "4.21e-12",
+   "txz": "1.0",
+   "tzz": "4.35e-12",
+   "qz": "5.63e-12"
+  }
+ },
+ "k_nonzero_audit": {
+  "all_eight_rows": "k=1e-2,1e-3,1e-4 k/k_ac: rows_kept = all 8 STATE_FIELDS, eq=8 unk=8, rows_gauge_only=[]",
+  "production_vs_independent_finitek": "per-field rel diffs side1/side2 at k=1e-4, dps=50: ux 1.8e-42, uz 2.5e-43, phi 3.4e-42, theta 3.8e-39, txz 5.8e-43, tzz 2.3e-43, Dz 3.4e-42/5.8e-39, qz 4.0e-38"
+ },
+ "tests_review": {
+  "ACPT02": "validation/tests/test_18_scattering_task2t_accept.py: production reduced_system+solve_path+physical_fields_reduced; [phi] recomputed from fields; k-order per component; gauge-aligned phi slope; tol 1e-6; PASS; old-defect controls MR21/MR22 DETECTED",
+  "ACPT07": "validation/tests/test_19_scattering_task2u.py: finite-k 8x8 vs k=0 6x6 per-component with k_order; PASS",
+  "ACPT08": "test_19: per-field residuals each on own scale, [phi] separated from global gauge; PASS",
+  "not_tautological": "production reduced solve vs asy.dielectric_contact_system independent path; MR21/MR22 prove tests fire on the restored defect"
+ },
+ "mutations": {
+  "MR21": {
+   "result": "DETECTED",
+   "control_fired": false,
+   "control_evidence": "1 passed, 5 deselected in 39.37s",
+   "mutated_evidence": "1 failed, 5 deselected in 25.77s"
+  },
+  "MR22": {
+   "result": "DETECTED",
+   "control_fired": false,
+   "control_evidence": "1 passed, 5 deselected in 36.45s",
+   "mutated_evidence": "1 failed, 5 deselected in 38.99s"
+  },
+  "MR23": {
+   "result": "DETECTED",
+   "control_fired": false,
+   "control_evidence": "1 passed, 5 deselected in 37.82s",
+   "mutated_evidence": "1 failed, 5 deselected in 10.64s"
+  },
+  "MR24": {
+   "result": "DETECTED",
+   "control_fired": false,
+   "control_evidence": "2 passed in 29.71s",
+   "mutated_evidence": "2 failed in 6.91s"
+  },
+  "MR25": {
+   "result": "DETECTED",
+   "control_fired": false,
+   "control_evidence": "2 passed in 28.63s",
+   "mutated_evidence": "2 failed in 29.50s"
+  },
+  "MR26": {
+   "result": "DETECTED",
+   "control_fired": false,
+   "control_evidence": "2 passed in 30.68s",
+   "mutated_evidence": "2 failed in 1.77s"
+  },
+  "MR27": {
+   "result": "DETECTED",
+   "control_fired": false,
+   "control_evidence": "LS_IDENTITY_WORST 5.63022e-52",
+   "mutated_evidence": "LS_IDENTITY_WORST 7.12938"
+  }
+ },
+ "superseded": {
+  "MR01": "the basis-only row deletion it targeted was removed by the Task 2U repair; the equivalent shear-row defect is MR24",
+  "MR02": "the unscoped gauge rule it targeted was removed by the Task 2U repair; the equivalent ux/txz loss is MR24",
+  "MR05": "the old phi-as-boundary-condition rule was removed by the Task 2U repair; the equivalent defect is MR22 (no [[phi]] reco",
+  "MR07": "the drop-without-checking rule was removed by the Task 2U repair; equivalent defects are MR22/MR23",
+  "MR08": "the old emptiness-conditioned phi rule was removed by the Task 2U repair; the relative-offset defect is MR22",
+  "MR09": "the old emptiness-conditioned Dz rule was removed by the Task 2U repair; the kept-identity-row defect is MR23"
+ },
+ "mutation_suite_totals": {
+  "total": 50,
+  "detected": 44,
+  "survivors": [],
+  "inconclusive": [],
+  "superseded": [
+   "MR01",
+   "MR02",
+   "MR05",
+   "MR07",
+   "MR08",
+   "MR09"
+  ],
+  "origin_untouched": true
+ },
+ "suite": {
+  "total": 108,
+  "PASS": 107,
+  "FAIL": 0,
+  "UNRESOLVED": 1,
+  "WITHDRAWN": 0,
+  "NOT_APPLICABLE": 0,
+  "executed_cases": 10539,
+  "zero_case_tests": [
+   "SCT02"
+  ],
+  "commit": "1183d34b13ca01321696f57621f53c13a444499e",
+  "by_category": {
+   "1-data-integrity": {
+    "PASS": 10,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "12-claim-traceability": {
+    "PASS": 14,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "11-reproducibility": {
+    "PASS": 6,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "2-dimensional": {
+    "PASS": 1,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "3-thermodynamics": {
+    "PASS": 4,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "5-eigen": {
+    "PASS": 2,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "7-energy-passivity": {
+    "PASS": 2,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "7-energy": {
+    "PASS": 3,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "8-analytical-limits": {
+    "PASS": 2,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "4-matrix-identities": {
+    "PASS": 2,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "6-interface": {
+    "PASS": 1,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "9-scattering": {
+    "PASS": 5,
+    "FAIL": 0,
+    "UNRESOLVED": 1,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "10-convergence": {
+    "PASS": 1,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "5-energy": {
+    "PASS": 4,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "provenance": {
+    "PASS": 4,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "classification": {
+    "PASS": 5,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "convention": {
+    "PASS": 1,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "numerics": {
+    "PASS": 1,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "selection": {
+    "PASS": 1,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "data-integrity": {
+    "PASS": 2,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "physics": {
+    "PASS": 1,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "mutation": {
+    "PASS": 1,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "10-classical-elastic": {
+    "PASS": 1,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "6-interface-conditions": {
+    "PASS": 3,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "11-normal-incidence": {
+    "PASS": 7,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "2-physics": {
+    "PASS": 15,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "1-maths": {
+    "PASS": 3,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   },
+   "2-maths": {
+    "PASS": 5,
+    "FAIL": 0,
+    "UNRESOLVED": 0,
+    "WITHDRAWN": 0,
+    "NOT_APPLICABLE": 0
+   }
+  }
+ },
+ "registries": {
+  "BLK-02A-26": {
+   "status": "CLOSED",
+   "closure_evidence_present": true,
+   "closed_by": "reports/PHASE_02A_TASK2U_PRODUCTION_REPAIR.md; validation/tests/test_18_scattering_task2t_accept.py ACPT02 (PASS); validation/tests/test_19_scattering_task2u.py ACPT07/ACPT08 (PASS)",
+   "promotion_blocked": false
+  },
+  "BLK-02A-27": {
+   "status": "OPEN"
+  },
+  "known_open_entries": [
+   "SCT02"
+  ],
+  "G0_G1_G4_G5": {
+   "BLK-G4": null,
+   "BLK-G5": null,
+   "BLK-G0": null,
+   "BLK-G1": null
+  }
+ },
+ "verdicts": {
+  "A_production_implementation_correctness": "PASS",
+  "B_BLK-02A-26_closure": "ACCEPT",
+  "C_readiness_for_BLK-02A-27": "READY"
+ }
+}
