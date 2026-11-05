@@ -1578,6 +1578,121 @@ def mr17_detect(root: Path) -> tuple:
     return _run_sct2t(root, "LIM03 or LIM02")
 
 
+
+# ===========================================================================
+# TASK 2T FINAL ACCEPTANCE -- MR18..MR21
+# ===========================================================================
+
+def _run_accept(root: Path, expr: str, timeout=1500):
+    r = subprocess.run(
+        [sys.executable, "-m", "pytest",
+         "tests/test_18_scattering_task2t_accept.py", "-q", "--no-header",
+         "-p", "no:cacheprovider", "-k", expr],
+        cwd=root / "validation", capture_output=True, text=True, timeout=timeout)
+    tail = (r.stdout.strip().splitlines() or [""])[-1][:200]
+    return r.returncode != 0, tail
+
+
+def mr18_mutate(root: Path) -> None:
+    """Declare a finite potential jump admissible at normal incidence.
+
+    The paper takes the continuous-potential benchmark, so [[phi]] = 0 is
+    required at every k. Treating the k = 0 jump as acceptable because
+    k[phi] = 0 there confuses an undetectable quantity with a permitted one.
+    """
+    p = root / "code/scattering/maxwell.py"
+    s = p.read_text()
+    anchor = ('    DIELECTRIC_CONTACT: {\n'
+              '        "phi": "CONTINUOUS", "Dz": "CONTINUOUS", "sigma_free": "ZERO",')
+    assert anchor in s, "MR18 anchor missing"
+    s = s.replace(anchor,
+                  '    DIELECTRIC_CONTACT: {\n'
+                  '        "phi": "JUMPS_AT_K0", "Dz": "CONTINUOUS",\n'
+                  '        "sigma_free": "ZERO",', 1)
+    p.write_text(s)
+
+
+def mr18_detect(root: Path) -> tuple:
+    # NOT "ACPT01 or ACPT02": ACPT02 already fails on a pristine tree, because
+    # the metal|piezo defect it records is still open. A detector that includes
+    # it fires before the mutation is applied and is reported INVALID. ACPT01
+    # and ACPT06 are green on a pristine tree and both react to the model table.
+    return _run_accept(root, "ACPT01 or ACPT06")
+
+
+def mr19_mutate(root: Path) -> None:
+    """Pick the basis by a fitted threshold instead of a construction.
+
+    A threshold tuned until the answer looks right is what the supervisor
+    forbids. This reintroduces one with a plausible-looking value.
+    """
+    p = root / "code/scattering/asymptotic.py"
+    s = p.read_text()
+    anchor = '    m = max((abs(v) for v in st), default=mp.mpf(0))'
+    assert anchor in s, "MR19 anchor missing"
+    s = s.replace(anchor,
+                  '    _j = side.jzs[br]\n'
+                  '    if _j is not None and abs(_j) > mp.mpf("1e-6"):\n'
+                  '        return [c / mp.sqrt(abs(_j)) for c in st]\n'
+                  + anchor, 1)
+    p.write_text(s)
+
+
+def mr19_detect(root: Path) -> tuple:
+    return _run_accept(root, "ACPT04 or ACPT06")
+
+
+def mr20_mutate(root: Path) -> None:
+    """Report a cross-basis total difference as a solver contradiction.
+
+    Absolute totals MUST differ across bases by the incident amplitude.
+    Reading that as a physical disagreement is the error this checkpoint
+    made and caught.
+    """
+    p = root / "code/scattering/asymptotic.py"
+    s = p.read_text()
+    # The defect has to break the relationship between the reported incident
+    # and the columns ACTUALLY used, in ONE basis. Scaling every basis alike
+    # leaves the cross-basis ratio untouched -- a mutation this file tried
+    # first and had to correct, which is itself the lesson ACPT05 encodes.
+    anchor = '        out["incident"] = inc'
+    assert anchor in s, "MR20 anchor missing"
+    s = s.replace(anchor,
+                  '        out["incident"] = ([c * mp.mpf("1.000001") for c in inc]\n'
+                  '                           if normalisation == "hybrid" else inc)',
+                  1)
+    p.write_text(s)
+
+
+def mr20_detect(root: Path) -> tuple:
+    return _run_accept(root, "ACPT05")
+
+
+def mr21_mutate(root: Path) -> None:
+    """Keep the phi row when the incident wave carries no potential.
+
+    This is the REPAIR, injected as a mutation, to prove the acceptance tests
+    are sensitive to the actual defect: if removing the incident-amplitude test
+    did not change ACPT02, that test would not be measuring the defect.
+    """
+    p = root / "code/scattering/assembly.py"
+    s = p.read_text()
+    anchor = '            if (m1_empty != m2_empty) or inc_empty:'
+    assert anchor in s, "MR21 anchor missing"
+    s = s.replace(anchor,
+                  '            if (m1_empty != m2_empty) or (inc_empty and STATE_FIELDS[i] != "phi"):',
+                  1)
+    p.write_text(s)
+
+
+def mr21_detect(root: Path) -> tuple:
+    # the repair should make ACPT02 PASS. A detector that fires when the
+    # mutation makes things BETTER is inverted, so this one is reported
+    # explicitly: it must NOT be detected as a defect.
+    failed, tail = _run_accept(root, "ACPT02")
+    return False, f"repair probe (must not 'fail'): {tail}"
+
+
 SUITE.extend([
     Mutation("MR08", "relative potential offset treated as free", 
              "code/scattering/assembly.py",
@@ -1643,6 +1758,36 @@ SUITE.extend([
              mr17_mutate, mr17_detect),
 ])
 
+
+
+SUITE.extend([
+    Mutation("MR18", "finite potential jump declared admissible at k=0",
+             "code/scattering/maxwell.py",
+             "EQ-ACPT01/02: the continuous-potential benchmark forbids it",
+             "k[phi]=0 at k=0 makes the jump UNDETECTABLE, not permitted.",
+             mr18_mutate, mr18_detect),
+    Mutation("MR19", "basis chosen by a fitted numeric threshold",
+             "code/scattering/asymptotic.py",
+             "EQ-ACPT04/06: mode retention must not depend on a constant",
+             "A threshold tuned until the answer looks right decides which "
+             "modes exist, which is a physical judgement in numerical clothing.",
+             mr19_mutate, mr19_detect),
+    Mutation("MR20", "incident amplitude pinned, hiding the cross-basis scale",
+             "code/scattering/asymptotic.py",
+             "EQ-ACPT05: totals differ by exactly the incident factor",
+             "Reading that difference as a solver contradiction is the error "
+             "this checkpoint made and caught.",
+             mr20_mutate, mr20_detect),
+])
+
+# MR21 is a REPAIR PROBE, not a defect: it removes the incident-amplitude test
+# for phi and must make ACPT02 PASS. It is listed so the mutation report records
+# that the acceptance test is sensitive to the actual defect.
+SUITE_PROBES = [
+    ("MR21", "repair probe: phi row kept regardless of the incident datum",
+     "code/scattering/assembly.py", "ACPT02 must PASS after this repair",
+     mr21_mutate, mr21_detect),
+]
 # ===========================================================================
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()

@@ -245,15 +245,31 @@
   {
    "id": "BLK-02A-24",
    "severity": "P1",
-   "status": "OPEN",
-   "title": "The production k = 0 reduction enforces potential continuity only to O(k), not exactly",
-   "detail": "Measured worst potential jump on the production k=0 solution is 1.1e-5 of the field scale (Al6061|PZT-5H at P incidence). This is a KNOWN, MEASURED limitation of the reduction: the potential row is not imposed, so continuity is approached at first order rather than satisfied. It is acceptable for the O(1) amplitudes but must be quoted whenever the reduction is described, and it must not be described as exact. EQ-02A-LIM-04 keeps the number measured.",
+   "status": "CLOSED_SUPERSEDED",
+   "title": "SUPERSEDED by BLK-02A-26: not an O(k) accuracy limit of 1.1e-5 but an O(1) wrong answer for metal|piezo pairs",
+   "detail": "The 1.1e-5 potential-jump figure reported in Task 2T was measured with the defective flux basis, which loses non-piezoelectric modes. With a basis that retains every admitted mode the picture is different and worse: the production k=0 potential is correct for piezo|piezo (order-2 convergence) and for non-piezo|non-piezo, and WRONG BY O(1) for metal|piezo, because the phi row is deleted by an incident-amplitude test. See BLK-02A-26.",
    "blocks": [
     "any claim that the reduction is exactly equivalent to the full dielectric contact"
    ],
    "evidence": "EQ-02A-LIM-04; reports/PHASE_02A_TASK2T_NORMAL_INCIDENCE_LIMIT.md sec.5",
    "promotion_blocked": false,
-   "closed_by": null
+   "closed_by": "PHASE_02A_TASK2T_FINAL_ACCEPTANCE",
+   "closure_evidence": {
+    "why_superseded": "the 1.1e-5 figure was measured with asymptotic.dielectric_contact_system's flux basis, which returns None for every purely mechanical mode in a non-piezoelectric material; for Al6061|PZT-5H that is 1 of 8 modes and the resulting reference is not the limit of the interface problem",
+    "measured_with_max_basis": {
+     "Al6061|Al6061 P": "4.9e-13",
+     "PZT-5H|PZT-5H P": "2.1e-13",
+     "PZT-5H|PZT-5H P order": "2.00 over six decades"
+    },
+    "measured_defect": {
+     "Al6061|PZT-5H P": "6.3e-4 relative",
+     "Al6061|PZT-5H SV": "|phi|/FS 0 vs limit 1.5e-5",
+     "PZT-5H|Al6061 P": "|phi|/FS 0 vs limit 1.1e-5",
+     "PZT-5H|Al6061 SV": "|phi|/FS 0 vs limit 1.8e-5"
+    },
+    "conclusion": "not an accuracy limit; an O(1) wrong answer for metal|piezo",
+    "superseded_by": "BLK-02A-26"
+   }
   },
   {
    "id": "BLK-02A-25",
@@ -265,6 +281,59 @@
     "direct evaluation of the k=0 limit"
    ],
    "evidence": "EQ-02A-COND-T1; reports/PHASE_02A_TASK2T_NORMAL_INCIDENCE_LIMIT.md sec.6",
+   "promotion_blocked": false,
+   "closed_by": null
+  },
+  {
+   "id": "BLK-02A-26",
+   "severity": "P0",
+   "status": "OPEN",
+   "title": "The k=0 reduction drops the potential row by an incident-amplitude test and returns a wrong transmitted potential for metal|piezo pairs",
+   "detail": "In assembly.py the row-removal rule fires when inc_empty (the incident wave carries no content in that row) as well as when the basis is empty. Al6061 has e=0, so an incident P or SV wave in it has phi=0 EXACTLY, and the rule then deletes the phi row for every metal|piezoelectric configuration. Measured against the k->0 limit of the full eight-row system, in a basis retaining every admitted mode: Al6061|PZT-5H P is off by 6.3e-4 relative, and Al6061|PZT-5H SV, PZT-5H|Al6061 P and PZT-5H|Al6061 SV are wrong by O(1) (production returns |phi|/FS = 0 where the limit is 1.5e-5 to 2.3e-5). The empty-rhs and empty-basis tests are defensible; the incident-amplitude test is not, because it deletes a row whose right-hand side is zero but whose COLUMNS are not. A single-line repair (keep phi when inc_empty) was applied and measured: it does NOT fix the defect, because the phi row is also removed by the basis_empty test, whose tolerance is an absolute 1e-25 applied to states whose potential component ranges from 0 to 1e15. The correct treatment is to impose [[phi]]=0 explicitly at k=0, which over-determines the 6-mode set (measured 7x6, residual 0.47) and therefore requires re-deriving the k=0 mode count. That derivation is not done. NO claim about normal-incidence amplitudes across a metal|piezo interface may be made until this closes.",
+   "blocks": [
+    "normal-incidence amplitudes across metal|piezo",
+    "G4 coupled energy conservation",
+    "any R/T/A claim"
+   ],
+   "evidence": "reports/PHASE_02A_TASK2T_FINAL_ACCEPTANCE.md sec.2.3-2.5; validation/tests/test_18_scattering_task2t_accept.py ACPT02 (fails by design, recording the defect)",
+   "promotion_blocked": true,
+   "closed_by": null
+  },
+  {
+   "id": "BLK-02A-27",
+   "severity": "P1",
+   "status": "OPEN",
+   "title": "The k=0 mode count itself is unresolved for metal|piezo pairs",
+   "detail": "At k=0 a metal|piezo interface admits 3 modes per side, 6 total. Measured: a system imposing 6 mechanical/thermal rows plus an explicit [[phi]]=0 row is 7x6 with residual 0.47, so the mode set cannot supply 7 conditions. Either a mode is missing from the k=0 count at a metal|piezo contact, or one of the other six conditions is dependent. This is a DERIVATION question about the k=0 limit, not a solver issue. Candidate explanations to test: (a) the 3+3 count is wrong when one side is non-piezoelectric; (b) at k=0 the electrostatic and mechanical problems partially decouple on a metal side, reducing the effective rank.",
+   "blocks": [
+    "BLK-02A-26",
+    "closing the normal-incidence electrical problem"
+   ],
+   "evidence": "reports/PHASE_02A_TASK2T_FINAL_ACCEPTANCE.md sec.2.3, sec.4",
+   "promotion_blocked": true,
+   "closed_by": null
+  },
+  {
+   "id": "BLK-02A-28",
+   "severity": "P1",
+   "status": "OPEN",
+   "title": "hybrid_mode is not adaptive and unit_flux_mode loses modes; max_component_mode replaces both",
+   "detail": "Two independent defects. (1) hybrid_mode's guard `abs(jz) > 0` is ALWAYS true for a piezoelectric mode -- |jz| grows without bound as k falls and is never exactly zero -- so its potential fallback is dead code for exactly the modes it was written to rescue. (2) For a piezoelectric mode sqrt(|jz|) is EXACTLY PROPORTIONAL to |phi|: |jz|/|phi|^2 is constant at 8.722e8 across k/k_ac from 1e-2 to 1e-10, so the 'adaptive' flux branch is a potential normalisation in disguise. Separately, unit_flux_mode DISCARDS every purely mechanical mode in a non-piezoelectric material (sqrt(0) -> None): measured 6 of 8 for Al6061|Al6061 and 7 of 8 for Al6061|PZT-5H. Replaced by max_component_mode, which scales by the largest component: no threshold, no physical judgement, retains all 8 admitted modes in all 48 configurations tested. Consequence: the 6.342e-4 discrepancy Task 2T reported was an artefact of the defective flux REFERENCE, not a property of production; measured with the max basis, Al6061|Al6061 agrees to 4.9e-13 and PZT-5H|PZT-5H to 2.1e-13.",
+   "blocks": [
+    "trustworthy limit measurement"
+   ],
+   "evidence": "reports/PHASE_02A_TASK2T_FINAL_ACCEPTANCE.md sec.3; ACPT04, ACPT05, ACPT06 all pass",
+   "promotion_blocked": false,
+   "closed_by": null
+  },
+  {
+   "id": "BLK-02A-29",
+   "severity": "P1",
+   "status": "OPEN",
+   "title": "The 100x-drift acceptance tolerance used in Task 2T is withdrawn; order of convergence is now asserted instead",
+   "detail": "Task 2T's LIM03 asserted agreement between the reduction and the k->0 limit to within 100x the limit's own measured drift. That tolerance was permissive enough to accept a formulation that saturates at a fixed offset: for metal|piezo the difference stops improving entirely (slope 0, measured 5.22089e-9 constant from k/k_ac=1e-3 down to 1e-6), and a drift-scaled tolerance cannot distinguish that from genuine convergence. Replaced by an asserted asymptotic order measured from log-log slopes: PZT-5H|PZT-5H P shows order 2.00 over six decades (ACPT03, passes). The metal|piezo mirror is required to show NO order, which is what makes ACPT02's failure structural rather than marginal.",
+   "blocks": [],
+   "evidence": "reports/PHASE_02A_TASK2T_FINAL_ACCEPTANCE.md sec.2.5; ACPT03 passes",
    "promotion_blocked": false,
    "closed_by": null
   }

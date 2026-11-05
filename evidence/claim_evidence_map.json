@@ -558,6 +558,36 @@
    "required_tokens": [
     "cond"
    ]
+  },
+  {
+   "claim_id": "CLM-02A-25",
+   "check": "ACPT01",
+   "fn": "test_ACPT01_dipole_layer_requires_nonzero_k",
+   "file": "validation/tests/test_18_scattering_task2t_accept.py",
+   "asserted_quantity": "a potential jump is a dipole layer, detectable only for k != 0",
+   "required_tokens": [
+    "PHI"
+   ]
+  },
+  {
+   "claim_id": "CLM-02A-26",
+   "check": "ACPT03",
+   "fn": "test_ACPT03_order_two_convergence_is_demonstrated",
+   "file": "validation/tests/test_18_scattering_task2t_accept.py",
+   "asserted_quantity": "order-2 convergence for piezo|piezo, none for metal|piezo",
+   "required_tokens": [
+    "slopes"
+   ]
+  },
+  {
+   "claim_id": "CLM-02A-27",
+   "check": "ACPT04",
+   "fn": "test_ACPT04_every_basis_retains_every_admitted_mode",
+   "file": "validation/tests/test_18_scattering_task2t_accept.py",
+   "asserted_quantity": "every admitted mode retained with no threshold",
+   "required_tokens": [
+    "admitted"
+   ]
   }
  ],
  "negative_bindings": [

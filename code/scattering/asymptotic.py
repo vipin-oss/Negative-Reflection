@@ -136,6 +136,48 @@ def hybrid_mode(side, br):
     return None
 
 
+def max_component_mode(side, br):
+    """Scale each mode by its largest component. No threshold, no physics test.
+
+    WHY THE OTHER TWO BASES ARE BOTH WRONG, FOR DIFFERENT REASONS.
+
+    `unit_flux_mode` divides by sqrt(|jz|). That is well defined for a
+    PIEZOELECTRIC mode, but Al6061 has e = 0, so a purely mechanical mode in it
+    has E = 0 and therefore phi = 0 and D_z = 0 EXACTLY. sqrt(0) = 0 and the
+    mode is returned as None -- DISCARDED. Measured: Al6061|Al6061 loses 2 of 8
+    admitted modes, Al6061|PZT-5H loses 1, PZT-5H|PZT-5H loses none. The
+    discarded modes are mechanically essential (they carry t_xz), so those rows
+    become unsatisfiable and any "limit" computed from that basis is not the
+    limit of the interface problem. That is the origin of the 6.342e-4
+    discrepancy Task 2T reported: the REFERENCE was defective, not the
+    reduction.
+
+    `hybrid_mode` was my first attempt at a fix and is also wrong. Its guard is
+    `abs(jz) > 0`, which in exact arithmetic is ALWAYS TRUE for a piezoelectric
+    mode -- |jz| grows without bound as k falls, it is never exactly zero -- so
+    the potential fallback never fires for them. It fires only for the
+    non-piezoelectric modes it was not looking at. Worse, for a piezoelectric
+    mode sqrt(|jz|) is EXACTLY PROPORTIONAL to |phi| (measured: |jz|/|phi|^2 is
+    constant at 8.722e8 across k/k_ac from 1e-2 to 1e-10), so the "adaptive"
+    switch is not adaptive at all and the flux branch degenerates exactly like a
+    potential branch.
+
+    Scaling by the largest component has none of these problems:
+      - it is nonzero for any nonzero modal vector, by construction;
+      - it requires no physical judgement and no threshold;
+      - it keeps every admitted mode, so the system has one column per mode;
+      - the scale is a free per-column constant that the coefficient absorbs,
+        so the reconstructed total field is unaffected by the choice.
+    """
+    st = side.raw_states[br]
+    if st is None:
+        return None
+    m = max((abs(v) for v in st), default=mp.mpf(0))
+    if m == 0:
+        return None
+    return [c / m for c in st]
+
+
 def unit_displacement_mode(side, br, component=1):
     """Rescale so the chosen displacement component is 1 (the code's own gauge).
 
@@ -205,6 +247,10 @@ def dielectric_contact_system(m1, m2, k, w, incident_branch, rows=None,
         "flux"         unit |jz| per mode. k-independent for propagating modes,
                        so it is the basis for MEASURING the limit -- but it
                        drops the near-gauge mode and must not be used to solve.
+        "max"          (RECOMMENDED) scale by the largest component. No
+                       threshold, keeps every admitted mode, works for
+                       non-piezoelectric materials whose mechanical modes carry
+                       phi = Dz = 0 exactly.
         "displacement" the production eigenvector gauge, for comparison only.
 
     Returns a dict with the matrix, right-hand side, the two half-spaces, the
@@ -217,6 +263,7 @@ def dielectric_contact_system(m1, m2, k, w, incident_branch, rows=None,
 
     norm = {"flux": unit_flux_mode,
             "hybrid": hybrid_mode,
+            "max": max_component_mode,
             "displacement": unit_displacement_mode}[normalisation]
     inc = norm(s1, incident_branch)
     if inc is None:

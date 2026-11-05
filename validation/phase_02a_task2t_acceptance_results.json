@@ -1,0 +1,250 @@
+{
+ "task": "PHASE_02A_TASK2T_FINAL_ACCEPTANCE",
+ "branch": "arena/a3ede4fe-negative-reflection",
+ "starting_commit": "929ad6b7d49a9202fda079fb054bf97d8b7ce340",
+ "verdict": "CONDITIONAL ACCEPT",
+ "accepted": [
+  "corrected Maxwell equations",
+  "dimensional-scaling fixes",
+  "recovery of the missing near-gauge channel",
+  "the 1/k normalisation-artefact finding"
+ ],
+ "conditional_because": "the production k=0 reduction is correct for piezo|piezo and non-piezo|non-piezo and wrong by O(1) for metal|piezo, because the phi row is removed by an incident-amplitude test",
+ "q1": {
+  "paper_model": "continuous potential benchmark; interfacial dipole layers NOT permitted",
+  "blueprint_source": "blueprint tex, 'Electrical contact' clause: choose continuous potential benchmark, or charge balance with a passive capacitive gap Dz2-Dz1 = Cs[[phi]]; the paper takes the first",
+  "tangential_vs_potential": "the same condition for k!=0: k[phi]=0. They diverge only at k=0, where the detector degenerates while the quantity remains physical",
+  "finite_jump_admissible": "NO",
+  "not_redundant": "k[phi]=0 degenerating at k=0 does not make [[phi]]=0 vacuous; it makes that equation unable to express it, so it must be imposed another way"
+ },
+ "q2": {
+  "PZT-5H|PZT-5H": {
+   "differences": [
+    "6.00751e-12",
+    "5.40371e-13",
+    "6.00382e-14",
+    "5.40341e-15",
+    "6.00378e-16",
+    "5.40341e-17",
+    "6.00378e-18",
+    "6.00378e-20"
+   ],
+   "local_slopes": [
+    "2.0005",
+    "2.0",
+    "2.0",
+    "2.0",
+    "2.0",
+    "2.0",
+    "2.0"
+   ],
+   "tail_slope": "2.0"
+  },
+  "Al6061|PZT-5H": {
+   "differences": [
+    "5.01011e-9",
+    "5.20191e-9",
+    "5.21877e-9",
+    "5.2207e-9",
+    "5.22086e-9",
+    "5.22088e-9",
+    "5.22089e-9",
+    "5.22089e-9"
+   ],
+   "local_slopes": [
+    "-0.031203",
+    "-0.0029469",
+    "-0.00030571",
+    "-2.9572e-5",
+    "-3.108e-6",
+    "-3.1185e-7",
+    "-2.1204e-8"
+   ],
+   "tail_slope": "-1.147e-6"
+  },
+  "production_vs_limit": {
+   "Al6061|Al6061|P": {
+    "production_phi_over_FS": "0.0",
+    "limit_phi_over_FS": "0.0",
+    "relative_difference": "0.0",
+    "production_rows_kept": [
+     "ux",
+     "uz",
+     "theta",
+     "txz",
+     "tzz",
+     "qz"
+    ],
+    "production_rows_removed": [
+     "phi",
+     "Dz"
+    ]
+   },
+   "Al6061|Al6061|SV": {
+    "production_phi_over_FS": "0.0",
+    "limit_phi_over_FS": "0.0",
+    "relative_difference": "0.0",
+    "production_rows_kept": [
+     "ux",
+     "uz",
+     "theta",
+     "txz",
+     "tzz",
+     "qz"
+    ],
+    "production_rows_removed": [
+     "phi",
+     "Dz"
+    ]
+   },
+   "PZT-5H|PZT-5H|P": {
+    "production_phi_over_FS": "8.2538e-6",
+    "limit_phi_over_FS": "8.2538e-6",
+    "relative_difference": "7.274e-17",
+    "production_rows_kept": [
+     "ux",
+     "uz",
+     "phi",
+     "theta",
+     "txz",
+     "tzz",
+     "qz"
+    ],
+    "production_rows_removed": [
+     "Dz"
+    ]
+   },
+   "PZT-5H|PZT-5H|SV": {
+    "production_phi_over_FS": "0.0",
+    "limit_phi_over_FS": "2.8959e-13",
+    "relative_difference": "1.0",
+    "production_rows_kept": [
+     "ux",
+     "uz",
+     "theta",
+     "txz",
+     "tzz",
+     "qz"
+    ],
+    "production_rows_removed": [
+     "phi",
+     "Dz"
+    ]
+   },
+   "Al6061|PZT-5H|P": {
+    "production_phi_over_FS": "8.2538e-6",
+    "limit_phi_over_FS": "8.2486e-6",
+    "relative_difference": "0.0006325",
+    "production_rows_kept": [
+     "ux",
+     "uz",
+     "theta",
+     "txz",
+     "tzz",
+     "qz"
+    ],
+    "production_rows_removed": [
+     "phi",
+     "Dz"
+    ]
+   },
+   "Al6061|PZT-5H|SV": {
+    "production_phi_over_FS": "0.0",
+    "limit_phi_over_FS": "1.4622e-5",
+    "relative_difference": "1.0",
+    "production_rows_kept": [
+     "ux",
+     "uz",
+     "theta",
+     "txz",
+     "tzz",
+     "qz"
+    ],
+    "production_rows_removed": [
+     "phi",
+     "Dz"
+    ]
+   },
+   "PZT-5H|Al6061|P": {
+    "production_phi_over_FS": "0.0",
+    "limit_phi_over_FS": "1.0986e-5",
+    "relative_difference": "1.0",
+    "production_rows_kept": [
+     "ux",
+     "uz",
+     "theta",
+     "txz",
+     "tzz",
+     "qz"
+    ],
+    "production_rows_removed": [
+     "phi",
+     "Dz"
+    ]
+   },
+   "PZT-5H|Al6061|SV": {
+    "production_phi_over_FS": "0.0",
+    "limit_phi_over_FS": "1.7833e-5",
+    "relative_difference": "1.0",
+    "production_rows_kept": [
+     "ux",
+     "uz",
+     "theta",
+     "txz",
+     "tzz",
+     "qz"
+    ],
+    "production_rows_removed": [
+     "phi",
+     "Dz"
+    ]
+   }
+  }
+ },
+ "q3": {
+  "mode_retention": {
+   "Al6061|Al6061": {
+    "admitted": 8,
+    "flux": 6,
+    "hybrid": 8,
+    "max": 8,
+    "displacement": 6
+   },
+   "PZT-5H|PZT-5H": {
+    "admitted": 8,
+    "flux": 8,
+    "hybrid": 8,
+    "max": 8,
+    "displacement": 8
+   },
+   "Al6061|PZT-5H": {
+    "admitted": 8,
+    "flux": 7,
+    "hybrid": 8,
+    "max": 8,
+    "displacement": 7
+   },
+   "PZT-5H|Al6061": {
+    "admitted": 8,
+    "flux": 7,
+    "hybrid": 8,
+    "max": 8,
+    "displacement": 7
+   }
+  },
+  "hybrid_defects": [
+   "abs(jz)>0 is always true for a piezoelectric mode, so the potential fallback is dead code",
+   "sqrt(|jz|) is exactly proportional to |phi|: |jz|/|phi|^2 constant at 8.722e8 over ten decades"
+  ],
+  "flux_defect": "unit_flux_mode returns None for every purely mechanical mode in a non-piezoelectric material (sqrt(0)=0)",
+  "replacement": "max_component_mode: scale by the largest component, no threshold",
+  "cross_basis": "absolute totals differ by the incident factor (measured 5884.71837416, spread 3.2e-67); component ratios agree to 1e-46",
+  "task2t_6.342e-4_status": "ARTEFACT of the defective flux reference, not a property of production"
+ },
+ "blockers": [
+  "BLK-02A-26",
+  "BLK-02A-27",
+  "BLK-02A-28",
+  "BLK-02A-29"
+ ]
+}

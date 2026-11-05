@@ -4,12 +4,12 @@
  "phase": "1C",
  "base_commit_verified": "127eba77f397be6baaf7b24fc5b8607a903d402b",
  "claims": {
-  "total": 64,
+  "total": 67,
   "status_counts": {
    "INVALID": 2,
    "UNRESOLVED": 1,
    "UNVERIFIED": 5,
-   "VERIFIED_STRONG": 46,
+   "VERIFIED_STRONG": 49,
    "VERIFIED_WEAK": 10
   },
   "bound_to_code": 51,
@@ -52,13 +52,13 @@
   "task2r_note": "Task 2R added 4 claims (CLM-02A-11..14) and 4 equations (EQ-02A-ROOT-01, -RED-01, -GAUGE-01, -RANK-01). CLM-02A-14 is deliberately UNRESOLVED: no energy statement may be derived from amplitudes whose incident datum is an unnormalised state vector. See BLK-02A-18."
  },
  "equations": {
-  "total": 64,
+  "total": 66,
   "status_counts": {
    "DEFINED_NOT_TESTED": 3,
    "INVALID": 3,
    "PARTIAL": 2,
    "UNRESOLVED": 7,
-   "VERIFIED_STRONG": 41,
+   "VERIFIED_STRONG": 43,
    "VERIFIED_WEAK": 8
   },
   "invalid_retained": [
