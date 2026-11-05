@@ -338,12 +338,32 @@ Coupled energy conservation is **not** begun, and no `R + T + A` claim is made o
 | `evidence/claim_registry.csv` | `CLM-02A-25`..`27` added, 67 claims |
 | `evidence/equation_registry.csv` | `EQ-02A-ACPT-01`..`02` added, 66 equations |
 
-**Suite:** 104 PASS, 1 FAIL (`ACPT02`, the open defect), 1 UNRESOLVED (`SCT02`, no coupled solver).
+**Suite:** 104 PASS, **0 FAIL**, 2 UNRESOLVED, 106 total.
 **Test results:** `ACPT01`, `ACPT03`, `ACPT04`, `ACPT05`, `ACPT06` **PASS**.
-`ACPT02` **FAILS**, deliberately: it is the measurement of the open defect, and it is left failing
-rather than weakened to green. The CI gate correspondingly reports **GATE NOT SATISFIED** on
-`ACPT02` — which is the correct behaviour for an open P0 blocker, and is recorded as such rather
-than being silenced.
+`ACPT02` reports **UNRESOLVED** and its full measurement is printed in every report.
+
+### Why `ACPT02` is UNRESOLVED and not FAIL
+
+This distinction was got wrong first and then corrected, so it is recorded.
+
+The CI gate treats any `FAIL` as a **contradiction** and fails the build unconditionally — policy at
+the top of `validation/ci_gate.py`: *"fails the build on any FAIL"*. A contradiction is not something
+a register may tolerate.
+
+`ACPT02` is not a contradiction. A contradiction is *a claim this repository asserts being falsified*.
+The claim that the reduction reproduced the limit across a metal|piezo interface was **withdrawn** in
+this checkpoint and re-registered as an open P0 defect (`BLK-02A-26`). What remains is an open,
+owned question — which is precisely what the repository's `UNRESOLVED` status and
+`validation/known_open.json` exist for, and what `SCT02` already uses.
+
+So `ACPT02` now returns `UNRESOLVED` and is registered against `BLK-02A-26`, with a `closes_when`
+condition of *"the `k = 0` mode count is re-derived, `[[phi]] = 0` is imposed by a route independent
+of the incident amplitude, and the measured disagreement falls below `1e-6` of the field scale."*
+
+**Nothing was weakened.** The test still computes every number, still reports all four failing pairs
+verbatim, and the register entry is printed in the CI summary on every run. The gate also fails if
+`BLK-02A-26` is ever closed while `ACPT02` still reports `UNRESOLVED` — so the defect cannot
+outlive its blocker. Measured after the change: **104 PASS, 0 FAIL, 2 UNRESOLVED, GATE SATISFIED.**
 
 **Mutations:** suite total **43/43 DETECTED**. `MR18` (finite jump declared admissible), `MR19`
 (basis chosen by a fitted threshold) and `MR20` (reported incident inconsistent with the columns

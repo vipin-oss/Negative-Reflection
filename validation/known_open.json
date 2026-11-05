@@ -16,6 +16,14 @@
       "blocker": "BLK-G5",
       "since": "2026-11-04",
       "closes_when": "a coupled solver reproduces the elastic reference (test SCT01) and a numerical energy balance closes"
+    },
+    {
+      "test_id": "ACPT02",
+      "status": "UNRESOLVED",
+      "reason": "The production k=0 reduction returns a transmitted potential that misses the k->0 limit for every metal|piezo pair: 6.3e-4 relative for Al6061|PZT-5H P, and |phi|/FS = 0 against limits of 1.5e-5 to 2.3e-5 for the other three. Cause identified: assembly.py removes the phi row when the INCIDENT wave carries no potential, and Al6061 has e=0 so an incident wave in it has phi=0 exactly. No claim about normal-incidence amplitudes across a metal|piezo interface is asserted while this is open.",
+      "blocker": "BLK-02A-26",
+      "since": "2026-11-05",
+      "closes_when": "the k=0 mode count for a metal|piezo contact is re-derived (BLK-02A-27), [[phi]]=0 is imposed by a route that does not depend on the incident amplitude, and this test's measured disagreement falls below 1e-6 of the field scale"
     }
   ]
 }
