@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
-  "generated_utc": "2026-11-05T08:27:12+00:00",
+  "generated_utc": "2026-11-05T09:43:19+00:00",
   "origin_repo": "/home/user/Negative-Reflection",
   "origin_untouched": true,
-  "total": 50,
-  "detected": 44,
-  "detection_rate_percent": 88.0,
+  "total": 51,
+  "detected": 45,
+  "detection_rate_percent": 88.2,
   "survivors": [],
   "invalid_detectors": [],
   "inconclusive": [],
@@ -168,9 +168,9 @@
       "detector": "the root count must remain 8",
       "rationale": "Dropping the gauge branch loses a genuine mode and corrupts the incoming/outgoing selection.",
       "result": "DETECTED",
-      "evidence": "1 failed in 1.71s",
+      "evidence": "1 failed in 1.57s",
       "control_fired": false,
-      "control_evidence": "1 passed in 1.71s"
+      "control_evidence": "1 passed in 1.45s"
     },
     {
       "id": "M15",
@@ -234,9 +234,9 @@
       "detector": "SCTA03: D_z = -eps33*k makes the mode physical and admissible",
       "rationale": "Found for real: this deleted the electrostatic channel of an elastic half-space while keeping the piezoelectric one.",
       "result": "DETECTED",
-      "evidence": "1 failed in 0.56s",
+      "evidence": "1 failed in 0.69s",
       "control_fired": false,
-      "control_evidence": "1 passed in 0.65s"
+      "control_evidence": "1 passed in 0.53s"
     },
     {
       "id": "M21",
@@ -245,9 +245,9 @@
       "detector": "SCTA04: PZT-5H must retain an incident channel at theta > 0",
       "rationale": "Found for real: no PZT-5H mode was INCOMING at theta > 0, so the coupled problem had no incident wave.",
       "result": "DETECTED",
-      "evidence": "1 failed in 0.74s",
+      "evidence": "1 failed in 0.90s",
       "control_fired": false,
-      "control_evidence": "1 passed in 0.81s"
+      "control_evidence": "1 passed in 0.72s"
     },
     {
       "id": "M22",
@@ -256,9 +256,9 @@
       "detector": "SCTA05: the reconstructed interface field must be continuous",
       "rationale": "Found for real: the solve residual stayed at 1e-37 while the interface was violated by 2x the incident state.",
       "result": "DETECTED",
-      "evidence": "1 failed in 1.72s",
+      "evidence": "1 failed in 1.52s",
       "control_fired": false,
-      "control_evidence": "1 passed in 1.67s"
+      "control_evidence": "1 passed in 1.57s"
     },
     {
       "id": "M23",
@@ -267,9 +267,9 @@
       "detector": "SCTA02: no gauge may enter the basis",
       "rationale": "A null channel must never be counted as a physical amplitude.",
       "result": "DETECTED",
-      "evidence": "1 failed in 3.36s",
+      "evidence": "1 failed in 3.45s",
       "control_fired": false,
-      "control_evidence": "1 passed in 3.06s"
+      "control_evidence": "1 passed in 3.16s"
     },
     {
       "id": "MR01",
@@ -300,9 +300,9 @@
       "detector": "SCTR03: removal must not change the rank",
       "rationale": "A row that is merely SMALL is not a row that is ZERO. Removing it leaves fewer equations than unknowns.",
       "result": "DETECTED",
-      "evidence": "1 failed in 0.88s",
+      "evidence": "1 failed in 0.80s",
       "control_fired": false,
-      "control_evidence": "1 passed in 1.61s"
+      "control_evidence": "1 passed in 1.94s"
     },
     {
       "id": "MR04",
@@ -311,9 +311,9 @@
       "detector": "SCTR04: no two admitted columns may be proportional",
       "rationale": "Two names for one degree of freedom make the coefficients non-unique for no physical reason.",
       "result": "DETECTED",
-      "evidence": "1 failed in 0.69s",
+      "evidence": "1 failed in 0.72s",
       "control_fired": false,
-      "control_evidence": "1 passed in 2.07s"
+      "control_evidence": "1 passed in 2.17s"
     },
     {
       "id": "MR05",
@@ -333,9 +333,9 @@
       "detector": "SCTR06: matched media must not reflect",
       "rationale": "The historical Task 2 sign defect, re-injected.",
       "result": "DETECTED",
-      "evidence": "1 failed in 0.85s",
+      "evidence": "1 failed in 0.88s",
       "control_fired": false,
-      "control_evidence": "1 passed in 0.88s"
+      "control_evidence": "1 passed in 0.75s"
     },
     {
       "id": "MR07",
@@ -377,9 +377,9 @@
       "detector": "EQ-02A-GAUGE-A2: exactly one gauge condition is required",
       "rationale": "Two constants with no fixing row leave a one-parameter family; reporting a unique answer then reports a gauge choice.",
       "result": "DETECTED",
-      "evidence": "1 failed, 6 deselected in 2.80s",
+      "evidence": "1 failed, 6 deselected in 2.71s",
       "control_fired": false,
-      "control_evidence": "1 passed, 6 deselected in 2.96s"
+      "control_evidence": "1 passed, 6 deselected in 2.95s"
     },
     {
       "id": "MR11",
@@ -388,9 +388,9 @@
       "detector": "SCTR04: no two admitted columns may be proportional",
       "rationale": "The measured Task 2S production defect: q_z ~ 1e19 dominates, u_x is annihilated at 1e-14 and distinct columns look identical.",
       "result": "DETECTED",
-      "evidence": "1 failed, 1 passed, 5 deselected in 18.79s",
+      "evidence": "1 failed, 1 passed, 5 deselected in 19.98s",
       "control_fired": false,
-      "control_evidence": "2 passed, 5 deselected in 19.05s"
+      "control_evidence": "2 passed, 5 deselected in 19.50s"
     },
     {
       "id": "MR12",
@@ -399,9 +399,9 @@
       "detector": "EQ-02A-MAXW-01/02: a conductor terminates D_z, it does not transmit it",
       "rationale": "Imposing both potential and D_z continuity on a conductor over-constrains a model whose charge is free.",
       "result": "DETECTED",
-      "evidence": "1 failed, 1 passed, 6 deselected in 3.04s",
+      "evidence": "1 failed, 1 passed, 6 deselected in 2.96s",
       "control_fired": false,
-      "control_evidence": "2 passed, 6 deselected in 2.84s"
+      "control_evidence": "2 passed, 6 deselected in 3.02s"
     },
     {
       "id": "MR13",
@@ -410,9 +410,9 @@
       "detector": "EQ-02A-MAXW-02: the row is dropped only where it is empty",
       "rationale": "Dropping a physical condition to make the system square is the failure mode this task exists to prevent.",
       "result": "DETECTED",
-      "evidence": "2 failed, 6 deselected in 23.10s",
+      "evidence": "2 failed, 6 deselected in 21.72s",
       "control_fired": false,
-      "control_evidence": "2 passed, 6 deselected in 24.26s"
+      "control_evidence": "2 passed, 6 deselected in 21.96s"
     },
     {
       "id": "MR14",
@@ -432,9 +432,9 @@
       "detector": "EQ-02A-MAXW-02/03: a jump is physical, a gauge shift is not",
       "rationale": "A gauge shift adds the same constant to both sides; a jump does not.",
       "result": "DETECTED",
-      "evidence": "1 failed, 1 passed, 6 deselected in 5.16s",
+      "evidence": "1 failed, 1 passed, 6 deselected in 4.87s",
       "control_fired": false,
-      "control_evidence": "2 passed, 6 deselected in 4.84s"
+      "control_evidence": "2 passed, 6 deselected in 4.92s"
     },
     {
       "id": "MR16",
@@ -443,9 +443,9 @@
       "detector": "EQ-02A-LIM-01: the 1/k is a normalisation artefact",
       "rationale": "The original Task 2S error, re-injected.",
       "result": "DETECTED",
-      "evidence": "1 failed, 1 passed, 6 deselected in 25.30s",
+      "evidence": "1 failed, 1 passed, 6 deselected in 25.74s",
       "control_fired": false,
-      "control_evidence": "2 passed, 6 deselected in 26.09s"
+      "control_evidence": "2 passed, 6 deselected in 24.25s"
     },
     {
       "id": "MR17",
@@ -454,9 +454,9 @@
       "detector": "EQ-02A-LIM-02/03: a limit needs a sequence",
       "rationale": "One sample cannot distinguish a limit from a value.",
       "result": "DETECTED",
-      "evidence": "1 failed, 1 passed, 6 deselected in 42.68s",
+      "evidence": "1 failed, 1 passed, 6 deselected in 46.40s",
       "control_fired": false,
-      "control_evidence": "2 passed, 6 deselected in 43.64s"
+      "control_evidence": "2 passed, 6 deselected in 45.27s"
     },
     {
       "id": "MR18",
@@ -465,9 +465,9 @@
       "detector": "EQ-ACPT01/02: the continuous-potential benchmark forbids it",
       "rationale": "k[phi]=0 at k=0 makes the jump UNDETECTABLE, not permitted.",
       "result": "DETECTED",
-      "evidence": "1 failed, 1 passed, 4 deselected in 6.09s",
+      "evidence": "1 failed, 1 passed, 4 deselected in 5.09s",
       "control_fired": false,
-      "control_evidence": "2 passed, 4 deselected in 6.38s"
+      "control_evidence": "2 passed, 4 deselected in 6.45s"
     },
     {
       "id": "MR19",
@@ -476,9 +476,9 @@
       "detector": "EQ-ACPT04/06: mode retention must not depend on a constant",
       "rationale": "A threshold tuned until the answer looks right decides which modes exist, which is a physical judgement in numerical clothing.",
       "result": "DETECTED",
-      "evidence": "1 failed, 1 passed, 4 deselected in 26.01s",
+      "evidence": "1 failed, 1 passed, 4 deselected in 22.55s",
       "control_fired": false,
-      "control_evidence": "2 passed, 4 deselected in 26.27s"
+      "control_evidence": "2 passed, 4 deselected in 25.67s"
     },
     {
       "id": "MR20",
@@ -487,9 +487,9 @@
       "detector": "EQ-ACPT05: totals differ by exactly the incident factor",
       "rationale": "Reading that difference as a solver contradiction is the error this checkpoint made and caught.",
       "result": "DETECTED",
-      "evidence": "1 failed, 5 deselected in 1.66s",
+      "evidence": "1 failed, 5 deselected in 1.93s",
       "control_fired": false,
-      "control_evidence": "1 passed, 5 deselected in 1.80s"
+      "control_evidence": "1 passed, 5 deselected in 1.81s"
     },
     {
       "id": "MR21",
@@ -498,9 +498,9 @@
       "detector": "ACPT02 must FAIL on the mutated tree",
       "rationale": "The pre-repair rule deleted the phi row when the incident wave carried no potential; the repair removed that dependence, and this mutation proves the test still catches it.",
       "result": "DETECTED",
-      "evidence": "1 failed, 5 deselected in 25.77s",
+      "evidence": "1 failed, 5 deselected in 27.00s",
       "control_fired": false,
-      "control_evidence": "1 passed, 5 deselected in 39.37s"
+      "control_evidence": "1 passed, 5 deselected in 40.12s"
     },
     {
       "id": "MR22",
@@ -509,9 +509,9 @@
       "detector": "ACPT02: the [[phi]] contact residual must be machine zero",
       "rationale": "Removing the row without the relative-gauge reconstruction is exactly the defect the Task 2U repair removed.",
       "result": "DETECTED",
-      "evidence": "1 failed, 5 deselected in 38.99s",
+      "evidence": "1 failed, 5 deselected in 39.06s",
       "control_fired": false,
-      "control_evidence": "1 passed, 5 deselected in 36.45s"
+      "control_evidence": "1 passed, 5 deselected in 39.77s"
     },
     {
       "id": "MR23",
@@ -520,9 +520,9 @@
       "detector": "ACPT02/ACPT07: the k=0 system must be the square 6x6",
       "rationale": "Keeping an identity row makes the system overdetermined; solving it anyway returns a number that satisfies nothing physical.",
       "result": "DETECTED",
-      "evidence": "1 failed, 5 deselected in 10.64s",
+      "evidence": "1 failed, 5 deselected in 11.53s",
       "control_fired": false,
-      "control_evidence": "1 passed, 5 deselected in 37.82s"
+      "control_evidence": "1 passed, 5 deselected in 40.70s"
     },
     {
       "id": "MR24",
@@ -531,9 +531,9 @@
       "detector": "ACPT07/ACPT08: shear residuals must be machine zero",
       "rationale": "Dropping a physical row to make the system square is the forbidden move; the SV channel must be constrained.",
       "result": "DETECTED",
-      "evidence": "2 failed in 6.91s",
+      "evidence": "2 failed in 6.23s",
       "control_fired": false,
-      "control_evidence": "2 passed in 29.71s"
+      "control_evidence": "2 passed in 27.95s"
     },
     {
       "id": "MR25",
@@ -542,9 +542,9 @@
       "detector": "ACPT07/ACPT08: fields must match the k->0 limit",
       "rationale": "A sign-flipped RHS solves to machine residual and is wrong by exactly 2x the incident field -- only recomputed physical residuals catch it.",
       "result": "DETECTED",
-      "evidence": "2 failed in 29.50s",
+      "evidence": "2 failed in 29.67s",
       "control_fired": false,
-      "control_evidence": "2 passed in 28.63s"
+      "control_evidence": "2 passed in 30.00s"
     },
     {
       "id": "MR26",
@@ -553,9 +553,9 @@
       "detector": "ACPT07/ACPT08: the selected modes must reproduce the limit",
       "rationale": "The incident channel must not be admitted as outgoing; swapping the labels changes which wave is driven.",
       "result": "DETECTED",
-      "evidence": "2 failed in 1.77s",
+      "evidence": "2 failed in 1.34s",
       "control_fired": false,
-      "control_evidence": "2 passed in 30.68s"
+      "control_evidence": "2 passed in 28.47s"
     },
     {
       "id": "MR27",
@@ -567,6 +567,17 @@
       "evidence": "LS_IDENTITY_WORST 7.12938",
       "control_fired": false,
       "control_evidence": "LS_IDENTITY_WORST 5.63022e-52"
+    },
+    {
+      "id": "MR28",
+      "title": "electrostatic mode dropped at k>0 (labelled GAUGE, deleting the decoupled Laplace branch)",
+      "target": "code/scattering/modal.py",
+      "detector": "ACPT07/ACPT08: the finite-k solve must keep 8 admissible modes and reproduce the k->0 limit",
+      "rationale": "Mislabeling the electrostatic branch as a null gauge channel is exactly the dropped-electrostatic-mode failure mode of Task 2U-W; the finite-k contact solve loses the D_z constraint.",
+      "result": "DETECTED",
+      "evidence": "ADMITTED_TOTAL 7",
+      "control_fired": false,
+      "control_evidence": "ADMITTED_TOTAL 8"
     }
   ]
 }

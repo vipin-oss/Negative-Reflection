@@ -1999,6 +1999,56 @@ SUITE.extend([
              "tau is an algorithmic stress test, never a measured property.",
              mr27_mutate, mr27_detect),
 ])
+
+def mr28_mutate(root: Path) -> None:
+    """Electrostatic mode dropped at k > 0: the decoupled Laplace branch is
+    labelled GAUGE (null channel) instead of ELECTROSTATIC."""
+    p = root / "code/scattering/modal.py"
+    s = p.read_text()
+    anchor = '            spatial = "ELECTROSTATIC"'
+    assert anchor in s, "MR28 anchor missing"
+    s = s.replace(anchor, '            spatial = "GAUGE"', 1)
+    p.write_text(s)
+
+
+_MR28_PROBE = r"""
+import sys
+sys.path.insert(0, "code")
+import mpmath as mp
+import foundation_checks as fc
+from scattering import gauge
+mp.mp.dps = 40
+m1 = fc.material_from_table("Al6061")
+m2 = fc.material_from_table("PZT-5H")
+w = 2 * mp.pi * mp.mpf(10) ** 6
+kr = w / mp.sqrt(m1.C11 / m1.rho)
+k = kr * mp.mpf("1e-4")
+P = gauge.reduced_system(m1, m2, k, w, 5, dps=40)
+n_adm = len(P["admitted1"]) + len(P["admitted2"])
+print("ADMITTED_TOTAL", n_adm)
+sys.exit(0 if n_adm == 8 else 1)
+"""
+
+
+def mr28_detect(root: Path) -> tuple:
+    r = subprocess.run([sys.executable, "-c", _MR28_PROBE],
+                       cwd=root, capture_output=True, text=True, timeout=600)
+    tail = (r.stdout.strip().splitlines() or [""])[-1][:200]
+    return r.returncode != 0, tail
+
+
+SUITE.extend([
+    Mutation("MR28", "electrostatic mode dropped at k>0 (labelled GAUGE, "
+             "deleting the decoupled Laplace branch)",
+             "code/scattering/modal.py",
+             "ACPT07/ACPT08: the finite-k solve must keep 8 admissible modes "
+             "and reproduce the k->0 limit",
+             "Mislabeling the electrostatic branch as a null gauge channel is "
+             "exactly the dropped-electrostatic-mode failure mode of Task "
+             "2U-W; the finite-k contact solve loses the D_z constraint.",
+             mr28_mutate, mr28_detect),
+])
+
 # ===========================================================================
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()

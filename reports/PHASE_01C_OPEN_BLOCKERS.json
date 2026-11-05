@@ -312,7 +312,7 @@
   {
    "id": "BLK-02A-27",
    "severity": "P1",
-   "status": "OPEN",
+   "status": "CLOSED",
    "title": "The k=0 mode count itself is unresolved for metal|piezo pairs",
    "detail": "At k=0 a metal|piezo interface admits 3 modes per side, 6 total. Measured: a system imposing 6 mechanical/thermal rows plus an explicit [[phi]]=0 row is 7x6 with residual 0.47, so the mode set cannot supply 7 conditions. Either a mode is missing from the k=0 count at a metal|piezo contact, or one of the other six conditions is dependent. This is a DERIVATION question about the k=0 limit, not a solver issue. Candidate explanations to test: (a) the 3+3 count is wrong when one side is non-piezoelectric; (b) at k=0 the electrostatic and mechanical problems partially decouple on a metal side, reducing the effective rank.",
    "blocks": [
@@ -321,7 +321,17 @@
    ],
    "evidence": "reports/PHASE_02A_TASK2T_FINAL_ACCEPTANCE.md sec.2.3, sec.4",
    "promotion_blocked": true,
-   "closed_by": null
+   "closed_by": "Task 2U-W (branch arena/1aa803b8-negative-reflection)",
+   "closure_evidence": {
+    "proof": "reports/TASK2UW_NORMAL_INCIDENCE_COMPLETENESS_PROOF.md",
+    "assumptions": "reports/TASK2UW_ASSUMPTIONS_AND_VALIDITY_DOMAIN.md",
+    "results_json": "validation/task2uw_modal_completeness_results.json",
+    "inverse_bound_csv": "validation/task2uw_inverse_bound_results.csv",
+    "tests": "validation/tests/test_20_scattering_task2uw.py (ACPT09-11 PASS)",
+    "mutation": "MR28 DETECTED (electrostatic mode dropped at k>0) in validation/mutation_tests",
+    "summary": "Jordan block at k=0 (alg mult 2, geom mult 1, uniform-D0 generalized vector Dz=-1); 6 separated nonzero roots; electrostatic pair +/-s_e*k; block-triangular scaled limit S0=[[M6,0],[C,E0]] with M6 and E0 invertible (det E0 = -(eps_eL+eps_eR) up to fixed basis scale); ||S(k)^-1|| uniformly bounded for k/kr in [1e-8,1e-2]; Neumann q -> 0. Basis: 6 mech/thermal amplitudes + 1 relative potential constant + 1 global gauge."
+   },
+   "closure_note": "Jordan block at k=0 (alg mult 2, geom mult 1, uniform-D0 generalized vector), 6 separated nonzero roots, electrostatic pair +/-s_e k, block-triangular scaled limit with invertible M6 and E0=det -(eps_eL+eps_eR), uniform inverse bound; basis = 6 mech/thermal amplitudes + 1 relative potential constant + 1 global gauge."
   },
   {
    "id": "BLK-02A-28",

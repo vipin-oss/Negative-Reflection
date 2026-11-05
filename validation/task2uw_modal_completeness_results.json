@@ -1,0 +1,3613 @@
+{
+ "commit_scope": "Task 2U-W certificates",
+ "cases": [
+  {
+   "dps": 40,
+   "material": "Al6061",
+   "freq_hz": "1e5",
+   "tau_case": "source",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "0.0",
+    "resid_B0sq_v": "0.0",
+    "generalized_Dz_entry": "(-0.881260581404216 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.0103551213018",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(-1.0 + 4.119819609e-39j)",
+       "(1.0 - 1.28459376e-39j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.0 + 5.311592791e-38j)",
+       "(1.0 - 2.525499658e-38j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-1.0 - 1.43530176e-37j)",
+       "(1.0 + 1.605222858e-37j)"
+      ],
+      "s_e": "1.0"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "Al6061",
+   "freq_hz": "1e5",
+   "tau_case": "wtau0.1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "0.0",
+    "resid_B0sq_v": "0.0",
+    "generalized_Dz_entry": "(-0.881260581404216 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.0103551213178",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(-1.0 + 1.177863444e-38j)",
+       "(1.0 - 1.364401511e-38j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.0 + 2.224945055e-38j)",
+       "(1.0 - 1.183761888e-38j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-1.0 + 5.610623187e-39j)",
+       "(1.0 - 1.474590829e-37j)"
+      ],
+      "s_e": "1.0"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "Al6061",
+   "freq_hz": "1e5",
+   "tau_case": "wtau1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "0.0",
+    "resid_B0sq_v": "0.0",
+    "generalized_Dz_entry": "(-0.881260581404216 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.0103551213826",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.0 + 2.74914763e-37j)",
+       "(1.0 - 2.98870941e-37j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-1.0 - 1.834834574e-37j)",
+       "(1.0 - 2.037828471e-37j)"
+      ],
+      "s_e": "1.0"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "Al6061",
+   "freq_hz": "1e6",
+   "tau_case": "source",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "0.0",
+    "resid_B0sq_v": "0.0",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.00103551213018",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(1.0 + 2.543638225e-39j)",
+       "(-1.0 - 3.895092311e-39j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(1.0 - 3.872453139e-38j)",
+       "(-1.0 + 1.790622745e-38j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-1.0 - 1.81919425e-37j)",
+       "(1.0 + 1.499141868e-37j)"
+      ],
+      "s_e": "1.0"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "Al6061",
+   "freq_hz": "1e6",
+   "tau_case": "wtau0.1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "0.0",
+    "resid_B0sq_v": "0.0",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.00103551214617",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(1.0 + 2.431998259e-36j)",
+       "(-1.0 - 2.397940155e-36j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-1.0 - 3.752012454e-39j)",
+       "(1.0 - 2.824174854e-38j)"
+      ],
+      "s_e": "1.0"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "Al6061",
+   "freq_hz": "1e6",
+   "tau_case": "wtau1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "0.0",
+    "resid_B0sq_v": "0.0",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.00103551221096",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(1.0 + 3.362302702e-38j)",
+       "(-1.0 - 2.623187112e-38j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(1.0 + 8.961921809e-36j)",
+       "(-1.0 - 8.836306732e-36j)"
+      ],
+      "s_e": "1.0"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "Al6061",
+   "freq_hz": "1e7",
+   "tau_case": "source",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "0.0",
+    "resid_B0sq_v": "0.0",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.000103551213023",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(1.0 + 1.389046129e-37j)",
+       "(-1.0 - 1.348696279e-37j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-1.0 - 2.106038336e-38j)",
+       "(1.0 + 1.570577422e-37j)"
+      ],
+      "s_e": "1.0"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "Al6061",
+   "freq_hz": "1e7",
+   "tau_case": "wtau0.1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "0.0",
+    "resid_B0sq_v": "0.0",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.000103551228999",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(1.0 + 3.569707859e-37j)",
+       "(-1.0 - 3.45920456e-37j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(1.0 + 7.61658796e-38j)",
+       "(-1.0 - 1.115932776e-37j)"
+      ],
+      "s_e": "1.0"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "Al6061",
+   "freq_hz": "1e7",
+   "tau_case": "wtau1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "0.0",
+    "resid_B0sq_v": "0.0",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.000103551293802",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(-1.0 + 6.644747564e-39j)",
+       "(1.0 - 5.309213241e-39j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(1.0 - 1.743245558e-38j)",
+       "(-1.0 + 2.238451264e-38j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-1.0 - 2.348028737e-37j)",
+       "(1.0 + 1.060888631e-37j)"
+      ],
+      "s_e": "1.0"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "PZT-5H",
+   "freq_hz": "1e5",
+   "tau_case": "source",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.285e-21",
+    "resid_B0sq_v": "1.285e-21",
+    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.00869059608444",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.074422253 - 7.272148625e-21j)",
+       "(1.074422253 + 7.272148625e-21j)"
+      ],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(1.074422244 + 7.27214636e-23j)",
+       "(-1.074422244 - 7.27214636e-23j)"
+      ],
+      "s_e": "1.074422244"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "PZT-5H",
+   "freq_hz": "1e5",
+   "tau_case": "wtau0.1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.285e-21",
+    "resid_B0sq_v": "1.285e-21",
+    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.00869059608444",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(1.074422253 + 7.200147154e-21j)",
+       "(-1.074422253 - 7.200147154e-21j)"
+      ],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-1.074422244 - 7.200144912e-23j)",
+       "(1.074422244 + 7.200144912e-23j)"
+      ],
+      "s_e": "1.074422244"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "PZT-5H",
+   "freq_hz": "1e5",
+   "tau_case": "wtau1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.285e-21",
+    "resid_B0sq_v": "1.285e-21",
+    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.00869059608445",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(1.074422253 + 3.636074313e-21j)",
+       "(-1.074422253 - 3.636074313e-21j)"
+      ],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(1.074422244 + 3.636073181e-23j)",
+       "(-1.074422244 - 3.636073181e-23j)"
+      ],
+      "s_e": "1.074422244"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "PZT-5H",
+   "freq_hz": "1e6",
+   "tau_case": "source",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "4.579e-23",
+    "resid_B0sq_v": "4.579e-23",
+    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.000869059608444",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.074422253 - 7.272148625e-20j)",
+       "(1.074422253 + 7.272148625e-20j)"
+      ],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-1.074422244 - 7.272146361e-22j)",
+       "(1.074422244 + 7.272146361e-22j)"
+      ],
+      "s_e": "1.074422244"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "PZT-5H",
+   "freq_hz": "1e6",
+   "tau_case": "wtau0.1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "4.579e-23",
+    "resid_B0sq_v": "4.579e-23",
+    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.000869059608447",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(1.074422253 + 7.200147154e-20j)",
+       "(-1.074422253 - 7.200147154e-20j)"
+      ],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-1.074422244 - 7.200144912e-22j)",
+       "(1.074422244 + 7.200144912e-22j)"
+      ],
+      "s_e": "1.074422244"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "PZT-5H",
+   "freq_hz": "1e6",
+   "tau_case": "wtau1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "4.579e-23",
+    "resid_B0sq_v": "4.579e-23",
+    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.000869059608457",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.074422253 - 3.636074313e-20j)",
+       "(1.074422253 + 3.636074313e-20j)"
+      ],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-1.074422244 - 3.63607318e-22j)",
+       "(1.074422244 + 3.63607318e-22j)"
+      ],
+      "s_e": "1.074422244"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "PZT-5H",
+   "freq_hz": "1e7",
+   "tau_case": "source",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.667e-25",
+    "resid_B0sq_v": "1.667e-25",
+    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "8.69059608444e-5",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.074422253 - 7.272148621e-19j)",
+       "(1.074422253 + 7.272148621e-19j)"
+      ],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(1.074422244 + 7.272146357e-21j)",
+       "(-1.074422244 - 7.272146357e-21j)"
+      ],
+      "s_e": "1.074422244"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "PZT-5H",
+   "freq_hz": "1e7",
+   "tau_case": "wtau0.1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.667e-25",
+    "resid_B0sq_v": "1.667e-25",
+    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "8.69059608469e-5",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.074422253 - 7.200147154e-19j)",
+       "(1.074422253 + 7.200147154e-19j)"
+      ],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(1.074422244 + 7.200144912e-21j)",
+       "(-1.074422244 - 7.200144912e-21j)"
+      ],
+      "s_e": "1.074422244"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "PZT-5H",
+   "freq_hz": "1e7",
+   "tau_case": "wtau1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.667e-25",
+    "resid_B0sq_v": "1.667e-25",
+    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "8.69059608569e-5",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.074422253 - 3.636074313e-19j)",
+       "(1.074422253 + 3.636074313e-19j)"
+      ],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-1.074422244 - 3.63607318e-21j)",
+       "(1.074422244 + 3.63607318e-21j)"
+      ],
+      "s_e": "1.074422244"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "BaTiO3",
+   "freq_hz": "1e5",
+   "tau_case": "source",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "2.386e-20",
+    "resid_B0sq_v": "1.993e-20",
+    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.00837428535953",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(0.9449158336 - 3.543758846e-19j)",
+       "(-0.9449158336 + 3.543758846e-19j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(0.9449147458 - 3.542645814e-21j)",
+       "(-0.9449147458 + 3.542645814e-21j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-0.944914735 + 3.542634685e-23j)",
+       "(0.944914735 - 3.542634685e-23j)"
+      ],
+      "s_e": "0.9449147348"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "BaTiO3",
+   "freq_hz": "1e5",
+   "tau_case": "wtau0.1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "2.386e-20",
+    "resid_B0sq_v": "1.993e-20",
+    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.00837428535953",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(0.9449158336 - 3.508672125e-19j)",
+       "(-0.9449158336 + 3.508672125e-19j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(0.9449147458 - 3.507570113e-21j)",
+       "(-0.9449147458 + 3.507570113e-21j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-0.944914735 + 3.507559094e-23j)",
+       "(0.944914735 - 3.507559094e-23j)"
+      ],
+      "s_e": "0.9449147348"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "BaTiO3",
+   "freq_hz": "1e5",
+   "tau_case": "wtau1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "2.386e-20",
+    "resid_B0sq_v": "1.993e-20",
+    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.00837428535955",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(0.9449158336 - 1.771879423e-19j)",
+       "(-0.9449158336 + 1.771879423e-19j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-0.9449147458 + 1.771322907e-21j)",
+       "(0.9449147458 - 1.771322907e-21j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(0.944914735 - 1.771317342e-23j)",
+       "(-0.944914735 + 1.771317342e-23j)"
+      ],
+      "s_e": "0.9449147348"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "BaTiO3",
+   "freq_hz": "1e6",
+   "tau_case": "source",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.326e-22",
+    "resid_B0sq_v": "1.26e-22",
+    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.000837428535953",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(-0.9449158336 + 3.543758846e-18j)",
+       "(0.9449158336 - 3.543758846e-18j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(0.9449147458 - 3.542645814e-20j)",
+       "(-0.9449147458 + 3.542645814e-20j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(0.944914735 - 3.542634684e-22j)",
+       "(-0.944914735 + 3.542634684e-22j)"
+      ],
+      "s_e": "0.9449147348"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "BaTiO3",
+   "freq_hz": "1e6",
+   "tau_case": "wtau0.1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.326e-22",
+    "resid_B0sq_v": "1.26e-22",
+    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.000837428535957",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(-0.9449158336 + 3.508672125e-18j)",
+       "(0.9449158336 - 3.508672125e-18j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(0.9449147458 - 3.507570113e-20j)",
+       "(-0.9449147458 + 3.507570113e-20j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-0.944914735 + 3.507559093e-22j)",
+       "(0.944914735 - 3.507559093e-22j)"
+      ],
+      "s_e": "0.9449147348"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "BaTiO3",
+   "freq_hz": "1e6",
+   "tau_case": "wtau1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.326e-22",
+    "resid_B0sq_v": "1.26e-22",
+    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.000837428535974",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(0.9449158336 - 1.771879423e-18j)",
+       "(-0.9449158336 + 1.771879423e-18j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-0.9449147458 + 1.771322907e-20j)",
+       "(0.9449147458 - 1.771322907e-20j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-0.944914735 + 1.771317342e-22j)",
+       "(0.944914735 - 1.771317342e-22j)"
+      ],
+      "s_e": "0.9449147348"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "BaTiO3",
+   "freq_hz": "1e7",
+   "tau_case": "source",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "5.915e-25",
+    "resid_B0sq_v": "1.469e-25",
+    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "8.37428535953e-5",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(0.9449158336 - 3.543758845e-17j)",
+       "(-0.9449158336 + 3.543758845e-17j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-0.9449147458 + 3.542645813e-19j)",
+       "(0.9449147458 - 3.542645813e-19j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-0.944914735 + 3.542634684e-21j)",
+       "(0.944914735 - 3.542634684e-21j)"
+      ],
+      "s_e": "0.9449147348"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "BaTiO3",
+   "freq_hz": "1e7",
+   "tau_case": "wtau0.1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "5.915e-25",
+    "resid_B0sq_v": "1.469e-25",
+    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "8.37428535994e-5",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(0.9449158336 - 3.508672125e-17j)",
+       "(-0.9449158336 + 3.508672125e-17j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-0.9449147458 + 3.507570113e-19j)",
+       "(0.9449147458 - 3.507570113e-19j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-0.944914735 + 3.507559093e-21j)",
+       "(0.944914735 - 3.507559093e-21j)"
+      ],
+      "s_e": "0.9449147348"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 40,
+   "material": "BaTiO3",
+   "freq_hz": "1e7",
+   "tau_case": "wtau1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "5.915e-25",
+    "resid_B0sq_v": "1.469e-25",
+    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "8.37428536161e-5",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(-0.9449158336 + 1.771879423e-17j)",
+       "(0.9449158336 - 1.771879423e-17j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-0.9449147458 + 1.771322907e-19j)",
+       "(0.9449147458 - 1.771322907e-19j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(0.944914735 - 1.771317342e-21j)",
+       "(-0.944914735 + 1.771317342e-21j)"
+      ],
+      "s_e": "0.9449147348"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "Al6061",
+   "freq_hz": "1e5",
+   "tau_case": "source",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "0.0",
+    "resid_B0sq_v": "0.0",
+    "generalized_Dz_entry": "(-0.881260581404216 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.0103551213018",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.0 + 1.078372982e-56j)",
+       "(1.0 - 1.098903782e-56j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(1.0 - 2.443886952e-57j)",
+       "(-1.0 + 2.443158716e-57j)"
+      ],
+      "s_e": "1.0"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "Al6061",
+   "freq_hz": "1e5",
+   "tau_case": "wtau0.1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "0.0",
+    "resid_B0sq_v": "0.0",
+    "generalized_Dz_entry": "(-0.881260581404216 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.0103551213178",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(1.0 + 1.662342973e-58j)",
+       "(-1.0 - 1.333023593e-58j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.0 - 3.177335523e-57j)",
+       "(1.0 + 3.151388372e-57j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-1.0 + 2.020202305e-57j)",
+       "(1.0 - 2.09747323e-57j)"
+      ],
+      "s_e": "1.0"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "Al6061",
+   "freq_hz": "1e5",
+   "tau_case": "wtau1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "0.0",
+    "resid_B0sq_v": "0.0",
+    "generalized_Dz_entry": "(-0.881260581404216 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.0103551213826",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(1.0 + 8.053822595e-61j)",
+       "(-1.0 + 1.629216271e-59j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(1.0 + 9.181018364e-57j)",
+       "(-1.0 - 8.169877024e-57j)"
+      ],
+      "s_e": "1.0"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "Al6061",
+   "freq_hz": "1e6",
+   "tau_case": "source",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "0.0",
+    "resid_B0sq_v": "0.0",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.00103551213018",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.0 - 3.267956751e-57j)",
+       "(1.0 + 3.374187892e-57j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-1.0 + 2.522881797e-55j)",
+       "(1.0 - 2.513480929e-55j)"
+      ],
+      "s_e": "1.0"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "Al6061",
+   "freq_hz": "1e6",
+   "tau_case": "wtau0.1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "0.0",
+    "resid_B0sq_v": "0.0",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.00103551214617",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.0 + 3.005888629e-57j)",
+       "(1.0 - 3.250330703e-57j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-1.0 + 5.713567281e-57j)",
+       "(1.0 - 8.031447401e-57j)"
+      ],
+      "s_e": "1.0"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "Al6061",
+   "freq_hz": "1e6",
+   "tau_case": "wtau1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "0.0",
+    "resid_B0sq_v": "0.0",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.00103551221096",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(-1.0 + 3.95749182e-59j)",
+       "(1.0 - 5.470925182e-59j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(1.0 + 4.08181298e-57j)",
+       "(-1.0 - 4.216670942e-57j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-1.0 + 1.533115265e-57j)",
+       "(1.0 - 2.874239257e-57j)"
+      ],
+      "s_e": "1.0"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "Al6061",
+   "freq_hz": "1e7",
+   "tau_case": "source",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "0.0",
+    "resid_B0sq_v": "0.0",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.000103551213023",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(1.0 - 1.433270008e-58j)",
+       "(-1.0 + 2.138670222e-58j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(1.0 + 4.676375501e-57j)",
+       "(-1.0 - 4.690511097e-57j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(1.0 + 1.821546542e-57j)",
+       "(-1.0 + 1.233092058e-57j)"
+      ],
+      "s_e": "1.0"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "Al6061",
+   "freq_hz": "1e7",
+   "tau_case": "wtau0.1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "0.0",
+    "resid_B0sq_v": "0.0",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.000103551228999",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.0 + 2.256056071e-57j)",
+       "(1.0 - 2.116080623e-57j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-1.0 - 3.494348167e-56j)",
+       "(1.0 + 3.495518614e-56j)"
+      ],
+      "s_e": "1.0"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "Al6061",
+   "freq_hz": "1e7",
+   "tau_case": "wtau1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "0.0",
+    "resid_B0sq_v": "0.0",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.000103551293802",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(-1.0 - 5.635829597e-59j)",
+       "(1.0 + 3.651742189e-59j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.0 + 4.746911528e-58j)",
+       "(1.0 - 4.630540192e-58j)"
+      ],
+      "s_e": "1.0"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(1.0 + 2.104381171e-58j)",
+       "(-1.0 + 1.787494812e-58j)"
+      ],
+      "s_e": "1.0"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "PZT-5H",
+   "freq_hz": "1e5",
+   "tau_case": "source",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.491e-41",
+    "resid_B0sq_v": "1.491e-41",
+    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.00869059608444",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(1.074422253 + 7.272148625e-21j)",
+       "(-1.074422253 - 7.272148625e-21j)"
+      ],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(1.074422244 + 7.272146361e-23j)",
+       "(-1.074422244 - 7.272146361e-23j)"
+      ],
+      "s_e": "1.074422244"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "PZT-5H",
+   "freq_hz": "1e5",
+   "tau_case": "wtau0.1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.491e-41",
+    "resid_B0sq_v": "1.491e-41",
+    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.00869059608444",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.074422253 - 7.200147154e-21j)",
+       "(1.074422253 + 7.200147154e-21j)"
+      ],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(1.074422244 + 7.200144912e-23j)",
+       "(-1.074422244 - 7.200144912e-23j)"
+      ],
+      "s_e": "1.074422244"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "PZT-5H",
+   "freq_hz": "1e5",
+   "tau_case": "wtau1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.491e-41",
+    "resid_B0sq_v": "1.491e-41",
+    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.00869059608445",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(1.074422253 + 3.636074313e-21j)",
+       "(-1.074422253 - 3.636074313e-21j)"
+      ],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(1.074422244 + 3.63607318e-23j)",
+       "(-1.074422244 - 3.63607318e-23j)"
+      ],
+      "s_e": "1.074422244"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "PZT-5H",
+   "freq_hz": "1e6",
+   "tau_case": "source",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "6.306e-44",
+    "resid_B0sq_v": "2.879e-44",
+    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.000869059608444",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.074422253 - 7.272148625e-20j)",
+       "(1.074422253 + 7.272148625e-20j)"
+      ],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(1.074422244 + 7.272146361e-22j)",
+       "(-1.074422244 - 7.272146361e-22j)"
+      ],
+      "s_e": "1.074422244"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "PZT-5H",
+   "freq_hz": "1e6",
+   "tau_case": "wtau0.1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "6.306e-44",
+    "resid_B0sq_v": "2.879e-44",
+    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.000869059608447",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.074422253 - 7.200147154e-20j)",
+       "(1.074422253 + 7.200147154e-20j)"
+      ],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-1.074422244 - 7.200144912e-22j)",
+       "(1.074422244 + 7.200144912e-22j)"
+      ],
+      "s_e": "1.074422244"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "PZT-5H",
+   "freq_hz": "1e6",
+   "tau_case": "wtau1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "6.306e-44",
+    "resid_B0sq_v": "2.879e-44",
+    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.000869059608457",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.074422253 - 3.636074313e-20j)",
+       "(1.074422253 + 3.636074313e-20j)"
+      ],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-1.074422244 - 3.63607318e-22j)",
+       "(1.074422244 + 3.63607318e-22j)"
+      ],
+      "s_e": "1.074422244"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "PZT-5H",
+   "freq_hz": "1e7",
+   "tau_case": "source",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.547e-45",
+    "resid_B0sq_v": "1.547e-45",
+    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "8.69059608444e-5",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.074422253 - 7.272148621e-19j)",
+       "(1.074422253 + 7.272148621e-19j)"
+      ],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(1.074422244 + 7.272146357e-21j)",
+       "(-1.074422244 - 7.272146357e-21j)"
+      ],
+      "s_e": "1.074422244"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "PZT-5H",
+   "freq_hz": "1e7",
+   "tau_case": "wtau0.1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.547e-45",
+    "resid_B0sq_v": "1.547e-45",
+    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "8.69059608469e-5",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.074422253 - 7.200147154e-19j)",
+       "(1.074422253 + 7.200147154e-19j)"
+      ],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-1.074422244 - 7.200144912e-21j)",
+       "(1.074422244 + 7.200144912e-21j)"
+      ],
+      "s_e": "1.074422244"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "PZT-5H",
+   "freq_hz": "1e7",
+   "tau_case": "wtau1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.547e-45",
+    "resid_B0sq_v": "1.547e-45",
+    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "8.69059608569e-5",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-1.074422253 - 3.636074313e-19j)",
+       "(1.074422253 + 3.636074313e-19j)"
+      ],
+      "s_e": "1.074422244"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(1.074422244 + 3.63607318e-21j)",
+       "(-1.074422244 - 3.63607318e-21j)"
+      ],
+      "s_e": "1.074422244"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "BaTiO3",
+   "freq_hz": "1e5",
+   "tau_case": "source",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.608e-41",
+    "resid_B0sq_v": "1.076e-41",
+    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.00837428535953",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(0.9449158336 - 3.543758846e-19j)",
+       "(-0.9449158336 + 3.543758846e-19j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-0.9449147458 + 3.542645814e-21j)",
+       "(0.9449147458 - 3.542645814e-21j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-0.944914735 + 3.542634684e-23j)",
+       "(0.944914735 - 3.542634684e-23j)"
+      ],
+      "s_e": "0.9449147348"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "BaTiO3",
+   "freq_hz": "1e5",
+   "tau_case": "wtau0.1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.608e-41",
+    "resid_B0sq_v": "1.076e-41",
+    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.00837428535953",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(0.9449158336 - 3.508672125e-19j)",
+       "(-0.9449158336 + 3.508672125e-19j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-0.9449147458 + 3.507570113e-21j)",
+       "(0.9449147458 - 3.507570113e-21j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(0.944914735 - 3.507559093e-23j)",
+       "(-0.944914735 + 3.507559093e-23j)"
+      ],
+      "s_e": "0.9449147348"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "BaTiO3",
+   "freq_hz": "1e5",
+   "tau_case": "wtau1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.608e-41",
+    "resid_B0sq_v": "1.076e-41",
+    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.00837428535955",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(0.9449158336 - 1.771879423e-19j)",
+       "(-0.9449158336 + 1.771879423e-19j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(0.9449147458 - 1.771322907e-21j)",
+       "(-0.9449147458 + 1.771322907e-21j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(0.944914735 - 1.771317342e-23j)",
+       "(-0.944914735 + 1.771317342e-23j)"
+      ],
+      "s_e": "0.9449147348"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "BaTiO3",
+   "freq_hz": "1e6",
+   "tau_case": "source",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.688e-42",
+    "resid_B0sq_v": "1.688e-42",
+    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.000837428535953",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(0.9449158336 - 3.543758846e-18j)",
+       "(-0.9449158336 + 3.543758846e-18j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(0.9449147458 - 3.542645814e-20j)",
+       "(-0.9449147458 + 3.542645814e-20j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-0.944914735 + 3.542634684e-22j)",
+       "(0.944914735 - 3.542634684e-22j)"
+      ],
+      "s_e": "0.9449147348"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "BaTiO3",
+   "freq_hz": "1e6",
+   "tau_case": "wtau0.1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.688e-42",
+    "resid_B0sq_v": "1.688e-42",
+    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.000837428535957",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(0.9449158336 - 3.508672125e-18j)",
+       "(-0.9449158336 + 3.508672125e-18j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(0.9449147458 - 3.507570113e-20j)",
+       "(-0.9449147458 + 3.507570113e-20j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(0.944914735 - 3.507559093e-22j)",
+       "(-0.944914735 + 3.507559093e-22j)"
+      ],
+      "s_e": "0.9449147348"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "BaTiO3",
+   "freq_hz": "1e6",
+   "tau_case": "wtau1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.688e-42",
+    "resid_B0sq_v": "1.688e-42",
+    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "0.000837428535974",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(0.9449158336 - 1.771879423e-18j)",
+       "(-0.9449158336 + 1.771879423e-18j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(0.9449147458 - 1.771322907e-20j)",
+       "(-0.9449147458 + 1.771322907e-20j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-0.944914735 + 1.771317342e-22j)",
+       "(0.944914735 - 1.771317342e-22j)"
+      ],
+      "s_e": "0.9449147348"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "BaTiO3",
+   "freq_hz": "1e7",
+   "tau_case": "source",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.486e-44",
+    "resid_B0sq_v": "1.293e-44",
+    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "8.37428535953e-5",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(-0.9449158336 + 3.543758845e-17j)",
+       "(0.9449158336 - 3.543758845e-17j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-0.9449147458 + 3.542645813e-19j)",
+       "(0.9449147458 - 3.542645813e-19j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-0.944914735 + 3.542634684e-21j)",
+       "(0.944914735 - 3.542634684e-21j)"
+      ],
+      "s_e": "0.9449147348"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "BaTiO3",
+   "freq_hz": "1e7",
+   "tau_case": "wtau0.1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.486e-44",
+    "resid_B0sq_v": "1.293e-44",
+    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "8.37428535994e-5",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(-0.9449158336 + 3.508672125e-17j)",
+       "(0.9449158336 - 3.508672125e-17j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-0.9449147458 + 3.507570113e-19j)",
+       "(0.9449147458 - 3.507570113e-19j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(-0.944914735 + 3.507559093e-21j)",
+       "(0.944914735 - 3.507559093e-21j)"
+      ],
+      "s_e": "0.9449147348"
+     }
+    ]
+   }
+  },
+  {
+   "dps": 60,
+   "material": "BaTiO3",
+   "freq_hz": "1e7",
+   "tau_case": "wtau1",
+   "jordan": {
+    "n_zero_eigenvalues": 2,
+    "nullity_B0": 1,
+    "rank_B0": 7,
+    "resid_B0_u": "0.0",
+    "resid_B0_v_minus_u": "1.486e-44",
+    "resid_B0sq_v": "1.293e-44",
+    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "generalized_phi_entry": "0.0"
+   },
+   "roots": {
+    "nonzero_root_min_sep_over_kr": "8.37428536161e-5",
+    "small_k_pair": [
+     {
+      "k_over_kr": "1e-2",
+      "roots_over_k": [
+       "(-0.9449158336 + 1.771879423e-17j)",
+       "(0.9449158336 - 1.771879423e-17j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-3",
+      "roots_over_k": [
+       "(-0.9449147458 + 1.771322907e-19j)",
+       "(0.9449147458 - 1.771322907e-19j)"
+      ],
+      "s_e": "0.9449147348"
+     },
+     {
+      "k_over_kr": "1e-4",
+      "roots_over_k": [
+       "(0.944914735 - 1.771317342e-21j)",
+       "(-0.944914735 + 1.771317342e-21j)"
+      ],
+      "s_e": "0.9449147348"
+     }
+    ]
+   }
+  }
+ ],
+ "pairs": [
+  {
+   "dps": 40,
+   "pair": "Al6061|Al6061",
+   "inc": "P",
+   "inverse_bound": {
+    "detE0_scaled": "(-2.0 + 1.51118291391e-32j)",
+    "detE0_physical_formula": "-1.77083756256e-11",
+    "M6_smin": "0.00319684",
+    "M6_det": "(-0.0180842 + 0.018084j)",
+    "rows": [
+     {
+      "k_over_kr": "1e-2",
+      "q_neumann": "1.51682",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "707107.0",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-3",
+      "q_neumann": "0.99999",
+      "bound_inv_norm": "3.12809e+7",
+      "measured_inv_norm": "70710.7",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-4",
+      "q_neumann": "0.9999",
+      "bound_inv_norm": "3.12809e+6",
+      "measured_inv_norm": "7071.07",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-5",
+      "q_neumann": "0.999",
+      "bound_inv_norm": "312809.0",
+      "measured_inv_norm": "707.107",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-6",
+      "q_neumann": "0.99",
+      "bound_inv_norm": "31280.9",
+      "measured_inv_norm": "312.809",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-7",
+      "q_neumann": "0.9",
+      "bound_inv_norm": "3128.09",
+      "measured_inv_norm": "312.809",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-8",
+      "q_neumann": "0.0",
+      "bound_inv_norm": "312.809",
+      "measured_inv_norm": "312.809",
+      "bound_holds": true
+     }
+    ],
+    "max_electrostatic_amp": "0.0049567"
+   }
+  },
+  {
+   "dps": 40,
+   "pair": "Al6061|Al6061",
+   "inc": "SV",
+   "inverse_bound": {
+    "detE0_scaled": "(-2.0 + 1.51118291391e-32j)",
+    "detE0_physical_formula": "-1.77083756256e-11",
+    "M6_smin": "0.00319684",
+    "M6_det": "(-0.0180842 + 0.018084j)",
+    "rows": [
+     {
+      "k_over_kr": "1e-2",
+      "q_neumann": "1.51682",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "707107.0",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-3",
+      "q_neumann": "0.99999",
+      "bound_inv_norm": "3.12809e+7",
+      "measured_inv_norm": "70710.7",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-4",
+      "q_neumann": "0.9999",
+      "bound_inv_norm": "3.12809e+6",
+      "measured_inv_norm": "7071.07",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-5",
+      "q_neumann": "0.999",
+      "bound_inv_norm": "312809.0",
+      "measured_inv_norm": "707.107",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-6",
+      "q_neumann": "0.99",
+      "bound_inv_norm": "31280.9",
+      "measured_inv_norm": "312.809",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-7",
+      "q_neumann": "0.9",
+      "bound_inv_norm": "3128.09",
+      "measured_inv_norm": "312.809",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-8",
+      "q_neumann": "0.0",
+      "bound_inv_norm": "312.809",
+      "measured_inv_norm": "312.809",
+      "bound_holds": true
+     }
+    ],
+    "max_electrostatic_amp": "1.50752"
+   }
+  },
+  {
+   "dps": 40,
+   "pair": "PZT-5H|PZT-5H",
+   "inc": "P",
+   "inverse_bound": {
+    "detE0_scaled": "(-1.35801206449 + 3.17102932047e-25j)",
+    "detE0_physical_formula": "-2.79778273179e-8",
+    "M6_smin": "0.00736024",
+    "M6_det": "(-0.0416362 + 0.0416361j)",
+    "rows": [
+     {
+      "k_over_kr": "1e-2",
+      "q_neumann": "1.42876",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "729513.0",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-3",
+      "q_neumann": "1.41432",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "70733.4",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-4",
+      "q_neumann": "1.41407",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "7071.09",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-5",
+      "q_neumann": "1.4128",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "707.107",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-6",
+      "q_neumann": "1.40007",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "135.865",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-7",
+      "q_neumann": "1.27279",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "135.865",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-8",
+      "q_neumann": "0.0",
+      "bound_inv_norm": "135.865",
+      "measured_inv_norm": "135.865",
+      "bound_holds": true
+     }
+    ],
+    "max_electrostatic_amp": "148618.0"
+   }
+  },
+  {
+   "dps": 40,
+   "pair": "PZT-5H|PZT-5H",
+   "inc": "SV",
+   "inverse_bound": {
+    "detE0_scaled": "(-1.35801206449 + 3.17102932047e-25j)",
+    "detE0_physical_formula": "-2.79778273179e-8",
+    "M6_smin": "0.00736024",
+    "M6_det": "(-0.0416362 + 0.0416361j)",
+    "rows": [
+     {
+      "k_over_kr": "1e-2",
+      "q_neumann": "1.42876",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "729513.0",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-3",
+      "q_neumann": "1.41432",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "70733.4",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-4",
+      "q_neumann": "1.41407",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "7071.09",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-5",
+      "q_neumann": "1.4128",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "707.107",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-6",
+      "q_neumann": "1.40007",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "135.865",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-7",
+      "q_neumann": "1.27279",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "135.865",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-8",
+      "q_neumann": "0.0",
+      "bound_inv_norm": "135.865",
+      "measured_inv_norm": "135.865",
+      "bound_holds": true
+     }
+    ],
+    "max_electrostatic_amp": "3.64807e+7"
+   }
+  },
+  {
+   "dps": 40,
+   "pair": "Al6061|PZT-5H",
+   "inc": "P",
+   "inverse_bound": {
+    "detE0_scaled": "(-1.0006329432 + 1.89131944499e-24j)",
+    "detE0_physical_formula": "-1.39977678467e-8",
+    "M6_smin": "0.0165091",
+    "M6_det": "(-0.057842 + 0.0578418j)",
+    "rows": [
+     {
+      "k_over_kr": "1e-2",
+      "q_neumann": "1.70858",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "1.20885e+6",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-3",
+      "q_neumann": "1.70832",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "120798.0",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-4",
+      "q_neumann": "1.70816",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "12079.7",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-5",
+      "q_neumann": "1.70663",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "1207.97",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-6",
+      "q_neumann": "1.69125",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "120.803",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-7",
+      "q_neumann": "1.5375",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "60.5732",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-8",
+      "q_neumann": "0.0",
+      "bound_inv_norm": "60.5732",
+      "measured_inv_norm": "60.5732",
+      "bound_holds": true
+     }
+    ],
+    "max_electrostatic_amp": "0.0105167"
+   }
+  },
+  {
+   "dps": 40,
+   "pair": "Al6061|PZT-5H",
+   "inc": "SV",
+   "inverse_bound": {
+    "detE0_scaled": "(-1.0006329432 + 1.89131944499e-24j)",
+    "detE0_physical_formula": "-1.39977678467e-8",
+    "M6_smin": "0.0165091",
+    "M6_det": "(-0.057842 + 0.0578418j)",
+    "rows": [
+     {
+      "k_over_kr": "1e-2",
+      "q_neumann": "1.70858",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "1.20885e+6",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-3",
+      "q_neumann": "1.70832",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "120798.0",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-4",
+      "q_neumann": "1.70816",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "12079.7",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-5",
+      "q_neumann": "1.70663",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "1207.97",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-6",
+      "q_neumann": "1.69125",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "120.803",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-7",
+      "q_neumann": "1.5375",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "60.5732",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-8",
+      "q_neumann": "0.0",
+      "bound_inv_norm": "60.5732",
+      "measured_inv_norm": "60.5732",
+      "bound_holds": true
+     }
+    ],
+    "max_electrostatic_amp": "1.61897"
+   }
+  },
+  {
+   "dps": 40,
+   "pair": "PZT-5H|Al6061",
+   "inc": "P",
+   "inverse_bound": {
+    "detE0_scaled": "(-1.0006329432 + 2.33505371346e-25j)",
+    "detE0_physical_formula": "-1.39977678467e-8",
+    "M6_smin": "0.0165091",
+    "M6_det": "(-0.057842 + 0.0578418j)",
+    "rows": [
+     {
+      "k_over_kr": "1e-2",
+      "q_neumann": "1.70897",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "1.21021e+6",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-3",
+      "q_neumann": "1.70832",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "120800.0",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-4",
+      "q_neumann": "1.70816",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "12079.7",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-5",
+      "q_neumann": "1.70663",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "1207.97",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-6",
+      "q_neumann": "1.69125",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "120.803",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-7",
+      "q_neumann": "1.5375",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "60.5732",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-8",
+      "q_neumann": "0.0",
+      "bound_inv_norm": "60.5732",
+      "measured_inv_norm": "60.5732",
+      "bound_holds": true
+     }
+    ],
+    "max_electrostatic_amp": "201696.0"
+   }
+  },
+  {
+   "dps": 40,
+   "pair": "PZT-5H|Al6061",
+   "inc": "SV",
+   "inverse_bound": {
+    "detE0_scaled": "(-1.0006329432 + 2.33505371346e-25j)",
+    "detE0_physical_formula": "-1.39977678467e-8",
+    "M6_smin": "0.0165091",
+    "M6_det": "(-0.057842 + 0.0578418j)",
+    "rows": [
+     {
+      "k_over_kr": "1e-2",
+      "q_neumann": "1.70897",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "1.21021e+6",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-3",
+      "q_neumann": "1.70832",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "120800.0",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-4",
+      "q_neumann": "1.70816",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "12079.7",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-5",
+      "q_neumann": "1.70663",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "1207.97",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-6",
+      "q_neumann": "1.69125",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "120.803",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-7",
+      "q_neumann": "1.5375",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "60.5732",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-8",
+      "q_neumann": "0.0",
+      "bound_inv_norm": "60.5732",
+      "measured_inv_norm": "60.5732",
+      "bound_holds": true
+     }
+    ],
+    "max_electrostatic_amp": "4.95099e+7"
+   }
+  },
+  {
+   "dps": 40,
+   "pair": "PZT-5H|BaTiO3",
+   "inc": "P",
+   "inverse_bound": {
+    "detE0_scaled": "(-1.47681280925 + 1.83638714641e-25j)",
+    "detE0_physical_formula": "-2.58947497997e-8",
+    "M6_smin": "0.00658418",
+    "M6_det": "(-0.0321491 + 0.032149j)",
+    "rows": [
+     {
+      "k_over_kr": "1e-2",
+      "q_neumann": "1.36983",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "725749.0",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-3",
+      "q_neumann": "1.3179",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "70955.6",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-4",
+      "q_neumann": "1.31745",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "7093.93",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-5",
+      "q_neumann": "1.31626",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "709.391",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-6",
+      "q_neumann": "1.3044",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "151.879",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-7",
+      "q_neumann": "1.18582",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "151.879",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-8",
+      "q_neumann": "0.0",
+      "bound_inv_norm": "151.879",
+      "measured_inv_norm": "151.879",
+      "bound_holds": true
+     }
+    ],
+    "max_electrostatic_amp": "136665.0"
+   }
+  },
+  {
+   "dps": 40,
+   "pair": "PZT-5H|BaTiO3",
+   "inc": "SV",
+   "inverse_bound": {
+    "detE0_scaled": "(-1.47681280925 + 1.83638714641e-25j)",
+    "detE0_physical_formula": "-2.58947497997e-8",
+    "M6_smin": "0.00658418",
+    "M6_det": "(-0.0321491 + 0.032149j)",
+    "rows": [
+     {
+      "k_over_kr": "1e-2",
+      "q_neumann": "1.36983",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "725749.0",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-3",
+      "q_neumann": "1.3179",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "70955.6",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-4",
+      "q_neumann": "1.31745",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "7093.93",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-5",
+      "q_neumann": "1.31626",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "709.391",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-6",
+      "q_neumann": "1.3044",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "151.879",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-7",
+      "q_neumann": "1.18582",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "151.879",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-8",
+      "q_neumann": "0.0",
+      "bound_inv_norm": "151.879",
+      "measured_inv_norm": "151.879",
+      "bound_holds": true
+     }
+    ],
+    "max_electrostatic_amp": "3.3546e+7"
+   }
+  },
+  {
+   "dps": 60,
+   "pair": "Al6061|Al6061",
+   "inc": "P",
+   "inverse_bound": {
+    "detE0_scaled": "(-2.0 + 5.05051120063e-60j)",
+    "detE0_physical_formula": "-1.77083756256e-11",
+    "M6_smin": "0.00319684",
+    "M6_det": "(-0.0180842 + 0.018084j)",
+    "rows": [
+     {
+      "k_over_kr": "1e-2",
+      "q_neumann": "1.51682",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "707107.0",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-3",
+      "q_neumann": "0.99999",
+      "bound_inv_norm": "3.12809e+7",
+      "measured_inv_norm": "70710.7",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-4",
+      "q_neumann": "0.9999",
+      "bound_inv_norm": "3.12809e+6",
+      "measured_inv_norm": "7071.07",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-5",
+      "q_neumann": "0.999",
+      "bound_inv_norm": "312809.0",
+      "measured_inv_norm": "707.107",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-6",
+      "q_neumann": "0.99",
+      "bound_inv_norm": "31280.9",
+      "measured_inv_norm": "312.809",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-7",
+      "q_neumann": "0.9",
+      "bound_inv_norm": "3128.09",
+      "measured_inv_norm": "312.809",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-8",
+      "q_neumann": "0.0",
+      "bound_inv_norm": "312.809",
+      "measured_inv_norm": "312.809",
+      "bound_holds": true
+     }
+    ],
+    "max_electrostatic_amp": "0.0049567"
+   }
+  },
+  {
+   "dps": 60,
+   "pair": "Al6061|Al6061",
+   "inc": "SV",
+   "inverse_bound": {
+    "detE0_scaled": "(-2.0 + 5.05051120063e-60j)",
+    "detE0_physical_formula": "-1.77083756256e-11",
+    "M6_smin": "0.00319684",
+    "M6_det": "(-0.0180842 + 0.018084j)",
+    "rows": [
+     {
+      "k_over_kr": "1e-2",
+      "q_neumann": "1.51682",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "707107.0",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-3",
+      "q_neumann": "0.99999",
+      "bound_inv_norm": "3.12809e+7",
+      "measured_inv_norm": "70710.7",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-4",
+      "q_neumann": "0.9999",
+      "bound_inv_norm": "3.12809e+6",
+      "measured_inv_norm": "7071.07",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-5",
+      "q_neumann": "0.999",
+      "bound_inv_norm": "312809.0",
+      "measured_inv_norm": "707.107",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-6",
+      "q_neumann": "0.99",
+      "bound_inv_norm": "31280.9",
+      "measured_inv_norm": "312.809",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-7",
+      "q_neumann": "0.9",
+      "bound_inv_norm": "3128.09",
+      "measured_inv_norm": "312.809",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-8",
+      "q_neumann": "0.0",
+      "bound_inv_norm": "312.809",
+      "measured_inv_norm": "312.809",
+      "bound_holds": true
+     }
+    ],
+    "max_electrostatic_amp": "1.50752"
+   }
+  },
+  {
+   "dps": 60,
+   "pair": "PZT-5H|PZT-5H",
+   "inc": "P",
+   "inverse_bound": {
+    "detE0_scaled": "(-1.35801206449 + 9.19160276117e-30j)",
+    "detE0_physical_formula": "-2.79778273179e-8",
+    "M6_smin": "0.00736024",
+    "M6_det": "(-0.0416362 + 0.0416361j)",
+    "rows": [
+     {
+      "k_over_kr": "1e-2",
+      "q_neumann": "1.42876",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "729513.0",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-3",
+      "q_neumann": "1.41432",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "70733.4",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-4",
+      "q_neumann": "1.41407",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "7071.09",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-5",
+      "q_neumann": "1.4128",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "707.107",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-6",
+      "q_neumann": "1.40007",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "135.865",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-7",
+      "q_neumann": "1.27279",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "135.865",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-8",
+      "q_neumann": "0.0",
+      "bound_inv_norm": "135.865",
+      "measured_inv_norm": "135.865",
+      "bound_holds": true
+     }
+    ],
+    "max_electrostatic_amp": "148618.0"
+   }
+  },
+  {
+   "dps": 60,
+   "pair": "PZT-5H|PZT-5H",
+   "inc": "SV",
+   "inverse_bound": {
+    "detE0_scaled": "(-1.35801206449 + 9.19160276117e-30j)",
+    "detE0_physical_formula": "-2.79778273179e-8",
+    "M6_smin": "0.00736024",
+    "M6_det": "(-0.0416362 + 0.0416361j)",
+    "rows": [
+     {
+      "k_over_kr": "1e-2",
+      "q_neumann": "1.42876",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "729513.0",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-3",
+      "q_neumann": "1.41432",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "70733.4",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-4",
+      "q_neumann": "1.41407",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "7071.09",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-5",
+      "q_neumann": "1.4128",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "707.107",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-6",
+      "q_neumann": "1.40007",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "135.865",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-7",
+      "q_neumann": "1.27279",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "135.865",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-8",
+      "q_neumann": "0.0",
+      "bound_inv_norm": "135.865",
+      "measured_inv_norm": "135.865",
+      "bound_holds": true
+     }
+    ],
+    "max_electrostatic_amp": "3.64807e+7"
+   }
+  },
+  {
+   "dps": 60,
+   "pair": "Al6061|PZT-5H",
+   "inc": "P",
+   "inverse_bound": {
+    "detE0_scaled": "(-1.0006329432 + 2.6494986948e-30j)",
+    "detE0_physical_formula": "-1.39977678467e-8",
+    "M6_smin": "0.0165091",
+    "M6_det": "(-0.057842 + 0.0578418j)",
+    "rows": [
+     {
+      "k_over_kr": "1e-2",
+      "q_neumann": "1.70858",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "1.20885e+6",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-3",
+      "q_neumann": "1.70832",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "120798.0",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-4",
+      "q_neumann": "1.70816",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "12079.7",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-5",
+      "q_neumann": "1.70663",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "1207.97",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-6",
+      "q_neumann": "1.69125",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "120.803",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-7",
+      "q_neumann": "1.5375",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "60.5732",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-8",
+      "q_neumann": "0.0",
+      "bound_inv_norm": "60.5732",
+      "measured_inv_norm": "60.5732",
+      "bound_holds": true
+     }
+    ],
+    "max_electrostatic_amp": "0.0105167"
+   }
+  },
+  {
+   "dps": 60,
+   "pair": "Al6061|PZT-5H",
+   "inc": "SV",
+   "inverse_bound": {
+    "detE0_scaled": "(-1.0006329432 + 2.6494986948e-30j)",
+    "detE0_physical_formula": "-1.39977678467e-8",
+    "M6_smin": "0.0165091",
+    "M6_det": "(-0.057842 + 0.0578418j)",
+    "rows": [
+     {
+      "k_over_kr": "1e-2",
+      "q_neumann": "1.70858",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "1.20885e+6",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-3",
+      "q_neumann": "1.70832",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "120798.0",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-4",
+      "q_neumann": "1.70816",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "12079.7",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-5",
+      "q_neumann": "1.70663",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "1207.97",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-6",
+      "q_neumann": "1.69125",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "120.803",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-7",
+      "q_neumann": "1.5375",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "60.5732",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-8",
+      "q_neumann": "0.0",
+      "bound_inv_norm": "60.5732",
+      "measured_inv_norm": "60.5732",
+      "bound_holds": true
+     }
+    ],
+    "max_electrostatic_amp": "1.61897"
+   }
+  },
+  {
+   "dps": 60,
+   "pair": "PZT-5H|Al6061",
+   "inc": "P",
+   "inverse_bound": {
+    "detE0_scaled": "(-1.0006329432 + 6.76842496582e-30j)",
+    "detE0_physical_formula": "-1.39977678467e-8",
+    "M6_smin": "0.0165091",
+    "M6_det": "(-0.057842 + 0.0578418j)",
+    "rows": [
+     {
+      "k_over_kr": "1e-2",
+      "q_neumann": "1.70897",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "1.21021e+6",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-3",
+      "q_neumann": "1.70832",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "120800.0",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-4",
+      "q_neumann": "1.70816",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "12079.7",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-5",
+      "q_neumann": "1.70663",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "1207.97",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-6",
+      "q_neumann": "1.69125",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "120.803",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-7",
+      "q_neumann": "1.5375",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "60.5732",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-8",
+      "q_neumann": "0.0",
+      "bound_inv_norm": "60.5732",
+      "measured_inv_norm": "60.5732",
+      "bound_holds": true
+     }
+    ],
+    "max_electrostatic_amp": "201696.0"
+   }
+  },
+  {
+   "dps": 60,
+   "pair": "PZT-5H|Al6061",
+   "inc": "SV",
+   "inverse_bound": {
+    "detE0_scaled": "(-1.0006329432 + 6.76842496582e-30j)",
+    "detE0_physical_formula": "-1.39977678467e-8",
+    "M6_smin": "0.0165091",
+    "M6_det": "(-0.057842 + 0.0578418j)",
+    "rows": [
+     {
+      "k_over_kr": "1e-2",
+      "q_neumann": "1.70897",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "1.21021e+6",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-3",
+      "q_neumann": "1.70832",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "120800.0",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-4",
+      "q_neumann": "1.70816",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "12079.7",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-5",
+      "q_neumann": "1.70663",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "1207.97",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-6",
+      "q_neumann": "1.69125",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "120.803",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-7",
+      "q_neumann": "1.5375",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "60.5732",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-8",
+      "q_neumann": "0.0",
+      "bound_inv_norm": "60.5732",
+      "measured_inv_norm": "60.5732",
+      "bound_holds": true
+     }
+    ],
+    "max_electrostatic_amp": "4.95099e+7"
+   }
+  },
+  {
+   "dps": 60,
+   "pair": "PZT-5H|BaTiO3",
+   "inc": "P",
+   "inverse_bound": {
+    "detE0_scaled": "(-1.47681280925 + 7.61978777564e-31j)",
+    "detE0_physical_formula": "-2.58947497997e-8",
+    "M6_smin": "0.00658418",
+    "M6_det": "(-0.0321491 + 0.032149j)",
+    "rows": [
+     {
+      "k_over_kr": "1e-2",
+      "q_neumann": "1.36983",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "725749.0",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-3",
+      "q_neumann": "1.3179",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "70955.6",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-4",
+      "q_neumann": "1.31745",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "7093.93",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-5",
+      "q_neumann": "1.31626",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "709.391",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-6",
+      "q_neumann": "1.3044",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "151.879",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-7",
+      "q_neumann": "1.18582",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "151.879",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-8",
+      "q_neumann": "0.0",
+      "bound_inv_norm": "151.879",
+      "measured_inv_norm": "151.879",
+      "bound_holds": true
+     }
+    ],
+    "max_electrostatic_amp": "136665.0"
+   }
+  },
+  {
+   "dps": 60,
+   "pair": "PZT-5H|BaTiO3",
+   "inc": "SV",
+   "inverse_bound": {
+    "detE0_scaled": "(-1.47681280925 + 7.61978777564e-31j)",
+    "detE0_physical_formula": "-2.58947497997e-8",
+    "M6_smin": "0.00658418",
+    "M6_det": "(-0.0321491 + 0.032149j)",
+    "rows": [
+     {
+      "k_over_kr": "1e-2",
+      "q_neumann": "1.36983",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "725749.0",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-3",
+      "q_neumann": "1.3179",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "70955.6",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-4",
+      "q_neumann": "1.31745",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "7093.93",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-5",
+      "q_neumann": "1.31626",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "709.391",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-6",
+      "q_neumann": "1.3044",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "151.879",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-7",
+      "q_neumann": "1.18582",
+      "bound_inv_norm": "inf",
+      "measured_inv_norm": "151.879",
+      "bound_holds": false
+     },
+     {
+      "k_over_kr": "1e-8",
+      "q_neumann": "0.0",
+      "bound_inv_norm": "151.879",
+      "measured_inv_norm": "151.879",
+      "bound_holds": true
+     }
+    ],
+    "max_electrostatic_amp": "3.3546e+7"
+   }
+  }
+ ]
+}
