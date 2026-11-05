@@ -1,0 +1,157 @@
+{
+ "scope": "G4-1 independent coupled energy identity (bulk, per mode pair)",
+ "convention": "exp(i(kx+xi z - w t)); <J> = -1/2 Re[s.v + D.phid*] + 1/2 Re[q.Th*]/T0; diss = 1/2 Re[q.(grad Th)*] with LS-relaxed q ( = kappa|grad Th|^2/(2(1+w^2 tauq^2)) for self-pairs )",
+ "cases": [
+  {
+   "material": "Al6061",
+   "freq": "1MHz",
+   "k_over_kr": "0",
+   "modes": 8,
+   "worst_pair_rel_residual": "0.9967",
+   "worst_pair": [
+    0,
+    0
+   ]
+  },
+  {
+   "material": "Al6061",
+   "freq": "1MHz",
+   "k_over_kr": "1e-3",
+   "modes": 8,
+   "worst_pair_rel_residual": "2.172e+5",
+   "worst_pair": [
+    0,
+    1
+   ]
+  },
+  {
+   "material": "PZT-5H",
+   "freq": "1MHz",
+   "k_over_kr": "0",
+   "modes": 8,
+   "worst_pair_rel_residual": "6.272",
+   "worst_pair": [
+    2,
+    7
+   ]
+  },
+  {
+   "material": "PZT-5H",
+   "freq": "1MHz",
+   "k_over_kr": "1e-3",
+   "modes": 8,
+   "worst_pair_rel_residual": "5201.0",
+   "worst_pair": [
+    0,
+    4
+   ]
+  },
+  {
+   "material": "BaTiO3",
+   "freq": "1MHz",
+   "k_over_kr": "0",
+   "modes": 8,
+   "worst_pair_rel_residual": "8.103",
+   "worst_pair": [
+    2,
+    7
+   ]
+  },
+  {
+   "material": "BaTiO3",
+   "freq": "1MHz",
+   "k_over_kr": "1e-3",
+   "modes": 8,
+   "worst_pair_rel_residual": "8282.0",
+   "worst_pair": [
+    0,
+    4
+   ]
+  }
+ ],
+ "lord_shulman_regime": [
+  {
+   "case": "physical (w*tauq ~ 1e-6)",
+   "w_tauq": "2.32478e-6",
+   "relaxation_factor_w2tau2/(1+w2tau2)": "5.4046e-12",
+   "positive": true,
+   "worst_self_pair_rel_residual": "0.9967",
+   "synthetic": false
+  },
+  {
+   "case": "SYNTHETIC w*tauq ~ 0.1",
+   "w_tauq": "0.1",
+   "relaxation_factor_w2tau2/(1+w2tau2)": "0.00990099",
+   "positive": true,
+   "worst_self_pair_rel_residual": "0.9917",
+   "synthetic": true
+  },
+  {
+   "case": "SYNTHETIC w*tauq ~ 1",
+   "w_tauq": "1.0",
+   "relaxation_factor_w2tau2/(1+w2tau2)": "0.5",
+   "positive": true,
+   "worst_self_pair_rel_residual": "0.7047",
+   "synthetic": true
+  }
+ ],
+ "mutations": [
+  {
+   "mutation": "M01_elec_sign_flip",
+   "description": "incorrect sign of electrical power term",
+   "baseline_rel_residual": "6.272",
+   "mutant_rel_residual": "6.272",
+   "detected": false
+  },
+  {
+   "mutation": "M02_no_pyroelectric",
+   "description": "missing pyroelectric coupling",
+   "baseline_rel_residual": "6.272",
+   "mutant_rel_residual": "0.9967",
+   "detected": true
+  },
+  {
+   "mutation": "M03_no_transverse_diss",
+   "description": "missing transverse (kappa11) dissipation",
+   "baseline_rel_residual": "6.272",
+   "mutant_rel_residual": "0.9967",
+   "detected": true
+  },
+  {
+   "mutation": "M04_wrong_tau_factor",
+   "description": "incorrect thermal-relaxation factor",
+   "baseline_rel_residual": "6.272",
+   "mutant_rel_residual": "2.571e+6",
+   "detected": true
+  },
+  {
+   "mutation": "M05_heat_flux_sign",
+   "description": "wrong heat-flux sign",
+   "baseline_rel_residual": "6.272",
+   "mutant_rel_residual": "6.272",
+   "detected": false
+  },
+  {
+   "mutation": "M06_reflected_flip",
+   "description": "incorrect reflected-wave flux direction",
+   "baseline_rel_residual": "6.272",
+   "mutant_rel_residual": "6.272",
+   "detected": false
+  },
+  {
+   "mutation": "M07_no_interference",
+   "description": "missing mode interference (self-pairs only)",
+   "baseline_rel_residual": "6.272",
+   "mutant_rel_residual": "6.272",
+   "detected": false
+  },
+  {
+   "mutation": "M08_eps_swap",
+   "description": "wrong eps11/eps33 assignment",
+   "baseline_rel_residual": "6.272",
+   "mutant_rel_residual": "0.9967",
+   "detected": true
+  }
+ ],
+ "g4_status": "OPEN - identity derived and oracle built; exact per-pair closure with the relaxed pyroelectric coupling storage term remains to be accepted by the scientific supervisor"
+}

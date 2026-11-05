@@ -1,0 +1,9 @@
+mutation,description,baseline_rel_residual,mutant_rel_residual,detected
+M01_elec_sign_flip,incorrect sign of electrical power term,6.272,6.272,False
+M02_no_pyroelectric,missing pyroelectric coupling,6.272,0.9967,True
+M03_no_transverse_diss,missing transverse (kappa11) dissipation,6.272,0.9967,True
+M04_wrong_tau_factor,incorrect thermal-relaxation factor,6.272,2.571e+6,True
+M05_heat_flux_sign,wrong heat-flux sign,6.272,6.272,False
+M06_reflected_flip,incorrect reflected-wave flux direction,6.272,6.272,False
+M07_no_interference,missing mode interference (self-pairs only),6.272,6.272,False
+M08_eps_swap,wrong eps11/eps33 assignment,6.272,0.9967,True

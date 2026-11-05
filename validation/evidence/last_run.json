@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
   "level": "pytest",
-  "generated_unix": 1793871108,
-  "commit": "d5a914c3b151db3a236ec0f8d8ef88ba199df2d4",
+  "generated_unix": 1793877343,
+  "commit": "86f958bd8e7fd8d509ae0215c5b535cf37ff9e5f",
   "python": "3.11.2",
   "summary": {
     "total": 4,
@@ -13,7 +13,7 @@
     "NOT_APPLICABLE": 0,
     "executed_cases": 6,
     "zero_case_tests": [],
-    "commit": "d5a914c3b151db3a236ec0f8d8ef88ba199df2d4",
+    "commit": "86f958bd8e7fd8d509ae0215c5b535cf37ff9e5f",
     "by_category": {
       "3-thermodynamics": {
         "PASS": 1,
@@ -383,7 +383,7 @@
         "inverse_bound_csv": "validation/task2uw_inverse_bound_results.csv",
         "tests": "validation/tests/test_20_scattering_task2uw.py (ACPT09-11 PASS)",
         "mutation": "MR28 DETECTED (electrostatic mode dropped at k>0) in validation/mutation_tests",
-        "summary": "Jordan block at k=0 (alg mult 2, geom mult 1, uniform-D0 generalized vector Dz=-1); 6 separated nonzero roots; electrostatic pair +/-s_e*k; block-triangular scaled limit S0=[[M6,0],[C,E0]] with M6 and E0 invertible (det E0 = -(eps_eL+eps_eR) up to fixed basis scale); ||S(k)^-1|| uniformly bounded for k/kr in [1e-8,1e-2]; Neumann q -> 0. Basis: 6 mech/thermal amplitudes + 1 relative potential constant + 1 global gauge."
+        "summary": "Jordan block at k=0 (alg mult 2, geom mult 1, generalized vector normalized to Dz=-1 exactly); 6 separated nonzero roots; electrostatic pair +/-s_e*k; S0 = analytic k=0 limit (no finite-k sample) in one fixed equilibrated basis, M6 and E0 invertible (det E0 = -(eps_eL+eps_eR) up to fixed scale); Neumann q(k) -> 0 linearly, q<1 and bound holds for k/kr <= ~1e-5 (q>=1 rows honestly marked bound_holds=False); measured ||S(k)^-1|| uniformly bounded over [1e-10,1e-2]. Basis: 6 mech/thermal + 1 relative potential + 1 global gauge."
       },
       "closure_note": "Jordan block at k=0 (alg mult 2, geom mult 1, uniform-D0 generalized vector), 6 separated nonzero roots, electrostatic pair +/-s_e k, block-triangular scaled limit with invertible M6 and E0=det -(eps_eL+eps_eR), uniform inverse bound; basis = 6 mech/thermal amplitudes + 1 relative potential constant + 1 global gauge."
     },
@@ -428,8 +428,8 @@
       "n_exec": 1,
       "actual": "theory and implementation agree on the thermal flux term",
       "detail": "theory states the bilinear thermal term: True\ncode evaluates a conjugate thermal term:    True\nwithdrawn linear form shown as active:       False",
-      "duration_s": 0.002499818801879883,
-      "commit": "d5a914c3b151db3a236ec0f8d8ef88ba199df2d4",
+      "duration_s": 0.0023758411407470703,
+      "commit": "86f958bd8e7fd8d509ae0215c5b535cf37ff9e5f",
       "remote_verified": false
     },
     {
@@ -447,8 +447,8 @@
       "n_exec": 2,
       "actual": "withdrawn from active theory, preserved in the INVALID registry",
       "detail": "CLM-H1-02 still INVALID in the registry: True\nactive causality-floor assertions found: 0",
-      "duration_s": 0.0021491050720214844,
-      "commit": "d5a914c3b151db3a236ec0f8d8ef88ba199df2d4",
+      "duration_s": 0.002928018569946289,
+      "commit": "86f958bd8e7fd8d509ae0215c5b535cf37ff9e5f",
       "remote_verified": false
     },
     {
@@ -466,8 +466,8 @@
       "n_exec": 2,
       "actual": "2 documents structurally sound, all refs resolve",
       "detail": "no structural problems found",
-      "duration_s": 0.0063762664794921875,
-      "commit": "d5a914c3b151db3a236ec0f8d8ef88ba199df2d4",
+      "duration_s": 0.006879568099975586,
+      "commit": "86f958bd8e7fd8d509ae0215c5b535cf37ff9e5f",
       "remote_verified": false
     },
     {
@@ -485,8 +485,8 @@
       "n_exec": 1,
       "actual": "7 closed blocker(s) all evidenced; G0/G1/G4/G5 correctly unpassed",
       "detail": "22 blockers registered, 7 CLOSED\nevery closed blocker carries evidence; G0/G1/G4/G5 remain unpassed",
-      "duration_s": 0.0016744136810302734,
-      "commit": "d5a914c3b151db3a236ec0f8d8ef88ba199df2d4",
+      "duration_s": 0.002011537551879883,
+      "commit": "86f958bd8e7fd8d509ae0215c5b535cf37ff9e5f",
       "remote_verified": false
     }
   ]
