@@ -2610,8 +2610,8 @@
      },
      {
       "k_over_kr": "1e-10",
-      "q_neumann": "2.06915e-5",
-      "bound_inv_norm": "0.70833",
+      "q_neumann": "3.98286e-6",
+      "bound_inv_norm": "0.708318",
       "measured_inv_norm": "0.708315",
       "bound_holds": true
      }
@@ -2680,8 +2680,8 @@
      },
      {
       "k_over_kr": "1e-10",
-      "q_neumann": "2.06915e-5",
-      "bound_inv_norm": "0.70833",
+      "q_neumann": "3.98286e-6",
+      "bound_inv_norm": "0.708318",
       "measured_inv_norm": "0.708315",
       "bound_holds": true
      }
@@ -2750,8 +2750,8 @@
      },
      {
       "k_over_kr": "1e-10",
-      "q_neumann": "2.92437e-5",
-      "bound_inv_norm": "1.61688",
+      "q_neumann": "2.22457e-6",
+      "bound_inv_norm": "1.61684",
       "measured_inv_norm": "1.61684",
       "bound_holds": true
      }
@@ -2820,8 +2820,8 @@
      },
      {
       "k_over_kr": "1e-10",
-      "q_neumann": "2.92437e-5",
-      "bound_inv_norm": "1.61688",
+      "q_neumann": "2.22457e-6",
+      "bound_inv_norm": "1.61684",
       "measured_inv_norm": "1.61684",
       "bound_holds": true
      }
@@ -2890,8 +2890,8 @@
      },
      {
       "k_over_kr": "1e-10",
-      "q_neumann": "2.92437e-5",
-      "bound_inv_norm": "1.61688",
+      "q_neumann": "3.55555e-6",
+      "bound_inv_norm": "1.61684",
       "measured_inv_norm": "1.61684",
       "bound_holds": true
      }
@@ -2960,8 +2960,8 @@
      },
      {
       "k_over_kr": "1e-10",
-      "q_neumann": "2.92437e-5",
-      "bound_inv_norm": "1.61688",
+      "q_neumann": "3.55555e-6",
+      "bound_inv_norm": "1.61684",
       "measured_inv_norm": "1.61684",
       "bound_holds": true
      }
@@ -3030,8 +3030,8 @@
      },
      {
       "k_over_kr": "1e-10",
-      "q_neumann": "1.81663e-5",
-      "bound_inv_norm": "0.779744",
+      "q_neumann": "3.46542e-6",
+      "bound_inv_norm": "0.779733",
       "measured_inv_norm": "0.77973",
       "bound_holds": true
      }
@@ -3100,8 +3100,8 @@
      },
      {
       "k_over_kr": "1e-10",
-      "q_neumann": "1.81663e-5",
-      "bound_inv_norm": "0.779744",
+      "q_neumann": "3.46542e-6",
+      "bound_inv_norm": "0.779733",
       "measured_inv_norm": "0.77973",
       "bound_holds": true
      }
@@ -3316,8 +3316,8 @@
      },
      {
       "k_over_kr": "1e-10",
-      "q_neumann": "2.06915e-5",
-      "bound_inv_norm": "0.70833",
+      "q_neumann": "3.98286e-6",
+      "bound_inv_norm": "0.708318",
       "measured_inv_norm": "0.708315",
       "bound_holds": true
      }
@@ -3386,8 +3386,8 @@
      },
      {
       "k_over_kr": "1e-10",
-      "q_neumann": "2.06915e-5",
-      "bound_inv_norm": "0.70833",
+      "q_neumann": "3.98286e-6",
+      "bound_inv_norm": "0.708318",
       "measured_inv_norm": "0.708315",
       "bound_holds": true
      }
@@ -3456,8 +3456,8 @@
      },
      {
       "k_over_kr": "1e-10",
-      "q_neumann": "2.92437e-5",
-      "bound_inv_norm": "1.61688",
+      "q_neumann": "2.22457e-6",
+      "bound_inv_norm": "1.61684",
       "measured_inv_norm": "1.61684",
       "bound_holds": true
      }
@@ -3526,8 +3526,8 @@
      },
      {
       "k_over_kr": "1e-10",
-      "q_neumann": "2.92437e-5",
-      "bound_inv_norm": "1.61688",
+      "q_neumann": "2.22457e-6",
+      "bound_inv_norm": "1.61684",
       "measured_inv_norm": "1.61684",
       "bound_holds": true
      }
@@ -3596,8 +3596,8 @@
      },
      {
       "k_over_kr": "1e-10",
-      "q_neumann": "2.92437e-5",
-      "bound_inv_norm": "1.61688",
+      "q_neumann": "3.55555e-6",
+      "bound_inv_norm": "1.61684",
       "measured_inv_norm": "1.61684",
       "bound_holds": true
      }
@@ -3666,8 +3666,8 @@
      },
      {
       "k_over_kr": "1e-10",
-      "q_neumann": "2.92437e-5",
-      "bound_inv_norm": "1.61688",
+      "q_neumann": "3.55555e-6",
+      "bound_inv_norm": "1.61684",
       "measured_inv_norm": "1.61684",
       "bound_holds": true
      }
@@ -3736,8 +3736,8 @@
      },
      {
       "k_over_kr": "1e-10",
-      "q_neumann": "1.81663e-5",
-      "bound_inv_norm": "0.779744",
+      "q_neumann": "3.46542e-6",
+      "bound_inv_norm": "0.779733",
       "measured_inv_norm": "0.77973",
       "bound_holds": true
      }
@@ -3806,8 +3806,8 @@
      },
      {
       "k_over_kr": "1e-10",
-      "q_neumann": "1.81663e-5",
-      "bound_inv_norm": "0.779744",
+      "q_neumann": "3.46542e-6",
+      "bound_inv_norm": "0.779733",
       "measured_inv_norm": "0.77973",
       "bound_holds": true
      }

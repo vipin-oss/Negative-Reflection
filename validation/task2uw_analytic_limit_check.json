@@ -1,0 +1,173 @@
+{
+ "identity_check": {
+  "convention": "exp(i k x - i w t), d/dz -> i*xi",
+  "gauss": "i k Dx + i xi Dz = 0  =>  Dz/k = -Dx/xi (NO factor of i)",
+  "operator_row": "independent_finite_k_state_space.py line 49: Dzp = -I*k*Dx",
+  "numeric_verdict": "Dz/k == -Dx/xi on modal eigenvectors (PZT-5H P-branch: both 6.04881e-14+1.95531e-13j); the certificate code previously used -iDx/xi (spurious i, harmless since C~1e-13); corrected to analytic -Dx/xi"
+ },
+ "cblock_comparison": {
+  "Al6061@dps40": {
+   "analytic_C": [
+    "(0.0 + 0.0j)",
+    "(0.0 + 0.0j)",
+    "(0.0 + 0.0j)"
+   ],
+   "richardson_C": [
+    "(-3.6398719e-51 - 8.864506e-54j)",
+    "(8.9765154e-45 - 9.0764853e-45j)",
+    "(-1.8346622e-50 - 3.9458302e-50j)"
+   ],
+   "entrywise_abs_err": [
+    "3.64e-51",
+    "1.277e-44",
+    "4.352e-50"
+   ],
+   "max_err": "1.277e-44"
+  },
+  "Al6061@dps60": {
+   "analytic_C": [
+    "(0.0 + 0.0j)",
+    "(0.0 + 0.0j)",
+    "(0.0 + 0.0j)"
+   ],
+   "richardson_C": [
+    "(-6.526832e-71 + 8.8791274e-75j)",
+    "(5.1544553e-65 + 6.0541433e-65j)",
+    "(2.5799476e-69 + 3.7632603e-70j)"
+   ],
+   "entrywise_abs_err": [
+    "6.527e-71",
+    "7.951e-65",
+    "2.607e-69"
+   ],
+   "max_err": "7.951e-65"
+  },
+  "Al6061@dps100": {
+   "analytic_C": [
+    "(0.0 + 0.0j)",
+    "(0.0 + 0.0j)",
+    "(0.0 + 0.0j)"
+   ],
+   "richardson_C": [
+    "(-7.0614648e-110 - 9.8899486e-115j)",
+    "(1.6862016e-104 + 4.4557267e-105j)",
+    "(-9.6852982e-109 - 2.9116728e-110j)"
+   ],
+   "entrywise_abs_err": [
+    "7.061e-110",
+    "1.744e-104",
+    "9.69e-109"
+   ],
+   "max_err": "1.744e-104"
+  },
+  "PZT-5H@dps40": {
+   "analytic_C": [
+    "(2.0467296e-13 + 0.0j)",
+    "(7.5732443e-46 + 4.7072801e-56j)",
+    "(5.4295098e-62 - 4.4828926e-56j)"
+   ],
+   "richardson_C": [
+    "(2.0467296e-13 - 6.9452064e-31j)",
+    "(3.14893e-37 + 3.3690261e-37j)",
+    "(1.3294127e-41 - 1.1567455e-41j)"
+   ],
+   "entrywise_abs_err": [
+    "7.878e-30",
+    "4.612e-37",
+    "1.762e-41"
+   ],
+   "max_err": "7.878e-30"
+  },
+  "PZT-5H@dps60": {
+   "analytic_C": [
+    "(2.0467296e-13 + 0.0j)",
+    "(2.0497514e-67 + 1.2740588e-77j)",
+    "(1.5220163e-83 - 1.2133262e-77j)"
+   ],
+   "richardson_C": [
+    "(2.0467296e-13 - 6.9452064e-31j)",
+    "(3.1569372e-37 + 3.3694011e-37j)",
+    "(4.3477072e-51 + 6.2320671e-51j)"
+   ],
+   "entrywise_abs_err": [
+    "7.866e-30",
+    "4.617e-37",
+    "7.599e-51"
+   ],
+   "max_err": "7.866e-30"
+  },
+  "PZT-5H@dps100": {
+   "analytic_C": [
+    "(2.0467296e-13 + 0.0j)",
+    "(4.5801325e-106 + 2.84686e-116j)",
+    "(3.3151384e-122 - 2.7111554e-116j)"
+   ],
+   "richardson_C": [
+    "(2.0467296e-13 - 6.9452064e-31j)",
+    "(3.1569372e-37 + 3.3694011e-37j)",
+    "(4.3477072e-51 + 6.2320671e-51j)"
+   ],
+   "entrywise_abs_err": [
+    "7.866e-30",
+    "4.617e-37",
+    "7.599e-51"
+   ],
+   "max_err": "7.866e-30"
+  },
+  "BaTiO3@dps40": {
+   "analytic_C": [
+    "(1.1589197e-13 + 5.5981246e-54j)",
+    "(-6.9219706e-47 - 2.1607958e-46j)",
+    "(3.9489073e-44 + 1.022367e-43j)"
+   ],
+   "richardson_C": [
+    "(1.1589197e-13 - 1.3797437e-30j)",
+    "(3.0558979e-37 + 3.2312653e-37j)",
+    "(9.9759752e-42 + 1.4243513e-42j)"
+   ],
+   "entrywise_abs_err": [
+    "5.221e-30",
+    "4.447e-37",
+    "1.002e-41"
+   ],
+   "max_err": "5.221e-30"
+  },
+  "BaTiO3@dps60": {
+   "analytic_C": [
+    "(1.1589197e-13 + 0.0j)",
+    "(-4.3268408e-66 - 3.6467282e-76j)",
+    "(-1.1714062e-82 + 1.0346415e-76j)"
+   ],
+   "richardson_C": [
+    "(1.1589197e-13 - 1.3797437e-30j)",
+    "(3.0537861e-37 + 3.2329614e-37j)",
+    "(2.3017224e-52 + 9.9675104e-52j)"
+   ],
+   "entrywise_abs_err": [
+    "5.217e-30",
+    "4.447e-37",
+    "1.023e-51"
+   ],
+   "max_err": "5.217e-30"
+  },
+  "BaTiO3@dps100": {
+   "analytic_C": [
+    "(1.1589197e-13 - 3.1077446e-114j)",
+    "(1.7146492e-120 - 7.3731935e-119j)",
+    "(-4.3239891e-124 - 6.4133237e-124j)"
+   ],
+   "richardson_C": [
+    "(1.1589197e-13 - 1.3797437e-30j)",
+    "(3.0537861e-37 + 3.2329614e-37j)",
+    "(2.3017224e-52 + 9.9675104e-52j)"
+   ],
+   "entrywise_abs_err": [
+    "5.217e-30",
+    "4.447e-37",
+    "1.023e-51"
+   ],
+   "max_err": "5.217e-30"
+  }
+ },
+ "conclusion": "Analytic C-block C_j = -i*e15*ux_j (Gauss: i k Dx + i xi Dz = 0, d/dz -> i xi  =>  Dz/k = -Dx/xi; at k=0 Dx = e15*i xi ux) matches the Richardson-extrapolated on-shell values to the max_err above; magnitudes ~1e-13 (Al ~0 since e15=0), so C is numerically negligible and the corrected fully-analytic S0 reproduces the same Neumann interval q<1 for k/kr <= 1e-5. Completeness theorem survives; the earlier -i factor was a constant-factor slip in a numerically-zero block, now corrected in code."
+}

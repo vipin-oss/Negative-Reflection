@@ -262,37 +262,16 @@ def scaled_S(p1, p2, k, w, kind, dps):
             cols.append((side, st, dz_over_k))
     assert len(cols) == 8, len(cols)
     if k == 0:
-        # The mech Dz/k entries are 0/0 at k=0; their limit follows from the
-        # on-shell identity Dz = -i k Dx with Dx = e15*(i xi ux + i k uz)
-        # - i k eps11 phi. The k*phi part is first-order, so the limit is
-        # taken by linear Richardson extrapolation of the on-shell value
-        # from two small-k samples (documented; M6, the top-right block and
-        # E0 remain exactly analytic).
+        # Fully ANALYTIC C-block. Eigenvalue convention: plane wave
+        # exp(i k x - i w t), d/dz -> i*xi. Gauss law: i k Dx + i xi Dz = 0
+        #  =>  Dz/k = -Dx/xi. At k = 0, Dx = e15*(i xi ux) (the i k terms
+        # vanish), so C_j = -i*e15*ux_j for each nonzero branch. No
+        # finite-k sample is used anywhere in S0.
         for j, tup in enumerate(cols):
-            if not (len(tup) == 3 and isinstance(tup[2], tuple) and tup[2][0] == "EXT"):
-                continue
-            _, side, xi0 = tup[2]
-            p = p1 if side == 1 else p2
-            k1, k2 = kr * mp.mpf("1e-7"), kr * mp.mpf("1e-9")
-            vals = []
-            for kk in (k1, k2):
-                M = _raw_modes(p, kk, w, dps)
-                out = [m for m in _select(M, kk, kr, side) if abs(m["xi"]) > 5 * kk]
-                out.sort(key=lambda m: (mp.re(m["xi"]), mp.im(m["xi"])))
-                # branch-continuous matching: same sorted slot as at k = 0
-                slot = sorted([m["xi"] for m in _select(_raw_modes(p, mp.mpf(0), w, dps), mp.mpf(0), kr, side)
-                               if abs(m["xi"]) > mp.mpf("1e-12") * kr],
-                              key=lambda z: (mp.re(z), mp.im(z))).index(xi0)
-                m = out[slot]
-                st = m["st"]
-                nrm = max(abs(st[i]) for i in MECH) or mp.mpf(1)
-                st = [v / nrm for v in _fix_sign(st)]
-                dx = p["e15"] * (1j * m["xi"] * st[0] + 1j * kk * st[1]) \
-                    - 1j * kk * p["eps11"] * st[PHI]
-                vals.append(-1j * dx / m["xi"])   # Dz/k = -i Dx/xi on shell
-            v1, v2 = vals
-            v0 = v2 + (v2 - v1) * (k2 / (k1 - k2))   # linear extrapolation k->0
-            cols[j] = (tup[0], tup[1], v0)
+            if len(tup) == 3 and isinstance(tup[2], tuple) and tup[2][0] == "EXT":
+                _, side, _xi0 = tup[2]
+                p = p1 if side == 1 else p2
+                cols[j] = (tup[0], tup[1], -1j * p["e15"] * tup[1][0])
 
     ROW = [0, 1, 3, 4, 5, 7, 2, 6]          # mech6, phi, Dz/k
     S = mp.matrix(8, 8)
