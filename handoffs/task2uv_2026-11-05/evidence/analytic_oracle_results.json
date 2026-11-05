@@ -1,0 +1,354 @@
+{
+  "runs": [
+    {
+      "precision": 40,
+      "cases": [
+        {
+          "test": "classical_elastic_impedance",
+          "passed": true,
+          "details": {
+            "difference": "1.175969671e-41",
+            "r": "(-0.269524620260568 + 0.0j)",
+            "t": "(0.730475379739432 + 0.0j)"
+          }
+        },
+        {
+          "test": "analytic_LS_dispersion_Al6061_wt1.0e-5",
+          "passed": true,
+          "details": {
+            "max_backward_error": "3.895622e-36",
+            "omega_tau": "1.0e-5",
+            "synthetic_tau": true
+          }
+        },
+        {
+          "test": "analytic_LS_dispersion_Al6061_wt0.1",
+          "passed": true,
+          "details": {
+            "max_backward_error": "2.139748e-36",
+            "omega_tau": "0.1",
+            "synthetic_tau": true
+          }
+        },
+        {
+          "test": "analytic_LS_dispersion_Al6061_wt1.0",
+          "passed": true,
+          "details": {
+            "max_backward_error": "7.252824e-36",
+            "omega_tau": "1.0",
+            "synthetic_tau": true
+          }
+        },
+        {
+          "test": "analytic_LS_dispersion_PZT-5H_wt1.0e-5",
+          "passed": true,
+          "details": {
+            "max_backward_error": "2.068153e-32",
+            "omega_tau": "1.0e-5",
+            "synthetic_tau": true
+          }
+        },
+        {
+          "test": "analytic_LS_dispersion_PZT-5H_wt0.1",
+          "passed": true,
+          "details": {
+            "max_backward_error": "2.028763e-33",
+            "omega_tau": "0.1",
+            "synthetic_tau": true
+          }
+        },
+        {
+          "test": "analytic_LS_dispersion_PZT-5H_wt1.0",
+          "passed": true,
+          "details": {
+            "max_backward_error": "1.199737e-32",
+            "omega_tau": "1.0",
+            "synthetic_tau": true
+          }
+        },
+        {
+          "test": "analytic_LS_dispersion_BaTiO3_wt1.0e-5",
+          "passed": true,
+          "details": {
+            "max_backward_error": "1.776116e-32",
+            "omega_tau": "1.0e-5",
+            "synthetic_tau": true
+          }
+        },
+        {
+          "test": "analytic_LS_dispersion_BaTiO3_wt0.1",
+          "passed": true,
+          "details": {
+            "max_backward_error": "1.434158e-32",
+            "omega_tau": "0.1",
+            "synthetic_tau": true
+          }
+        },
+        {
+          "test": "analytic_LS_dispersion_BaTiO3_wt1.0",
+          "passed": true,
+          "details": {
+            "max_backward_error": "2.713792e-32",
+            "omega_tau": "1.0",
+            "synthetic_tau": true
+          }
+        }
+      ],
+      "mutations": [
+        {
+          "mutation": "p3_reverse",
+          "injected": true,
+          "detected": true,
+          "observable": "transmitted_theta",
+          "relative_delta": "0.0397925475146",
+          "threshold": "1.0e-6",
+          "pristine": "(-3.617573702 - 151596.0416j)",
+          "mutated": "(-1.882049511 - 145563.6492j)"
+        },
+        {
+          "mutation": "beta3_reverse",
+          "injected": true,
+          "detected": true,
+          "observable": "transmitted_theta",
+          "relative_delta": "0.890042216504",
+          "threshold": "0.001",
+          "pristine": "(-3.617573702 - 151596.0416j)",
+          "mutated": "(35.21624369 - 16669.17027j)"
+        },
+        {
+          "mutation": "e33_reverse",
+          "injected": true,
+          "detected": true,
+          "observable": "transmitted_theta",
+          "relative_delta": "0.0397925475146",
+          "threshold": "1.0e-6",
+          "pristine": "(-3.617573702 - 151596.0416j)",
+          "mutated": "(-1.882049511 - 145563.6492j)"
+        },
+        {
+          "mutation": "wrong_LS_g_omega_tau_0.1",
+          "injected": true,
+          "detected": true,
+          "observable": "quartic_spectral_roots",
+          "relative_delta": "0.1",
+          "threshold": "0.001"
+        },
+        {
+          "mutation": "wrong_LS_g_omega_tau_1.0",
+          "injected": true,
+          "detected": true,
+          "observable": "quartic_spectral_roots",
+          "relative_delta": "0.9998290676",
+          "threshold": "0.001"
+        },
+        {
+          "mutation": "omit_incident_from_actual_1D_rhs",
+          "injected": true,
+          "detected": true,
+          "observable": "physical_four_component_interface_jump",
+          "relative_delta": "1.0"
+        },
+        {
+          "mutation": "reverse_left_radiation_in_solver",
+          "injected": true,
+          "detected": true,
+          "observable": "physical_reflection_plus_admitted_incident",
+          "relative_delta": "25.96171491",
+          "incident_in_outgoing": true
+        },
+        {
+          "mutation": "remove_actual_SV_traction_row",
+          "injected": true,
+          "detected": true,
+          "observable": "discarded_physical_shear_traction_residual",
+          "relative_delta": "0.155621947108",
+          "baseline_residual": "5.313723777e-42"
+        }
+      ],
+      "failures": [],
+      "limitations": [
+        "Analytic 1D LS dispersion and elastic reflection are independent physics anchors only for reduced k=0 problem.",
+        "The 1D interface mutation tests do not exercise full finite-k production assembly.",
+        "ASSUMED beta3 and p3 are algorithm stress tests, not material validation.",
+        "No energy conservation or G4/G5 validation claimed.",
+        "No global spectral simplicity or passive causality theorem proved.",
+        "Conductor electrical contact not represented; Al6061 is a dielectric surrogate."
+      ]
+    },
+    {
+      "precision": 70,
+      "cases": [
+        {
+          "test": "classical_elastic_impedance",
+          "passed": true,
+          "details": {
+            "difference": "1.101007857e-71",
+            "r": "(-0.269524620260568 + 0.0j)",
+            "t": "(0.730475379739432 + 0.0j)"
+          }
+        },
+        {
+          "test": "analytic_LS_dispersion_Al6061_wt1.0e-5",
+          "passed": true,
+          "details": {
+            "max_backward_error": "5.399338e-66",
+            "omega_tau": "1.0e-5",
+            "synthetic_tau": true
+          }
+        },
+        {
+          "test": "analytic_LS_dispersion_Al6061_wt0.1",
+          "passed": true,
+          "details": {
+            "max_backward_error": "1.657861e-66",
+            "omega_tau": "0.1",
+            "synthetic_tau": true
+          }
+        },
+        {
+          "test": "analytic_LS_dispersion_Al6061_wt1.0",
+          "passed": true,
+          "details": {
+            "max_backward_error": "6.664063e-66",
+            "omega_tau": "1.0",
+            "synthetic_tau": true
+          }
+        },
+        {
+          "test": "analytic_LS_dispersion_PZT-5H_wt1.0e-5",
+          "passed": true,
+          "details": {
+            "max_backward_error": "8.115853e-63",
+            "omega_tau": "1.0e-5",
+            "synthetic_tau": true
+          }
+        },
+        {
+          "test": "analytic_LS_dispersion_PZT-5H_wt0.1",
+          "passed": true,
+          "details": {
+            "max_backward_error": "5.965064e-64",
+            "omega_tau": "0.1",
+            "synthetic_tau": true
+          }
+        },
+        {
+          "test": "analytic_LS_dispersion_PZT-5H_wt1.0",
+          "passed": true,
+          "details": {
+            "max_backward_error": "1.320103e-62",
+            "omega_tau": "1.0",
+            "synthetic_tau": true
+          }
+        },
+        {
+          "test": "analytic_LS_dispersion_BaTiO3_wt1.0e-5",
+          "passed": true,
+          "details": {
+            "max_backward_error": "2.408641e-62",
+            "omega_tau": "1.0e-5",
+            "synthetic_tau": true
+          }
+        },
+        {
+          "test": "analytic_LS_dispersion_BaTiO3_wt0.1",
+          "passed": true,
+          "details": {
+            "max_backward_error": "1.71894e-62",
+            "omega_tau": "0.1",
+            "synthetic_tau": true
+          }
+        },
+        {
+          "test": "analytic_LS_dispersion_BaTiO3_wt1.0",
+          "passed": true,
+          "details": {
+            "max_backward_error": "2.252211e-62",
+            "omega_tau": "1.0",
+            "synthetic_tau": true
+          }
+        }
+      ],
+      "mutations": [
+        {
+          "mutation": "p3_reverse",
+          "injected": true,
+          "detected": true,
+          "observable": "transmitted_theta",
+          "relative_delta": "0.0397925475146",
+          "threshold": "1.0e-6",
+          "pristine": "(-3.617573702 - 151596.0416j)",
+          "mutated": "(-1.882049511 - 145563.6492j)"
+        },
+        {
+          "mutation": "beta3_reverse",
+          "injected": true,
+          "detected": true,
+          "observable": "transmitted_theta",
+          "relative_delta": "0.890042216504",
+          "threshold": "0.001",
+          "pristine": "(-3.617573702 - 151596.0416j)",
+          "mutated": "(35.21624369 - 16669.17027j)"
+        },
+        {
+          "mutation": "e33_reverse",
+          "injected": true,
+          "detected": true,
+          "observable": "transmitted_theta",
+          "relative_delta": "0.0397925475146",
+          "threshold": "1.0e-6",
+          "pristine": "(-3.617573702 - 151596.0416j)",
+          "mutated": "(-1.882049511 - 145563.6492j)"
+        },
+        {
+          "mutation": "wrong_LS_g_omega_tau_0.1",
+          "injected": true,
+          "detected": true,
+          "observable": "quartic_spectral_roots",
+          "relative_delta": "0.1",
+          "threshold": "0.001"
+        },
+        {
+          "mutation": "wrong_LS_g_omega_tau_1.0",
+          "injected": true,
+          "detected": true,
+          "observable": "quartic_spectral_roots",
+          "relative_delta": "0.9998290676",
+          "threshold": "0.001"
+        },
+        {
+          "mutation": "omit_incident_from_actual_1D_rhs",
+          "injected": true,
+          "detected": true,
+          "observable": "physical_four_component_interface_jump",
+          "relative_delta": "1.0"
+        },
+        {
+          "mutation": "reverse_left_radiation_in_solver",
+          "injected": true,
+          "detected": true,
+          "observable": "physical_reflection_plus_admitted_incident",
+          "relative_delta": "25.96171491",
+          "incident_in_outgoing": true
+        },
+        {
+          "mutation": "remove_actual_SV_traction_row",
+          "injected": true,
+          "detected": true,
+          "observable": "discarded_physical_shear_traction_residual",
+          "relative_delta": "0.155621947108",
+          "baseline_residual": "3.758460555e-72"
+        }
+      ],
+      "failures": [],
+      "limitations": [
+        "Analytic 1D LS dispersion and elastic reflection are independent physics anchors only for reduced k=0 problem.",
+        "The 1D interface mutation tests do not exercise full finite-k production assembly.",
+        "ASSUMED beta3 and p3 are algorithm stress tests, not material validation.",
+        "No energy conservation or G4/G5 validation claimed.",
+        "No global spectral simplicity or passive causality theorem proved.",
+        "Conductor electrical contact not represented; Al6061 is a dielectric surrogate."
+      ]
+    }
+  ]
+}

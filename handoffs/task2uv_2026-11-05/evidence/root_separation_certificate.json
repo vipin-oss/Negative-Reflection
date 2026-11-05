@@ -1,0 +1,276 @@
+{
+  "scope": "sampled exact-axis 1D spectra only, not 8-state k>0 theorem",
+  "precision": 60,
+  "cases": [
+    {
+      "material": "Al6061",
+      "frequency_hz": "1e5",
+      "tau_case": "source_tau",
+      "omega_tau": "1.319468915e-6",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.00202186110335",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.00105843813998",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "Al6061",
+      "frequency_hz": "1e5",
+      "tau_case": "synthetic_wtau_0.1",
+      "omega_tau": "0.1",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.00201683780062",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.00105580845961",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "Al6061",
+      "frequency_hz": "1e5",
+      "tau_case": "synthetic_wtau_1",
+      "omega_tau": "1.0",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.00170017572618",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.000890036837347",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "Al6061",
+      "frequency_hz": "1e6",
+      "tau_case": "source_tau",
+      "omega_tau": "1.319468915e-5",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.00639368619881",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.00334707528457",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "Al6061",
+      "frequency_hz": "1e6",
+      "tau_case": "synthetic_wtau_0.1",
+      "omega_tau": "0.1",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.00637780093543",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.00333875950306",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "Al6061",
+      "frequency_hz": "1e6",
+      "tau_case": "synthetic_wtau_1",
+      "omega_tau": "1.0",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.00537642692678",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.00281454359818",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "Al6061",
+      "frequency_hz": "1e7",
+      "tau_case": "source_tau",
+      "omega_tau": "0.0001319468915",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.0202186109434",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.0105843813537",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "Al6061",
+      "frequency_hz": "1e7",
+      "tau_case": "synthetic_wtau_0.1",
+      "omega_tau": "0.1",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.0201683715537",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.0105580845203",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "Al6061",
+      "frequency_hz": "1e7",
+      "tau_case": "synthetic_wtau_1",
+      "omega_tau": "1.0",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.0170017297656",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.00890036805043",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "PZT-5H",
+      "frequency_hz": "1e5",
+      "tau_case": "source_tau",
+      "omega_tau": "2.324778564e-7",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.000237669627364",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.000191400877243",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "PZT-5H",
+      "frequency_hz": "1e5",
+      "tau_case": "synthetic_wtau_0.1",
+      "omega_tau": "0.1",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.000237079139256",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.00019092534344",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "PZT-5H",
+      "frequency_hz": "1e5",
+      "tau_case": "synthetic_wtau_1",
+      "omega_tau": "1.0",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.000199855537664",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.00016094831155",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "PZT-5H",
+      "frequency_hz": "1e6",
+      "tau_case": "source_tau",
+      "omega_tau": "2.324778564e-6",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.000751577353113",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.000605262718242",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "PZT-5H",
+      "frequency_hz": "1e6",
+      "tau_case": "synthetic_wtau_0.1",
+      "omega_tau": "0.1",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.000749710065754",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.000603758948318",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "PZT-5H",
+      "frequency_hz": "1e6",
+      "tau_case": "synthetic_wtau_1",
+      "omega_tau": "1.0",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.00063199870199",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.000508963250053",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "PZT-5H",
+      "frequency_hz": "1e7",
+      "tau_case": "source_tau",
+      "omega_tau": "2.324778564e-5",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.00237669627332",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.00191400877217",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "PZT-5H",
+      "frequency_hz": "1e7",
+      "tau_case": "synthetic_wtau_0.1",
+      "omega_tau": "0.1",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.00237079139234",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.00190925343436",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "PZT-5H",
+      "frequency_hz": "1e7",
+      "tau_case": "synthetic_wtau_1",
+      "omega_tau": "1.0",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.00199855537573",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.00160948311536",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "BaTiO3",
+      "frequency_hz": "1e5",
+      "tau_case": "source_tau",
+      "omega_tau": "1.570796327e-7",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.000183975217543",
+      "minimum_shear_to_P_thermal_gap_normalised": "9.51662921938e-5",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "BaTiO3",
+      "frequency_hz": "1e5",
+      "tau_case": "synthetic_wtau_0.1",
+      "omega_tau": "0.1",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.000183518132725",
+      "minimum_shear_to_P_thermal_gap_normalised": "9.49298523742e-5",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "BaTiO3",
+      "frequency_hz": "1e5",
+      "tau_case": "synthetic_wtau_1",
+      "omega_tau": "1.0",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.000154704100926",
+      "minimum_shear_to_P_thermal_gap_normalised": "8.00249939588e-5",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "BaTiO3",
+      "frequency_hz": "1e6",
+      "tau_case": "source_tau",
+      "omega_tau": "1.570796327e-6",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.000581780720459",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.000300942239805",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "BaTiO3",
+      "frequency_hz": "1e6",
+      "tau_case": "synthetic_wtau_0.1",
+      "omega_tau": "0.1",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.000580335291348",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.000300194551446",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "BaTiO3",
+      "frequency_hz": "1e6",
+      "tau_case": "synthetic_wtau_1",
+      "omega_tau": "1.0",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.000489217322273",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.000253061250651",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "BaTiO3",
+      "frequency_hz": "1e7",
+      "tau_case": "source_tau",
+      "omega_tau": "1.570796327e-5",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.00183975217531",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.00095166292188",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "BaTiO3",
+      "frequency_hz": "1e7",
+      "tau_case": "synthetic_wtau_0.1",
+      "omega_tau": "0.1",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.00183518132707",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.00094929852374",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    },
+    {
+      "material": "BaTiO3",
+      "frequency_hz": "1e7",
+      "tau_case": "synthetic_wtau_1",
+      "omega_tau": "1.0",
+      "minimum_1D_P_thermal_root_gap_normalised": "0.00154704100847",
+      "minimum_shear_to_P_thermal_gap_normalised": "0.000800249939581",
+      "discriminant_nonzero_sampled": true,
+      "shear_separate_sampled": true
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "runs": [
+    {
+      "digits": 70,
+      "pair": "PZT-5H|BaTiO3",
+      "incident": "P",
+      "k_over_kref": "1e-4",
+      "pristine_max_equilibrated_residual": "1.40676456726e-70",
+      "mutants": [
+        {
+          "name": "remove_phi_contact",
+          "detected": true,
+          "fixed_column": 7,
+          "original_removed_row_backward_error": "0.999963096566613",
+          "other_rows_max_backward_error": "7.74549395301e-72",
+          "amplitude_relative_change": "1748.50028982",
+          "modified_solve_residual": "2.9181296e-67"
+        },
+        {
+          "name": "remove_Dz_contact",
+          "detected": true,
+          "fixed_column": 7,
+          "original_removed_row_backward_error": "0.999994609526797",
+          "other_rows_max_backward_error": "9.55336897033e-72",
+          "amplitude_relative_change": "515.56741844",
+          "modified_solve_residual": "2.492028e-68"
+        },
+        {
+          "name": "remove_ux_contact",
+          "detected": true,
+          "fixed_column": 7,
+          "original_removed_row_backward_error": "0.999999945242269",
+          "other_rows_max_backward_error": "5.40520489781e-72",
+          "amplitude_relative_change": "100.652792173",
+          "modified_solve_residual": "1.581586e-68"
+        },
+        {
+          "name": "remove_shear_traction_contact",
+          "detected": true,
+          "fixed_column": 7,
+          "original_removed_row_backward_error": "0.99999459983851",
+          "other_rows_max_backward_error": "8.49268889214e-72",
+          "amplitude_relative_change": "291.785113067",
+          "modified_solve_residual": "1.2327849e-67"
+        }
+      ]
+    }
+  ]
+}

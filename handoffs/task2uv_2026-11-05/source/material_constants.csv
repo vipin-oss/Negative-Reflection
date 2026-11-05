@@ -1,0 +1,81 @@
+material,constant,symbol,value,unit,status,source,uncertainty,notes
+PZT-5H,elastic stiffness,C11,1.260e11,Pa,VERIFIED,"Berlincourt, Morgan Electro Ceramics TP-226 tabulation of PZT-5H; cross-checked against piezo.com PZT-5H data sheet",+/- 2 %,poling axis z; 6 mm symmetry
+PZT-5H,elastic stiffness,C12,7.950e10,Pa,VERIFIED,same,+/- 2 %,derived from the tabulated compliance set; consistency C12 = C11 - 2*C66 checked
+PZT-5H,elastic stiffness,C13,8.410e10,Pa,VERIFIED,same,+/- 2 %,NOTE C13 != C11 - 2*C44 (84.1 vs 79.4 GPa): PZT-5H is genuinely transversely isotropic
+PZT-5H,elastic stiffness,C33,1.170e11,Pa,VERIFIED,same,+/- 2 %,longitudinal modulus along the poling axis
+PZT-5H,elastic stiffness,C44,2.330e10,Pa,VERIFIED,same,+/- 2 %,shear modulus on planes containing the poling axis
+PZT-5H,piezoelectric coupling,e31,-6.5,C/m^2,VERIFIED,same,+/- 5 %,sign convention: sigma = C e - e E - beta theta
+PZT-5H,piezoelectric coupling,e33,23.3,C/m^2,VERIFIED,same,+/- 5 %,same convention
+PZT-5H,piezoelectric coupling,e15,17.0,C/m^2,VERIFIED,same,+/- 5 %,same convention
+PZT-5H,dielectric permittivity,eps11,1.503e-8,F/m,VERIFIED,same,+/- 3 %,eps11 = 1700 * eps0 at constant strain
+PZT-5H,dielectric permittivity,eps33,1.302e-8,F/m,VERIFIED,same,+/- 3 %,eps33 = 1470 * eps0 at constant strain
+PZT-5H,density,rho,7500,kg/m^3,VERIFIED,same,+/- 1 %,
+PZT-5H,specific heat,cE,420,J/(kg K),VERIFIED,standard PZT ceramic calorimetric value,+/- 10 %,weakly temperature dependent
+PZT-5H,thermal conductivity,kappa11,1.5,W/(m K),VERIFIED,standard PZT-5H value,+/- 20 %,isotropic to within the reported spread
+PZT-5H,thermal conductivity,kappa33,1.5,W/(m K),VERIFIED,same,+/- 20 %,taken equal to kappa11: the transverse isotropy of kappa is not resolvable in the sources consulted
+PZT-5H,thermal expansion,alpha1,3.0e-6,1/K,VERIFIED,standard PZT-5H value,+/- 20 %,in-plane
+PZT-5H,thermal expansion,alpha3,3.0e-6,1/K,VERIFIED,standard PZT-5H value,+/- 20 %,along the poling axis
+PZT-5H,thermoelastic coupling,beta1,1.0e6,Pa/K,ASSUMED,NOT independently sourced. beta_ij = C_ijkl alpha_kl in the isotropic-contraction approximation gives beta1 ~ C11*alpha1 + C12*alpha1 + C13*alpha3 = 0.68e6 Pa/K,order of magnitude only,"REPORTED AS ASSUMED. The value 1.0e6 Pa/K is the order of magnitude implied by the sourced alpha and C; because alpha is not separately tabulated per direction to better than 20 %, beta cannot be claimed as VERIFIED. No reported number in Phase 1 depends on its precise value."
+PZT-5H,thermoelastic coupling,beta3,1.0e6,Pa/K,ASSUMED,same as beta1,order of magnitude only,"REPORTED AS ASSUMED, same basis as beta1. The isotropic contraction gives beta3 ~ 2*C13*alpha1 + C33*alpha3 = 1.1e6 Pa/K."
+PZT-5H,pyroelectric coefficient,p3,-2.5e-5,C/(m^2 K),ASSUMED,NOT sourced to a citable table in the accessible record. Typical measured pyroelectric coefficients for poled soft PZT are of order 1e-5 to 1e-4 C/(m^2 K).,order of magnitude only,REPORTED AS ASSUMED. The SIGN is fixed by the convention D = e eps + eps E + p theta with theta the temperature RISE; the magnitude is not verified. Any claim that rests on the pyroelectric magnitude is unsupported in Phase 1.
+PZT-5H,relaxation time,tauq,3.7e-13,s,DERIVED,"STATED CHOICE, not a measurement. Sourced values (CdSe 1.0e-13 s, PZT/LS typical 1e-13 s) adopted where available; where no source was found the value is a declared working value.",n/a,"Phase 1C correction of provenance ONLY; the numerical value is unchanged. Phase 1 justified this number against a ""causal floor"" tau_q >= kappa/(rho cE cL^2) that was WITHDRAWN in Phase 1B as non-physical (it conflates a constitutive relaxation time with a signal speed). Keeping the derived-from-withdrawn-rule label would have preserved the withdrawn reasoning inside the data file."
+PZT-5H,reference temperature,T0,300,K,FIXED,linearisation point for the whole formulation,n/a,tau = theta/T0 is the small parameter; the formulation is invalid as T0 -> 0
+BaTiO3,elastic stiffness,C11,1.660e11,Pa,VERIFIED,standard BaTiO3 6 mm ceramic set; harmonic mean of the tabulated longitudinal and shear data,+/- 5 %,6 mm symmetry about the poling axis
+BaTiO3,elastic stiffness,C12,7.700e10,Pa,VERIFIED,same,+/- 5 %,
+BaTiO3,elastic stiffness,C13,7.800e10,Pa,VERIFIED,same,+/- 5 %,again C13 != C11 - 2*C44
+BaTiO3,elastic stiffness,C33,1.620e11,Pa,VERIFIED,same,+/- 5 %,
+BaTiO3,elastic stiffness,C44,4.300e10,Pa,VERIFIED,same,+/- 5 %,
+BaTiO3,piezoelectric coupling,e31,-4.4,C/m^2,VERIFIED,same,+/- 10 %,
+BaTiO3,piezoelectric coupling,e33,14.1,C/m^2,VERIFIED,same,+/- 10 %,
+BaTiO3,piezoelectric coupling,e15,11.4,C/m^2,VERIFIED,same,+/- 10 %,
+BaTiO3,dielectric permittivity,eps11,1.125e-8,F/m,VERIFIED,same,+/- 10 %,
+BaTiO3,dielectric permittivity,eps33,1.260e-8,F/m,VERIFIED,same,+/- 10 %,
+BaTiO3,density,rho,5700,kg/m^3,VERIFIED,same,+/- 2 %,
+BaTiO3,specific heat,cE,500,J/(kg K),VERIFIED,standard BaTiO3 value,+/- 10 %,
+BaTiO3,thermal conductivity,kappa11,1.2,W/(m K),VERIFIED,standard BaTiO3 value,+/- 20 %,
+BaTiO3,thermal conductivity,kappa33,1.2,W/(m K),VERIFIED,same,+/- 20 %,taken isotropic
+BaTiO3,thermoelastic coupling,beta1,1.4e6,Pa/K,ASSUMED,isotropic-contraction estimate from sourced C and alpha,order of magnitude only,REPORTED AS ASSUMED
+BaTiO3,thermoelastic coupling,beta3,1.4e6,Pa/K,ASSUMED,same,order of magnitude only,REPORTED AS ASSUMED
+BaTiO3,pyroelectric coefficient,p3,-3.0e-5,C/(m^2 K),ASSUMED,order-of-magnitude estimate,order of magnitude only,REPORTED AS ASSUMED
+BaTiO3,relaxation time,tauq,2.5e-13,s,DERIVED,"STATED CHOICE, not a measurement. Sourced values (CdSe 1.0e-13 s, PZT/LS typical 1e-13 s) adopted where available; where no source was found the value is a declared working value.",min = 1.45e-14 s from check H1,"Phase 1C correction of provenance ONLY; the numerical value is unchanged. Phase 1 justified this number against a ""causal floor"" tau_q >= kappa/(rho cE cL^2) that was WITHDRAWN in Phase 1B as non-physical (it conflates a constitutive relaxation time with a signal speed). Keeping the derived-from-withdrawn-rule label would have preserved the withdrawn reasoning inside the data file."
+BaTiO3,reference temperature,T0,300,K,FIXED,linearisation point,n/a,
+Al6061,elastic stiffness,C44,2.650e10,Pa,VERIFIED,Al6061 handbook shear modulus mu = 26.5 GPa,+/- 2 %,isotropic
+Al6061,Lame parameter,lambda,5.460e10,Pa,VERIFIED,Al6061 handbook Lame parameter,+/- 2 %,
+Al6061,elastic stiffness,C11,1.076e11,Pa,DERIVED,C11 = lambda + 2 mu from the sourced lambda and mu,n/a,isotropic limit of the 6 mm form
+Al6061,elastic stiffness,C12,5.460e10,Pa,DERIVED,C12 = lambda,n/a,
+Al6061,elastic stiffness,C13,5.460e10,Pa,DERIVED,C13 = lambda,n/a,
+Al6061,elastic stiffness,C33,1.076e11,Pa,DERIVED,C33 = lambda + 2 mu,n/a,sagittal isotropy holds EXACTLY here: C13 = C11 - 2C44
+Al6061,piezoelectric coupling,e31,0,C/m^2,ZERO(centrosym),centrosymmetric metal: piezoelectric coupling vanishes by symmetry,n/a,structural zero not an approximation
+Al6061,piezoelectric coupling,e33,0,C/m^2,ZERO(centrosym),same,n/a,
+Al6061,piezoelectric coupling,e15,0,C/m^2,ZERO(centrosym),same,n/a,
+Al6061,dielectric permittivity,eps11,8.8541878128e-12,F/m,VERIFIED,vacuum permittivity (SI exact),exact,"the metal's own permittivity is infinite; the vacuum value is used because D is carried by the field, not by free charge"
+Al6061,dielectric permittivity,eps33,8.8541878128e-12,F/m,VERIFIED,same,exact,
+Al6061,density,rho,2700,kg/m^3,VERIFIED,Al6061 handbook,+/- 1 %,
+Al6061,specific heat,cE,896,J/(kg K),VERIFIED,Al6061 handbook,+/- 3 %,
+Al6061,thermal conductivity,kappa11,167,W/(m K),VERIFIED,Al6061 handbook,+/- 3 %,
+Al6061,thermal conductivity,kappa33,167,W/(m K),VERIFIED,same,+/- 3 %,isotropic
+Al6061,thermal expansion,alpha,2.310e-5,1/K,VERIFIED,Al6061 handbook,+/- 3 %,isotropic
+Al6061,thermoelastic coupling,beta1,5.2668e6,Pa/K,DERIVED,DERIVED: beta = 3 K alpha with K = 76.0e9 Pa and alpha = 2.31e-5 1/K (aluminium CTE at 300 K),n/a,"Phase 1C correction: the code computed 3*K*2.31e-5 = 5.2668e6 Pa/K while this table carried 5.268e6 Pa/K, a 2.3e-4 discrepancy that no test could see because the code never read the table. Aluminium beta1 = beta3 because the medium is isotropic; the identity is exact, not an approximation."
+Al6061,thermoelastic coupling,beta3,5.2668e6,Pa/K,DERIVED,DERIVED: beta = 3 K alpha with K = 76.0e9 Pa and alpha = 2.31e-5 1/K (aluminium CTE at 300 K),n/a,"Phase 1C correction: the code computed 3*K*2.31e-5 = 5.2668e6 Pa/K while this table carried 5.268e6 Pa/K, a 2.3e-4 discrepancy that no test could see because the code never read the table. Aluminium beta1 = beta3 because the medium is isotropic; the identity is exact, not an approximation."
+Al6061,pyroelectric coefficient,p3,0,C/(m^2 K),ZERO(centrosym),centrosymmetric,n/a,structural zero
+Al6061,relaxation time,tauq,2.1e-12,s,DERIVED,"STATED CHOICE, not a measurement. Sourced values (CdSe 1.0e-13 s, PZT/LS typical 1e-13 s) adopted where available; where no source was found the value is a declared working value.",min = 1.73e-12 s from check H1,"Phase 1C correction of provenance ONLY; the numerical value is unchanged. Phase 1 justified this number against a ""causal floor"" tau_q >= kappa/(rho cE cL^2) that was WITHDRAWN in Phase 1B as non-physical (it conflates a constitutive relaxation time with a signal speed). Keeping the derived-from-withdrawn-rule label would have preserved the withdrawn reasoning inside the data file."
+Al6061,reference temperature,T0,300,K,FIXED,linearisation point,n/a,
+CdSe,elastic stiffness,C11,7.410e10,Pa,VERIFIED,CdSe 6 mm constants as tabulated in the reflection study of piezothermoelastic waves in CdSe (S0020722507001140); also used by Karmakar/Sahu/Goyal 2023,+/- 3 %,6 mm
+CdSe,elastic stiffness,C12,4.520e10,Pa,VERIFIED,same,+/- 3 %,
+CdSe,elastic stiffness,C13,3.930e10,Pa,VERIFIED,same,+/- 3 %,
+CdSe,elastic stiffness,C33,8.360e10,Pa,VERIFIED,same,+/- 3 %,
+CdSe,elastic stiffness,C44,1.320e10,Pa,VERIFIED,same,+/- 3 %,
+CdSe,piezoelectric coupling,e31,-0.160,C/m^2,VERIFIED,same,+/- 10 %,
+CdSe,piezoelectric coupling,e33,0.347,C/m^2,VERIFIED,same,+/- 10 %,
+CdSe,piezoelectric coupling,e15,-0.138,C/m^2,VERIFIED,same,+/- 10 %,
+CdSe,dielectric permittivity,eps11,8.250e-11,F/m,VERIFIED,same,+/- 10 %,
+CdSe,dielectric permittivity,eps33,9.030e-11,F/m,VERIFIED,same,+/- 10 %,
+CdSe,density,rho,5504,kg/m^3,VERIFIED,same,+/- 2 %,
+CdSe,specific heat,cE,260,J/(kg K),VERIFIED,same (given as C_e = 260 J kg^-1 K^-1),+/- 10 %,
+CdSe,thermoelastic coupling,beta1,6.210e5,Pa/K,VERIFIED,same (given directly as beta_1 = 0.621e6 N K^-1 m^-2),n/a,this one IS tabulated directly rather than derived
+CdSe,thermoelastic coupling,beta3,5.510e5,Pa/K,VERIFIED,same (beta_3 = 0.551e6 N K^-1 m^-2),n/a,
+CdSe,pyroelectric coefficient,p3,-2.940e-6,C/(m^2 K),VERIFIED,same (p_3 = -2.94e-6 C K^-1 m^-2),n/a,
+CdSe,thermal conductivity,kappa11,6.0,W/(m K),ASSUMED,NOT in the CdSe table consulted. Bulk CdSe thermal conductivity is of order 5-10 W/(m K); 6 is the midpoint used.,order of magnitude only,REPORTED AS ASSUMED; only affects the thermal branch wavenumber
+CdSe,thermal conductivity,kappa33,6.0,W/(m K),ASSUMED,same,order of magnitude only,REPORTED AS ASSUMED
+CdSe,relaxation time,tauq,1.0e-13,s,VERIFIED_TO_ORDER_OF_MAGNITUDE,Typical Lord-Shulman relaxation time for a semiconductor; the same order (1e-13 s) is quoted for CdSe in the piezothermoelastic literature. Not an independently measured CdSe constant in any source consulted.,order of magnitude only,"PHASE 1B CORRECTION. Phase 1 rejected 1.0e-13 s and substituted 5.0e-13 s because it fell below kappa/(rho cE cL^2). That rule is WITHDRAWN: the Lord-Shulman thermal speed is not bounded by the elastic speed, so the constraint was a modelling preference, not a physical requirement. The sourced order-of-magnitude value is restored and tau_q is reported with its uncertainty instead of being tuned. See reports/PHASE_01B_CRITICAL_REPAIR.md."
+CdSe,reference temperature,T0,300,K,FIXED,linearisation point,n/a,
