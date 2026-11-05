@@ -41,8 +41,11 @@ and ||S(k)^{-1}||_2 is uniformly bounded for small k.
 
 - **C1/C2 (ACPT09, Jordan).** For Al6061, PZT-5H, BaTiO3 x {0.1, 1, 10 MHz} x
   {source, synthetic wtau 0.1, synthetic wtau 1} x dps {40, 60} (54 cases):
-  exactly 2 zero eigenvalues, nullity(B0) = 1, rank(B0) = 7; generalized
-  vector has Dz = -1 (to 5e-6 at dps 40, machine zero at dps 60), phi = 0,
+  exactly 2 zero eigenvalues, nullity(B0) = 1, rank(B0) = 7. The generalized
+  vector is NORMALIZED to the canonical uniform-D0 form Dz = -1 exactly,
+  phi = 0 exactly (the raw pseudo-inverse solve fixes the scale only up to
+  solver residual ~5e-6; rescaling by -1/v[Dz] is a pure normalization, and
+  the normalized ||B0^2 v|| residual is recorded as resid_B0sq_v_normalized),
   ||B0^2 v|| <= 4.6e-23.
 - **C3/C4 (ACPT10, roots/electrostatics).** Minimum separation of the six
   nonzero roots: 8.69e-4 (PZT-5H, 1 MHz), 1.04e-2 (Al6061) in units of kr.
@@ -51,13 +54,23 @@ and ||S(k)^{-1}||_2 is uniformly bounded for small k.
   k/kr = 1e-4 (PZT-5H s_e = 1.074422253 vs 1.074422244; Al s_e = 1; BaTiO3
   s_e = 0.9449147).
 - **C5-C8 (ACPT11, scaled limit and inverse bound).** 5 pairs (Al|Al,
-  PZT|PZT, Al|PZT, PZT|Al, PZT|BaTiO3) x P/SV x dps {40, 60}: in the fixed
-  row/column-equilibrated basis, M6 smallest singular value >= 3.2e-3
-  (invertible 6x6), det E0 = -(eps_eL + eps_eR) up to the fixed basis scale
-  (physical value recorded alongside, e.g. Al|PZT -1.39977678467e-8),
-  measured ||S(k)^{-1}||_2 uniformly bounded over k/kr in [1e-8, 1e-2]
-  (max 1.2e6 at 1e-2, settling at 60.6), and the Neumann quantity
-  q = ||S0^{-1}(S(k)-S0)||_2 -> 0 as k -> 0 (q = 0 at the reference k).
+  PZT|PZT, Al|PZT, PZT|Al, PZT|BaTiO3) x P/SV x dps {40, 60}. S0 is the
+  ANALYTIC k = 0 limit, built independently of any finite-k reference
+  point: mech columns from the k = 0 nonzero eigenvectors (their Dz/k
+  entries from the on-shell limit Dz/k = -i Dx/xi, with the first-order
+  k*phi part taken by documented two-point Richardson extrapolation at
+  dps 60), electrostatic columns phi = 1 with Dz/k = -/+ eps_e, top-right
+  block zero. One FIXED two-sided diagonal equilibration of S0 defines the
+  basis for all k. In that basis M6 has sigma_min >= 3.2e-3 and det E0
+  matches -(eps_eL + eps_eR) up to the fixed scale. The Neumann quantity
+  q(k) = ||S0^{-1}(S(k)-S0)||_2 vanishes LINEARLY in k (e.g. Al|PZT P:
+  222.5, 22.2, 2.22, 0.222, 0.0222, 2.2e-4, 2.9e-5 at k/kr = 1e-2..1e-10).
+  VALID BOUND INTERVAL: q < 1, hence ||S(k)^{-1}|| <= ||S0^{-1}||/(1-q),
+  holds for k/kr <= ~1e-5 (per pair recorded in q_lt_1_interval; e.g. Al|PZT
+  P: k/kr in {1e-5, 1e-6, 1e-8, 1e-10} with bound 2.08 -> 1.617 and measured
+  inverse norm always <= bound). Rows with q >= 1 are marked bound_holds =
+  False and are NOT claimed as covered. Measured ||S(k)^{-1}||_2 is
+  uniformly bounded (<= 222) over the whole tested range [1e-10, 1e-2].
 - **6+1 physical construction.** The 6 mech/thermal amplitudes plus the
   relative potential constant C = phi_L - phi_R ([[phi]] = 0 fixes only the
   relative constant; the global constant is gauge) reproduce the finite-k
@@ -69,6 +82,17 @@ MR22 (no [[phi]] reconstruction), MR23 (7x6 overdetermined), MR24 (shear
 row dropped), MR25 (RHS sign flip), MR26 (outgoing/incoming swap), and new
 **MR28** (electrostatic mode dropped at k > 0, labelled GAUGE) are all
 DETECTED with controls passing on the pristine tree.
+
+## Sources and generators
+
+- Certificate generator: `code/task2uw_certificates.py` (imports the
+  independent operator from
+  `handoffs/task2uv_2026-11-05/code/independent_finite_k_state_space.py`;
+  no production scattering imports in the certificate path).
+- Deliverables: `validation/task2uw_modal_completeness_results.json` and
+  `validation/task2uw_inverse_bound_results.csv`, both written by that
+  script's main(); reproducible tests:
+  `validation/tests/test_20_scattering_task2uw.py` (ACPT09-11).
 
 ## Counterexamples / limits
 

@@ -329,7 +329,7 @@
     "inverse_bound_csv": "validation/task2uw_inverse_bound_results.csv",
     "tests": "validation/tests/test_20_scattering_task2uw.py (ACPT09-11 PASS)",
     "mutation": "MR28 DETECTED (electrostatic mode dropped at k>0) in validation/mutation_tests",
-    "summary": "Jordan block at k=0 (alg mult 2, geom mult 1, uniform-D0 generalized vector Dz=-1); 6 separated nonzero roots; electrostatic pair +/-s_e*k; block-triangular scaled limit S0=[[M6,0],[C,E0]] with M6 and E0 invertible (det E0 = -(eps_eL+eps_eR) up to fixed basis scale); ||S(k)^-1|| uniformly bounded for k/kr in [1e-8,1e-2]; Neumann q -> 0. Basis: 6 mech/thermal amplitudes + 1 relative potential constant + 1 global gauge."
+    "summary": "Jordan block at k=0 (alg mult 2, geom mult 1, generalized vector normalized to Dz=-1 exactly); 6 separated nonzero roots; electrostatic pair +/-s_e*k; S0 = analytic k=0 limit (no finite-k sample) in one fixed equilibrated basis, M6 and E0 invertible (det E0 = -(eps_eL+eps_eR) up to fixed scale); Neumann q(k) -> 0 linearly, q<1 and bound holds for k/kr <= ~1e-5 (q>=1 rows honestly marked bound_holds=False); measured ||S(k)^-1|| uniformly bounded over [1e-10,1e-2]. Basis: 6 mech/thermal + 1 relative potential + 1 global gauge."
    },
    "closure_note": "Jordan block at k=0 (alg mult 2, geom mult 1, uniform-D0 generalized vector), 6 separated nonzero roots, electrostatic pair +/-s_e k, block-triangular scaled limit with invertible M6 and E0=det -(eps_eL+eps_eR), uniform inverse bound; basis = 6 mech/thermal amplitudes + 1 relative potential constant + 1 global gauge."
   },

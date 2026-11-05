@@ -13,7 +13,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "0.0",
     "resid_B0sq_v": "0.0",
-    "generalized_Dz_entry": "(-0.881260581404216 + 0.0j)",
+    "resid_B0sq_v_normalized": "0.0",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -58,7 +59,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "0.0",
     "resid_B0sq_v": "0.0",
-    "generalized_Dz_entry": "(-0.881260581404216 + 0.0j)",
+    "resid_B0sq_v_normalized": "0.0",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -103,7 +105,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "0.0",
     "resid_B0sq_v": "0.0",
-    "generalized_Dz_entry": "(-0.881260581404216 + 0.0j)",
+    "resid_B0sq_v_normalized": "0.0",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -145,6 +148,7 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "0.0",
     "resid_B0sq_v": "0.0",
+    "resid_B0sq_v_normalized": "0.0",
     "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
@@ -190,6 +194,7 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "0.0",
     "resid_B0sq_v": "0.0",
+    "resid_B0sq_v_normalized": "0.0",
     "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
@@ -232,6 +237,7 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "0.0",
     "resid_B0sq_v": "0.0",
+    "resid_B0sq_v_normalized": "0.0",
     "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
@@ -274,6 +280,7 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "0.0",
     "resid_B0sq_v": "0.0",
+    "resid_B0sq_v_normalized": "0.0",
     "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
@@ -316,6 +323,7 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "0.0",
     "resid_B0sq_v": "0.0",
+    "resid_B0sq_v_normalized": "0.0",
     "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
@@ -358,6 +366,7 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "0.0",
     "resid_B0sq_v": "0.0",
+    "resid_B0sq_v_normalized": "0.0",
     "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
@@ -403,7 +412,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.285e-21",
     "resid_B0sq_v": "1.285e-21",
-    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.285e-21",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -445,7 +455,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.285e-21",
     "resid_B0sq_v": "1.285e-21",
-    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.285e-21",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -487,7 +498,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.285e-21",
     "resid_B0sq_v": "1.285e-21",
-    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.285e-21",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -529,7 +541,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "4.579e-23",
     "resid_B0sq_v": "4.579e-23",
-    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "resid_B0sq_v_normalized": "4.579e-23",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -571,7 +584,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "4.579e-23",
     "resid_B0sq_v": "4.579e-23",
-    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "resid_B0sq_v_normalized": "4.579e-23",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -613,7 +627,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "4.579e-23",
     "resid_B0sq_v": "4.579e-23",
-    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "resid_B0sq_v_normalized": "4.579e-23",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -655,7 +670,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.667e-25",
     "resid_B0sq_v": "1.667e-25",
-    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.667e-25",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -697,7 +713,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.667e-25",
     "resid_B0sq_v": "1.667e-25",
-    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.667e-25",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -739,7 +756,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.667e-25",
     "resid_B0sq_v": "1.667e-25",
-    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.667e-25",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -781,7 +799,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "2.386e-20",
     "resid_B0sq_v": "1.993e-20",
-    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.993e-20",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -826,7 +845,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "2.386e-20",
     "resid_B0sq_v": "1.993e-20",
-    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.993e-20",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -871,7 +891,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "2.386e-20",
     "resid_B0sq_v": "1.993e-20",
-    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.993e-20",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -916,7 +937,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.326e-22",
     "resid_B0sq_v": "1.26e-22",
-    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.26e-22",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -961,7 +983,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.326e-22",
     "resid_B0sq_v": "1.26e-22",
-    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.26e-22",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -1006,7 +1029,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.326e-22",
     "resid_B0sq_v": "1.26e-22",
-    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.26e-22",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -1051,7 +1075,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "5.915e-25",
     "resid_B0sq_v": "1.469e-25",
-    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.469e-25",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -1096,7 +1121,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "5.915e-25",
     "resid_B0sq_v": "1.469e-25",
-    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.469e-25",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -1141,7 +1167,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "5.915e-25",
     "resid_B0sq_v": "1.469e-25",
-    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.469e-25",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -1186,7 +1213,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "0.0",
     "resid_B0sq_v": "0.0",
-    "generalized_Dz_entry": "(-0.881260581404216 + 0.0j)",
+    "resid_B0sq_v_normalized": "0.0",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -1228,7 +1256,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "0.0",
     "resid_B0sq_v": "0.0",
-    "generalized_Dz_entry": "(-0.881260581404216 + 0.0j)",
+    "resid_B0sq_v_normalized": "0.0",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -1273,7 +1302,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "0.0",
     "resid_B0sq_v": "0.0",
-    "generalized_Dz_entry": "(-0.881260581404216 + 0.0j)",
+    "resid_B0sq_v_normalized": "0.0",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -1315,6 +1345,7 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "0.0",
     "resid_B0sq_v": "0.0",
+    "resid_B0sq_v_normalized": "0.0",
     "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
@@ -1357,6 +1388,7 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "0.0",
     "resid_B0sq_v": "0.0",
+    "resid_B0sq_v_normalized": "0.0",
     "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
@@ -1399,6 +1431,7 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "0.0",
     "resid_B0sq_v": "0.0",
+    "resid_B0sq_v_normalized": "0.0",
     "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
@@ -1444,6 +1477,7 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "0.0",
     "resid_B0sq_v": "0.0",
+    "resid_B0sq_v_normalized": "0.0",
     "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
@@ -1489,6 +1523,7 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "0.0",
     "resid_B0sq_v": "0.0",
+    "resid_B0sq_v_normalized": "0.0",
     "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
@@ -1531,6 +1566,7 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "0.0",
     "resid_B0sq_v": "0.0",
+    "resid_B0sq_v_normalized": "0.0",
     "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
@@ -1576,7 +1612,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.491e-41",
     "resid_B0sq_v": "1.491e-41",
-    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.491e-41",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -1618,7 +1655,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.491e-41",
     "resid_B0sq_v": "1.491e-41",
-    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.491e-41",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -1660,7 +1698,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.491e-41",
     "resid_B0sq_v": "1.491e-41",
-    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.491e-41",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -1702,7 +1741,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "6.306e-44",
     "resid_B0sq_v": "2.879e-44",
-    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "resid_B0sq_v_normalized": "2.879e-44",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -1744,7 +1784,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "6.306e-44",
     "resid_B0sq_v": "2.879e-44",
-    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "resid_B0sq_v_normalized": "2.879e-44",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -1786,7 +1827,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "6.306e-44",
     "resid_B0sq_v": "2.879e-44",
-    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "resid_B0sq_v_normalized": "2.879e-44",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -1828,7 +1870,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.547e-45",
     "resid_B0sq_v": "1.547e-45",
-    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.547e-45",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -1870,7 +1913,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.547e-45",
     "resid_B0sq_v": "1.547e-45",
-    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.547e-45",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -1912,7 +1956,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.547e-45",
     "resid_B0sq_v": "1.547e-45",
-    "generalized_Dz_entry": "(-0.999995428278838 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.547e-45",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -1954,7 +1999,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.608e-41",
     "resid_B0sq_v": "1.076e-41",
-    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.076e-41",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -1999,7 +2045,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.608e-41",
     "resid_B0sq_v": "1.076e-41",
-    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.076e-41",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -2044,7 +2091,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.608e-41",
     "resid_B0sq_v": "1.076e-41",
-    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.076e-41",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -2089,7 +2137,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.688e-42",
     "resid_B0sq_v": "1.688e-42",
-    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.688e-42",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -2134,7 +2183,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.688e-42",
     "resid_B0sq_v": "1.688e-42",
-    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.688e-42",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -2179,7 +2229,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.688e-42",
     "resid_B0sq_v": "1.688e-42",
-    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.688e-42",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -2224,7 +2275,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.486e-44",
     "resid_B0sq_v": "1.293e-44",
-    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.293e-44",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -2269,7 +2321,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.486e-44",
     "resid_B0sq_v": "1.293e-44",
-    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.293e-44",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -2314,7 +2367,8 @@
     "resid_B0_u": "0.0",
     "resid_B0_v_minus_u": "1.486e-44",
     "resid_B0sq_v": "1.293e-44",
-    "generalized_Dz_entry": "(-0.999992481203008 + 0.0j)",
+    "resid_B0sq_v_normalized": "1.293e-44",
+    "generalized_Dz_entry": "(-1.0 + 0.0j)",
     "generalized_phi_entry": "0.0"
    },
    "roots": {
@@ -2354,62 +2408,72 @@
    "pair": "Al6061|Al6061",
    "inc": "P",
    "inverse_bound": {
-    "detE0_scaled": "(-2.0 + 1.51118291391e-32j)",
+    "detE0_scaled": "(-2.0 + 0.0j)",
     "detE0_physical_formula": "-1.77083756256e-11",
-    "M6_smin": "0.00319684",
-    "M6_det": "(-0.0180842 + 0.018084j)",
+    "M6_smin": "1.21727",
+    "M6_det": "(5.65689 + 5.65682j)",
+    "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+    "q_lt_1_interval": [
+     "1e-2",
+     "1e-3",
+     "1e-4",
+     "1e-5",
+     "1e-6",
+     "1e-8",
+     "1e-10"
+    ],
     "rows": [
      {
       "k_over_kr": "1e-2",
-      "q_neumann": "1.51682",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "707107.0",
-      "bound_holds": false
+      "q_neumann": "0.0103659",
+      "bound_inv_norm": "0.830114",
+      "measured_inv_norm": "0.821531",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-3",
-      "q_neumann": "0.99999",
-      "bound_inv_norm": "3.12809e+7",
-      "measured_inv_norm": "70710.7",
+      "q_neumann": "0.00103654",
+      "bound_inv_norm": "0.822361",
+      "measured_inv_norm": "0.821509",
       "bound_holds": true
      },
      {
       "k_over_kr": "1e-4",
-      "q_neumann": "0.9999",
-      "bound_inv_norm": "3.12809e+6",
-      "measured_inv_norm": "7071.07",
+      "q_neumann": "0.000103654",
+      "bound_inv_norm": "0.821594",
+      "measured_inv_norm": "0.821509",
       "bound_holds": true
      },
      {
       "k_over_kr": "1e-5",
-      "q_neumann": "0.999",
-      "bound_inv_norm": "312809.0",
-      "measured_inv_norm": "707.107",
+      "q_neumann": "1.03654e-5",
+      "bound_inv_norm": "0.821517",
+      "measured_inv_norm": "0.821509",
       "bound_holds": true
      },
      {
       "k_over_kr": "1e-6",
-      "q_neumann": "0.99",
-      "bound_inv_norm": "31280.9",
-      "measured_inv_norm": "312.809",
-      "bound_holds": true
-     },
-     {
-      "k_over_kr": "1e-7",
-      "q_neumann": "0.9",
-      "bound_inv_norm": "3128.09",
-      "measured_inv_norm": "312.809",
+      "q_neumann": "1.03654e-6",
+      "bound_inv_norm": "0.82151",
+      "measured_inv_norm": "0.821509",
       "bound_holds": true
      },
      {
       "k_over_kr": "1e-8",
-      "q_neumann": "0.0",
-      "bound_inv_norm": "312.809",
-      "measured_inv_norm": "312.809",
+      "q_neumann": "1.03654e-8",
+      "bound_inv_norm": "0.821509",
+      "measured_inv_norm": "0.821509",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-10",
+      "q_neumann": "1.41684e-10",
+      "bound_inv_norm": "0.821509",
+      "measured_inv_norm": "0.821509",
       "bound_holds": true
      }
     ],
-    "max_electrostatic_amp": "0.0049567"
+    "max_electrostatic_amp": "2.20216e-22"
    }
   },
   {
@@ -2417,62 +2481,72 @@
    "pair": "Al6061|Al6061",
    "inc": "SV",
    "inverse_bound": {
-    "detE0_scaled": "(-2.0 + 1.51118291391e-32j)",
+    "detE0_scaled": "(-2.0 + 0.0j)",
     "detE0_physical_formula": "-1.77083756256e-11",
-    "M6_smin": "0.00319684",
-    "M6_det": "(-0.0180842 + 0.018084j)",
+    "M6_smin": "1.21727",
+    "M6_det": "(5.65689 + 5.65682j)",
+    "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+    "q_lt_1_interval": [
+     "1e-2",
+     "1e-3",
+     "1e-4",
+     "1e-5",
+     "1e-6",
+     "1e-8",
+     "1e-10"
+    ],
     "rows": [
      {
       "k_over_kr": "1e-2",
-      "q_neumann": "1.51682",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "707107.0",
-      "bound_holds": false
+      "q_neumann": "0.0103659",
+      "bound_inv_norm": "0.830114",
+      "measured_inv_norm": "0.821531",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-3",
-      "q_neumann": "0.99999",
-      "bound_inv_norm": "3.12809e+7",
-      "measured_inv_norm": "70710.7",
+      "q_neumann": "0.00103654",
+      "bound_inv_norm": "0.822361",
+      "measured_inv_norm": "0.821509",
       "bound_holds": true
      },
      {
       "k_over_kr": "1e-4",
-      "q_neumann": "0.9999",
-      "bound_inv_norm": "3.12809e+6",
-      "measured_inv_norm": "7071.07",
+      "q_neumann": "0.000103654",
+      "bound_inv_norm": "0.821594",
+      "measured_inv_norm": "0.821509",
       "bound_holds": true
      },
      {
       "k_over_kr": "1e-5",
-      "q_neumann": "0.999",
-      "bound_inv_norm": "312809.0",
-      "measured_inv_norm": "707.107",
+      "q_neumann": "1.03654e-5",
+      "bound_inv_norm": "0.821517",
+      "measured_inv_norm": "0.821509",
       "bound_holds": true
      },
      {
       "k_over_kr": "1e-6",
-      "q_neumann": "0.99",
-      "bound_inv_norm": "31280.9",
-      "measured_inv_norm": "312.809",
-      "bound_holds": true
-     },
-     {
-      "k_over_kr": "1e-7",
-      "q_neumann": "0.9",
-      "bound_inv_norm": "3128.09",
-      "measured_inv_norm": "312.809",
+      "q_neumann": "1.03654e-6",
+      "bound_inv_norm": "0.82151",
+      "measured_inv_norm": "0.821509",
       "bound_holds": true
      },
      {
       "k_over_kr": "1e-8",
-      "q_neumann": "0.0",
-      "bound_inv_norm": "312.809",
-      "measured_inv_norm": "312.809",
+      "q_neumann": "1.03654e-8",
+      "bound_inv_norm": "0.821509",
+      "measured_inv_norm": "0.821509",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-10",
+      "q_neumann": "1.41684e-10",
+      "bound_inv_norm": "0.821509",
+      "measured_inv_norm": "0.821509",
       "bound_holds": true
      }
     ],
-    "max_electrostatic_amp": "1.50752"
+    "max_electrostatic_amp": "3.16126e-21"
    }
   },
   {
@@ -2480,62 +2554,69 @@
    "pair": "PZT-5H|PZT-5H",
    "inc": "P",
    "inverse_bound": {
-    "detE0_scaled": "(-1.35801206449 + 3.17102932047e-25j)",
+    "detE0_scaled": "(-2.0 + 0.0j)",
     "detE0_physical_formula": "-2.79778273179e-8",
-    "M6_smin": "0.00736024",
-    "M6_det": "(-0.0416362 + 0.0416361j)",
+    "M6_smin": "1.4118",
+    "M6_det": "(5.65686 + 5.65685j)",
+    "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+    "q_lt_1_interval": [
+     "1e-5",
+     "1e-6",
+     "1e-8",
+     "1e-10"
+    ],
     "rows": [
      {
       "k_over_kr": "1e-2",
-      "q_neumann": "1.42876",
+      "q_neumann": "398.283",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "729513.0",
+      "measured_inv_norm": "281.618",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-3",
-      "q_neumann": "1.41432",
+      "q_neumann": "39.8286",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "70733.4",
+      "measured_inv_norm": "28.1808",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-4",
-      "q_neumann": "1.41407",
+      "q_neumann": "3.98286",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "7071.09",
+      "measured_inv_norm": "2.98387",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-5",
-      "q_neumann": "1.4128",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "707.107",
-      "bound_holds": false
+      "q_neumann": "0.398286",
+      "bound_inv_norm": "1.17716",
+      "measured_inv_norm": "0.861814",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-6",
-      "q_neumann": "1.40007",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "135.865",
-      "bound_holds": false
-     },
-     {
-      "k_over_kr": "1e-7",
-      "q_neumann": "1.27279",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "135.865",
-      "bound_holds": false
+      "q_neumann": "0.0398286",
+      "bound_inv_norm": "0.737697",
+      "measured_inv_norm": "0.721383",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-8",
-      "q_neumann": "0.0",
-      "bound_inv_norm": "135.865",
-      "measured_inv_norm": "135.865",
+      "q_neumann": "0.000398286",
+      "bound_inv_norm": "0.708597",
+      "measured_inv_norm": "0.708323",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-10",
+      "q_neumann": "2.06915e-5",
+      "bound_inv_norm": "0.70833",
+      "measured_inv_norm": "0.708315",
       "bound_holds": true
      }
     ],
-    "max_electrostatic_amp": "148618.0"
+    "max_electrostatic_amp": "2.30609e-15"
    }
   },
   {
@@ -2543,62 +2624,69 @@
    "pair": "PZT-5H|PZT-5H",
    "inc": "SV",
    "inverse_bound": {
-    "detE0_scaled": "(-1.35801206449 + 3.17102932047e-25j)",
+    "detE0_scaled": "(-2.0 + 0.0j)",
     "detE0_physical_formula": "-2.79778273179e-8",
-    "M6_smin": "0.00736024",
-    "M6_det": "(-0.0416362 + 0.0416361j)",
+    "M6_smin": "1.4118",
+    "M6_det": "(5.65686 + 5.65685j)",
+    "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+    "q_lt_1_interval": [
+     "1e-5",
+     "1e-6",
+     "1e-8",
+     "1e-10"
+    ],
     "rows": [
      {
       "k_over_kr": "1e-2",
-      "q_neumann": "1.42876",
+      "q_neumann": "398.283",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "729513.0",
+      "measured_inv_norm": "281.618",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-3",
-      "q_neumann": "1.41432",
+      "q_neumann": "39.8286",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "70733.4",
+      "measured_inv_norm": "28.1808",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-4",
-      "q_neumann": "1.41407",
+      "q_neumann": "3.98286",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "7071.09",
+      "measured_inv_norm": "2.98387",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-5",
-      "q_neumann": "1.4128",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "707.107",
-      "bound_holds": false
+      "q_neumann": "0.398286",
+      "bound_inv_norm": "1.17716",
+      "measured_inv_norm": "0.861814",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-6",
-      "q_neumann": "1.40007",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "135.865",
-      "bound_holds": false
-     },
-     {
-      "k_over_kr": "1e-7",
-      "q_neumann": "1.27279",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "135.865",
-      "bound_holds": false
+      "q_neumann": "0.0398286",
+      "bound_inv_norm": "0.737697",
+      "measured_inv_norm": "0.721383",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-8",
-      "q_neumann": "0.0",
-      "bound_inv_norm": "135.865",
-      "measured_inv_norm": "135.865",
+      "q_neumann": "0.000398286",
+      "bound_inv_norm": "0.708597",
+      "measured_inv_norm": "0.708323",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-10",
+      "q_neumann": "2.06915e-5",
+      "bound_inv_norm": "0.70833",
+      "measured_inv_norm": "0.708315",
       "bound_holds": true
      }
     ],
-    "max_electrostatic_amp": "3.64807e+7"
+    "max_electrostatic_amp": "4.39259e-15"
    }
   },
   {
@@ -2606,62 +2694,69 @@
    "pair": "Al6061|PZT-5H",
    "inc": "P",
    "inverse_bound": {
-    "detE0_scaled": "(-1.0006329432 + 1.89131944499e-24j)",
+    "detE0_scaled": "(-1.0006329432 + 0.0j)",
     "detE0_physical_formula": "-1.39977678467e-8",
-    "M6_smin": "0.0165091",
-    "M6_det": "(-0.057842 + 0.0578418j)",
+    "M6_smin": "0.695888",
+    "M6_det": "(1.92681 + 1.92679j)",
+    "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+    "q_lt_1_interval": [
+     "1e-5",
+     "1e-6",
+     "1e-8",
+     "1e-10"
+    ],
     "rows": [
      {
       "k_over_kr": "1e-2",
-      "q_neumann": "1.70858",
+      "q_neumann": "222.456",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "1.20885e+6",
+      "measured_inv_norm": "222.315",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-3",
-      "q_neumann": "1.70832",
+      "q_neumann": "22.2457",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "120798.0",
+      "measured_inv_norm": "22.2903",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-4",
-      "q_neumann": "1.70816",
+      "q_neumann": "2.22457",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "12079.7",
+      "measured_inv_norm": "2.74576",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-5",
-      "q_neumann": "1.70663",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "1207.97",
-      "bound_holds": false
+      "q_neumann": "0.222457",
+      "bound_inv_norm": "2.07942",
+      "measured_inv_norm": "1.63151",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-6",
-      "q_neumann": "1.69125",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "120.803",
-      "bound_holds": false
-     },
-     {
-      "k_over_kr": "1e-7",
-      "q_neumann": "1.5375",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "60.5732",
-      "bound_holds": false
+      "q_neumann": "0.0222457",
+      "bound_inv_norm": "1.65362",
+      "measured_inv_norm": "1.61698",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-8",
-      "q_neumann": "0.0",
-      "bound_inv_norm": "60.5732",
-      "measured_inv_norm": "60.5732",
+      "q_neumann": "0.000222457",
+      "bound_inv_norm": "1.6172",
+      "measured_inv_norm": "1.61684",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-10",
+      "q_neumann": "2.92437e-5",
+      "bound_inv_norm": "1.61688",
+      "measured_inv_norm": "1.61684",
       "bound_holds": true
      }
     ],
-    "max_electrostatic_amp": "0.0105167"
+    "max_electrostatic_amp": "9.80656e-20"
    }
   },
   {
@@ -2669,62 +2764,69 @@
    "pair": "Al6061|PZT-5H",
    "inc": "SV",
    "inverse_bound": {
-    "detE0_scaled": "(-1.0006329432 + 1.89131944499e-24j)",
+    "detE0_scaled": "(-1.0006329432 + 0.0j)",
     "detE0_physical_formula": "-1.39977678467e-8",
-    "M6_smin": "0.0165091",
-    "M6_det": "(-0.057842 + 0.0578418j)",
+    "M6_smin": "0.695888",
+    "M6_det": "(1.92681 + 1.92679j)",
+    "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+    "q_lt_1_interval": [
+     "1e-5",
+     "1e-6",
+     "1e-8",
+     "1e-10"
+    ],
     "rows": [
      {
       "k_over_kr": "1e-2",
-      "q_neumann": "1.70858",
+      "q_neumann": "222.456",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "1.20885e+6",
+      "measured_inv_norm": "222.315",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-3",
-      "q_neumann": "1.70832",
+      "q_neumann": "22.2457",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "120798.0",
+      "measured_inv_norm": "22.2903",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-4",
-      "q_neumann": "1.70816",
+      "q_neumann": "2.22457",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "12079.7",
+      "measured_inv_norm": "2.74576",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-5",
-      "q_neumann": "1.70663",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "1207.97",
-      "bound_holds": false
+      "q_neumann": "0.222457",
+      "bound_inv_norm": "2.07942",
+      "measured_inv_norm": "1.63151",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-6",
-      "q_neumann": "1.69125",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "120.803",
-      "bound_holds": false
-     },
-     {
-      "k_over_kr": "1e-7",
-      "q_neumann": "1.5375",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "60.5732",
-      "bound_holds": false
+      "q_neumann": "0.0222457",
+      "bound_inv_norm": "1.65362",
+      "measured_inv_norm": "1.61698",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-8",
-      "q_neumann": "0.0",
-      "bound_inv_norm": "60.5732",
-      "measured_inv_norm": "60.5732",
+      "q_neumann": "0.000222457",
+      "bound_inv_norm": "1.6172",
+      "measured_inv_norm": "1.61684",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-10",
+      "q_neumann": "2.92437e-5",
+      "bound_inv_norm": "1.61688",
+      "measured_inv_norm": "1.61684",
       "bound_holds": true
      }
     ],
-    "max_electrostatic_amp": "1.61897"
+    "max_electrostatic_amp": "5.05825e-19"
    }
   },
   {
@@ -2732,62 +2834,69 @@
    "pair": "PZT-5H|Al6061",
    "inc": "P",
    "inverse_bound": {
-    "detE0_scaled": "(-1.0006329432 + 2.33505371346e-25j)",
+    "detE0_scaled": "(-1.0006329432 + 0.0j)",
     "detE0_physical_formula": "-1.39977678467e-8",
-    "M6_smin": "0.0165091",
-    "M6_det": "(-0.057842 + 0.0578418j)",
+    "M6_smin": "0.695888",
+    "M6_det": "(1.92681 + 1.92679j)",
+    "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+    "q_lt_1_interval": [
+     "1e-5",
+     "1e-6",
+     "1e-8",
+     "1e-10"
+    ],
     "rows": [
      {
       "k_over_kr": "1e-2",
-      "q_neumann": "1.70897",
+      "q_neumann": "355.552",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "1.21021e+6",
+      "measured_inv_norm": "355.308",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-3",
-      "q_neumann": "1.70832",
+      "q_neumann": "35.5555",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "120800.0",
+      "measured_inv_norm": "35.5698",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-4",
-      "q_neumann": "1.70816",
+      "q_neumann": "3.55555",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "12079.7",
+      "measured_inv_norm": "3.90255",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-5",
-      "q_neumann": "1.70663",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "1207.97",
-      "bound_holds": false
+      "q_neumann": "0.355555",
+      "bound_inv_norm": "2.50888",
+      "measured_inv_norm": "1.65415",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-6",
-      "q_neumann": "1.69125",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "120.803",
-      "bound_holds": false
-     },
-     {
-      "k_over_kr": "1e-7",
-      "q_neumann": "1.5375",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "60.5732",
-      "bound_holds": false
+      "q_neumann": "0.0355555",
+      "bound_inv_norm": "1.67644",
+      "measured_inv_norm": "1.61721",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-8",
-      "q_neumann": "0.0",
-      "bound_inv_norm": "60.5732",
-      "measured_inv_norm": "60.5732",
+      "q_neumann": "0.000355555",
+      "bound_inv_norm": "1.61741",
+      "measured_inv_norm": "1.61684",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-10",
+      "q_neumann": "2.92437e-5",
+      "bound_inv_norm": "1.61688",
+      "measured_inv_norm": "1.61684",
       "bound_holds": true
      }
     ],
-    "max_electrostatic_amp": "201696.0"
+    "max_electrostatic_amp": "4.6093e-15"
    }
   },
   {
@@ -2795,62 +2904,69 @@
    "pair": "PZT-5H|Al6061",
    "inc": "SV",
    "inverse_bound": {
-    "detE0_scaled": "(-1.0006329432 + 2.33505371346e-25j)",
+    "detE0_scaled": "(-1.0006329432 + 0.0j)",
     "detE0_physical_formula": "-1.39977678467e-8",
-    "M6_smin": "0.0165091",
-    "M6_det": "(-0.057842 + 0.0578418j)",
+    "M6_smin": "0.695888",
+    "M6_det": "(1.92681 + 1.92679j)",
+    "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+    "q_lt_1_interval": [
+     "1e-5",
+     "1e-6",
+     "1e-8",
+     "1e-10"
+    ],
     "rows": [
      {
       "k_over_kr": "1e-2",
-      "q_neumann": "1.70897",
+      "q_neumann": "355.552",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "1.21021e+6",
+      "measured_inv_norm": "355.308",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-3",
-      "q_neumann": "1.70832",
+      "q_neumann": "35.5555",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "120800.0",
+      "measured_inv_norm": "35.5698",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-4",
-      "q_neumann": "1.70816",
+      "q_neumann": "3.55555",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "12079.7",
+      "measured_inv_norm": "3.90255",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-5",
-      "q_neumann": "1.70663",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "1207.97",
-      "bound_holds": false
+      "q_neumann": "0.355555",
+      "bound_inv_norm": "2.50888",
+      "measured_inv_norm": "1.65415",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-6",
-      "q_neumann": "1.69125",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "120.803",
-      "bound_holds": false
-     },
-     {
-      "k_over_kr": "1e-7",
-      "q_neumann": "1.5375",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "60.5732",
-      "bound_holds": false
+      "q_neumann": "0.0355555",
+      "bound_inv_norm": "1.67644",
+      "measured_inv_norm": "1.61721",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-8",
-      "q_neumann": "0.0",
-      "bound_inv_norm": "60.5732",
-      "measured_inv_norm": "60.5732",
+      "q_neumann": "0.000355555",
+      "bound_inv_norm": "1.61741",
+      "measured_inv_norm": "1.61684",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-10",
+      "q_neumann": "2.92437e-5",
+      "bound_inv_norm": "1.61688",
+      "measured_inv_norm": "1.61684",
       "bound_holds": true
      }
     ],
-    "max_electrostatic_amp": "4.95099e+7"
+    "max_electrostatic_amp": "8.78e-15"
    }
   },
   {
@@ -2858,62 +2974,69 @@
    "pair": "PZT-5H|BaTiO3",
    "inc": "P",
    "inverse_bound": {
-    "detE0_scaled": "(-1.47681280925 + 1.83638714641e-25j)",
+    "detE0_scaled": "(-1.85109083028 + 0.0j)",
     "detE0_physical_formula": "-2.58947497997e-8",
-    "M6_smin": "0.00658418",
-    "M6_det": "(-0.0321491 + 0.032149j)",
+    "M6_smin": "1.2825",
+    "M6_det": "(4.6421 + 4.64209j)",
+    "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+    "q_lt_1_interval": [
+     "1e-5",
+     "1e-6",
+     "1e-8",
+     "1e-10"
+    ],
     "rows": [
      {
       "k_over_kr": "1e-2",
-      "q_neumann": "1.36983",
+      "q_neumann": "346.542",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "725749.0",
+      "measured_inv_norm": "251.667",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-3",
-      "q_neumann": "1.3179",
+      "q_neumann": "34.6542",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "70955.6",
+      "measured_inv_norm": "25.1883",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-4",
-      "q_neumann": "1.31745",
+      "q_neumann": "3.46542",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "7093.93",
+      "measured_inv_norm": "2.7087",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-5",
-      "q_neumann": "1.31626",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "709.391",
-      "bound_holds": false
+      "q_neumann": "0.346542",
+      "bound_inv_norm": "1.19324",
+      "measured_inv_norm": "0.867551",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-6",
-      "q_neumann": "1.3044",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "151.879",
-      "bound_holds": false
-     },
-     {
-      "k_over_kr": "1e-7",
-      "q_neumann": "1.18582",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "151.879",
-      "bound_holds": false
+      "q_neumann": "0.0346542",
+      "bound_inv_norm": "0.807721",
+      "measured_inv_norm": "0.780082",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-8",
-      "q_neumann": "0.0",
-      "bound_inv_norm": "151.879",
-      "measured_inv_norm": "151.879",
+      "q_neumann": "0.000346542",
+      "bound_inv_norm": "0.78",
+      "measured_inv_norm": "0.77973",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-10",
+      "q_neumann": "1.81663e-5",
+      "bound_inv_norm": "0.779744",
+      "measured_inv_norm": "0.77973",
       "bound_holds": true
      }
     ],
-    "max_electrostatic_amp": "136665.0"
+    "max_electrostatic_amp": "2.49163e-15"
    }
   },
   {
@@ -2921,62 +3044,69 @@
    "pair": "PZT-5H|BaTiO3",
    "inc": "SV",
    "inverse_bound": {
-    "detE0_scaled": "(-1.47681280925 + 1.83638714641e-25j)",
+    "detE0_scaled": "(-1.85109083028 + 0.0j)",
     "detE0_physical_formula": "-2.58947497997e-8",
-    "M6_smin": "0.00658418",
-    "M6_det": "(-0.0321491 + 0.032149j)",
+    "M6_smin": "1.2825",
+    "M6_det": "(4.6421 + 4.64209j)",
+    "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+    "q_lt_1_interval": [
+     "1e-5",
+     "1e-6",
+     "1e-8",
+     "1e-10"
+    ],
     "rows": [
      {
       "k_over_kr": "1e-2",
-      "q_neumann": "1.36983",
+      "q_neumann": "346.542",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "725749.0",
+      "measured_inv_norm": "251.667",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-3",
-      "q_neumann": "1.3179",
+      "q_neumann": "34.6542",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "70955.6",
+      "measured_inv_norm": "25.1883",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-4",
-      "q_neumann": "1.31745",
+      "q_neumann": "3.46542",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "7093.93",
+      "measured_inv_norm": "2.7087",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-5",
-      "q_neumann": "1.31626",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "709.391",
-      "bound_holds": false
+      "q_neumann": "0.346542",
+      "bound_inv_norm": "1.19324",
+      "measured_inv_norm": "0.867551",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-6",
-      "q_neumann": "1.3044",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "151.879",
-      "bound_holds": false
-     },
-     {
-      "k_over_kr": "1e-7",
-      "q_neumann": "1.18582",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "151.879",
-      "bound_holds": false
+      "q_neumann": "0.0346542",
+      "bound_inv_norm": "0.807721",
+      "measured_inv_norm": "0.780082",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-8",
-      "q_neumann": "0.0",
-      "bound_inv_norm": "151.879",
-      "measured_inv_norm": "151.879",
+      "q_neumann": "0.000346542",
+      "bound_inv_norm": "0.78",
+      "measured_inv_norm": "0.77973",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-10",
+      "q_neumann": "1.81663e-5",
+      "bound_inv_norm": "0.779744",
+      "measured_inv_norm": "0.77973",
       "bound_holds": true
      }
     ],
-    "max_electrostatic_amp": "3.3546e+7"
+    "max_electrostatic_amp": "4.74609e-15"
    }
   },
   {
@@ -2984,62 +3114,72 @@
    "pair": "Al6061|Al6061",
    "inc": "P",
    "inverse_bound": {
-    "detE0_scaled": "(-2.0 + 5.05051120063e-60j)",
+    "detE0_scaled": "(-2.0 + 0.0j)",
     "detE0_physical_formula": "-1.77083756256e-11",
-    "M6_smin": "0.00319684",
-    "M6_det": "(-0.0180842 + 0.018084j)",
+    "M6_smin": "1.21727",
+    "M6_det": "(5.65689 + 5.65682j)",
+    "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+    "q_lt_1_interval": [
+     "1e-2",
+     "1e-3",
+     "1e-4",
+     "1e-5",
+     "1e-6",
+     "1e-8",
+     "1e-10"
+    ],
     "rows": [
      {
       "k_over_kr": "1e-2",
-      "q_neumann": "1.51682",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "707107.0",
-      "bound_holds": false
+      "q_neumann": "0.0103659",
+      "bound_inv_norm": "0.830114",
+      "measured_inv_norm": "0.821531",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-3",
-      "q_neumann": "0.99999",
-      "bound_inv_norm": "3.12809e+7",
-      "measured_inv_norm": "70710.7",
+      "q_neumann": "0.00103654",
+      "bound_inv_norm": "0.822361",
+      "measured_inv_norm": "0.821509",
       "bound_holds": true
      },
      {
       "k_over_kr": "1e-4",
-      "q_neumann": "0.9999",
-      "bound_inv_norm": "3.12809e+6",
-      "measured_inv_norm": "7071.07",
+      "q_neumann": "0.000103654",
+      "bound_inv_norm": "0.821594",
+      "measured_inv_norm": "0.821509",
       "bound_holds": true
      },
      {
       "k_over_kr": "1e-5",
-      "q_neumann": "0.999",
-      "bound_inv_norm": "312809.0",
-      "measured_inv_norm": "707.107",
+      "q_neumann": "1.03654e-5",
+      "bound_inv_norm": "0.821517",
+      "measured_inv_norm": "0.821509",
       "bound_holds": true
      },
      {
       "k_over_kr": "1e-6",
-      "q_neumann": "0.99",
-      "bound_inv_norm": "31280.9",
-      "measured_inv_norm": "312.809",
-      "bound_holds": true
-     },
-     {
-      "k_over_kr": "1e-7",
-      "q_neumann": "0.9",
-      "bound_inv_norm": "3128.09",
-      "measured_inv_norm": "312.809",
+      "q_neumann": "1.03654e-6",
+      "bound_inv_norm": "0.82151",
+      "measured_inv_norm": "0.821509",
       "bound_holds": true
      },
      {
       "k_over_kr": "1e-8",
-      "q_neumann": "0.0",
-      "bound_inv_norm": "312.809",
-      "measured_inv_norm": "312.809",
+      "q_neumann": "1.03654e-8",
+      "bound_inv_norm": "0.821509",
+      "measured_inv_norm": "0.821509",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-10",
+      "q_neumann": "1.03654e-10",
+      "bound_inv_norm": "0.821509",
+      "measured_inv_norm": "0.821509",
       "bound_holds": true
      }
     ],
-    "max_electrostatic_amp": "0.0049567"
+    "max_electrostatic_amp": "1.5899e-42"
    }
   },
   {
@@ -3047,62 +3187,72 @@
    "pair": "Al6061|Al6061",
    "inc": "SV",
    "inverse_bound": {
-    "detE0_scaled": "(-2.0 + 5.05051120063e-60j)",
+    "detE0_scaled": "(-2.0 + 0.0j)",
     "detE0_physical_formula": "-1.77083756256e-11",
-    "M6_smin": "0.00319684",
-    "M6_det": "(-0.0180842 + 0.018084j)",
+    "M6_smin": "1.21727",
+    "M6_det": "(5.65689 + 5.65682j)",
+    "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+    "q_lt_1_interval": [
+     "1e-2",
+     "1e-3",
+     "1e-4",
+     "1e-5",
+     "1e-6",
+     "1e-8",
+     "1e-10"
+    ],
     "rows": [
      {
       "k_over_kr": "1e-2",
-      "q_neumann": "1.51682",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "707107.0",
-      "bound_holds": false
+      "q_neumann": "0.0103659",
+      "bound_inv_norm": "0.830114",
+      "measured_inv_norm": "0.821531",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-3",
-      "q_neumann": "0.99999",
-      "bound_inv_norm": "3.12809e+7",
-      "measured_inv_norm": "70710.7",
+      "q_neumann": "0.00103654",
+      "bound_inv_norm": "0.822361",
+      "measured_inv_norm": "0.821509",
       "bound_holds": true
      },
      {
       "k_over_kr": "1e-4",
-      "q_neumann": "0.9999",
-      "bound_inv_norm": "3.12809e+6",
-      "measured_inv_norm": "7071.07",
+      "q_neumann": "0.000103654",
+      "bound_inv_norm": "0.821594",
+      "measured_inv_norm": "0.821509",
       "bound_holds": true
      },
      {
       "k_over_kr": "1e-5",
-      "q_neumann": "0.999",
-      "bound_inv_norm": "312809.0",
-      "measured_inv_norm": "707.107",
+      "q_neumann": "1.03654e-5",
+      "bound_inv_norm": "0.821517",
+      "measured_inv_norm": "0.821509",
       "bound_holds": true
      },
      {
       "k_over_kr": "1e-6",
-      "q_neumann": "0.99",
-      "bound_inv_norm": "31280.9",
-      "measured_inv_norm": "312.809",
-      "bound_holds": true
-     },
-     {
-      "k_over_kr": "1e-7",
-      "q_neumann": "0.9",
-      "bound_inv_norm": "3128.09",
-      "measured_inv_norm": "312.809",
+      "q_neumann": "1.03654e-6",
+      "bound_inv_norm": "0.82151",
+      "measured_inv_norm": "0.821509",
       "bound_holds": true
      },
      {
       "k_over_kr": "1e-8",
-      "q_neumann": "0.0",
-      "bound_inv_norm": "312.809",
-      "measured_inv_norm": "312.809",
+      "q_neumann": "1.03654e-8",
+      "bound_inv_norm": "0.821509",
+      "measured_inv_norm": "0.821509",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-10",
+      "q_neumann": "1.03654e-10",
+      "bound_inv_norm": "0.821509",
+      "measured_inv_norm": "0.821509",
       "bound_holds": true
      }
     ],
-    "max_electrostatic_amp": "1.50752"
+    "max_electrostatic_amp": "4.81602e-42"
    }
   },
   {
@@ -3110,62 +3260,69 @@
    "pair": "PZT-5H|PZT-5H",
    "inc": "P",
    "inverse_bound": {
-    "detE0_scaled": "(-1.35801206449 + 9.19160276117e-30j)",
+    "detE0_scaled": "(-2.0 + 0.0j)",
     "detE0_physical_formula": "-2.79778273179e-8",
-    "M6_smin": "0.00736024",
-    "M6_det": "(-0.0416362 + 0.0416361j)",
+    "M6_smin": "1.4118",
+    "M6_det": "(5.65686 + 5.65685j)",
+    "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+    "q_lt_1_interval": [
+     "1e-5",
+     "1e-6",
+     "1e-8",
+     "1e-10"
+    ],
     "rows": [
      {
       "k_over_kr": "1e-2",
-      "q_neumann": "1.42876",
+      "q_neumann": "398.283",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "729513.0",
+      "measured_inv_norm": "281.618",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-3",
-      "q_neumann": "1.41432",
+      "q_neumann": "39.8286",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "70733.4",
+      "measured_inv_norm": "28.1808",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-4",
-      "q_neumann": "1.41407",
+      "q_neumann": "3.98286",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "7071.09",
+      "measured_inv_norm": "2.98387",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-5",
-      "q_neumann": "1.4128",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "707.107",
-      "bound_holds": false
+      "q_neumann": "0.398286",
+      "bound_inv_norm": "1.17716",
+      "measured_inv_norm": "0.861814",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-6",
-      "q_neumann": "1.40007",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "135.865",
-      "bound_holds": false
-     },
-     {
-      "k_over_kr": "1e-7",
-      "q_neumann": "1.27279",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "135.865",
-      "bound_holds": false
+      "q_neumann": "0.0398286",
+      "bound_inv_norm": "0.737697",
+      "measured_inv_norm": "0.721383",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-8",
-      "q_neumann": "0.0",
-      "bound_inv_norm": "135.865",
-      "measured_inv_norm": "135.865",
+      "q_neumann": "0.000398286",
+      "bound_inv_norm": "0.708597",
+      "measured_inv_norm": "0.708323",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-10",
+      "q_neumann": "2.06915e-5",
+      "bound_inv_norm": "0.70833",
+      "measured_inv_norm": "0.708315",
       "bound_holds": true
      }
     ],
-    "max_electrostatic_amp": "148618.0"
+    "max_electrostatic_amp": "2.30609e-15"
    }
   },
   {
@@ -3173,62 +3330,69 @@
    "pair": "PZT-5H|PZT-5H",
    "inc": "SV",
    "inverse_bound": {
-    "detE0_scaled": "(-1.35801206449 + 9.19160276117e-30j)",
+    "detE0_scaled": "(-2.0 + 0.0j)",
     "detE0_physical_formula": "-2.79778273179e-8",
-    "M6_smin": "0.00736024",
-    "M6_det": "(-0.0416362 + 0.0416361j)",
+    "M6_smin": "1.4118",
+    "M6_det": "(5.65686 + 5.65685j)",
+    "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+    "q_lt_1_interval": [
+     "1e-5",
+     "1e-6",
+     "1e-8",
+     "1e-10"
+    ],
     "rows": [
      {
       "k_over_kr": "1e-2",
-      "q_neumann": "1.42876",
+      "q_neumann": "398.283",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "729513.0",
+      "measured_inv_norm": "281.618",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-3",
-      "q_neumann": "1.41432",
+      "q_neumann": "39.8286",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "70733.4",
+      "measured_inv_norm": "28.1808",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-4",
-      "q_neumann": "1.41407",
+      "q_neumann": "3.98286",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "7071.09",
+      "measured_inv_norm": "2.98387",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-5",
-      "q_neumann": "1.4128",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "707.107",
-      "bound_holds": false
+      "q_neumann": "0.398286",
+      "bound_inv_norm": "1.17716",
+      "measured_inv_norm": "0.861814",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-6",
-      "q_neumann": "1.40007",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "135.865",
-      "bound_holds": false
-     },
-     {
-      "k_over_kr": "1e-7",
-      "q_neumann": "1.27279",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "135.865",
-      "bound_holds": false
+      "q_neumann": "0.0398286",
+      "bound_inv_norm": "0.737697",
+      "measured_inv_norm": "0.721383",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-8",
-      "q_neumann": "0.0",
-      "bound_inv_norm": "135.865",
-      "measured_inv_norm": "135.865",
+      "q_neumann": "0.000398286",
+      "bound_inv_norm": "0.708597",
+      "measured_inv_norm": "0.708323",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-10",
+      "q_neumann": "2.06915e-5",
+      "bound_inv_norm": "0.70833",
+      "measured_inv_norm": "0.708315",
       "bound_holds": true
      }
     ],
-    "max_electrostatic_amp": "3.64807e+7"
+    "max_electrostatic_amp": "4.39259e-15"
    }
   },
   {
@@ -3236,62 +3400,69 @@
    "pair": "Al6061|PZT-5H",
    "inc": "P",
    "inverse_bound": {
-    "detE0_scaled": "(-1.0006329432 + 2.6494986948e-30j)",
+    "detE0_scaled": "(-1.0006329432 + 0.0j)",
     "detE0_physical_formula": "-1.39977678467e-8",
-    "M6_smin": "0.0165091",
-    "M6_det": "(-0.057842 + 0.0578418j)",
+    "M6_smin": "0.695888",
+    "M6_det": "(1.92681 + 1.92679j)",
+    "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+    "q_lt_1_interval": [
+     "1e-5",
+     "1e-6",
+     "1e-8",
+     "1e-10"
+    ],
     "rows": [
      {
       "k_over_kr": "1e-2",
-      "q_neumann": "1.70858",
+      "q_neumann": "222.456",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "1.20885e+6",
+      "measured_inv_norm": "222.315",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-3",
-      "q_neumann": "1.70832",
+      "q_neumann": "22.2457",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "120798.0",
+      "measured_inv_norm": "22.2903",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-4",
-      "q_neumann": "1.70816",
+      "q_neumann": "2.22457",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "12079.7",
+      "measured_inv_norm": "2.74576",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-5",
-      "q_neumann": "1.70663",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "1207.97",
-      "bound_holds": false
+      "q_neumann": "0.222457",
+      "bound_inv_norm": "2.07942",
+      "measured_inv_norm": "1.63151",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-6",
-      "q_neumann": "1.69125",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "120.803",
-      "bound_holds": false
-     },
-     {
-      "k_over_kr": "1e-7",
-      "q_neumann": "1.5375",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "60.5732",
-      "bound_holds": false
+      "q_neumann": "0.0222457",
+      "bound_inv_norm": "1.65362",
+      "measured_inv_norm": "1.61698",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-8",
-      "q_neumann": "0.0",
-      "bound_inv_norm": "60.5732",
-      "measured_inv_norm": "60.5732",
+      "q_neumann": "0.000222457",
+      "bound_inv_norm": "1.6172",
+      "measured_inv_norm": "1.61684",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-10",
+      "q_neumann": "2.92437e-5",
+      "bound_inv_norm": "1.61688",
+      "measured_inv_norm": "1.61684",
       "bound_holds": true
      }
     ],
-    "max_electrostatic_amp": "0.0105167"
+    "max_electrostatic_amp": "9.80602e-20"
    }
   },
   {
@@ -3299,62 +3470,69 @@
    "pair": "Al6061|PZT-5H",
    "inc": "SV",
    "inverse_bound": {
-    "detE0_scaled": "(-1.0006329432 + 2.6494986948e-30j)",
+    "detE0_scaled": "(-1.0006329432 + 0.0j)",
     "detE0_physical_formula": "-1.39977678467e-8",
-    "M6_smin": "0.0165091",
-    "M6_det": "(-0.057842 + 0.0578418j)",
+    "M6_smin": "0.695888",
+    "M6_det": "(1.92681 + 1.92679j)",
+    "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+    "q_lt_1_interval": [
+     "1e-5",
+     "1e-6",
+     "1e-8",
+     "1e-10"
+    ],
     "rows": [
      {
       "k_over_kr": "1e-2",
-      "q_neumann": "1.70858",
+      "q_neumann": "222.456",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "1.20885e+6",
+      "measured_inv_norm": "222.315",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-3",
-      "q_neumann": "1.70832",
+      "q_neumann": "22.2457",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "120798.0",
+      "measured_inv_norm": "22.2903",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-4",
-      "q_neumann": "1.70816",
+      "q_neumann": "2.22457",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "12079.7",
+      "measured_inv_norm": "2.74576",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-5",
-      "q_neumann": "1.70663",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "1207.97",
-      "bound_holds": false
+      "q_neumann": "0.222457",
+      "bound_inv_norm": "2.07942",
+      "measured_inv_norm": "1.63151",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-6",
-      "q_neumann": "1.69125",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "120.803",
-      "bound_holds": false
-     },
-     {
-      "k_over_kr": "1e-7",
-      "q_neumann": "1.5375",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "60.5732",
-      "bound_holds": false
+      "q_neumann": "0.0222457",
+      "bound_inv_norm": "1.65362",
+      "measured_inv_norm": "1.61698",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-8",
-      "q_neumann": "0.0",
-      "bound_inv_norm": "60.5732",
-      "measured_inv_norm": "60.5732",
+      "q_neumann": "0.000222457",
+      "bound_inv_norm": "1.6172",
+      "measured_inv_norm": "1.61684",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-10",
+      "q_neumann": "2.92437e-5",
+      "bound_inv_norm": "1.61688",
+      "measured_inv_norm": "1.61684",
       "bound_holds": true
      }
     ],
-    "max_electrostatic_amp": "1.61897"
+    "max_electrostatic_amp": "5.05825e-19"
    }
   },
   {
@@ -3362,62 +3540,69 @@
    "pair": "PZT-5H|Al6061",
    "inc": "P",
    "inverse_bound": {
-    "detE0_scaled": "(-1.0006329432 + 6.76842496582e-30j)",
+    "detE0_scaled": "(-1.0006329432 + 0.0j)",
     "detE0_physical_formula": "-1.39977678467e-8",
-    "M6_smin": "0.0165091",
-    "M6_det": "(-0.057842 + 0.0578418j)",
+    "M6_smin": "0.695888",
+    "M6_det": "(1.92681 + 1.92679j)",
+    "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+    "q_lt_1_interval": [
+     "1e-5",
+     "1e-6",
+     "1e-8",
+     "1e-10"
+    ],
     "rows": [
      {
       "k_over_kr": "1e-2",
-      "q_neumann": "1.70897",
+      "q_neumann": "355.552",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "1.21021e+6",
+      "measured_inv_norm": "355.308",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-3",
-      "q_neumann": "1.70832",
+      "q_neumann": "35.5555",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "120800.0",
+      "measured_inv_norm": "35.5698",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-4",
-      "q_neumann": "1.70816",
+      "q_neumann": "3.55555",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "12079.7",
+      "measured_inv_norm": "3.90255",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-5",
-      "q_neumann": "1.70663",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "1207.97",
-      "bound_holds": false
+      "q_neumann": "0.355555",
+      "bound_inv_norm": "2.50888",
+      "measured_inv_norm": "1.65415",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-6",
-      "q_neumann": "1.69125",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "120.803",
-      "bound_holds": false
-     },
-     {
-      "k_over_kr": "1e-7",
-      "q_neumann": "1.5375",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "60.5732",
-      "bound_holds": false
+      "q_neumann": "0.0355555",
+      "bound_inv_norm": "1.67644",
+      "measured_inv_norm": "1.61721",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-8",
-      "q_neumann": "0.0",
-      "bound_inv_norm": "60.5732",
-      "measured_inv_norm": "60.5732",
+      "q_neumann": "0.000355555",
+      "bound_inv_norm": "1.61741",
+      "measured_inv_norm": "1.61684",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-10",
+      "q_neumann": "2.92437e-5",
+      "bound_inv_norm": "1.61688",
+      "measured_inv_norm": "1.61684",
       "bound_holds": true
      }
     ],
-    "max_electrostatic_amp": "201696.0"
+    "max_electrostatic_amp": "4.6093e-15"
    }
   },
   {
@@ -3425,62 +3610,69 @@
    "pair": "PZT-5H|Al6061",
    "inc": "SV",
    "inverse_bound": {
-    "detE0_scaled": "(-1.0006329432 + 6.76842496582e-30j)",
+    "detE0_scaled": "(-1.0006329432 + 0.0j)",
     "detE0_physical_formula": "-1.39977678467e-8",
-    "M6_smin": "0.0165091",
-    "M6_det": "(-0.057842 + 0.0578418j)",
+    "M6_smin": "0.695888",
+    "M6_det": "(1.92681 + 1.92679j)",
+    "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+    "q_lt_1_interval": [
+     "1e-5",
+     "1e-6",
+     "1e-8",
+     "1e-10"
+    ],
     "rows": [
      {
       "k_over_kr": "1e-2",
-      "q_neumann": "1.70897",
+      "q_neumann": "355.552",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "1.21021e+6",
+      "measured_inv_norm": "355.308",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-3",
-      "q_neumann": "1.70832",
+      "q_neumann": "35.5555",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "120800.0",
+      "measured_inv_norm": "35.5698",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-4",
-      "q_neumann": "1.70816",
+      "q_neumann": "3.55555",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "12079.7",
+      "measured_inv_norm": "3.90255",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-5",
-      "q_neumann": "1.70663",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "1207.97",
-      "bound_holds": false
+      "q_neumann": "0.355555",
+      "bound_inv_norm": "2.50888",
+      "measured_inv_norm": "1.65415",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-6",
-      "q_neumann": "1.69125",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "120.803",
-      "bound_holds": false
-     },
-     {
-      "k_over_kr": "1e-7",
-      "q_neumann": "1.5375",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "60.5732",
-      "bound_holds": false
+      "q_neumann": "0.0355555",
+      "bound_inv_norm": "1.67644",
+      "measured_inv_norm": "1.61721",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-8",
-      "q_neumann": "0.0",
-      "bound_inv_norm": "60.5732",
-      "measured_inv_norm": "60.5732",
+      "q_neumann": "0.000355555",
+      "bound_inv_norm": "1.61741",
+      "measured_inv_norm": "1.61684",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-10",
+      "q_neumann": "2.92437e-5",
+      "bound_inv_norm": "1.61688",
+      "measured_inv_norm": "1.61684",
       "bound_holds": true
      }
     ],
-    "max_electrostatic_amp": "4.95099e+7"
+    "max_electrostatic_amp": "8.78e-15"
    }
   },
   {
@@ -3488,62 +3680,69 @@
    "pair": "PZT-5H|BaTiO3",
    "inc": "P",
    "inverse_bound": {
-    "detE0_scaled": "(-1.47681280925 + 7.61978777564e-31j)",
+    "detE0_scaled": "(-1.85109083028 + 0.0j)",
     "detE0_physical_formula": "-2.58947497997e-8",
-    "M6_smin": "0.00658418",
-    "M6_det": "(-0.0321491 + 0.032149j)",
+    "M6_smin": "1.2825",
+    "M6_det": "(4.6421 + 4.64209j)",
+    "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+    "q_lt_1_interval": [
+     "1e-5",
+     "1e-6",
+     "1e-8",
+     "1e-10"
+    ],
     "rows": [
      {
       "k_over_kr": "1e-2",
-      "q_neumann": "1.36983",
+      "q_neumann": "346.542",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "725749.0",
+      "measured_inv_norm": "251.667",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-3",
-      "q_neumann": "1.3179",
+      "q_neumann": "34.6542",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "70955.6",
+      "measured_inv_norm": "25.1883",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-4",
-      "q_neumann": "1.31745",
+      "q_neumann": "3.46542",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "7093.93",
+      "measured_inv_norm": "2.7087",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-5",
-      "q_neumann": "1.31626",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "709.391",
-      "bound_holds": false
+      "q_neumann": "0.346542",
+      "bound_inv_norm": "1.19324",
+      "measured_inv_norm": "0.867551",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-6",
-      "q_neumann": "1.3044",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "151.879",
-      "bound_holds": false
-     },
-     {
-      "k_over_kr": "1e-7",
-      "q_neumann": "1.18582",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "151.879",
-      "bound_holds": false
+      "q_neumann": "0.0346542",
+      "bound_inv_norm": "0.807721",
+      "measured_inv_norm": "0.780082",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-8",
-      "q_neumann": "0.0",
-      "bound_inv_norm": "151.879",
-      "measured_inv_norm": "151.879",
+      "q_neumann": "0.000346542",
+      "bound_inv_norm": "0.78",
+      "measured_inv_norm": "0.77973",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-10",
+      "q_neumann": "1.81663e-5",
+      "bound_inv_norm": "0.779744",
+      "measured_inv_norm": "0.77973",
       "bound_holds": true
      }
     ],
-    "max_electrostatic_amp": "136665.0"
+    "max_electrostatic_amp": "2.49163e-15"
    }
   },
   {
@@ -3551,62 +3750,69 @@
    "pair": "PZT-5H|BaTiO3",
    "inc": "SV",
    "inverse_bound": {
-    "detE0_scaled": "(-1.47681280925 + 7.61978777564e-31j)",
+    "detE0_scaled": "(-1.85109083028 + 0.0j)",
     "detE0_physical_formula": "-2.58947497997e-8",
-    "M6_smin": "0.00658418",
-    "M6_det": "(-0.0321491 + 0.032149j)",
+    "M6_smin": "1.2825",
+    "M6_det": "(4.6421 + 4.64209j)",
+    "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+    "q_lt_1_interval": [
+     "1e-5",
+     "1e-6",
+     "1e-8",
+     "1e-10"
+    ],
     "rows": [
      {
       "k_over_kr": "1e-2",
-      "q_neumann": "1.36983",
+      "q_neumann": "346.542",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "725749.0",
+      "measured_inv_norm": "251.667",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-3",
-      "q_neumann": "1.3179",
+      "q_neumann": "34.6542",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "70955.6",
+      "measured_inv_norm": "25.1883",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-4",
-      "q_neumann": "1.31745",
+      "q_neumann": "3.46542",
       "bound_inv_norm": "inf",
-      "measured_inv_norm": "7093.93",
+      "measured_inv_norm": "2.7087",
       "bound_holds": false
      },
      {
       "k_over_kr": "1e-5",
-      "q_neumann": "1.31626",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "709.391",
-      "bound_holds": false
+      "q_neumann": "0.346542",
+      "bound_inv_norm": "1.19324",
+      "measured_inv_norm": "0.867551",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-6",
-      "q_neumann": "1.3044",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "151.879",
-      "bound_holds": false
-     },
-     {
-      "k_over_kr": "1e-7",
-      "q_neumann": "1.18582",
-      "bound_inv_norm": "inf",
-      "measured_inv_norm": "151.879",
-      "bound_holds": false
+      "q_neumann": "0.0346542",
+      "bound_inv_norm": "0.807721",
+      "measured_inv_norm": "0.780082",
+      "bound_holds": true
      },
      {
       "k_over_kr": "1e-8",
-      "q_neumann": "0.0",
-      "bound_inv_norm": "151.879",
-      "measured_inv_norm": "151.879",
+      "q_neumann": "0.000346542",
+      "bound_inv_norm": "0.78",
+      "measured_inv_norm": "0.77973",
+      "bound_holds": true
+     },
+     {
+      "k_over_kr": "1e-10",
+      "q_neumann": "1.81663e-5",
+      "bound_inv_norm": "0.779744",
+      "measured_inv_norm": "0.77973",
       "bound_holds": true
      }
     ],
-    "max_electrostatic_amp": "3.3546e+7"
+    "max_electrostatic_amp": "4.74609e-15"
    }
   }
  ]

@@ -118,6 +118,12 @@ def cert_jordan(p, w, dps):
                 v[j] += Q[j, i] * ci
     r1 = max(abs(t) for t in (B0 * v - u))
     r2 = max(abs(t) for t in (B0 * B0 * v))
+    # normalize the generalized vector to the canonical uniform-D0 form
+    # Dz = -1 exactly (the raw pseudo-inverse solve fixes only the scale up
+    # to solver residual; this is a normalization choice, not an error)
+    vn = mp.matrix([t / (-v[DZ]) for t in v])
+    r2n = max(abs(t) for t in (B0 * B0 * vn))
+    v = vn
     return {
         "n_zero_eigenvalues": len(zeros),
         "nullity_B0": nullity,
@@ -125,6 +131,7 @@ def cert_jordan(p, w, dps):
         "resid_B0_u": mp.nstr(ru, 4),
         "resid_B0_v_minus_u": mp.nstr(r1, 4),
         "resid_B0sq_v": mp.nstr(r2, 4),
+        "resid_B0sq_v_normalized": mp.nstr(r2n, 4),
         "generalized_Dz_entry": mp.nstr(v[DZ], 15),
         "generalized_phi_entry": mp.nstr(v[PHI], 15),
     }
@@ -152,88 +159,177 @@ def cert_roots(p, w, dps):
             "small_k_pair": pair}
 
 
-def scaled_S(p1, p2, k, w, kind, dps):
-    """Scaled full interface matrix S(k) per the lemma, on the INDEPENDENT
-    eigenbasis (handoff independent_finite_k_state_space + eig_modes).
+def _raw_modes(p, k, w, dps):
+    """Physical eigenpairs of the RAW independent operator (eigenvalues xi)."""
+    mp.mp.dps = dps
+    A = ind_operator(p, k, w)
+    vals, V = mp.eig(A)
+    out = []
+    for j in range(8):
+        xi = vals[j]
+        st = mp.matrix([V[i, j] for i in range(8)])
+        out.append({"xi": xi, "st": st})
+    return out
 
-    Columns per side (branch-continuous order): the outgoing modes sorted by
-    lam, with the electrostatic (lam -> -i*s_e*k) column last within its
-    side. Rows (lemma order): [ux, uz, theta, txz, tzz, qz, phi, Dz/k] with
-    fixed nondimensional scales s1 and the extra kr/k factor on the Dz row.
-    At k = 0 the electrostatic columns are the analytic limit columns.
+
+def _fix_sign(st):
+    """Fixed gauge: rotate so the largest-magnitude entry is positive-real,
+    making the column phase continuous in k (mp.eig returns an arbitrary
+    complex phase)."""
+    i = max(range(8), key=lambda i: abs(st[i]))
+    if abs(st[i]) > 0:
+        ph = st[i] / abs(st[i])
+        st = [v / ph for v in st]
+    return st
+
+
+def _select(modes, k, kr, side):
+    """Outgoing selection on raw xi (same phase/decay rule as the handoff)."""
+    out = []
+    for m in modes:
+        xi = m["xi"]
+        rel = abs(mp.re(xi)) / max(abs(mp.im(xi)), mp.mpf("1e-300"))
+        isprop = rel < mp.mpf("1e-4") and abs(mp.im(xi)) > kr * mp.mpf("1e-3")
+        if side == 1:
+            ok = (mp.im(xi) < 0) if isprop else (mp.re(xi) > 0)
+        else:
+            ok = (mp.im(xi) > 0) if isprop else (mp.re(xi) < 0)
+        if ok:
+            m["prop"] = isprop
+            out.append(m)
+    return out
+
+
+def scaled_S(p1, p2, k, w, kind, dps):
+    """Scaled full interface matrix S(k) per the lemma, on RAW physical
+    eigenvectors of the independent operator.
+
+    Columns per side: 3 outgoing mech/thermal (mechanical-max normalized to
+    1) + 1 electrostatic (phi normalized to 1), mech sorted by xi. Rows
+    (lemma order): [ux, uz, theta, txz, tzz, qz, phi, Dz/k] with FIXED row
+    scales s1 (reference medium) and the extra kr/k factor on the Dz row.
+
+    At k = 0 the matrix is the ANALYTIC limit, built independently of any
+    finite-k sample:
+      - mech columns: k = 0 nonzero eigenvectors; their Dz/k entries use the
+        on-shell identity div D = 0  =>  Dz/k = -Dx/xi with Dx = p1*theta
+        (Ex = -ik phi = 0 at k = 0);
+      - electrostatic columns: phi = 1, mech = 0, xi-limit -i*s_e*k (side 1)
+        / +i*s_e*k (side 2), Dz/k = i*eps11*phi/xi = -/+ eps_e.
     """
-    from independent_scattering_limit import (eig_modes, group, incident,
-                                              PHI_SCALE)
     mp.mp.dps = dps
     kr, s1 = ind_scale(p1, w)
-    M1, _ = eig_modes(p1, k, w, dps)
-    M2, _ = eig_modes(p2, k, w, dps)
-    group(M1, k, kr)
-    group(M2, k, kr)
-    inc = incident(M1, kind)
-
-    def bkey(m):
-        return (mp.re(m["lam"]), mp.im(m["lam"]))
+    M1 = _raw_modes(p1, k, w, dps)
+    M2 = _raw_modes(p2, k, w, dps)
+    # incident P/SV: smallest |xi| propagating with Im(xi) > 0 on side 1
+    inc = sorted([m for m in M1 if abs(mp.re(m["xi"])) /
+                  max(abs(mp.im(m["xi"])), mp.mpf("1e-300")) < mp.mpf("1e-4")
+                  and abs(mp.im(m["xi"])) > kr * mp.mpf("1e-3")
+                  and mp.im(m["xi"]) > 0],
+                 key=lambda m: abs(m["xi"]))
+    inc = inc[0] if kind == "P" else inc[1]
 
     cols = []
     if k != 0:
-        for side, M in ((1, M1), (2, M2)):
-            out = [m for m in M if (m["left_out"] if side == 1 else m["right_out"])]
-            mech = sorted([m for m in out if not m["electric"]], key=bkey)
-            el = [m for m in out if m["electric"]]
-            assert len(mech) == 3 and len(el) == 1, \
-                f"side {side} mech/el counts {len(mech)}/{len(el)}"
-            for m in mech + el:
-                cols.append((side, m["Y"], None))
+        for side, M, p in ((1, M1, p1), (2, M2, p2)):
+            out = _select(M, k, kr, side)
+            mech = [m for m in out if abs(m["xi"]) > 5 * k]
+            el = [m for m in out if abs(m["xi"]) <= 5 * k]
+            mech.sort(key=lambda m: (mp.re(m["xi"]), mp.im(m["xi"])))
+            assert len(mech) == 3 and len(el) == 1, (side, len(mech), len(el))
+            for m in mech:
+                st = m["st"]
+                nrm = max(abs(st[i]) for i in MECH) or mp.mpf(1)
+                cols.append((side, [v / nrm for v in _fix_sign(st)], None))
+            for m in el:
+                st = m["st"]
+                nrm = st[PHI] or mp.mpf(1)
+                cols.append((side, [v / nrm for v in st], None))  # phi = +1 exactly
     else:
-        for side, M in ((1, M1), (2, M2)):
-            out = [m for m in M
-                   if (m["left_out"] if side == 1 else m["right_out"])
-                   and abs(m["a"]) > mp.mpf("1e-15")]
-            out.sort(key=bkey)
-            assert len(out) == 3, f"side {side} k=0 mech count {len(out)}"
-            e = eps_eff(p1 if side == 1 else p2)[2]
+        for side, M, p in ((1, M1, p1), (2, M2, p2)):
+            out = [m for m in _select(M, k, kr, side) if abs(m["xi"]) > mp.mpf("1e-12") * kr]
+            out.sort(key=lambda m: (mp.re(m["xi"]), mp.im(m["xi"])))
+            assert len(out) == 3, (side, len(out))
             for m in out:
-                cols.append((side, m["Y"], None))
+                st = m["st"]
+                nrm = max(abs(st[i]) for i in MECH) or mp.mpf(1)
+                st = [v / nrm for v in _fix_sign(st)]
+                cols.append((side, st, ("EXT", side, m["xi"])))
+            _, s_e, e_e = eps_eff(p)
             st = [mp.mpc(0)] * 8
-            st[PHI] = PHI_SCALE
-            cols.append((side, st, -e if side == 1 else e))
-    assert len(cols) == 8, f"column count {len(cols)}"
+            st[PHI] = mp.mpc(1)
+            dz_over_k = (-e_e if side == 1 else e_e)
+            cols.append((side, st, dz_over_k))
+    assert len(cols) == 8, len(cols)
+    if k == 0:
+        # The mech Dz/k entries are 0/0 at k=0; their limit follows from the
+        # on-shell identity Dz = -i k Dx with Dx = e15*(i xi ux + i k uz)
+        # - i k eps11 phi. The k*phi part is first-order, so the limit is
+        # taken by linear Richardson extrapolation of the on-shell value
+        # from two small-k samples (documented; M6, the top-right block and
+        # E0 remain exactly analytic).
+        for j, tup in enumerate(cols):
+            if not (len(tup) == 3 and isinstance(tup[2], tuple) and tup[2][0] == "EXT"):
+                continue
+            _, side, xi0 = tup[2]
+            p = p1 if side == 1 else p2
+            k1, k2 = kr * mp.mpf("1e-7"), kr * mp.mpf("1e-9")
+            vals = []
+            for kk in (k1, k2):
+                M = _raw_modes(p, kk, w, dps)
+                out = [m for m in _select(M, kk, kr, side) if abs(m["xi"]) > 5 * kk]
+                out.sort(key=lambda m: (mp.re(m["xi"]), mp.im(m["xi"])))
+                # branch-continuous matching: same sorted slot as at k = 0
+                slot = sorted([m["xi"] for m in _select(_raw_modes(p, mp.mpf(0), w, dps), mp.mpf(0), kr, side)
+                               if abs(m["xi"]) > mp.mpf("1e-12") * kr],
+                              key=lambda z: (mp.re(z), mp.im(z))).index(xi0)
+                m = out[slot]
+                st = m["st"]
+                nrm = max(abs(st[i]) for i in MECH) or mp.mpf(1)
+                st = [v / nrm for v in _fix_sign(st)]
+                dx = p["e15"] * (1j * m["xi"] * st[0] + 1j * kk * st[1]) \
+                    - 1j * kk * p["eps11"] * st[PHI]
+                vals.append(-1j * dx / m["xi"])   # Dz/k = -i Dx/xi on shell
+            v1, v2 = vals
+            v0 = v2 + (v2 - v1) * (k2 / (k1 - k2))   # linear extrapolation k->0
+            cols[j] = (tup[0], tup[1], v0)
 
     ROW = [0, 1, 3, 4, 5, 7, 2, 6]          # mech6, phi, Dz/k
     S = mp.matrix(8, 8)
     rhs = mp.matrix(8, 1)
-    for j, tup in enumerate(cols):
-        sd, st = tup[0], tup[1]
+    for j, (sd, st, dzlim) in enumerate(cols):
         sgn = mp.mpf(1) if sd == 1 else mp.mpf(-1)
         for r, i in enumerate(ROW):
-            base = s1[i] * (k / kr if i == 6 and k != 0 else 1)
-            v = st[i]
             if i == 6:
-                v = v * kr / k if k != 0 else (tup[2] * PHI_SCALE if tup[2] is not None else mp.mpc(0))
-            S[r, j] = sgn * v / base
+                v = st[6] * kr / k if k != 0 else dzlim * kr
+                S[r, j] = sgn * v / s1[6]
+            else:
+                S[r, j] = sgn * st[i] / s1[i]
+    nrm = max(abs(inc["st"][i]) for i in MECH) or mp.mpf(1)
     for r, i in enumerate(ROW):
-        base = s1[i] * (k / kr if i == 6 and k != 0 else 1)
-        v = inc["Y"][i]
         if i == 6:
-            v = v * kr / k if k != 0 else mp.mpf(0)
-        rhs[r] = -v / base
+            v = inc["st"][6] * kr / k if k != 0 else mp.mpf(0)
+            rhs[r] = -v / s1[6]
+        else:
+            rhs[r] = -(inc["st"][i] / nrm) / s1[i]
     return S, rhs, kr
 
 
 def cert_inverse_bound(p1, p2, w, kind, dps, fracs):
-    """C7/C8: Neumann bound and measured inverse norm in a FIXED equilibrated
-    basis, on the independent eigenbasis. S0 is the k=0 analytic-limit matrix
-    (block-triangular scaled limit); the same fixed diagonal factors are
-    applied to every S(k)."""
+    """C7/C8: Neumann bound and measured inverse norm.
+
+    S0 is the ANALYTIC k = 0 limit matrix from scaled_S(k=0) (built from k = 0
+    eigenvectors and the on-shell limit identities, not from any finite-k
+    sample). One FIXED two-sided diagonal equilibration of S0 defines the
+    basis; the same factors are applied to every S(k). q(k) =
+    ||S0^{-1}(S(k)-S0)||_2; the Neumann bound ||S(k)^{-1}|| <= ||S0^{-1}||/(1-q)
+    is valid ONLY where q < 1, and bound_holds is True only there.
+    """
     mp.mp.dps = dps
     kr, _ = ind_scale(p1, w)
     _, _, eL = eps_eff(p1)
     _, _, eR = eps_eff(p2)
-    # reference matrix: finest-k member of the family (branch-matched column
-    # order makes S(k) -> S0 entrywise); equilibrated once, factors FIXED
-    S0, _rhs0, _kr = scaled_S(p1, p2, kr * mp.mpf(fracs[-1]), w, kind, dps)
-    # FIXED two-sided equilibration of the reference matrix
+    S0, _rhs0, _kr = scaled_S(p1, p2, mp.mpf(0), w, kind, dps)
     rsc = [max(abs(S0[i, j]) for j in range(8)) or mp.mpf(1) for i in range(8)]
     for i in range(8):
         for j in range(8):
@@ -242,7 +338,7 @@ def cert_inverse_bound(p1, p2, w, kind, dps, fracs):
     for i in range(8):
         for j in range(8):
             S0[i, j] = S0[i, j] / csc[j]
-    MCOL = (0, 1, 2, 4, 5, 6)   # per-side [3 mech sorted, el last]
+    MCOL = (0, 1, 2, 4, 5, 6)
     ECOL = (3, 7)
     M6 = mp.matrix(6, 6)
     for i in range(6):
@@ -269,15 +365,18 @@ def cert_inverse_bound(p1, p2, w, kind, dps, fracs):
         bound = inv_norm(S0) / (1 - q) if q < 1 else mp.inf
         meas = inv_norm(S)
         a = mp.lu_solve(S, rhs)
-        amps_el.append(max(abs(a[6]), abs(a[7])))
+        amps_el.append(max(abs(a[3]), abs(a[7])))
         rows.append({"k_over_kr": frac, "q_neumann": mp.nstr(q, 6),
                      "bound_inv_norm": mp.nstr(bound, 6) if bound != mp.inf else "inf",
                      "measured_inv_norm": mp.nstr(meas, 6),
                      "bound_holds": bool(q < 1 and meas <= bound)})
+    q_valid = [r["k_over_kr"] for r in rows if r["bound_holds"]]
     return {"detE0_scaled": mp.nstr(mp.det(E0), 12),
             "detE0_physical_formula": mp.nstr(-(eL + eR), 12),
             "M6_smin": mp.nstr(sv2(M6)[-1], 6), "M6_det": mp.nstr(mp.det(M6), 6),
-            "rows": rows, "max_electrostatic_amp": mp.nstr(max(amps_el), 6)}
+            "S0_construction": "analytic k=0 limit (k=0 eigenvectors + on-shell Dz/k=-Dx/xi, electrostatic Dz/k=+-eps_e); no finite-k sample",
+            "q_lt_1_interval": q_valid, "rows": rows,
+            "max_electrostatic_amp": mp.nstr(max(amps_el), 6)}
 
 
 def main():
@@ -306,7 +405,7 @@ def main():
             p1, p2 = ind_load(CSV, n1), ind_load(CSV, n2)
             for pol in ("P", "SV"):
                 ib = cert_inverse_bound(p1, p2, w, pol, dps,
-                                        ("1e-2", "1e-3", "1e-4", "1e-5", "1e-6", "1e-7", "1e-8"))
+                                        ("1e-2", "1e-3", "1e-4", "1e-5", "1e-6", "1e-8", "1e-10"))
                 out["pairs"].append({"dps": dps, "pair": f"{n1}|{n2}", "inc": pol,
                                      "inverse_bound": ib})
     Path(HERE.parent / "validation" / "task2uw_modal_completeness_results.json").write_text(

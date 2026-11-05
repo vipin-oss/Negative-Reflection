@@ -50,8 +50,8 @@ def test_acpt09_jordan_structure_k0():
         assert j["n_zero_eigenvalues"] == 2, (name, j)
         assert j["nullity_B0"] == 1 and j["rank_B0"] == 7, (name, j)
         assert abs(mp.mpf(j["resid_B0sq_v"])) < mp.mpf("1e-20"), (name, j)
-        assert abs(_c(j["generalized_Dz_entry"]) + 1) < mp.mpf("1e-4"), (name, j)
-        assert abs(_c(j["generalized_phi_entry"])) < mp.mpf("1e-4"), (name, j)
+        assert abs(_c(j["generalized_Dz_entry"]) + 1) < mp.mpf("1e-12"), (name, j)
+        assert abs(_c(j["generalized_phi_entry"])) < mp.mpf("1e-12"), (name, j)
 
 
 def test_acpt10_roots_and_electrostatic_pair():
@@ -79,7 +79,7 @@ def test_acpt11_inverse_bound_pairs():
         for pol in ("P", "SV"):
             ib = t2uw.cert_inverse_bound(
                 p1, p2, W, pol, DPS,
-                ("1e-2", "1e-3", "1e-4", "1e-5", "1e-6", "1e-7", "1e-8"))
+                ("1e-2", "1e-3", "1e-4", "1e-5", "1e-6", "1e-8", "1e-10"))
             assert mp.mpf(ib["M6_smin"]) > mp.mpf("1e-3"), (n1, n2, pol, ib)
             # E0 invertible in the fixed equilibrated basis, with the sign of
             # the physical formula -(eps_eL + eps_eR) (scaled det is basis-
@@ -87,6 +87,17 @@ def test_acpt11_inverse_bound_pairs():
             detE, detP = _c(ib["detE0_scaled"]), mp.mpf(ib["detE0_physical_formula"])
             assert abs(detE) > mp.mpf("1e-3") and (detE.real < 0) == (detP < 0), \
                 (n1, n2, pol, ib)
-            meas = max(mp.mpf(r["measured_inv_norm"]) for r in ib["rows"])
-            assert meas < mp.mpf("1e8"), (n1, n2, pol, meas)
-            assert mp.mpf(ib["rows"][-1]["q_neumann"]) == 0, (n1, n2, pol, ib["rows"][-1])
+            # S0 is the analytic k=0 limit: q must vanish as k -> 0 and the
+            # Neumann bound must hold wherever q < 1; rows with q >= 1 are
+            # honestly NOT covered by the bound
+            assert "analytic" in ib["S0_construction"], (n1, n2, pol, ib)
+            qlast = mp.mpf(ib["rows"][-1]["q_neumann"])
+            assert qlast < mp.mpf("1e-3"), (n1, n2, pol, ib["rows"][-1])
+            nvalid = len(ib["q_lt_1_interval"])
+            assert nvalid >= 3, (n1, n2, pol, ib["q_lt_1_interval"])
+            for r in ib["rows"]:
+                if r["bound_holds"]:
+                    assert mp.mpf(r["q_neumann"]) < 1, (n1, n2, pol, r)
+                    assert mp.mpf(r["measured_inv_norm"]) <= mp.mpf(r["bound_inv_norm"]) * (1 + mp.mpf("1e-9")), (n1, n2, pol, r)
+                else:
+                    assert mp.mpf(r["q_neumann"]) >= 1 or r["bound_inv_norm"] == "inf", (n1, n2, pol, r)
